@@ -1,0 +1,1083 @@
+ /*****************************************************************
+ *
+ * reveal.js-internation for Reveal.js 
+ * Version 2.1.0
+ * 
+ * @link
+ * https://github.com/martinomagnifico/reveal.js-internation
+ * 
+ * @author: Martijn De Jongh (Martino), martijn.de.jongh@gmail.com
+ * https://github.com/martinomagnifico
+ *
+ * @license 
+ * MIT
+ * 
+ * Copyright (C) 2026 Martijn De Jongh (Martino)
+ *
+ ******************************************************************/
+
+
+//#region \0rolldown/runtime.js
+var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescriptor, r = Object.getOwnPropertyNames, i = Object.getPrototypeOf, a = Object.prototype.hasOwnProperty, o = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t.exports), s = (e, i, o, s) => {
+	if (i && typeof i == "object" || typeof i == "function") for (var c = r(i), l = 0, u = c.length, d; l < u; l++) d = c[l], !a.call(e, d) && d !== o && t(e, d, {
+		get: ((e) => i[e]).bind(null, d),
+		enumerable: !(s = n(i, d)) || s.enumerable
+	});
+	return e;
+}, c = (n, r, o) => (o = n == null ? {} : e(i(n)), s(r || !n || !n.__esModule || !a.call(n, "default") ? t(o, "default", {
+	value: n,
+	enumerable: !0
+}) : o, n)), l = {
+	locale: "en",
+	localename: "English",
+	langattribute: "data-i18n",
+	switch: {
+		selector: ".langchooser",
+		label: "Language"
+	},
+	flag: {
+		path: "",
+		extension: ".svg"
+	},
+	html: !0,
+	languages: {},
+	commontags: !1,
+	stacklevel: !1,
+	cssautoload: !0,
+	csspath: ""
+}, u = ".langchooser", d = (e, t = {}) => {
+	let n = e.switch;
+	n && (!("switchselector" in t) && n.selector && (e.switchselector = n.selector), !("choosername" in t) && n.label !== void 0 && (e.choosername = n.label), !("choosertext" in t) && n.triggertext !== void 0 && (e.choosertext = n.triggertext));
+	let r = e.flag;
+	r && typeof r == "object" && (!("flagpath" in t) && r.path !== void 0 && (e.flagpath = r.path), !("flagext" in t) && r.extension !== void 0 && (e.flagext = r.extension)), e.switchselector ||= u;
+}, f = (e) => e.switchselector || u, p = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
+	var n = function(e) {
+		return r(e) && !i(e);
+	};
+	function r(e) {
+		return !!e && typeof e == "object";
+	}
+	function i(e) {
+		var t = Object.prototype.toString.call(e);
+		return t === "[object RegExp]" || t === "[object Date]" || o(e);
+	}
+	var a = typeof Symbol == "function" && Symbol.for ? Symbol.for("react.element") : 60103;
+	function o(e) {
+		return e.$$typeof === a;
+	}
+	function s(e) {
+		return Array.isArray(e) ? [] : {};
+	}
+	function c(e, t) {
+		return t.clone !== !1 && t.isMergeableObject(e) ? g(s(e), e, t) : e;
+	}
+	function l(e, t, n) {
+		return e.concat(t).map(function(e) {
+			return c(e, n);
+		});
+	}
+	function u(e, t) {
+		if (!t.customMerge) return g;
+		var n = t.customMerge(e);
+		return typeof n == "function" ? n : g;
+	}
+	function d(e) {
+		return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(e).filter(function(t) {
+			return Object.propertyIsEnumerable.call(e, t);
+		}) : [];
+	}
+	function f(e) {
+		return Object.keys(e).concat(d(e));
+	}
+	function p(e, t) {
+		try {
+			return t in e;
+		} catch {
+			return !1;
+		}
+	}
+	function m(e, t) {
+		return p(e, t) && !(Object.hasOwnProperty.call(e, t) && Object.propertyIsEnumerable.call(e, t));
+	}
+	function h(e, t, n) {
+		var r = {};
+		return n.isMergeableObject(e) && f(e).forEach(function(t) {
+			r[t] = c(e[t], n);
+		}), f(t).forEach(function(i) {
+			m(e, i) || (r[i] = p(e, i) && n.isMergeableObject(t[i]) ? u(i, n)(e[i], t[i], n) : c(t[i], n));
+		}), r;
+	}
+	function g(e, t, r) {
+		r ||= {}, r.arrayMerge = r.arrayMerge || l, r.isMergeableObject = r.isMergeableObject || n, r.cloneUnlessOtherwiseSpecified = c;
+		var i = Array.isArray(t);
+		return i === Array.isArray(e) ? i ? r.arrayMerge(e, t, r) : h(e, t, r) : c(t, r);
+	}
+	g.all = function(e, t) {
+		if (!Array.isArray(e)) throw Error("first argument should be an array");
+		return e.reduce(function(e, n) {
+			return g(e, n, t);
+		}, {});
+	}, t.exports = g;
+})))(), 1), m = Object.defineProperty, h = (e, t) => {
+	let n = {};
+	for (var r in e) m(n, r, {
+		get: e[r],
+		enumerable: !0
+	});
+	return t || m(n, Symbol.toStringTag, { value: "Module" }), n;
+}, g = [
+	".js",
+	".min.js",
+	".mjs"
+], _ = (() => {
+	let e = import.meta;
+	if (typeof e?.url == "string" && e.url !== "") return e.url;
+	let t = typeof document < "u" ? document.currentScript : null;
+	return t && "src" in t && t.src ? t.src : "";
+})(), v = (e) => {
+	let t = e.lastIndexOf("/");
+	return t === -1 ? "" : e.slice(0, t + 1);
+}, y = (e) => {
+	let t = e.split(/[?#]/)[0];
+	return t.slice(t.lastIndexOf("/") + 1);
+}, b = (e, t) => g.some((n) => e === `${t}${n}`), ee = [
+	/\/@fs\//,
+	/\/@id\//,
+	/\/\.vite\/deps\//,
+	/[?&][vt]=/
+], te = (e) => ee.some((t) => t.test(e)), x = (e) => {
+	if (typeof document < "u") {
+		let t = g.map((t) => `script[src$="${e}${t}"]`).join(", "), n = document.querySelector(t)?.getAttribute("src");
+		if (n) return { directory: v(n) };
+	}
+	return _ && !te(_) && b(y(_), e) ? { directory: v(_) } : { directory: null };
+}, ne = (e) => x(e).directory !== null, S = /* @__PURE__ */ new Map(), re = (e = "") => {
+	let t = S.get(e);
+	if (t) return t;
+	let n = typeof window < "u", r = typeof document < "u", i = import.meta, a = !1;
+	try {
+		a = typeof module < "u" && !!module?.hot;
+	} catch {}
+	let o = !1;
+	try {
+		o = !!i?.hot;
+	} catch {}
+	let s = a || o, c = !1;
+	try {
+		c = i?.env?.DEV === !0;
+	} catch {}
+	let l = e !== "" && ne(e), u = {
+		hasResolvableSource: l,
+		hasWindow: n,
+		hasDocument: r,
+		isBundled: !l,
+		isDevelopment: s || c,
+		hasHMR: s,
+		isViteDev: c
+	};
+	return S.set(e, u), u;
+}, ie = class {
+	defaultConfig;
+	pluginInit;
+	pluginId;
+	mergedConfig = null;
+	userConfigData = null;
+	data = {};
+	constructor(e, t, n) {
+		typeof e == "string" ? (this.pluginId = e, this.pluginInit = t, this.defaultConfig = n || {}) : (this.pluginId = e.id, this.pluginInit = e.init, this.defaultConfig = e.defaultConfig || {});
+	}
+	initializeConfig(e) {
+		let t = this.defaultConfig, n = e.getConfig()[this.pluginId] || {};
+		this.userConfigData = n, this.mergedConfig = (0, p.default)(t, n, {
+			arrayMerge: (e, t) => t,
+			clone: !0
+		});
+	}
+	getCurrentConfig() {
+		if (!this.mergedConfig) throw Error("Plugin configuration has not been initialized");
+		return this.mergedConfig;
+	}
+	getData() {
+		return Object.keys(this.data).length > 0 ? this.data : void 0;
+	}
+	get userConfig() {
+		return this.userConfigData || {};
+	}
+	getEnvironmentInfo = () => re(this.pluginId);
+	init(e) {
+		if (this.initializeConfig(e), this.pluginInit) return this.pluginInit(this, e, this.getCurrentConfig());
+	}
+	createInterface(e = {}) {
+		return {
+			id: this.pluginId,
+			init: (e) => this.init(e),
+			getConfig: () => this.getCurrentConfig(),
+			getData: () => this.getData(),
+			...e
+		};
+	}
+}, C = "data-css-id", w = (e, t) => new Promise((n, r) => {
+	let i = document.createElement("link");
+	i.rel = "stylesheet", i.href = t, i.setAttribute(C, e);
+	let a = setTimeout(() => {
+		i.parentNode && i.parentNode.removeChild(i), r(/* @__PURE__ */ Error(`[${e}] Timeout loading CSS from: ${t}`));
+	}, 5e3);
+	i.onload = () => {
+		clearTimeout(a), n();
+	}, i.onerror = () => {
+		clearTimeout(a), i.parentNode && i.parentNode.removeChild(i), r(/* @__PURE__ */ Error(`[${e}] Failed to load CSS from: ${t}`));
+	}, document.head.appendChild(i);
+}), ae = (e) => document.querySelectorAll(`[${C}="${e}"]`).length > 0, oe = 1e4, se = (e) => new Promise((t) => {
+	if (T(e)) return t(!0);
+	if (typeof MutationObserver > "u") return t(!1);
+	let n = !1, r = (e) => {
+		n || (n = !0, i.disconnect(), clearTimeout(o), window.removeEventListener("load", a), t(e));
+	}, i = new MutationObserver(() => {
+		T(e) && r(!0);
+	});
+	i.observe(document.documentElement, {
+		childList: !0,
+		subtree: !0,
+		attributeFilter: ["href", "rel"]
+	});
+	let a = () => requestAnimationFrame(() => r(T(e)));
+	document.readyState === "complete" ? a() : window.addEventListener("load", a, { once: !0 });
+	let o = setTimeout(() => r(T(e)), oe);
+}), T = (e) => {
+	if (ae(e)) return !0;
+	try {
+		return window.getComputedStyle(document.documentElement).getPropertyValue(`--cssimported-${e}`).trim() !== "";
+	} catch {
+		return !1;
+	}
+}, ce = "--r-main-color", E = () => {
+	if (typeof document > "u" || typeof window > "u") return !1;
+	try {
+		return getComputedStyle(document.documentElement).getPropertyValue(ce).trim() !== "";
+	} catch {
+		return !1;
+	}
+}, le = (e = 1e3) => E() ? Promise.resolve(!0) : new Promise((t) => {
+	let n = Date.now() + e, r = () => {
+		if (E()) {
+			t(!0);
+			return;
+		}
+		if (Date.now() >= n) {
+			t(!1);
+			return;
+		}
+		setTimeout(r, 16);
+	};
+	r();
+}), D = ((e) => new Proxy(e, { get: (e, t) => {
+	if (t in e) return e[t];
+	let n = t.toString();
+	if (typeof console[n] == "function") return (...t) => {
+		e.debugLog(n, ...t);
+	};
+} }))(new class {
+	debugMode = !1;
+	label = "DEBUG";
+	groupDepth = 0;
+	initialize(e, t = "DEBUG") {
+		this.debugMode = e, this.label = t;
+	}
+	group = (...e) => {
+		this.debugLog("group", ...e), this.groupDepth++;
+	};
+	groupCollapsed = (...e) => {
+		this.debugLog("groupCollapsed", ...e), this.groupDepth++;
+	};
+	groupEnd = () => {
+		this.groupDepth > 0 && (this.groupDepth--, this.debugLog("groupEnd"));
+	};
+	error = (...e) => {
+		let t = this.debugMode;
+		this.debugMode = !0, this.formatAndLog(console.error, e), this.debugMode = t;
+	};
+	table = (e, t, n) => {
+		if (this.debugMode) try {
+			typeof e == "string" && t !== void 0 && typeof t != "string" ? (this.groupDepth === 0 ? console.log(`[${this.label}]: ${e}`) : console.log(e), n ? console.table(t, n) : console.table(t)) : (this.groupDepth === 0 && console.log(`[${this.label}]: Table data`), typeof t == "object" && Array.isArray(t) ? console.table(e, t) : console.table(e));
+		} catch (t) {
+			console.error(`[${this.label}]: Error showing table:`, t), console.log(`[${this.label}]: Raw data:`, e);
+		}
+	};
+	formatAndLog = (e, t) => {
+		if (this.debugMode) try {
+			this.groupDepth > 0 ? e.call(console, ...t) : t.length > 0 && typeof t[0] == "string" ? e.call(console, `[${this.label}]: ${t[0]}`, ...t.slice(1)) : e.call(console, `[${this.label}]:`, ...t);
+		} catch (e) {
+			console.error(`[${this.label}]: Error in logging:`, e), console.log(`[${this.label}]: Original log data:`, ...t);
+		}
+	};
+	debugLog(e, ...t) {
+		let n = console[e];
+		if (!this.debugMode && e !== "error" || typeof n != "function") return;
+		let r = n;
+		if (e === "group" || e === "groupCollapsed") {
+			t.length > 0 && typeof t[0] == "string" ? r.call(console, `[${this.label}]: ${t[0]}`, ...t.slice(1)) : r.call(console, `[${this.label}]:`, ...t);
+			return;
+		}
+		if (e === "groupEnd") {
+			r.call(console);
+			return;
+		}
+		if (e === "table") {
+			t.length === 1 ? this.table(t[0]) : t.length === 2 ? (t[0], this.table(t[0], t[1])) : t.length >= 3 && this.table(t[0], t[1], t[2]);
+			return;
+		}
+		this.groupDepth > 0 ? r.call(console, ...t) : t.length > 0 && typeof t[0] == "string" ? r.call(console, `[${this.label}]: ${t[0]}`, ...t.slice(1)) : r.call(console, `[${this.label}]:`, ...t);
+	}
+}()), O = /* @__PURE__ */ new Set(), ue = (e, t) => {
+	let n = `${e}::${t}`;
+	O.has(n) || (O.add(n), console.warn(`[${e}] ${t}`));
+}, de = (e) => [`dist/plugin/${e}/${e}.css`, `plugin/${e}/${e}.css`], fe = (e) => typeof e == "string" && e.trim() !== "", k = async (e, t) => {
+	let { cssautoload: n, csspath: r, debug: i = !1 } = t;
+	if (n === !1 || r === !1) return i && console.log(`[${e}] CSS loading is switched off`), { status: "skipped" };
+	if (fe(r)) {
+		let t = r.trim();
+		try {
+			return await w(e, t), i && console.log(`[${e}] CSS loaded from: ${t}`), {
+				status: "loaded",
+				path: t
+			};
+		} catch {
+			return console.warn(`[${e}] Could not load CSS from: ${t}`), {
+				status: "failed",
+				path: t
+			};
+		}
+	}
+	if (T(e)) return i && console.log(`[${e}] CSS is already imported, skipping`), { status: "present" };
+	let { directory: a } = x(e);
+	if (a !== null || n === !0) {
+		let t = [...a === null ? [] : [`${a}${e}.css`], ...de(e)].filter((e, t, n) => n.indexOf(e) === t);
+		for (let n of t) try {
+			return await w(e, n), i && console.log(`[${e}] CSS loaded from: ${n}`), {
+				status: "loaded",
+				path: n
+			};
+		} catch {
+			i && console.log(`[${e}] No CSS at: ${n}`);
+		}
+		return console.warn(`[${e}] Could not load CSS. Tried: ${t.join(", ")}. Import the stylesheet yourself, or set csspath to where it is.`), { status: "failed" };
+	}
+	return se(e).then((t) => {
+		t || ue(e, `CSS could not be autoloaded here, because the plugin is part of a bundle. Import it once in your own code: import 'reveal.js-${e}/${e}.css'`);
+	}), { status: "advised" };
+};
+async function pe(e, t) {
+	if ("getEnvironmentInfo" in e && t) {
+		let n = e, r = n.userConfig, i = "cssautoload" in r && r.cssautoload !== "auto" ? t.cssautoload : void 0;
+		return k(n.pluginId, {
+			...t,
+			cssautoload: i
+		});
+	}
+	let { id: n, cssautoload: r, csspath: i, debug: a } = e;
+	return k(n, {
+		cssautoload: r === "auto" ? void 0 : r,
+		csspath: i,
+		debug: a
+	});
+}
+var me = /* @__PURE__ */ h({
+	SectionType: () => he,
+	getSectionType: () => ve,
+	getStack: () => _e,
+	isHorizontal: () => ge,
+	isSection: () => A,
+	isStack: () => j,
+	isVertical: () => M
+}), he = /* @__PURE__ */ function(e) {
+	return e.HORIZONTAL = "horizontal", e.STACK = "stack", e.VERTICAL = "vertical", e.INVALID = "invalid", e;
+}({}), A = (e) => e instanceof HTMLElement && e.tagName === "SECTION", j = (e) => A(e) ? Array.from(e.children).some((e) => e instanceof HTMLElement && e.tagName === "SECTION") : !1, M = (e) => A(e) ? e.parentElement instanceof HTMLElement && e.parentElement.tagName === "SECTION" : !1, ge = (e) => A(e) && !M(e) && !j(e), _e = (e) => {
+	if (!A(e)) return null;
+	if (M(e)) {
+		let t = e.parentElement;
+		if (t instanceof HTMLElement && j(t)) return t;
+	}
+	return null;
+}, ve = (e) => A(e) ? M(e) ? "vertical" : j(e) ? "stack" : "horizontal" : "invalid", ye = () => Object.fromEntries(new URLSearchParams(window.location.search).entries()), be = () => "nocache" in ye() ? "reload" : "default", xe = (e) => {
+	if (e.dataset.name) return {
+		key: e.dataset.name,
+		attribute: "data-name",
+		where: "the stack"
+	};
+	if (e.id) return {
+		key: e.id,
+		attribute: "id",
+		where: "the stack"
+	};
+	let t = e.querySelector(":scope > section");
+	if (!(t instanceof HTMLElement)) return;
+	let n = t.getAttribute("data-stack-name");
+	if (n) return {
+		key: n,
+		attribute: "data-stack-name",
+		where: "the slide that opens it"
+	};
+	if (t.dataset.name) return {
+		key: t.dataset.name,
+		attribute: "data-name",
+		where: "the slide that opens it"
+	};
+	if (t.id) return {
+		key: t.id,
+		attribute: "id",
+		where: "the slide that opens it"
+	};
+}, Se = (e) => xe(e)?.key, Ce = (e) => e.dataset.name || e.id || void 0, we = (e) => {
+	try {
+		let t = document.cookie.split("; ").map((e) => e.split("=")).find(([t]) => t === e);
+		return t ? decodeURIComponent(t[1]) : void 0;
+	} catch {
+		return;
+	}
+}, Te = "InternationSettingsStorage", Ee = "InternationSettings", De = 31536e3, Oe = () => {
+	try {
+		let e = localStorage.getItem(Te);
+		if (e) return e;
+	} catch {}
+	return we(Ee);
+}, ke = (e) => {
+	try {
+		localStorage.setItem(Te, e);
+	} catch {}
+	try {
+		document.cookie = `${Ee}=${encodeURIComponent(e)};max-age=${De};SameSite=Lax`;
+	} catch {}
+}, Ae = (e, t) => t.closest("pre") || t.querySelector("pre") ? e : e.replace(/\s*\n\s*/g, " ").trim(), je = (e, t, n) => {
+	P = [];
+	let r = /* @__PURE__ */ new Map();
+	for (let i of e.children) if (i instanceof HTMLElement) {
+		if (i === t) {
+			let e = {};
+			Ne(t, e, n), r.set("slides", e);
+		} else Me(i, t, r, n);
+	}
+	let i = Object.fromEntries(r);
+	return n.commontags ? Pe(i) : i;
+}, Me = (e, t, n, r) => {
+	let i = /* @__PURE__ */ new Map(), a = e.querySelectorAll(`[${r.langattribute}]`);
+	for (let e = 0; e < a.length; e++) {
+		let n = a[e];
+		if (!(n instanceof HTMLElement) || t.contains(n)) continue;
+		let r = n.closest("[id], [data-name]");
+		if (!(r instanceof HTMLElement)) continue;
+		let o = r.dataset.name || r.id;
+		o && (i.has(o) || i.set(o, []), i.get(o)?.push(n));
+	}
+	for (let [e, t] of i) {
+		n.has(e) || n.set(e, {});
+		let i = n.get(e);
+		for (let e = 0; e < t.length; e++) {
+			let n = t[e], a = n.getAttribute(r.langattribute);
+			a && (i[a] = Ae(r.html ? n.innerHTML : n.textContent || "", n));
+		}
+	}
+}, N = (e, t) => {
+	let n = {}, r = e.querySelectorAll(`[${t.langattribute}]`);
+	for (let e = 0; e < r.length; e++) {
+		let i = r[e], a = i.getAttribute(t.langattribute);
+		a && (n[a] = Ae(t.html ? i.innerHTML : i.textContent || "", i));
+	}
+	return n;
+}, Ne = (e, t, n) => {
+	for (let r of e.children) if (r instanceof HTMLElement) {
+		if (Array.from(r.children).some((e) => e instanceof HTMLElement && e.tagName === "SECTION")) {
+			if (n.stacklevel) {
+				let e = xe(r), i = e?.key;
+				if (!i) {
+					D.warn("A stack has no name and no id, so its slides are left out of the JSON. Give its first vertical slide a data-stack-name.");
+					continue;
+				}
+				let a = {};
+				for (let e of r.children) {
+					if (!(e instanceof HTMLElement)) continue;
+					let t = L(e);
+					if (!t) continue;
+					let r = N(e, n);
+					Object.keys(r).length > 0 && z(a, t.key, r, "slides in the same stack", t.source, R(t.source, ""), "slide");
+				}
+				Object.keys(a).length > 0 && z(t, i, a, "stacks", e.attribute === "data-stack-name" ? "data-name" : e.attribute, `This one is named by ${e.attribute} on ${e.where}, so change it there. If you write in Markdown, then the stack is generated and cannot be given a name directly — use data-stack-name on the slide that opens it.`, "stack");
+			} else for (let e of r.children) {
+				if (!(e instanceof HTMLElement)) continue;
+				let r = L(e);
+				if (!r) continue;
+				let i = N(e, n);
+				Object.keys(i).length > 0 && z(t, r.key, i, "slides", r.source, R(r.source, "Or set stacklevel: true, so each stack keeps its own slides apart."), "slide");
+			}
+		} else {
+			let e = L(r);
+			if (!e) continue;
+			let i = N(r, n);
+			Object.keys(i).length > 0 && z(t, e.key, i, "slides", e.source, R(e.source, ""), "slide");
+		}
+	}
+}, P = [], F = () => P, I = /* @__PURE__ */ new Set(), L = (e) => {
+	let t = Ce(e);
+	return t ? {
+		key: t,
+		source: e.dataset.name ? "data-name" : "id"
+	} : null;
+}, R = (e, t) => e === "id" ? `Two elements with the same id is invalid HTML in any case, so give one of them its own id. ${t}` : `Give one of them its own data-name. ${t}`, z = (e, t, n, r, i, a, o) => {
+	t in e && (P.push({
+		kind: r,
+		key: t,
+		source: i,
+		remedy: a,
+		noun: o,
+		dropped: e[t],
+		container: e
+	}), I.has(`${r}::${t}`) || (I.add(`${r}::${t}`), D.warn(`Two ${r} are named "${t}". The second replaces the first in the JSON, and at runtime both read the same translation. ${a}`))), e[t] = n;
+}, Pe = (e) => {
+	let t = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
+	B(e, "", t, n);
+	let r = {};
+	for (let [i, a] of t.entries()) {
+		let t = n.get(i);
+		if (a.size === 1 && t && t.length > 1) {
+			let t = a.values().next().value;
+			t && (r[i] = t, H(e, i));
+		}
+	}
+	return V(e), Object.keys(r).length > 0 ? {
+		_common: r,
+		...e
+	} : e;
+}, B = (e, t, n, r) => {
+	if (typeof e == "object") for (let [i, a] of Object.entries(e)) typeof a == "string" ? (n.has(i) || (n.set(i, /* @__PURE__ */ new Set()), r.set(i, [])), n.get(i)?.add(a), r.get(i)?.push(t)) : typeof a == "object" && a && B(a, `${t}.${i}`, n, r);
+}, V = (e) => {
+	if (!(typeof e != "object" || !e)) for (let [t, n] of Object.entries(e)) typeof n == "object" && n && (V(n), Object.keys(n).length === 0 && delete e[t]);
+}, H = (e, t) => {
+	if (!(typeof e != "object" || !e)) {
+		t in e && delete e[t];
+		for (let n of Object.values(e)) typeof n == "object" && n && H(n, t);
+	}
+}, Fe = (e, t, n) => {
+	let r = /* @__PURE__ */ new Map();
+	for (let e of t) {
+		let t = r.get(e.container);
+		t ? t.push(e) : r.set(e.container, [e]);
+	}
+	let i = [], a = (e, t) => {
+		i.push(t ? {
+			text: e,
+			dropped: t
+		} : { text: e });
+	}, o = (e, t, i) => {
+		let s = " ".repeat(n * t), c = " ".repeat(n * (t + 1));
+		if (typeof e != "object" || !e) {
+			a(JSON.stringify(e), i);
+			return;
+		}
+		if (Array.isArray(e)) {
+			a(JSON.stringify(e), i);
+			return;
+		}
+		let l = Object.entries(e);
+		if (l.length === 0) {
+			a("{}", i);
+			return;
+		}
+		let u = r.get(e);
+		a("{\n", i), l.forEach(([e, n], r) => {
+			for (let n of u?.filter((t) => t.key === e) ?? []) a(`${c}${JSON.stringify(e)}: `, !0), o(n.dropped, t + 1, !0), a(",\n", !0);
+			a(`${c}${JSON.stringify(e)}: `, i), o(n, t + 1, i), a(r < l.length - 1 ? ",\n" : "\n", i);
+		}), a(`${s}}`, i);
+	};
+	return o(e, 0), i;
+}, Ie = (e, t, n, r) => {
+	let i = "", a = document.createElement("button");
+	a.textContent = "{ }", a.id = "internation-openmodal", a.setAttribute("aria-label", "Open Internation JSON inspector"), e.appendChild(a), e.classList.add("internation-inspector");
+	let o = document.createElement("div");
+	o.id = "json-overlay", o.classList.add("r-overlay"), o.classList.add("overlay"), o.setAttribute("aria-hidden", "true");
+	let s = document.createElement("div");
+	s.id = "internationmodal", s.setAttribute("role", "dialog"), s.setAttribute("aria-labelledby", "modal-title"), s.setAttribute("aria-hidden", "true"), s.innerHTML = "\n		<div class=\"modal-content\">\n			<header>\n				<h2 id=\"modal-title\">Internation JSON inspector</h2>\n				<button id=\"close-modal\" class=\"mm-close\" type=\"button\" aria-label=\"Close Internation JSON inspector\">\n					<svg class=\"offset\" viewport=\"0 0 24 24\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n						<g transform=\"rotate(45 12 12)\"><line x1=\"0\" y1=\"12\" x2=\"24\" y2=\"12\"></line><line x1=\"12\" y1=\"0\" x2=\"12\" y2=\"24\"></line></g>\n					</svg>\n				</button>\n			</header>\n			<div id=\"json-problems\" hidden></div>\n			<pre><code class=\"json\" id=\"jsondata\"></code></pre>\n			<footer>\n				<button id=\"copy-json\">Copy JSON</button><button id=\"download-json\">Download JSON</button>\n			</footer>\n		</div>\n	", e.appendChild(o), e.appendChild(s);
+	let c = document.getElementById("jsondata"), l = document.getElementById("json-problems"), u = document.getElementById("close-modal"), d = document.getElementById("download-json"), f = document.getElementById("copy-json"), p = !1, m = t, h = () => m !== t, g = () => {
+		let e = document.createElement("button");
+		e.type = "button", e.id = "export-anyway", e.textContent = "Export it anyway", e.addEventListener("click", () => {
+			p = !0, _();
+		}), l.appendChild(e);
+	}, _ = () => {
+		let e = F();
+		l.hidden = e.length === 0 && !h();
+		let n = (e.length > 0 || h()) && !p;
+		for (let e of [d, f]) e.disabled = n, e.classList.toggle("is-blocked", n);
+		if (l.textContent = "", h()) {
+			let e = document.createElement("strong");
+			e.textContent = `This is "${m}", not your source language "${t}"`, l.appendChild(e);
+			let n = document.createElement("p");
+			n.className = "small", n.textContent = `The deck is showing "${m}", and this panel reads what is on the slides. Saving this file as "${t}" would put the "${m}" text into your source dictionary, and it would load without an error — every key is present, so nothing would report a problem. Switch the deck back to "${t}" and reopen this panel, or reload with ?makejson, which starts in the source language.`, l.appendChild(n);
+		}
+		if (e.length === 0) {
+			h() && !p && g();
+			return;
+		}
+		let r = new Set(e.map((e) => e.noun)), i = r.size > 1 ? "entries" : r.has("stack") ? e.length === 1 ? "a whole stack" : "whole stacks" : e.length === 1 ? "a slide" : "slides", a = document.createElement("strong");
+		a.textContent = e.length === 1 ? `One name is used twice, so ${i} is missing from this file`.replace("entries is", "an entry is") : `${e.length} names are used twice, so ${i} are missing from this file`, l.appendChild(a);
+		let o = document.createElement("ul");
+		for (let t of e) {
+			let e = document.createElement("li");
+			e.textContent = `Two ${t.kind} are named "${t.key}". Only the second is below; the first one's translations are not in this file. ${t.remedy}`, o.appendChild(e);
+		}
+		l.appendChild(o);
+		let s = document.createElement("p");
+		s.className = "small", s.textContent = "Both entries are shown below, the replaced one struck through. A file with the same name twice is still valid JSON — it loads without an error and keeps only the last, which is why this is easy to miss. What you export is the merged version.", l.appendChild(s), p || g();
+	}, v = () => {
+		m = n();
+		let e = r(), t = F();
+		if (i = JSON.stringify(e, null, 2), c.textContent = "", t.length === 0) c.textContent = i;
+		else for (let n of Fe(e, t, 2)) if (n.dropped) {
+			let e = document.createElement("span");
+			e.className = "json-dropped", e.textContent = n.text, c.appendChild(e);
+		} else c.appendChild(document.createTextNode(n.text));
+		_(), o.style.display = "block", s.style.display = "block";
+		let a = c.querySelector(".json-dropped");
+		a && requestAnimationFrame(() => requestAnimationFrame(() => {
+			let e = c.getBoundingClientRect(), t = a.getBoundingClientRect(), n = Math.max(e.height, c.parentElement?.getBoundingClientRect().height ?? 0);
+			n > 0 && (c.scrollTop += t.top - e.top - n / 3);
+		})), s.setAttribute("aria-hidden", "false"), o.setAttribute("aria-hidden", "false");
+	}, y = () => {
+		o.style.display = "none", s.style.display = "none", s.setAttribute("aria-hidden", "true"), o.setAttribute("aria-hidden", "true");
+	};
+	a.addEventListener("click", v), o.addEventListener("click", y), u.addEventListener("click", y), d.addEventListener("click", () => {
+		let e = new Blob([i], { type: "application/json" }), t = Object.assign(document.createElement("a"), {
+			href: URL.createObjectURL(e),
+			download: `${m}.json`
+		});
+		t.click(), URL.revokeObjectURL(t.href);
+	});
+	let b = (e, t) => {
+		e.disabled || (e.dataset.textOriginal = e.textContent || "", e.textContent = t, e.disabled = !0, setTimeout(() => {
+			e.textContent = e.dataset.textOriginal || "", delete e.dataset.textOriginal, e.disabled = !1;
+		}, 1200));
+	};
+	f.addEventListener("click", async () => {
+		try {
+			await navigator.clipboard.writeText(i), b(f, "Copied!");
+		} catch (e) {
+			D.error("Failed to copy JSON:", e), b(f, "Copy failed");
+		}
+	});
+}, Le = (e) => {
+	let t = (e instanceof HTMLDetailsElement ? e : null) ?? e.closest("details") ?? e.querySelector("details");
+	if (t instanceof HTMLDetailsElement) return {
+		chooser: e,
+		root: t,
+		trigger: t.querySelector("summary") ?? t,
+		container: t
+	};
+	let n = e.querySelector(":scope input[type=\"checkbox\"]");
+	if (!n) for (let t = e.parentElement; t && !n; t = t.parentElement) n = t.querySelector(":scope > input[type=\"checkbox\"]");
+	return n ? {
+		chooser: e,
+		root: n,
+		trigger: n,
+		container: n.parentElement ?? e
+	} : null;
+}, U = [], W = [], G = !1, K = !1, q = !1, J = !1, Y = "data-i18n-pointer-focus", Re = () => {
+	q || (q = !0, document.addEventListener("pointerdown", () => {
+		J = !0;
+	}, !0), document.addEventListener("keydown", () => {
+		J = !1;
+		let e = document.activeElement;
+		e instanceof HTMLElement && e.removeAttribute(Y);
+	}, !0), document.addEventListener("focusin", (e) => {
+		let t = e.target;
+		t instanceof HTMLElement && W.some((e) => e.contains(t)) && (J ? t.setAttribute(Y, "") : t.removeAttribute(Y));
+	}), document.addEventListener("focusout", (e) => {
+		let t = e.target;
+		t instanceof HTMLElement && t.removeAttribute(Y);
+	}));
+}, X = (e) => e.root instanceof HTMLDetailsElement ? e.root.open : e.root.checked, ze = (e) => {
+	let t = Be(e);
+	if (t) {
+		let e = Ve(t), n = e.find((e) => e.getAttribute("aria-selected") === "true") ?? e[0];
+		n && He(t, n);
+		return;
+	}
+	let n = Array.from(e.querySelectorAll("input[type=\"radio\"]:not(:disabled)"));
+	(n.find((e) => e.checked) ?? n[0])?.focus();
+}, Z = (e, t = !1) => {
+	X(e) && (e.root instanceof HTMLDetailsElement ? e.root.open = !1 : (e.root.checked = !1, e.root.dispatchEvent(new Event("change", { bubbles: !0 }))), t && e.trigger.focus());
+}, Be = (e) => e.matches("[role=\"listbox\"]") ? e : e.querySelector("[role=\"listbox\"]"), Ve = (e) => Array.from(e.querySelectorAll("[role=\"option\"]")).filter((e) => e.getAttribute("aria-disabled") !== "true"), He = (e, t) => {
+	for (let n of e.querySelectorAll("[role=\"option\"]")) n.tabIndex = n === t ? 0 : -1;
+	t.focus();
+}, Ue = (e, t) => {
+	if (e.dataset.internationListbox) return;
+	e.dataset.internationListbox = "true";
+	let n = (e) => e instanceof Element ? e.closest("[role=\"option\"]") : null;
+	e.addEventListener("click", (e) => {
+		let r = n(e.target);
+		if (!r || r.getAttribute("aria-disabled") === "true") return;
+		let i = r.dataset.internationLang;
+		i && t(i);
+	}), e.addEventListener("keydown", (r) => {
+		let i = Ve(e);
+		if (i.length === 0) return;
+		let a = n(r.target), o = a ? i.indexOf(a) : -1, s;
+		switch (r.key) {
+			case "ArrowDown":
+			case "ArrowRight":
+				s = i[(o + 1) % i.length];
+				break;
+			case "ArrowUp":
+			case "ArrowLeft":
+				s = i[(o - 1 + i.length) % i.length];
+				break;
+			case "Home":
+				s = i[0];
+				break;
+			case "End":
+				s = i[i.length - 1];
+				break;
+			case "Enter":
+			case " ": {
+				let e = a?.dataset.internationLang;
+				e && a?.getAttribute("aria-disabled") !== "true" && (r.preventDefault(), t(e));
+				return;
+			}
+			default: return;
+		}
+		s && (r.preventDefault(), r.stopPropagation(), He(e, s));
+	});
+}, We = () => {
+	G || (G = !0, document.addEventListener("click", (e) => {
+		let t = e.target;
+		if (t instanceof Node) for (let e of U) !e.chooser.contains(t) && !e.container.contains(t) && Z(e);
+	}));
+}, Ge = () => {
+	K || (K = !0, document.addEventListener("keydown", (e) => {
+		if (e.key !== "Escape") return;
+		let t = U.filter(X);
+		if (t.length !== 0) {
+			for (let e of t) Z(e, !0);
+			e.preventDefault(), e.stopPropagation();
+		}
+	}, !0));
+}, Ke = (e) => {
+	let t = e;
+	t.dataset.internationDeckGuard || (t.dataset.internationDeckGuard = "true", t.addEventListener("keydown", (e) => {
+		e.key !== "Tab" && e.stopPropagation();
+	}));
+}, qe = (e, t, n, r, i) => {
+	let a = e.querySelectorAll(t);
+	function o(e) {
+		for (let t of a) {
+			let r = t.querySelector("summary[data-internation-summary]");
+			r && (r.textContent = n.get(e)?.name || e);
+			let i = t.querySelectorAll("[role=\"option\"]");
+			for (let t of i) {
+				let n = t.dataset.internationLang === e;
+				t.setAttribute("aria-selected", n ? "true" : "false"), t.tabIndex = n ? 0 : -1;
+			}
+			if (t instanceof HTMLSelectElement) t.value = e;
+			else {
+				let n = t.querySelectorAll("input[type=\"radio\"]");
+				for (let t of n) t.checked = t.value === e;
+			}
+		}
+	}
+	for (let e of a) {
+		if (W.includes(e) || W.push(e), Ke(e), U.some((t) => t.chooser === e)) continue;
+		let t = Le(e);
+		t && U.push(t);
+	}
+	U.length && (Re(), Ge(), We());
+	for (let e of U) {
+		let t = e.root;
+		if (t.dataset.internationFocus) continue;
+		let n = t instanceof HTMLDetailsElement ? "toggle" : "change";
+		t.addEventListener(n, () => {
+			X(e) && ze(e.chooser);
+		}), t.dataset.internationFocus = "true";
+	}
+	let s = (e) => {
+		let t = U.find((t) => t.chooser === e);
+		t && Z(t, !0);
+	};
+	for (let e of a) {
+		let t = Be(e);
+		if (t) {
+			for (let e of t.querySelectorAll("[role=\"option\"]")) {
+				let t = n.get(e.dataset.internationLang ?? "");
+				(!t || t.error) && e.setAttribute("aria-disabled", "true");
+			}
+			Ue(t, (t) => {
+				o(t), i(t), s(e);
+			});
+		}
+	}
+	for (let e of a) if (e instanceof HTMLSelectElement) {
+		for (let t of e.options) {
+			let e = n.get(t.value);
+			t.disabled = !e || !!e.error;
+		}
+		e.value = r, e.dataset.handlerAttached || (e.addEventListener("change", (t) => {
+			let n = t.target.value;
+			o(n), i(n), s(e);
+		}), e.dataset.handlerAttached = "true");
+	} else {
+		let t = e.querySelectorAll("input[type=\"radio\"]");
+		for (let a of t) {
+			let t = n.get(a.value);
+			a.disabled = !t || !!t.error, a.checked = a.value === r, a.dataset.handlerAttached || (a.addEventListener("change", (t) => {
+				let n = t.target.value;
+				o(n), i(n), s(e);
+			}), a.dataset.handlerAttached = "true");
+		}
+	}
+	o(r);
+}, Je = (e, t, n) => {
+	if (n.flag === !1) return null;
+	let r = t?.flag;
+	if (r === !1) return null;
+	if (typeof r == "string" && /[/.]/.test(r)) return r;
+	if (!n.flagpath) return null;
+	let i = typeof r == "string" && r !== "" ? r : e;
+	return `${n.flagpath}${i}${n.flagext ?? ".svg"}`;
+}, Ye = (e) => !!e.querySelector("input[type=\"radio\"], option, [role=\"option\"]"), Xe = (e, t, n, r) => {
+	let i = Je(e, t, r), a = t.name || e, o = document.createElement("div");
+	if (r.markerhtml && o.appendChild(Ze(r.markerhtml)), i) {
+		let e = document.createElement("img");
+		e.src = i, e.alt = "", o.appendChild(e);
+	}
+	let s = document.createElement("span");
+	s.textContent = a, o.appendChild(s), o.setAttribute("role", "option"), o.dataset.internationLang = e, o.setAttribute("aria-label", a);
+	let c = e === n;
+	return o.setAttribute("aria-selected", c ? "true" : "false"), o.tabIndex = c ? 0 : -1, t.error && o.setAttribute("aria-disabled", "true"), o;
+}, Ze = (e) => {
+	let t = document.createElement("span");
+	return t.className = "i18n-marker", t.setAttribute("aria-hidden", "true"), t.innerHTML = e, t;
+}, Qe = (e, t) => {
+	if (!t.markerhtml) return;
+	let n = e.querySelector(".dropdown");
+	if (n) for (let e of n.querySelectorAll("label")) e.querySelector("input[type=\"radio\"]") && (e.querySelector(".i18n-marker") || e.prepend(Ze(t.markerhtml)));
+}, $e = (e, t, n, r, i) => {
+	let a = e.querySelectorAll(t), o = 0, s = [], c = [], l = /* @__PURE__ */ new Set();
+	for (let e of [i.locale, ...Object.keys(i.languages)]) {
+		let t = n.get(e);
+		t && !l.has(e) && (c.push([e, t]), l.add(e));
+	}
+	for (let [e, t] of n) l.has(e) || c.push([e, t]);
+	for (let e of a) {
+		if (Qe(e, i), e instanceof HTMLDetailsElement && !e.querySelector("summary")) {
+			let t = document.createElement("summary");
+			i.choosertext ? t.textContent = i.choosertext : (t.textContent = n.get(r)?.name || r, t.dataset.internationSummary = "true"), e.prepend(t);
+		}
+		let t = e.querySelector(".dropdown") ?? e;
+		if (Ye(t)) continue;
+		if (e instanceof HTMLSelectElement) {
+			for (let [t, n] of c) {
+				let i = document.createElement("option");
+				i.value = t, i.textContent = n.name || t, i.selected = t === r, e.appendChild(i);
+			}
+			o++;
+			continue;
+		}
+		let a;
+		e instanceof HTMLDetailsElement ? (a = document.createElement("div"), t.appendChild(a)) : a = t, a.setAttribute("role", "listbox"), a.hasAttribute("aria-label") || a.setAttribute("aria-label", i.choosername ?? "Language");
+		for (let [e, t] of c) {
+			let n = Xe(e, t, r, i);
+			a.appendChild(n);
+		}
+		s.push(e instanceof HTMLDetailsElement ? "collapsed (details): trigger + list" : "flat: list only"), o++;
+	}
+	if (o) {
+		let e = s.length ? ` — ${s.join(", ")}` : "";
+		D.log(`Filled ${o} empty language chooser(s)${e}`);
+	}
+}, Q = (e, t, n, r, i, a, o, s = !1) => new Promise((c) => {
+	let l = n.get(e);
+	if (!l) {
+		D.log(`Language ${e} is not available`), c(r);
+		return;
+	}
+	let u = n.get(i.locale), d = u && typeof u.dictionary == "object" ? u.dictionary : void 0;
+	ke(e);
+	let f = l.direction === "rtl" ? "rtl" : "ltr";
+	t.configure({ rtl: f === "rtl" }), document.documentElement.setAttribute("lang", l.langtag || e), document.documentElement.setAttribute("dir", f), s ? (et(l, a, i, o, !0, d), r !== e && D.log(`Switched from ${r} to ${e}`), c(e)) : (r !== e && D.log(`Switching from ${r} to ${e} (non-blocking)`), et(l, a, i, o, !1, d), c(e));
+}), et = (e, t, n, r, i, a) => {
+	if (typeof e.dictionary == "string") return;
+	let o = e.dictionary, s = o._common || null;
+	if (i) {
+		tt(t, o, s, n, r, a);
+		return;
+	}
+	nt(t, o, s, n, r, a);
+}, tt = (e, t, n, r, i, a) => {
+	for (let o of e) at(o, t, n, r, i, a);
+}, nt = (e, t, n, r, i, a) => {
+	let o = [], s = 0, c = e.length;
+	function l() {
+		let u = Math.min(s + 150, c);
+		for (; s < u; s++) {
+			let c = e[s], l = it(c, t, n, r, i, a);
+			l && o.push([
+				c,
+				l,
+				r.html
+			]);
+		}
+		s < c ? setTimeout(l, 0) : d();
+	}
+	let u = 0;
+	function d() {
+		let e = performance.now(), t = Math.min(u + 150, o.length);
+		for (; u < t; u++) {
+			let [t, n, r] = o[u];
+			if (r ? t.innerHTML = n : t.textContent = n, u % 50 == 0 && performance.now() - e > 10) {
+				setTimeout(() => d(), 0);
+				return;
+			}
+		}
+		u < o.length && setTimeout(d, 0);
+	}
+	setTimeout(l, 0);
+}, rt = (e, t, n, r, i) => {
+	let a = e.getAttribute(r.langattribute);
+	if (!a) return;
+	if (n?.[a]) return n[a];
+	let o = i.get(e);
+	if (!o) return;
+	let s = Ce(o);
+	if (s) {
+		if (o.closest(".slides")) {
+			let e = o.closest(".slides > section");
+			if (e instanceof HTMLElement) {
+				let n = Se(e), i = n ? t.slides[n] : void 0, o = typeof i == "object" ? i[s]?.[a] : void 0, c = t.slides[s]?.[a];
+				return r.stacklevel ? o ?? c : c ?? o;
+			}
+			return t.slides[s]?.[a];
+		}
+		return t[s]?.[a];
+	}
+}, it = (e, t, n, r, i, a) => {
+	let o = rt(e, t, n, r, i);
+	if (o !== void 0) return o;
+	if (!(!a || a === t)) return rt(e, a, a._common || null, r, i);
+}, at = (e, t, n, r, i, a) => {
+	let o = it(e, t, n, r, i, a);
+	o && (r.html ? e.innerHTML = o : e.textContent = o);
+}, ot = async (e, t, n, r, i, a, o, s) => {
+	let c = i, l = Object.entries(n.languages).map(async ([e, n]) => {
+		if (typeof n.dictionary == "string") try {
+			let r = await fetch(n.dictionary, { cache: be() });
+			if (!r.ok) throw Error(`HTTP ${r.status}`);
+			let i = await r.json();
+			t.set(e, {
+				...n,
+				dictionary: i,
+				loaded: !0
+			});
+		} catch (r) {
+			let i = r instanceof Error ? r.message : "Unknown error";
+			D.error(`Language ${e} not accessible:`, i), t.set(e, {
+				...n,
+				error: i
+			});
+		}
+		else t.set(e, {
+			...n,
+			loaded: !0
+		});
+	});
+	if (await Promise.all(l), $e(e, f(n), t, i, n), qe(e, f(n), t, i, async (e) => {
+		let i = c;
+		if (!t.has(e)) {
+			D.error(`Cannot switch to unavailable language: ${e}`);
+			return;
+		}
+		let l = t.get(e);
+		if (l?.error) {
+			D.error(`Cannot switch to failed language ${e}: ${l.error}`);
+			return;
+		}
+		if (e === i) {
+			D.log(`Already using language: ${e}`);
+			return;
+		}
+		try {
+			let l = await Q(e, r, t, i, n, a, o, !1);
+			c = l, s?.(l);
+		} catch (t) {
+			D.error(`Failed to switch to language ${e}:`, t);
+		}
+	}), n.debug) {
+		let e = {};
+		for (let [r, i] of t.entries()) {
+			let t = r === n.locale, a = r in n.languages;
+			e[r] = {
+				Name: i.name,
+				Source: (() => {
+					if (t && !a) return "Markup";
+					let e = n.languages[r];
+					return e && typeof e.dictionary == "string" ? "JSON" : e && typeof e.dictionary == "object" ? "Object" : "Unknown";
+				})(),
+				RTL: i.direction === "rtl" ? "Yes" : "No",
+				"Language tag (BCP47)": i.langtag || r,
+				Status: t && !a ? "Primary (Markup)" : t && a ? "Primary (Config)" : i.error ? `Failed: ${i.error}` : i.loaded ? "Loaded" : "Pending",
+				Flag: Je(r, i, n) || "none"
+			};
+		}
+		D.table("Languages", e);
+	}
+}, st = (e) => !e || e === "transparent" || /rgba\(\s*0,\s*0,\s*0,\s*0\s*\)/.test(e), $ = (e, t) => {
+	let n = e.getCurrentSlide();
+	if (!n) return;
+	let r = e.getSlideBackground(n), i = "";
+	for (; r;) {
+		let e = getComputedStyle(r).backgroundColor;
+		if (!st(e)) {
+			i = e;
+			break;
+		}
+		r = r.parentElement?.closest(".slide-background");
+	}
+	i ? t.style.setProperty("--i18n-slide-background", i) : t.style.removeProperty("--i18n-slide-background");
+}, ct = class e {
+	deck;
+	config;
+	revealEl;
+	slidesEl;
+	currentLang;
+	languages = /* @__PURE__ */ new Map();
+	transElements;
+	containerCache = /* @__PURE__ */ new Map();
+	inspecting;
+	constructor(e, t) {
+		this.deck = e, this.config = t, this.revealEl = e.getRevealElement(), this.slidesEl = e.getSlidesElement(), this.inspecting = "makejson" in ye();
+		let n, r = this.inspecting ? void 0 : Oe();
+		r ? (this.currentLang = r, n = "stored preference") : (this.currentLang = this.config.locale, n = this.inspecting ? "source locale (?makejson)" : "default locale"), this.transElements = Array.from(this.revealEl.querySelectorAll(`[${this.config.langattribute}]`)).filter((e) => e instanceof HTMLElement && !me.isStack(e)), this.buildContainerCache(), D.log(`Initialized with language ${this.currentLang} (from ${n})`);
+	}
+	buildContainerCache() {
+		for (let e of this.transElements) {
+			let t = e.closest("[id], [data-name]");
+			t instanceof HTMLElement && this.containerCache.set(e, t);
+		}
+		D.log(`Built container cache for ${this.containerCache.size} elements`);
+	}
+	async initialize() {
+		let e = je(this.revealEl, this.slidesEl, this.config), t = document.documentElement.getAttribute("dir"), n = t === "rtl" || t === "ltr" ? t : this.deck.getConfig().rtl ? "rtl" : "ltr";
+		this.languages.set(this.config.locale, {
+			name: this.config.localename,
+			dictionary: e,
+			direction: n,
+			langtag: this.config.langtag || document.documentElement.lang || this.config.locale
+		}), document.documentElement.setAttribute("dir", n), this.inspecting && Ie(this.revealEl, this.config.locale, () => this.currentLang, () => je(this.revealEl, this.slidesEl, this.config)), $(this.deck, this.revealEl), this.deck.on("slidechanged", () => $(this.deck, this.revealEl)), this.deck.on("ready", () => $(this.deck, this.revealEl)), le().then(() => $(this.deck, this.revealEl)), await ot(this.revealEl, this.languages, this.config, this.deck, this.currentLang, this.transElements, this.containerCache, (e) => {
+			this.currentLang = e;
+		}), this.currentLang !== this.config.locale && (this.currentLang = await Q(this.currentLang, this.deck, this.languages, this.currentLang, this.config, this.transElements, this.containerCache, !0));
+	}
+	static async create(t, n) {
+		let r = new e(t, n);
+		return await r.initialize(), r;
+	}
+}, lt = "internation", ut = async (e, t, n) => {
+	D && n.debug && D.initialize(!0, lt);
+	let r = document.querySelector("meta[name=generator]");
+	r instanceof HTMLMetaElement && r.content.includes("quarto"), d(n, e.userConfig), await pe(e, n), await ct.create(t, n);
+}, dt = () => new ie(lt, ut, l).createInterface();
+//#endregion
+export { dt as default };

@@ -1,0 +1,201 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart: Branding'
+
+block slides
+	include slides/_data
+	- var regions = [{label: '2016', values: ['41', '30', '22']}, {label: '2019', values: ['58', '39', '35']}, {label: '2022', values: ['77', '52', '41']}, {label: '2025', values: ['105', '61', '70']}]
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Branding
+
+	section
+		h3 Default
+		p.small If no variables are set, a chart uses the text colour of the slide. Slices and lines get lighter one by one.
+		.plain
+			+chart({ type: 'waterfall', prefix: 'brdefault', title: 'Nothing set', unit: 'thousands of apples', rows: press })
+
+	section
+		h3 Where to set it
+		p.small Set the variables on #[code .reveal] for the whole deck. To change one slide or one chart, set them on a class. In this demo, every slide uses its own class.
+		+codeblock('css').
+			.reveal {
+				--tablechart-bar-color: #e4572e;
+			}
+			.reveal .highlight {
+				--tablechart-bar-color: #f2b134;
+			}
+
+	section
+		h3 Your colour
+		p.small One variable sets the colour of all bars.
+		.split
+			.onecolour
+				+chart({ prefix: 'brone', title: 'One colour', unit: 'thousands', rows: pickedsmall })
+			+style('2').
+				.onecolour {
+					--tablechart-bar-color: #e4572e;
+				}
+
+	section
+		h3 Waterfall colours
+		p.small Set the colours for rising steps, falling steps and totals. The ink variables set the colour of the number inside each bar.
+		.split
+			.warm
+				+chart({ type: 'waterfall', prefix: 'brwarm', title: 'Three colours', unit: 'thousands of apples', rows: cropsmall })
+			+style('2-4').
+				.warm {
+					--tablechart-up-color: #b4552d;
+					--tablechart-down-color: #d69a52;
+					--tablechart-total-color: #cfc4b4;
+					--tablechart-up-ink: #ffffff;
+					--tablechart-down-ink: #3a2312;
+					--tablechart-total-ink: #3a2312;
+				}
+
+	section
+		h3 A palette
+		p.small Set #[code --tablechart-color-1], #[code -2] and on. Slices use them in order. If a colour is not set, that slice uses the default.
+		.split
+			.fruity
+				+chart({ type: 'donut', prefix: 'brdonut', title: 'Four colours', unit: 'thousands of apples', rows: wentwhere, aspect: 0.55 })
+			+style('2-5').
+				.fruity {
+					--tablechart-color-1: #b4552d;
+					--tablechart-color-2: #d69a52;
+					--tablechart-color-3: #7fa87f;
+					--tablechart-color-4: #cfc4b4;
+				}
+
+	section
+		h3 The same palette for lines
+		p.small If a line chart has several lines, the lines use the palette too.
+		.split
+			.fruity
+				figure.tablechart(data-chart="line" data-chart-keys="brlines")
+					figcaption: b Apples per tree
+					table
+						thead
+							tr
+								th Year
+								th North
+								th South
+								th East
+						tbody
+							each row in regions
+								tr
+									th= row.label
+									each value in row.values
+										td= value
+			+codeblock('css').
+				.fruity {
+					--tablechart-color-1: #b4552d;
+					--tablechart-color-2: #d69a52;
+					--tablechart-color-3: #7fa87f;
+				}
+
+	section
+		h3 Legend
+		p.small A legend is as wide as its items. These variables set its background, border, padding and corners.
+		.split
+			.boxed
+				figure.tablechart(data-chart="line" data-chart-keys="brlegend" data-chart-legend)
+					figcaption: b Apples per tree
+					table
+						thead
+							tr
+								th Year
+								th North
+								th South
+								th East
+						tbody
+							each row in regions
+								tr
+									th= row.label
+									each value in row.values
+										td= value
+			+style('2-5').
+				.boxed {
+					--tablechart-legend-surface: rgba(255, 255, 255, 0.06);
+					--tablechart-legend-border: 1px solid rgba(255, 255, 255, 0.3);
+					--tablechart-legend-padding: 0.3em 0.8em;
+					--tablechart-legend-radius: 0.4em;
+				}
+
+	section.has-light-background(data-background-color="#f3efe9")
+		h3 Background
+		p.small Text inside bars, the gaps between slices and open points use the background colour. By default that is the Reveal background. If a slide has its own background, set it on that slide.
+		.split
+			.cream
+				+chart({ type: 'waterfall', prefix: 'brcream', title: 'On a light slide', unit: 'thousands of apples', rows: cropsmall })
+			+style('2').
+				.cream {
+					--tablechart-surface: #f3efe9;
+				}
+
+	section
+		h3 Text
+		p.small Charts use the font of the deck. These variables set the sizes.
+		.split
+			.sizes
+				+chart({ prefix: 'brsizes', title: 'Bigger numbers', unit: 'thousands', rows: pickedsmall })
+			+style('2-4').
+				.sizes {
+					--tablechart-font-size: 0.5em;
+					--tablechart-value-size: 1.6em;
+					--tablechart-category-size: 0.75em;
+				}
+
+	section
+		h3 Rules and connectors
+		.split
+			.dotty
+				+chart({ type: 'waterfall', prefix: 'brdotty', title: 'Heavier connectors', unit: 'thousands of apples', rows: cropsmall })
+			+style('2-6,10').
+				.dotty {
+					--tablechart-connector-width: 2.5px;
+					--tablechart-connector-dash: 0 6;
+					--tablechart-connector-opacity: 1;
+					--tablechart-rule-width: 2px;
+					--tablechart-rule-opacity: 1;
+				}
+				/* A dash of 0 with round ends is a dot. */
+				.dotty .tablechart-connector {
+					stroke-linecap: round;
+				}
+
+	section
+		h3 The callout
+		.split
+			.pill
+				+chart({ prefix: 'brpill', title: 'Rounded corners', unit: 'thousands of litres', rows: applejuice })
+					.chart-annotations
+						span(data-annotation="bracket") +11%
+			+style('2-3').
+				.pill {
+					--tablechart-badge-radius: 0.4em;
+					--tablechart-badge-padding: 0.4em 0.8em;
+				}
+
+	section
+		h3 Animation speed
+		.split
+			.slow
+				+chart({ type: 'waterfall', prefix: 'brslow', title: 'Slower', unit: 'thousands of apples', rows: crop })
+			+style('2-3').
+				.slow {
+					--tablechart-duration: 0.9s;
+					--tablechart-stagger: 0.22s;
+				}
+
+	section
+		h4 That’s it!
+		p For all variables, see the #[a(href="https://martinomagnifico.github.io/tablechart/reference/variables.html") Tablechart documentation].
+
+
+block append scripts
+	include slides/_init

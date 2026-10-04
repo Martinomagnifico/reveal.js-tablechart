@@ -1,0 +1,220 @@
+//- A chart is a figure whose data is a real table. These mixins only save
+//- repetition in the demo; there is nothing here a deck could not write by hand.
+
+mixin chart(opts)
+	figure.tablechart(data-chart=opts.type || 'column' data-chart-keys=opts.prefix data-chart-aspect=opts.aspect data-chart-stack=opts.stack ? '' : false data-chart-shape=opts.shape data-chart-legend=opts.legend ? '' : false data-fragment=opts.fragment ? '' : false)
+		if opts.title
+			figcaption
+				b= opts.title
+				if opts.unit
+					br
+					span= opts.unit
+		//- `code` trims what an example shows of the rows: a number shows that many
+		//- and then …, and 'rows' shows the rows alone. `series` names the value
+		//- columns of a chart with several, and each row then has `values`.
+		table
+			if opts.series
+				thead
+					tr
+						th
+						each name in opts.series
+							th= name
+			tbody
+				each row, i in opts.rows
+					- var shown = opts.code === 'rows' ? 'only' : typeof opts.code === 'number' && i >= opts.code ? 'skip' : false
+					tr(data-kind=row.kind data-fragment=row.fragment ? '' : false data-fragment-index=row.at data-code=shown)
+						th= row.label
+						if row.values
+							each value in row.values
+								td= value
+						else
+							td= row.value
+		if block
+			block
+
+//- An example of what made the chart next to it. Pug escapes the text, so the
+//- markup is shown rather than rendered, and the highlighter reads it from there.
+//- `lines` picks out what the slide is about, in Reveal's own notation: "2",
+//- "4-6", "1,5".
+mixin code(lang, text, lines)
+	pre: code(class=lang data-trim data-line-numbers=lines || true)= text
+
+//- A block shown as code, with nothing of it on the slide, the way the codeblock
+//- of the other projects' docs works. Pug markup in the block is laid out the way
+//- a person writes it: an element short enough goes on one line, a longer one
+//- opens, indents its children and closes. Text in it, after a dot, is shown as
+//- written, less its shared indent:
+//-
+//-   +codeblock('html', '1,5-6')
+//-     figure.tablechart(data-chart="column")
+//-   +codeblock('javascript').
+//-     Reveal.initialize({ plugins: [ Tablechart ] });
+//-
+//- `data-code` on an element changes what is shown of it:
+//-   skip   it is shown as …, and a run of skipped elements as one …
+//-   only   just it is shown, with any others marked `only` beside it
+//- `+n` leaves a blank line. Its options, after the lines to highlight:
+//-   hide   attributes to leave out; data-chart-keys and data-chart-aspect when not given
+//-   indent how many spaces a level is indented, 4 when not given
+//-   code   the code to show instead, written out by hand
+//-   html   markup to show instead of the block's, as `example` hands it over
+mixin codeblock(lang, lines, opts)
+	-
+		var showMarkup = function (html, hide, indent) {
+			var inline = ["a", "b", "br", "code", "em", "i", "small", "span", "strong", "sub", "sup"];
+			var empty = ["br", "hr", "img", "input", "meta", "link", "source", "wbr"];
+			var drop = ["data-code"].concat(hide || []);
+			var width = 64;
+			var step = new Array((indent || 2) + 1).join(" ");
+
+			// A tree out of the markup Pug wrote, which is always well formed.
+			var root = { children: [] };
+			var stack = [root];
+			var re = /<!--[\s\S]*?-->|<(\/?)([a-zA-Z][\w-]*)((?:\s+[^\s=>]+(?:="[^"]*")?)*)\s*\/?>|([^<]+)/g;
+			var m;
+			while ((m = re.exec(html))) {
+				var top = stack[stack.length - 1];
+				if (m[0] === "<!--n-->") {
+					top.children.push({ blank: true });
+				} else if (m[0].indexOf("<!--") === 0) {
+					top.children.push({ text: m[0] });
+				} else if (m[4] !== undefined) {
+					// Text over several lines, such as a script's, keeps its lines and
+					// their indents relative to each other.
+					if (m[4].trim()) {
+						var rows = m[4].replace(/^\s*\n|\s+$/g, "").split("\n");
+						var least = Math.min.apply(null, rows.filter(function (r) { return r.trim(); }).map(function (r) { return r.match(/^\s*/)[0].length; }));
+						top.children.push({ text: rows.map(function (r) { return r.slice(least); }).join("\n").trim() });
+					}
+				} else if (m[1]) {
+					stack.pop();
+				} else {
+					var attrs = [];
+					var are = /([^\s=>]+)(?:="([^"]*)")?/g;
+					var a;
+					while ((a = are.exec(m[3]))) attrs.push({ name: a[1], value: a[2] });
+					var node = { tag: m[2].toLowerCase(), attrs: attrs, children: [] };
+					top.children.push(node);
+					if (empty.indexOf(node.tag) === -1) stack.push(node);
+				}
+			}
+
+			var attr = function (node, name) {
+				var found = node.attrs && node.attrs.filter(function (x) { return x.name === name; })[0];
+				return found ? found.value : undefined;
+			};
+			var open = function (node) {
+				var shown = node.attrs.filter(function (x) { return drop.indexOf(x.name) === -1; });
+				return "<" + node.tag + shown.map(function (x) {
+					return " " + x.name + (x.value ? '="' + x.value + '"' : "");
+				}).join("") + ">";
+			};
+			var flat = function (node) {
+				if (node.blank) return "\n";
+				if (node.text !== undefined) return node.text;
+				if (attr(node, "data-code") === "skip") return "…";
+				var inner = node.children.map(flat).join("");
+				return open(node) + (empty.indexOf(node.tag) === -1 ? inner + "</" + node.tag + ">" : "");
+			};
+			var isInline = function (node) {
+				return node.text !== undefined || node.blank || inline.indexOf(node.tag) !== -1;
+			};
+
+			var lines = [];
+			var print = function (nodes, depth) {
+				var pad = new Array(depth + 1).join(step);
+				var skipped = false;
+				nodes.forEach(function (node) {
+					if (node.tag && attr(node, "data-code") === "skip") {
+						if (!skipped) lines.push(pad + "…");
+						skipped = true;
+						return;
+					}
+					skipped = false;
+					var one = flat(node);
+					// A line break ends the line it breaks, rather than taking one of its own.
+					if (node.tag === "br" && lines.length) {
+						lines[lines.length - 1] += one;
+						return;
+					}
+					if (node.blank) {
+						lines.push("");
+					} else if (node.text !== undefined) {
+						node.text.split("\n").forEach(function (row) {
+							lines.push(pad + row.replace(/^\t+/, function (tabs) { return new Array(tabs.length + 1).join(step); }));
+						});
+					} else if ((pad.length + one.length <= width && one.indexOf("\n") === -1) || !node.children.length) {
+						lines.push(pad + one);
+					} else if (
+						node.children.every(isInline) &&
+						node.children.map(flat).join("").indexOf("\n") === -1 &&
+						pad.length + step.length + node.children.map(flat).join("").length <= width
+					) {
+						lines.push(pad + open(node));
+						lines.push(pad + step + node.children.map(flat).join(""));
+						lines.push(pad + "</" + node.tag + ">");
+					} else {
+						lines.push(pad + open(node));
+						print(node.children, depth + 1);
+						lines.push(pad + "</" + node.tag + ">");
+					}
+				});
+			};
+
+			// With anything marked `only`, those are what is shown, and nothing around them.
+			var picked = [];
+			var find = function (nodes) {
+				nodes.forEach(function (node) {
+					if (!node.tag) return;
+					if (attr(node, "data-code") === "only") picked.push(node);
+					else find(node.children);
+				});
+			};
+			find(root.children);
+			print(picked.length ? picked : root.children, 0);
+			return lines.join("\n").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+		};
+
+		// Text as it was written in the block, less the indent all of its lines share.
+		var showText = function (text, indent) {
+			var step = new Array((indent || 2) + 1).join(" ");
+			var rows = text.replace(/^\s*\n|\s+$/g, "").split("\n");
+			var least = Math.min.apply(null, rows.filter(function (r) { return r.trim(); }).map(function (r) { return r.match(/^\s*/)[0].length; }));
+			return rows.map(function (r) {
+				return r.slice(least).replace(/^\t+/, function (tabs) { return new Array(tabs.length + 1).join(step); });
+			}).join("\n");
+		};
+	- opts = opts || {}
+	- var source = opts.html
+	if source === undefined
+		- var start = pug_html.length
+		block
+		- source = pug_html.slice(start)
+		- pug_html = pug_html.slice(0, start)
+	- var indent = opts.indent || 4
+	- var shown = opts.code || (/</.test(source) && lang === 'html' ? showMarkup(source, opts.hide || ['data-chart-keys', 'data-chart-aspect'], indent) : showText(source, indent))
+	+code(lang, shown, lines)
+
+//- A blank line in a codeblock.
+mixin n
+	!= "<!--n-->"
+
+//- The block, live, and then the markup it made beside it: a chart with its
+//- code. Takes the options of `codeblock`, with `lines` among them and an indent
+//- of 2, and `lang` when the code is not HTML.
+mixin example(opts)
+	- opts = opts || {}
+	- var start = pug_html.length
+	block
+	+codeblock(opts.lang || 'html', opts.lines, Object.assign({ indent: 2 }, opts, { html: pug_html.slice(start) }))
+//- CSS that is applied on the slide and shown as code, from the same text, so the
+//- two cannot differ. Write the CSS as a text block after a dot:
+//-
+//-   +style('2-3').
+//-     .warm { --tablechart-up-color: #b4552d; }
+mixin style(lines)
+	- var start = pug_html.length
+	block
+	- var css = pug_html.slice(start)
+	- pug_html = pug_html.slice(0, start) + '<style>' + css + '</style>'
+	+codeblock('css', lines, { html: css })

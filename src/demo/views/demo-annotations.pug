@@ -1,0 +1,65 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart: Adding annotations'
+
+block slides
+	include slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Adding annotations
+
+	section
+		h3 Bracket
+		p.small A bracket shows the change between two bars. If the chart has only two bars, no attributes are needed.
+		+code('html', `<div class="chart-annotations">
+  <span data-annotation="bracket">+11%</span>
+</div>`, '2')
+		.panels
+			+chart({ prefix: 'anapple', title: 'Apple juice', unit: 'thousands of litres', rows: applejuice })
+				.chart-annotations
+					span(data-annotation="bracket") +11%
+			+chart({ prefix: 'anorange', title: 'Orange juice', unit: 'thousands of litres', rows: orangejuice })
+				.chart-annotations
+					span(data-annotation="bracket") -17%
+			+chart({ prefix: 'anlemon', title: 'Lemon juice', unit: 'thousands of litres', rows: lemonjuice })
+				.chart-annotations
+					span(data-annotation="bracket") +5%
+
+	section
+		h3 Choose the bars
+		p.small If the chart has more bars, set #[code data-from] and #[code data-to] to the row numbers. The first row is 1.
+		.split
+			+example({ lines: '1' })
+				+chart({ prefix: 'anpick', title: 'Apples per tree', unit: 'each', rows: perTree })
+					.chart-annotations
+						span(data-annotation="bracket" data-from="2" data-to="5" data-code="only") +45%
+
+	section
+		h3 Trend
+		p.small A trend arrow runs from the first value to the last.
+		.split
+			+example({ lines: '1' })
+				+chart({ prefix: 'antrend', title: 'Apples per tree', unit: 'each', rows: perTree })
+					.chart-annotations
+						span(data-annotation="trend" data-years="4" data-at="0.46" data-code="only")
+							span.tablechart-caption A year
+							span +12%
+
+	section
+		h3 Check the rate
+		p.small Set #[code data-years] to the number of years. Tablechart calculates the rate, and shows a warning in the console if it is different from yours. Your number is always the one shown.
+		.narrow
+			+chart({ prefix: 'ancheck', title: 'A rate that does not add up', unit: 'each', rows: perTree })
+				.chart-annotations
+					span(data-annotation="trend" data-years="4" data-at="0.46")
+						span.tablechart-caption A year
+						span +40%
+		p.small.muted Open the console on this slide.
+
+
+block append scripts
+	include slides/_init

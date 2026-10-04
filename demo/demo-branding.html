@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tablechart: Branding</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal"><a class="github-corner" href="https://github.com/martinomagnifico/reveal.js-tablechart" target="blank" title="View source on GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+          <path fill="currentColor" d="M27.5 11.2a16.3 16.3 0 0 0-5.1 31.7c.8.2 1.1-.3 1.1-.7v-2.8c-4.5 1-5.5-2.2-5.5-2.2-.7-1.9-1.8-2.4-1.8-2.4-1.5-1 .1-1 .1-1 1.6.1 2.5 1.7 2.5 1.7 1.5 2.5 3.8 1.8 4.7 1.4.2-1 .6-1.8 1-2.2-3.5-.4-7.3-1.8-7.3-8 0-1.8.6-3.3 1.6-4.4-.1-.5-.7-2.1.2-4.4 0 0 1.4-.4 4.5 1.7a15.6 15.6 0 0 1 8.1 0c3.1-2 4.5-1.7 4.5-1.7.9 2.3.3 4 .2 4.4 1 1 1.6 2.6 1.6 4.3 0 6.3-3.8 7.7-7.4 8 .6.6 1.1 1.6 1.1 3v4.6c0 .4.3.9 1.1.7a16.3 16.3 0 0 0-5.2-31.7"></path>
+        </svg></a>
+      <div class="slides">
+        <section class="title-slide">
+          <h1 class="title">Tablechart</h1>
+          <h3 class="subtitle">for Reveal.js: Branding</h3>
+        </section>
+        <section>
+          <h3>Default</h3>
+          <p class="small">If no variables are set, a chart uses the text colour of the slide. Slices and lines get lighter one by one.</p>
+          <div class="plain">
+            <figure class="tablechart" data-chart="waterfall" data-chart-keys="brdefault">
+              <figcaption><b>Nothing set</b><br/><span>thousands of apples</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-kind="total">
+                    <th>Picked</th>
+                    <td>74.5</td>
+                  </tr>
+                  <tr>
+                    <th>Windfalls</th>
+                    <td>28.2</td>
+                  </tr>
+                  <tr>
+                    <th>Bruised</th>
+                    <td>-16.1</td>
+                  </tr>
+                  <tr>
+                    <th>Peelings</th>
+                    <td>-13.3</td>
+                  </tr>
+                  <tr data-kind="total">
+                    <th>Pressed</th>
+                    <td>73.3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+          </div>
+        </section>
+        <section>
+          <h3>Where to set it</h3>
+          <p class="small">Set the variables on <code>.reveal</code> for the whole deck. To change one slide or one chart, set them on a class. In this demo, every slide uses its own class.</p>
+          <pre><code class="css" data-trim="data-trim" data-line-numbers="data-line-numbers">.reveal {
+    --tablechart-bar-color: #e4572e;
+}
+.reveal .highlight {
+    --tablechart-bar-color: #f2b134;
+}</code></pre>
+        </section>
+        <section>
+          <h3>Your colour</h3>
+          <p class="small">One variable sets the colour of all bars.</p>
+          <div class="split">
+            <div class="onecolour">
+              <figure class="tablechart" data-chart="column" data-chart-keys="brone">
+                <figcaption><b>One colour</b><br/><span>thousands</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>58</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>72</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>70</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.onecolour{--tablechart-bar-color:#e4572e}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2">.onecolour {
+    --tablechart-bar-color: #e4572e;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Waterfall colours</h3>
+          <p class="small">Set the colours for rising steps, falling steps and totals. The ink variables set the colour of the number inside each bar.</p>
+          <div class="split">
+            <div class="warm">
+              <figure class="tablechart" data-chart="waterfall" data-chart-keys="brwarm">
+                <figcaption><b>Three colours</b><br/><span>thousands of apples</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr data-kind="total">
+                      <th>Picked</th>
+                      <td>74.5</td>
+                    </tr>
+                    <tr>
+                      <th>Windfalls</th>
+                      <td>28.2</td>
+                    </tr>
+                    <tr data-kind="total">
+                      <th>Pressed</th>
+                      <td>102.7</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.warm{--tablechart-up-color:#b4552d;--tablechart-down-color:#d69a52;--tablechart-total-color:#cfc4b4;--tablechart-up-ink:#fff;--tablechart-down-ink:#3a2312;--tablechart-total-ink:#3a2312}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-4">.warm {
+    --tablechart-up-color: #b4552d;
+    --tablechart-down-color: #d69a52;
+    --tablechart-total-color: #cfc4b4;
+    --tablechart-up-ink: #ffffff;
+    --tablechart-down-ink: #3a2312;
+    --tablechart-total-ink: #3a2312;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>A palette</h3>
+          <p class="small">Set <code>--tablechart-color-1</code>, <code>-2</code> and on. Slices use them in order. If a colour is not set, that slice uses the default.</p>
+          <div class="split">
+            <div class="fruity">
+              <figure class="tablechart" data-chart="donut" data-chart-keys="brdonut" data-chart-aspect="0.55">
+                <figcaption><b>Four colours</b><br/><span>thousands of apples</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr data-kind="total">
+                      <th>Picked</th>
+                      <td>74.5</td>
+                    </tr>
+                    <tr>
+                      <th>Juiced</th>
+                      <td>38.2</td>
+                    </tr>
+                    <tr>
+                      <th>Eaten fresh</th>
+                      <td>18.1</td>
+                    </tr>
+                    <tr>
+                      <th>Sold whole</th>
+                      <td>12.4</td>
+                    </tr>
+                    <tr>
+                      <th>Composted</th>
+                      <td>5.8</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.fruity{--tablechart-color-1:#b4552d;--tablechart-color-2:#d69a52;--tablechart-color-3:#7fa87f;--tablechart-color-4:#cfc4b4}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-5">.fruity {
+    --tablechart-color-1: #b4552d;
+    --tablechart-color-2: #d69a52;
+    --tablechart-color-3: #7fa87f;
+    --tablechart-color-4: #cfc4b4;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>The same palette for lines</h3>
+          <p class="small">If a line chart has several lines, the lines use the palette too.</p>
+          <div class="split">
+            <div class="fruity">
+              <figure class="tablechart" data-chart="line" data-chart-keys="brlines">
+                <figcaption><b>Apples per tree</b></figcaption>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Year</th>
+                      <th>North</th>
+                      <th>South</th>
+                      <th>East</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>2016</th>
+                      <td>41</td>
+                      <td>30</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <th>2019</th>
+                      <td>58</td>
+                      <td>39</td>
+                      <td>35</td>
+                    </tr>
+                    <tr>
+                      <th>2022</th>
+                      <td>77</td>
+                      <td>52</td>
+                      <td>41</td>
+                    </tr>
+                    <tr>
+                      <th>2025</th>
+                      <td>105</td>
+                      <td>61</td>
+                      <td>70</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="data-line-numbers">.fruity {
+    --tablechart-color-1: #b4552d;
+    --tablechart-color-2: #d69a52;
+    --tablechart-color-3: #7fa87f;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Legend</h3>
+          <p class="small">A legend is as wide as its items. These variables set its background, border, padding and corners.</p>
+          <div class="split">
+            <div class="boxed">
+              <figure class="tablechart" data-chart="line" data-chart-keys="brlegend" data-chart-legend>
+                <figcaption><b>Apples per tree</b></figcaption>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Year</th>
+                      <th>North</th>
+                      <th>South</th>
+                      <th>East</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>2016</th>
+                      <td>41</td>
+                      <td>30</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <th>2019</th>
+                      <td>58</td>
+                      <td>39</td>
+                      <td>35</td>
+                    </tr>
+                    <tr>
+                      <th>2022</th>
+                      <td>77</td>
+                      <td>52</td>
+                      <td>41</td>
+                    </tr>
+                    <tr>
+                      <th>2025</th>
+                      <td>105</td>
+                      <td>61</td>
+                      <td>70</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.boxed{--tablechart-legend-surface:#ffffff0f;--tablechart-legend-border:1px solid #ffffff4d;--tablechart-legend-padding:.3em .8em;--tablechart-legend-radius:.4em}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-5">.boxed {
+    --tablechart-legend-surface: rgba(255, 255, 255, 0.06);
+    --tablechart-legend-border: 1px solid rgba(255, 255, 255, 0.3);
+    --tablechart-legend-padding: 0.3em 0.8em;
+    --tablechart-legend-radius: 0.4em;
+}</code></pre>
+          </div>
+        </section>
+        <section class="has-light-background" data-background-color="#f3efe9">
+          <h3>Background</h3>
+          <p class="small">Text inside bars, the gaps between slices and open points use the background colour. By default that is the Reveal background. If a slide has its own background, set it on that slide.</p>
+          <div class="split">
+            <div class="cream">
+              <figure class="tablechart" data-chart="waterfall" data-chart-keys="brcream">
+                <figcaption><b>On a light slide</b><br/><span>thousands of apples</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr data-kind="total">
+                      <th>Picked</th>
+                      <td>74.5</td>
+                    </tr>
+                    <tr>
+                      <th>Windfalls</th>
+                      <td>28.2</td>
+                    </tr>
+                    <tr data-kind="total">
+                      <th>Pressed</th>
+                      <td>102.7</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.cream{--tablechart-surface:#f3efe9}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2">.cream {
+    --tablechart-surface: #f3efe9;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Text</h3>
+          <p class="small">Charts use the font of the deck. These variables set the sizes.</p>
+          <div class="split">
+            <div class="sizes">
+              <figure class="tablechart" data-chart="column" data-chart-keys="brsizes">
+                <figcaption><b>Bigger numbers</b><br/><span>thousands</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>58</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>72</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>70</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.sizes{--tablechart-font-size:.5em;--tablechart-value-size:1.6em;--tablechart-category-size:.75em}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-4">.sizes {
+    --tablechart-font-size: 0.5em;
+    --tablechart-value-size: 1.6em;
+    --tablechart-category-size: 0.75em;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Rules and connectors</h3>
+          <div class="split">
+            <div class="dotty">
+              <figure class="tablechart" data-chart="waterfall" data-chart-keys="brdotty">
+                <figcaption><b>Heavier connectors</b><br/><span>thousands of apples</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr data-kind="total">
+                      <th>Picked</th>
+                      <td>74.5</td>
+                    </tr>
+                    <tr>
+                      <th>Windfalls</th>
+                      <td>28.2</td>
+                    </tr>
+                    <tr data-kind="total">
+                      <th>Pressed</th>
+                      <td>102.7</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.dotty{--tablechart-connector-width:2.5px;--tablechart-connector-dash:0 6;--tablechart-connector-opacity:1;--tablechart-rule-width:2px;--tablechart-rule-opacity:1}.dotty .tablechart-connector{stroke-linecap:round}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-6,10">.dotty {
+    --tablechart-connector-width: 2.5px;
+    --tablechart-connector-dash: 0 6;
+    --tablechart-connector-opacity: 1;
+    --tablechart-rule-width: 2px;
+    --tablechart-rule-opacity: 1;
+}
+/* A dash of 0 with round ends is a dot. */
+.dotty .tablechart-connector {
+    stroke-linecap: round;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>The callout</h3>
+          <div class="split">
+            <div class="pill">
+              <figure class="tablechart" data-chart="column" data-chart-keys="brpill">
+                <figcaption><b>Rounded corners</b><br/><span>thousands of litres</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Last season</th>
+                      <td>251.5</td>
+                    </tr>
+                    <tr>
+                      <th>This season</th>
+                      <td>279.6</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="chart-annotations"><span data-annotation="bracket">+11%</span></div>
+              </figure>
+            </div><style>.pill{--tablechart-badge-radius:.4em;--tablechart-badge-padding:.4em .8em}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-3">.pill {
+    --tablechart-badge-radius: 0.4em;
+    --tablechart-badge-padding: 0.4em 0.8em;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Animation speed</h3>
+          <div class="split">
+            <div class="slow">
+              <figure class="tablechart" data-chart="waterfall" data-chart-keys="brslow">
+                <figcaption><b>Slower</b><br/><span>thousands of apples</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr data-kind="total">
+                      <th>Picked</th>
+                      <td>74.5</td>
+                    </tr>
+                    <tr>
+                      <th>Windfalls</th>
+                      <td>28.2</td>
+                    </tr>
+                    <tr>
+                      <th>Bruised</th>
+                      <td>-16.1</td>
+                    </tr>
+                    <tr>
+                      <th>Peelings</th>
+                      <td>-13.3</td>
+                    </tr>
+                    <tr>
+                      <th>Late pick</th>
+                      <td>4.9</td>
+                    </tr>
+                    <tr data-kind="total">
+                      <th>Pressed</th>
+                      <td>78.3</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.slow{--tablechart-duration:.9s;--tablechart-stagger:.22s}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-3">.slow {
+    --tablechart-duration: 0.9s;
+    --tablechart-stagger: 0.22s;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h4>That’s it!</h4>
+          <p>For all variables, see the <a href="https://martinomagnifico.github.io/tablechart/reference/variables.html">Tablechart documentation</a>.</p>
+        </section>
+      </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/tablechart/tablechart.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	center: true, controlsTutorial: false,
+      	plugins: [ Tablechart, RevealHighlight ]
+      });
+    </script>
+  </body>
+</html>

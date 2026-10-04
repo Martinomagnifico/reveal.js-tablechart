@@ -1,0 +1,99 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Line charts'
+
+block slides
+	include ../slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Line charts
+
+	section
+		h3 Line chart
+		p.small Each row is a point. The line builds from left to right.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'linebasic', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainsmall })
+
+	section
+		h3 Annotations
+		p.small Annotations work the same as in the other chart types.
+		+chart({ type: 'line', prefix: 'linetrend', title: 'Apples per tree', unit: 'each', rows: perTree })
+			.chart-annotations
+				span(data-annotation="trend" data-years="4" data-at="0.46")
+					span.tablechart-caption A year
+					span +12%
+
+	section
+		h3 Step by step
+		p.small Add #[code data-fragment] to the figure to show one point per step.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'linesteps', title: 'Apples per tree', unit: 'each', rows: perTreesmall, fragment: true })
+
+
+	section
+		h3 Several lines
+		p.small Each value column is a line. The column header is shown as the name at the end of the line.
+		.split
+			+example({ lines: '6-8' })
+				figure.tablechart(data-chart="line" data-chart-prefix="lineseries")
+					figcaption
+						b Apples per tree
+						br
+						span each
+					table
+						thead
+							tr
+								th Year
+								th North
+								th South
+						tbody
+							tr
+								th 2016
+								td 41
+								td 30
+							tr
+								th 2019
+								td 58
+								td 39
+							tr
+								th 2022
+								td 77
+								td 52
+							tr
+								th 2025
+								td 105
+								td 61
+
+
+	section
+		h3 Legend
+		p.small Add #[code data-chart-legend] to the figure to show the names in a legend under the chart, instead of at the end of the lines.
+		.split
+			+example({ lines: '1' })
+				figure.tablechart(data-chart="line" data-chart-prefix="linelegend" data-chart-legend)
+					figcaption
+						b Apples per tree
+						br
+						span each
+					table
+						thead
+							tr
+								th Year
+								th North
+								th South
+						tbody
+							each row, i in [['2016', 41, 30], ['2019', 58, 39], ['2022', 77, 52], ['2025', 105, 61]]
+								tr(data-code=(i === 1 || i === 2) ? 'skip' : false)
+									th= row[0]
+									td= row[1]
+									td= row[2]
+
+block append scripts
+	include ../slides/_init

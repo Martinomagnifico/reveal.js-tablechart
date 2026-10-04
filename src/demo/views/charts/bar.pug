@@ -1,0 +1,45 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Bar charts'
+
+block slides
+	include ../slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Bar charts
+
+	section
+		h3 Names beside the bars
+		p.small In a bar chart, the names are shown to the left of the bars. Use it when the names are long.
+		.split
+			+example({ lines: '7-8' })
+				+chart({ type: 'bar', prefix: 'barbasic', title: 'Picked by variety', unit: 'thousands', rows: varietiessmall, code: 2 })
+
+	section
+		h3 Numbers
+		p.small If a bar is long enough, its number is shown inside it. If not, the number is shown after the bar.
+		.narrow
+			+chart({ type: 'bar', prefix: 'barfit', title: 'Juice pressed by variety', unit: 'thousands of litres', rows: varieties })
+
+	section
+		h3 Grouped bars
+		p.small If the table has more than one value column, each row is a group of bars. The column headers are the names in the legend.
+		.split
+			+example({ lines: '6,8-10' })
+				+chart({ type: 'bar', prefix: 'bargroup', title: 'Apples sold by variety', unit: 'thousands', series: ['2022', '2026'], rows: sold })
+
+	section
+		h3 Step by step
+		p.small Add #[code data-fragment] to the figure to show one bar per step.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'bar', prefix: 'barsteps', title: 'Picked by variety', unit: 'thousands', rows: varietiessmall, fragment: true })
+
+
+block append scripts
+	include ../slides/_init

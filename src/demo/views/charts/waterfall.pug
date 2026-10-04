@@ -1,0 +1,39 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Waterfalls'
+
+block slides
+	include ../slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Waterfalls
+
+	section
+		h3 Steps and totals
+		p.small Rows with #[code data-kind="total"] start at the baseline. The other rows are steps up or down from the running total.
+		.split
+			+example({ lines: '1,3' })
+				+chart({ type: 'waterfall', prefix: 'wfbasic', title: 'What happened to the crop', unit: 'thousands of apples', rows: cropsmall, code: 'rows' })
+
+	section
+		h3 Totals are not calculated
+		p.small Tablechart shows the total you write. It does not add up the steps, so a rounded total stays as you wrote it.
+		+chart({ type: 'waterfall', prefix: 'wfshort', title: 'A shorter bridge', unit: 'thousands of apples', rows: stated })
+
+	section
+		h3 Numbers
+		p.small If a bar is tall enough, its number is shown inside it. If not, the number is shown next to it.
+		+chart({ type: 'waterfall', prefix: 'wfthin', title: 'Trees in the orchard', unit: 'thousands', rows: trees })
+
+	section
+		h3 Only rising steps
+		+chart({ type: 'waterfall', prefix: 'wfrising', title: 'Peelings, end to end', unit: 'kilometres', rows: peelings })
+
+
+block append scripts
+	include ../slides/_init

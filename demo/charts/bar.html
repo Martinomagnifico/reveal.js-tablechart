@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tablechart: Bar charts</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/black.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal"><a class="github-corner" href="https://github.com/martinomagnifico/reveal.js-tablechart" target="blank" title="View source on GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+          <path fill="currentColor" d="M27.5 11.2a16.3 16.3 0 0 0-5.1 31.7c.8.2 1.1-.3 1.1-.7v-2.8c-4.5 1-5.5-2.2-5.5-2.2-.7-1.9-1.8-2.4-1.8-2.4-1.5-1 .1-1 .1-1 1.6.1 2.5 1.7 2.5 1.7 1.5 2.5 3.8 1.8 4.7 1.4.2-1 .6-1.8 1-2.2-3.5-.4-7.3-1.8-7.3-8 0-1.8.6-3.3 1.6-4.4-.1-.5-.7-2.1.2-4.4 0 0 1.4-.4 4.5 1.7a15.6 15.6 0 0 1 8.1 0c3.1-2 4.5-1.7 4.5-1.7.9 2.3.3 4 .2 4.4 1 1 1.6 2.6 1.6 4.3 0 6.3-3.8 7.7-7.4 8 .6.6 1.1 1.6 1.1 3v4.6c0 .4.3.9 1.1.7a16.3 16.3 0 0 0-5.2-31.7"></path>
+        </svg></a>
+      <div class="slides">
+        <section class="title-slide">
+          <h1 class="title">Tablechart</h1>
+          <h3 class="subtitle">for Reveal.js: Bar charts</h3>
+        </section>
+        <section>
+          <h3>Names beside the bars</h3>
+          <p class="small">In a bar chart, the names are shown to the left of the bars. Use it when the names are long.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="bar" data-chart-keys="barbasic">
+              <figcaption><b>Picked by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Bramley seedling</th>
+                    <td>31.4</td>
+                  </tr>
+                  <tr>
+                    <th>Cox's orange pippin</th>
+                    <td>27.8</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>Egremont russet</th>
+                    <td>18.2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="7-8">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;bar&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Picked by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Bramley seedling&lt;/th&gt;&lt;td&gt;31.4&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Cox's orange pippin&lt;/th&gt;&lt;td&gt;27.8&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Numbers</h3>
+          <p class="small">If a bar is long enough, its number is shown inside it. If not, the number is shown after the bar.</p>
+          <div class="narrow">
+            <figure class="tablechart" data-chart="bar" data-chart-keys="barfit">
+              <figcaption><b>Juice pressed by variety</b><br/><span>thousands of litres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Bramley seedling</th>
+                    <td>31.4</td>
+                  </tr>
+                  <tr>
+                    <th>Cox's orange pippin</th>
+                    <td>27.8</td>
+                  </tr>
+                  <tr>
+                    <th>Egremont russet</th>
+                    <td>18.2</td>
+                  </tr>
+                  <tr>
+                    <th>Discovery</th>
+                    <td>12.6</td>
+                  </tr>
+                  <tr>
+                    <th>Worcester pearmain</th>
+                    <td>9.1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+          </div>
+        </section>
+        <section>
+          <h3>Grouped bars</h3>
+          <p class="small">If the table has more than one value column, each row is a group of bars. The column headers are the names in the legend.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="bar" data-chart-keys="bargroup">
+              <figcaption><b>Apples sold by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>2022</th>
+                    <th>2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Elstar</th>
+                    <td>118</td>
+                    <td>131</td>
+                  </tr>
+                  <tr>
+                    <th>Jonagold</th>
+                    <td>140</td>
+                    <td>135</td>
+                  </tr>
+                  <tr>
+                    <th>Braeburn</th>
+                    <td>109</td>
+                    <td>121</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="6,8-10">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;bar&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;2022&lt;/th&gt;&lt;th&gt;2026&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Elstar&lt;/th&gt;&lt;td&gt;118&lt;/td&gt;&lt;td&gt;131&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jonagold&lt;/th&gt;&lt;td&gt;140&lt;/td&gt;&lt;td&gt;135&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Braeburn&lt;/th&gt;&lt;td&gt;109&lt;/td&gt;&lt;td&gt;121&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Step by step</h3>
+          <p class="small">Add <code>data-fragment</code> to the figure to show one bar per step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="bar" data-chart-keys="barsteps" data-fragment="">
+              <figcaption><b>Picked by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Bramley seedling</th>
+                    <td>31.4</td>
+                  </tr>
+                  <tr>
+                    <th>Cox's orange pippin</th>
+                    <td>27.8</td>
+                  </tr>
+                  <tr>
+                    <th>Egremont russet</th>
+                    <td>18.2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;bar&quot; data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Picked by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Bramley seedling&lt;/th&gt;&lt;td&gt;31.4&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Cox's orange pippin&lt;/th&gt;&lt;td&gt;27.8&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Egremont russet&lt;/th&gt;&lt;td&gt;18.2&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/tablechart/tablechart.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	center: true, controlsTutorial: false,
+      	plugins: [ Tablechart, RevealHighlight ]
+      });
+    </script>
+  </body>
+</html>

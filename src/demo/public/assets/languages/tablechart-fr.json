@@ -1,0 +1,18 @@
+{
+  "slides": {
+    "harvest": {
+      "title": "Traduire un graphique",
+      "lede": "Internation traduit les noms d'un graphique comme tout autre texte de la diapositive. Les nombres sont mis en forme pour la langue choisie.",
+      "caption": "Pépins par fruit",
+      "unit": "par fruit",
+      "intl-row1": "Pommes",
+      "intl-row2": "Oranges",
+      "intl-row3": "Citrons",
+      "chooser": "Langue"
+    },
+    "harvestcode": {
+      "title": "Balisage",
+      "lede": "Ajoutez data-chart-keys à la figure. Tablechart ajoute alors des clés de traduction aux lignes avant le démarrage de Reveal, pour qu'Internation puisse les trouver."
+    }
+  }
+}

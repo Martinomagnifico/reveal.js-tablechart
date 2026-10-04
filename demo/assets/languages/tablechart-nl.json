@@ -1,0 +1,18 @@
+{
+  "slides": {
+    "harvest": {
+      "title": "Een grafiek vertalen",
+      "lede": "Internation vertaalt de namen in een grafiek zoals alle andere tekst op de dia. Getallen worden opgemaakt voor de gekozen taal.",
+      "caption": "Pitten per vrucht",
+      "unit": "per stuk",
+      "intl-row1": "Appels",
+      "intl-row2": "Sinaasappels",
+      "intl-row3": "Citroenen",
+      "chooser": "Taal"
+    },
+    "harvestcode": {
+      "title": "Opmaak",
+      "lede": "Voeg data-chart-keys toe aan de figure. Tablechart zet dan vertaalsleutels op de rijen voordat Reveal start, zodat Internation ze kan vinden."
+    }
+  }
+}

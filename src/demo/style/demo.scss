@@ -1,0 +1,325 @@
+@use "includes/_base";
+@use "includes/_indexpage";
+
+// Demo styling only. None of this is the plugin: it is a deck making choices,
+// which is the point — Tablechart names no colour of its own.
+//
+// The deck is the dark blue the other plugins' demos use, because that is what
+// these decks look like. One page turns the whole thing white, to show that the
+// charts follow the slide rather than the other way round.
+
+// A chart on a slide of its own needs no frame: the slide is the frame. Paired
+// with the markup that made it, it becomes one of two panels — see `.split`.
+
+
+// Type, layout and code come from the base the other plugins' demos share, in
+// `includes/`. What follows is this deck's own.
+
+// The dark blue, and the palette picked for it. Not on a page that asked for
+// another theme: the background is a variable on the root, so this is where a
+// page has to be let alone rather than overridden further down.
+:root:not(.onwhite) {
+	--r-background-color: #051525;
+	--r-link-color: #3399ff;
+	--r-link-color-hover: #aaddff;
+
+	--demo-ink: #e7eef3;
+	--demo-muted: #8ea6b4;
+	--demo-surface: #051525;
+
+	--tablechart-bar-color: #4f9fd0;
+	--tablechart-up-color: #4f9fd0;
+	--tablechart-down-color: #46bda4;
+	--tablechart-total-color: #7d95a6;
+	--tablechart-up-ink: #051525;
+	--tablechart-down-ink: #051525;
+	--tablechart-total-ink: #051525;
+
+	--r-main-color: var(--demo-ink);
+	--r-heading-color: #ffffff;
+}
+
+// The one page that turns it around: reveal's own white theme, whose background
+// is now left where it is, and the palette this deck used to wear. Nothing in the
+// plugin changes — every mark is currentColor unless a variable says otherwise.
+:root.onwhite {
+	--demo-ink: #16323f;
+	--demo-muted: #5d7480;
+	--demo-surface: #ffffff;
+
+	--tablechart-bar-color: #2f6f8f;
+	--tablechart-up-color: #2f6f8f;
+	// Darker than it was: a number read on this is white, and the old #3f9c8f gave
+	// it 3.3:1. This clears AA at 4.9:1 without leaving the family.
+	--tablechart-down-color: #2b7d70;
+	--tablechart-total-color: #9fb3bd;
+	--tablechart-up-ink: #ffffff;
+	--tablechart-down-ink: #ffffff;
+	--tablechart-total-ink: #16323f;
+
+	--r-main-color: var(--demo-ink);
+	--r-heading-color: var(--demo-ink);
+	--r-link-color: #2f6f8f;
+	// The shared base sets the dark blue on every page; this one keeps the theme's.
+	--r-background-color: #ffffff;
+}
+
+// The front page: what this is, and three charts saying it at once.
+.reveal .title-slide {
+	text-align: center;
+
+	.title {
+		font-size: 2.6em;
+		font-weight: 600;
+		margin: 0;
+		letter-spacing: -0.02em;
+	}
+
+	.subtitle {
+		font-size: 1.1em;
+		font-weight: 400;
+		margin: 0.1em 0 1.2em;
+		text-transform: none;
+	}
+
+	.hero {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		align-items: center;
+		gap: 1em;
+		margin: 0.6em auto 0;
+		width: 66%;
+		opacity: 0.92;
+
+		.tablechart { font-size: 0.4em; }
+		
+	}
+
+	.tablechart {
+		border: 1px solid color-mix(in oklab, currentColor 25%, transparent);
+		padding: 1em;
+		border-radius: 1rem;
+	}
+
+}
+
+// The corner the other demos wear.
+a.github-corner {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+	line-height: 0;
+	color: var(--r-heading-color);
+	opacity: 0.4;
+	transition: opacity 0.3s;
+
+	&:hover { opacity: 0.8; }
+
+	// The same size the other demos' corners are. It is in `.reveal` rather than
+	// in `.slides`, so the deck's scale does not touch it: this is what it is.
+	svg {
+		width: 84px;
+		height: 84px;
+	}
+
+	.reveal.embedded &,
+	.reveal-viewport.reveal-scroll & { display: none; }
+}
+
+.reveal {
+	color: var(--demo-ink);
+	// One text size for every chart in the demos, wherever it is on the slide.
+	--tablechart-font-size: 0.5em;
+
+	// Centred, like the other plugins' decks. The chart's own caption stays left.
+	.slides section {
+		text-align: center;
+	}
+
+	// A chart on its own on a slide is 80% wide, so it fits under the title and text.
+	.slides section > .tablechart,
+	.slides section > .plain {
+		max-width: 80%;
+		margin: 0 auto;
+	}
+
+	p.muted { color: var(--demo-muted); }
+
+	// Markdown has no way to put a class on a paragraph with code in it, so the
+	// paragraphs on the Markdown demo's slides get the size of p.small here.
+	.slides section[data-markdown-parsed]:not(:has(> h4)) > p {
+		font-size: calc(0.7 * var(--r-main-font-size));
+	}
+}
+
+
+.tablechart {
+	// No height of its own: a grid item with one stops contributing its content to
+	// the row, and the row is then sized by the example beside it while the chart
+	// spills out of it. Stretching is what makes the two the same height anyway.
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0;
+	padding: 1.6em;
+	// Follows the slide rather than naming white: on the page that turns around,
+	// a white line at a quarter opacity is nothing at all.
+	border: 1px solid color-mix(in oklab, currentColor 25%, transparent);
+	border-radius: 1rem;
+}
+
+
+// A chart and the markup that made it, side by side. The chart gives up the width
+// and with it some height, which is the trade: the example is worth seeing.
+// A chart and the markup that made it, as two panels of one size. Both stretch to
+// the taller of them, so the pair reads as a pair rather than as a chart with a
+// note beside it.
+
+.split {
+	display: grid;
+	// The second track may shrink below the width of what is in it, so a long line
+	// in an example wraps rather than taking the slide over.
+	grid-template-columns: 1fr minmax(0, 1fr);
+	align-items: stretch;
+	gap: 1.4em;
+	text-align: left;
+
+	> * { min-width: 0; }
+
+	// The markup that made the chart beside it. Small, because the chart is the
+	// point and the example is the footnote.
+	pre {
+		height: 100%;
+		margin: 0;
+		text-align: left;
+		font-size: 0.42em;
+		line-height: 1.45;
+		box-shadow: none;
+
+		code {
+			display: block;
+			height: 100%;
+			box-sizing: border-box;
+			padding: 0.9em 1.1em;
+			border-radius: 0.3em;
+			// No scrolling and no clipping: an example that does not fit on the slide is
+			// an example that is too long for one.
+			max-height: none;
+			overflow: visible;
+		}
+
+		// Only the code may break mid-word to fit; a line number stays whole.
+		.hljs-ln-code { overflow-wrap: anywhere; }
+		.hljs-ln-numbers { white-space: nowrap; }
+
+		// A line too long for its panel wraps rather than running out of it. Named
+		// with the theme's own class, which keeps every line on one otherwise.
+		&.code-wrapper code {
+			white-space: pre-wrap;
+		}
+	}
+
+	// Two examples in one panel share its height rather than each taking all of it.
+	.stack {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6em;
+
+		pre {
+			flex: 1 1 auto;
+			height: auto;
+		}
+	}
+}
+
+
+
+// A slide that turns the background around within a deck. Tablechart follows it
+// without being told: every mark is currentColor unless a variable says otherwise.
+.reveal .has-light-background {
+	--tablechart-bar-color: #16323f;
+	--tablechart-up-color: #16323f;
+	--tablechart-down-color: #2b7d70;
+	--tablechart-total-color: #9fb3bd;
+	--tablechart-up-ink: #f3efe9;
+	--tablechart-down-ink: #f3efe9;
+	--tablechart-total-ink: #16323f;
+	--tablechart-surface: #f3efe9;
+
+	color: #16323f;
+
+	h1, h2 { color: #16323f; }
+	p { color: #41606d; }
+}
+
+// Small multiples. The grid belongs to the deck; a chart fills the box it is given.
+.panels {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.2em 1.6em;
+}
+
+// The Default slide in demo-branding.pug: no colours from this demo.
+.plain {
+	--tablechart-bar-color: initial;
+	--tablechart-up-color: initial;
+	--tablechart-down-color: initial;
+	--tablechart-total-color: initial;
+	--tablechart-up-ink: initial;
+	--tablechart-down-ink: initial;
+	--tablechart-total-ink: initial;
+}
+
+
+// A donut on its own on a slide.
+.ring {
+	max-width: 44%;
+	margin: 0 auto;
+}
+
+// A chart that shares its slide with more than a title.
+.narrow {
+	max-width: 64%;
+	margin: 0 auto;
+}
+
+
+
+// The two columns of a list start at the same height: a list item has padding
+// rather than a margin, which a column break would drop.
+.reveal .slides ol.twocol li {
+	margin: 0;
+	padding-block: 0.2em;
+	break-inside: avoid;
+}
+
+// The language chooser in the Internation demo: one button per language, and the
+// chosen one filled. Internation hides the radio buttons and keeps them focusable.
+.reveal .langchooser {
+	gap: 0.4em;
+	margin-bottom: 0.8em;
+	font-size: 0.6em;
+
+	label {
+		cursor: pointer;
+	}
+
+	span {
+		display: inline-block;
+		padding: 0.3em 1em;
+		border: 1px solid color-mix(in oklab, currentColor 40%, transparent);
+		border-radius: 0.4em;
+		transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+	}
+
+	label:hover span {
+		border-color: currentColor;
+	}
+
+	input:checked + span {
+		background: var(--r-link-color);
+		border-color: var(--r-link-color);
+		color: var(--r-background-color);
+	}
+}

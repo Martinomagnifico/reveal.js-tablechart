@@ -1,0 +1,42 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart: White theme'
+	//- The only page here that is not on the deck's dark blue: reveal's own white
+	//- theme, and a palette to go with it. Nothing in the plugin changes.
+	- deck.theme = 'white'
+	- deck.class = 'onwhite'
+
+block slides
+	include slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: White theme
+
+	section
+		h3 Columns
+		+chart({ prefix: 'whcol', title: 'Apples picked', unit: 'thousands', rows: picked })
+
+	section
+		h3 A waterfall
+		+chart({ type: 'waterfall', prefix: 'whwf', title: 'What happened to the crop', unit: 'thousands of apples', rows: crop })
+
+	section
+		h3 A donut
+		.ring
+			+chart({ type: 'donut', prefix: 'whdo', title: 'Where the crop went', unit: 'thousands of apples', rows: wentwhere })
+
+	section
+		h3 With annotations
+		+chart({ prefix: 'whtrend', title: 'Apples per tree', unit: 'each', rows: perTree })
+			.chart-annotations
+				span(data-annotation="trend" data-years="4" data-at="0.46")
+					span.tablechart-caption A year
+					span +12%
+
+
+block append scripts
+	include slides/_init

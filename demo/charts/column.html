@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tablechart: Column charts</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/black.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal"><a class="github-corner" href="https://github.com/martinomagnifico/reveal.js-tablechart" target="blank" title="View source on GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+          <path fill="currentColor" d="M27.5 11.2a16.3 16.3 0 0 0-5.1 31.7c.8.2 1.1-.3 1.1-.7v-2.8c-4.5 1-5.5-2.2-5.5-2.2-.7-1.9-1.8-2.4-1.8-2.4-1.5-1 .1-1 .1-1 1.6.1 2.5 1.7 2.5 1.7 1.5 2.5 3.8 1.8 4.7 1.4.2-1 .6-1.8 1-2.2-3.5-.4-7.3-1.8-7.3-8 0-1.8.6-3.3 1.6-4.4-.1-.5-.7-2.1.2-4.4 0 0 1.4-.4 4.5 1.7a15.6 15.6 0 0 1 8.1 0c3.1-2 4.5-1.7 4.5-1.7.9 2.3.3 4 .2 4.4 1 1 1.6 2.6 1.6 4.3 0 6.3-3.8 7.7-7.4 8 .6.6 1.1 1.6 1.1 3v4.6c0 .4.3.9 1.1.7a16.3 16.3 0 0 0-5.2-31.7"></path>
+        </svg></a>
+      <div class="slides">
+        <section class="title-slide">
+          <h1 class="title">Tablechart</h1>
+          <h3 class="subtitle">for Reveal.js: Column charts</h3>
+        </section>
+        <section>
+          <h3>Column chart</h3>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colbasic">
+              <figcaption><b>Apples picked</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Spring</th>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>Summer</th>
+                    <td>72</td>
+                  </tr>
+                  <tr>
+                    <th>Autumn</th>
+                    <td>70</td>
+                  </tr>
+                  <tr>
+                    <th>Winter</th>
+                    <td>91</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="7-10">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples picked&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Spring&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Summer&lt;/th&gt;&lt;td&gt;72&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Autumn&lt;/th&gt;&lt;td&gt;70&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Winter&lt;/th&gt;&lt;td&gt;91&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>More rows</h3>
+          <p class="small">Add more rows to the table. The columns get narrower to fit.</p>
+          <figure class="tablechart" data-chart="column" data-chart-keys="colyears">
+            <figcaption><b>Apples per tree</b><br/><span>each</span>
+            </figcaption>
+            <table>
+              <tbody>
+                <tr>
+                  <th>2021</th>
+                  <td>74</td>
+                </tr>
+                <tr>
+                  <th>2022</th>
+                  <td>80</td>
+                </tr>
+                <tr>
+                  <th>2023</th>
+                  <td>91</td>
+                </tr>
+                <tr>
+                  <th>2024</th>
+                  <td>102</td>
+                </tr>
+                <tr>
+                  <th>2025</th>
+                  <td>116</td>
+                </tr>
+              </tbody>
+            </table>
+          </figure>
+        </section>
+        <section>
+          <h3>Decimals</h3>
+          <p class="small">Numbers are shown with the decimals you write, so 1.0 stays 1.0. The decimal separator follows the language of the document.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="coldecimals">
+              <figcaption><b>Seeds per fruit</b><br/><span>each</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-code="only">
+                    <th>Apples</th>
+                    <td>8.2</td>
+                  </tr>
+                  <tr data-code="only">
+                    <th>Oranges</th>
+                    <td>10.0</td>
+                  </tr>
+                  <tr data-code="only">
+                    <th>Lemons</th>
+                    <td>6.5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="2">&lt;tr&gt;&lt;th&gt;Apples&lt;/th&gt;&lt;td&gt;8.2&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th&gt;Oranges&lt;/th&gt;&lt;td&gt;10.0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th&gt;Lemons&lt;/th&gt;&lt;td&gt;6.5&lt;/td&gt;&lt;/tr&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Grouped columns</h3>
+          <p class="small">If the table has more than one value column, each row is a group. The column headers are the names in the legend.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colgroup">
+              <figcaption><b>Apples sold by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>2022</th>
+                    <th>2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Elstar</th>
+                    <td>118</td>
+                    <td>131</td>
+                  </tr>
+                  <tr>
+                    <th>Jonagold</th>
+                    <td>140</td>
+                    <td>135</td>
+                  </tr>
+                  <tr>
+                    <th>Braeburn</th>
+                    <td>109</td>
+                    <td>121</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="6,8-10">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;2022&lt;/th&gt;&lt;th&gt;2026&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Elstar&lt;/th&gt;&lt;td&gt;118&lt;/td&gt;&lt;td&gt;131&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jonagold&lt;/th&gt;&lt;td&gt;140&lt;/td&gt;&lt;td&gt;135&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Braeburn&lt;/th&gt;&lt;td&gt;109&lt;/td&gt;&lt;td&gt;121&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Stacked columns</h3>
+          <p class="small">Add <code>data-chart-stack</code> to the figure. The values of a row are on top of each other, with the total above.</p>
+          <div class="narrow">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colstack" data-chart-stack="">
+              <figcaption><b>Apples sold</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Farm shop</th>
+                    <th>Market</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2023</th>
+                    <td>64</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td>71</td>
+                    <td>45</td>
+                  </tr>
+                  <tr>
+                    <th>2025</th>
+                    <td>69</td>
+                    <td>57</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+          </div>
+        </section>
+        <section>
+          <h3>Step by step</h3>
+          <p class="small">Add <code>data-fragment</code> to a row to show it on a step. Rows with the same <code>data-fragment-index</code> appear together.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colgroves">
+              <figcaption><b>Picked by grove</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-fragment="" data-fragment-index="1" data-code="only">
+                    <th>Apples, north</th>
+                    <td>58</td>
+                  </tr>
+                  <tr data-fragment="" data-fragment-index="1" data-code="only">
+                    <th>Oranges, north</th>
+                    <td>72</td>
+                  </tr>
+                  <tr data-fragment="" data-fragment-index="2" data-code="only">
+                    <th>Apples, south</th>
+                    <td>70</td>
+                  </tr>
+                  <tr data-fragment="" data-fragment-index="2" data-code="only">
+                    <th>Oranges, south</th>
+                    <td>91</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1,5,9,13">&lt;tr data-fragment data-fragment-index=&quot;1&quot;&gt;
+  &lt;th&gt;Apples, north&lt;/th&gt;
+  &lt;td&gt;58&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr data-fragment data-fragment-index=&quot;1&quot;&gt;
+  &lt;th&gt;Oranges, north&lt;/th&gt;
+  &lt;td&gt;72&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr data-fragment data-fragment-index=&quot;2&quot;&gt;
+  &lt;th&gt;Apples, south&lt;/th&gt;
+  &lt;td&gt;70&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr data-fragment data-fragment-index=&quot;2&quot;&gt;
+  &lt;th&gt;Oranges, south&lt;/th&gt;
+  &lt;td&gt;91&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Break the scale</h3>
+          <p class="small">If one value is much larger than the others, add an <code>axis-break</code> annotation. Above the break, bar heights are not to scale, so every bar shows its number.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colbreak">
+              <figcaption><b>Apples picked by orchard</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>North</th>
+                    <td>12.4</td>
+                  </tr>
+                  <tr>
+                    <th>South</th>
+                    <td>9.8</td>
+                  </tr>
+                  <tr>
+                    <th>East</th>
+                    <td>14.1</td>
+                  </tr>
+                  <tr>
+                    <th>The old grove</th>
+                    <td>168.5</td>
+                  </tr>
+                  <tr>
+                    <th>West</th>
+                    <td>11.2</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="chart-annotations" data-code="only"><span data-annotation="axis-break" data-at="20"></span></div>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="2">&lt;div class=&quot;chart-annotations&quot;&gt;
+  &lt;span data-annotation=&quot;axis-break&quot; data-at=&quot;20&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Several charts on a slide</h3>
+          <p class="small">A chart fills the width of its container. To place several charts, use your own grid.</p>
+          <div class="panels">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colp1">
+              <figcaption><b>Apple juice</b><br/><span>thousands of litres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Last season</th>
+                    <td>251.5</td>
+                  </tr>
+                  <tr>
+                    <th>This season</th>
+                    <td>279.6</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <figure class="tablechart" data-chart="column" data-chart-keys="colp2">
+              <figcaption><b>Orange juice</b><br/><span>thousands of litres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Last season</th>
+                    <td>92.2</td>
+                  </tr>
+                  <tr>
+                    <th>This season</th>
+                    <td>76.1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <figure class="tablechart" data-chart="column" data-chart-keys="colp3">
+              <figcaption><b>Lemon juice</b><br/><span>thousands of litres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Last season</th>
+                    <td>248.2</td>
+                  </tr>
+                  <tr>
+                    <th>This season</th>
+                    <td>261.6</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/tablechart/tablechart.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	center: true, controlsTutorial: false,
+      	plugins: [ Tablechart, RevealHighlight ]
+      });
+    </script>
+  </body>
+</html>

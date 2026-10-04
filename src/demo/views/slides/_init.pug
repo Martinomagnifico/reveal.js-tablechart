@@ -1,0 +1,18 @@
+//- The same start-up for every demo page, so a page only has to say what it shows.
+if process.env.NODE_ENV === 'production'
+	script(src=`${base}plugin/${plugin.name}/${plugin.name}.js`)
+	script.
+		Reveal.initialize({
+			margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+			center: true, controlsTutorial: false,
+			plugins: [ Tablechart, RevealHighlight ]
+		});
+else
+	script(type="module").
+		import Tablechart from '@/plugin/js/index';
+		Reveal.initialize({
+			margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+			center: true, controlsTutorial: false, history: true,
+			plugins: [ Tablechart, RevealHighlight ],
+			tablechart: { debug: true }
+		});

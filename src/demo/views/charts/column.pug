@@ -1,0 +1,73 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Column charts'
+
+block slides
+	include ../slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Column charts
+
+	section
+		h3 Column chart
+		.split
+			+example({ lines: '7-10' })
+				+chart({ prefix: 'colbasic', title: 'Apples picked', unit: 'thousands', rows: picked })
+
+	section
+		h3 More rows
+		p.small Add more rows to the table. The columns get narrower to fit.
+		+chart({ prefix: 'colyears', title: 'Apples per tree', unit: 'each', rows: perTree })
+
+	section
+		h3 Decimals
+		p.small Numbers are shown with the decimals you write, so 1.0 stays 1.0. The decimal separator follows the language of the document.
+		.split
+			+example({ lines: '2' })
+				+chart({ prefix: 'coldecimals', title: 'Seeds per fruit', unit: 'each', rows: seeds, code: 'rows' })
+
+	section
+		h3 Grouped columns
+		p.small If the table has more than one value column, each row is a group. The column headers are the names in the legend.
+		.split
+			+example({ lines: '6,8-10' })
+				+chart({ prefix: 'colgroup', title: 'Apples sold by variety', unit: 'thousands', series: ['2022', '2026'], rows: sold })
+
+	section
+		h3 Stacked columns
+		p.small Add #[code data-chart-stack] to the figure. The values of a row are on top of each other, with the total above.
+		.narrow
+			+chart({ prefix: 'colstack', stack: true, title: 'Apples sold', unit: 'thousands', series: ['Farm shop', 'Market'], rows: soldBy })
+
+	section
+		h3 Step by step
+		p.small Add #[code data-fragment] to a row to show it on a step. Rows with the same #[code data-fragment-index] appear together.
+		.split
+			+example({ lines: '1,5,9,13' })
+				+chart({ prefix: 'colgroves', title: 'Picked by grove', unit: 'thousands', rows: groves, code: 'rows' })
+
+	section
+		h3 Break the scale
+		p.small If one value is much larger than the others, add an #[code axis-break] annotation. Above the break, bar heights are not to scale, so every bar shows its number.
+		.split
+			+example({ lines: '2' })
+				+chart({ prefix: 'colbreak', title: 'Apples picked by orchard', unit: 'thousands', rows: orchards })
+					.chart-annotations(data-code="only")
+						span(data-annotation="axis-break" data-at="20")
+
+	section
+		h3 Several charts on a slide
+		p.small A chart fills the width of its container. To place several charts, use your own grid.
+		.panels
+			+chart({ prefix: 'colp1', title: 'Apple juice', unit: 'thousands of litres', rows: applejuice })
+			+chart({ prefix: 'colp2', title: 'Orange juice', unit: 'thousands of litres', rows: orangejuice })
+			+chart({ prefix: 'colp3', title: 'Lemon juice', unit: 'thousands of litres', rows: lemonjuice })
+
+
+block append scripts
+	include ../slides/_init

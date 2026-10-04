@@ -1,0 +1,30 @@
+extends templates/layouts/_reveal.pug
+
+append variables
+	- presentation.title = 'Tablechart: Using Markdown'
+
+block slides
+	section(data-markdown="markdown.md" data-separator="^\r?\n---\r?\n" data-separator-vertical="^\r?\n----\r?\n" data-charset="utf-8")
+
+block append scripts
+	+revealsrc("script", "plugin/markdown/markdown.js")
+
+	//- Markdown first: Reveal starts its plugins one after the other, so the slides
+	//- are written out before Tablechart looks for charts in them.
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				center: true, controlsTutorial: false,
+				plugins: [ RevealMarkdown, Tablechart, RevealHighlight ]
+			});
+	else
+		script(type="module").
+			import Tablechart from '@/plugin/js/index';
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				center: true, controlsTutorial: false, history: true,
+				plugins: [ RevealMarkdown, Tablechart, RevealHighlight ],
+				tablechart: { debug: true }
+			});

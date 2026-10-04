@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tablechart: Line charts</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/black.css">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal"><a class="github-corner" href="https://github.com/martinomagnifico/reveal.js-tablechart" target="blank" title="View source on GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+          <path fill="currentColor" d="M27.5 11.2a16.3 16.3 0 0 0-5.1 31.7c.8.2 1.1-.3 1.1-.7v-2.8c-4.5 1-5.5-2.2-5.5-2.2-.7-1.9-1.8-2.4-1.8-2.4-1.5-1 .1-1 .1-1 1.6.1 2.5 1.7 2.5 1.7 1.5 2.5 3.8 1.8 4.7 1.4.2-1 .6-1.8 1-2.2-3.5-.4-7.3-1.8-7.3-8 0-1.8.6-3.3 1.6-4.4-.1-.5-.7-2.1.2-4.4 0 0 1.4-.4 4.5 1.7a15.6 15.6 0 0 1 8.1 0c3.1-2 4.5-1.7 4.5-1.7.9 2.3.3 4 .2 4.4 1 1 1.6 2.6 1.6 4.3 0 6.3-3.8 7.7-7.4 8 .6.6 1.1 1.6 1.1 3v4.6c0 .4.3.9 1.1.7a16.3 16.3 0 0 0-5.2-31.7"></path>
+        </svg></a>
+      <div class="slides">
+        <section class="title-slide">
+          <h1 class="title">Tablechart</h1>
+          <h3 class="subtitle">for Reveal.js: Line charts</h3>
+        </section>
+        <section>
+          <h3>Line chart</h3>
+          <p class="small">Each row is a point. The line builds from left to right.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-keys="linebasic">
+              <figcaption><b>Rainfall at the orchard</b><br/><span>millimetres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Jan</th>
+                    <td>88</td>
+                  </tr>
+                  <tr>
+                    <th>Feb</th>
+                    <td>74</td>
+                  </tr>
+                  <tr>
+                    <th>Mar</th>
+                    <td>61</td>
+                  </tr>
+                  <tr>
+                    <th>Apr</th>
+                    <td>49</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Rainfall at the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;millimetres&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Jan&lt;/th&gt;&lt;td&gt;88&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Feb&lt;/th&gt;&lt;td&gt;74&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Mar&lt;/th&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Apr&lt;/th&gt;&lt;td&gt;49&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Annotations</h3>
+          <p class="small">Annotations work the same as in the other chart types.</p>
+          <figure class="tablechart" data-chart="line" data-chart-keys="linetrend">
+            <figcaption><b>Apples per tree</b><br/><span>each</span>
+            </figcaption>
+            <table>
+              <tbody>
+                <tr>
+                  <th>2021</th>
+                  <td>74</td>
+                </tr>
+                <tr>
+                  <th>2022</th>
+                  <td>80</td>
+                </tr>
+                <tr>
+                  <th>2023</th>
+                  <td>91</td>
+                </tr>
+                <tr>
+                  <th>2024</th>
+                  <td>102</td>
+                </tr>
+                <tr>
+                  <th>2025</th>
+                  <td>116</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="chart-annotations"><span data-annotation="trend" data-years="4" data-at="0.46"><span class="tablechart-caption">A year</span><span>+12%</span></span></div>
+          </figure>
+        </section>
+        <section>
+          <h3>Step by step</h3>
+          <p class="small">Add <code>data-fragment</code> to the figure to show one point per step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-keys="linesteps" data-fragment="">
+              <figcaption><b>Apples per tree</b><br/><span>each</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>2022</th>
+                    <td>91</td>
+                  </tr>
+                  <tr>
+                    <th>2023</th>
+                    <td>102</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td>116</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot; data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples per tree&lt;/b&gt;&lt;br&gt;&lt;span&gt;each&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;91&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;102&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;116&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Several lines</h3>
+          <p class="small">Each value column is a line. The column header is shown as the name at the end of the line.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-prefix="lineseries">
+              <figcaption><b>Apples per tree</b><br><span>each</span></figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>North</th>
+                    <th>South</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2016</th>
+                    <td>41</td>
+                    <td>30</td>
+                  </tr>
+                  <tr>
+                    <th>2019</th>
+                    <td>58</td>
+                    <td>39</td>
+                  </tr>
+                  <tr>
+                    <th>2022</th>
+                    <td>77</td>
+                    <td>52</td>
+                  </tr>
+                  <tr>
+                    <th>2025</th>
+                    <td>105</td>
+                    <td>61</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="6-8">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot; data-chart-prefix=&quot;lineseries&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples per tree&lt;/b&gt;&lt;br&gt;&lt;span&gt;each&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;Year&lt;/th&gt;&lt;th&gt;North&lt;/th&gt;&lt;th&gt;South&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2016&lt;/th&gt;&lt;td&gt;41&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2019&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;td&gt;39&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;77&lt;/td&gt;&lt;td&gt;52&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;105&lt;/td&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Legend</h3>
+          <p class="small">Add <code>data-chart-legend</code> to the figure to show the names in a legend under the chart, instead of at the end of the lines.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-prefix="linelegend" data-chart-legend>
+              <figcaption><b>Apples per tree</b><br><span>each</span></figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>North</th>
+                    <th>South</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2016</th>
+                    <td>41</td>
+                    <td>30</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2019</th>
+                    <td>58</td>
+                    <td>39</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2022</th>
+                    <td>77</td>
+                    <td>52</td>
+                  </tr>
+                  <tr>
+                    <th>2025</th>
+                    <td>105</td>
+                    <td>61</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot; data-chart-prefix=&quot;linelegend&quot; data-chart-legend&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples per tree&lt;/b&gt;&lt;br&gt;&lt;span&gt;each&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;Year&lt;/th&gt;&lt;th&gt;North&lt;/th&gt;&lt;th&gt;South&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2016&lt;/th&gt;&lt;td&gt;41&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+      …
+      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;105&lt;/td&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/tablechart/tablechart.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	center: true, controlsTutorial: false,
+      	plugins: [ Tablechart, RevealHighlight ]
+      });
+    </script>
+  </body>
+</html>

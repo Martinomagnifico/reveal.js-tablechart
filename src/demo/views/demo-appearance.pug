@@ -1,0 +1,86 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart: Appearance'
+
+block slides
+	include slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Appearance
+
+	section
+		h3 One panel at a time
+		p.small If a chart is inside a fragment, it builds when that fragment appears. Here, Appearance animates the fragments.
+		.panels
+			.fragment.animate__fadeInUp
+				+chart({ prefix: 'apapple', title: 'Apple juice', unit: 'thousands of litres', rows: applejuice })
+			.fragment.animate__fadeInUp
+				+chart({ prefix: 'aporange', title: 'Orange juice', unit: 'thousands of litres', rows: orangejuice })
+			.fragment.animate__fadeInUp
+				+chart({ prefix: 'aplemon', title: 'Lemon juice', unit: 'thousands of litres', rows: lemonjuice })
+
+
+	section
+		h3 Just staggered, no fragments
+
+		.panels
+			.animate__fadeInUp
+				+chart({ prefix: 'apapple', title: 'Apple juice', unit: 'thousands of litres', rows: applejuice })
+			.animate__fadeInUp
+				+chart({ prefix: 'aporange', title: 'Orange juice', unit: 'thousands of litres', rows: orangejuice })
+			.animate__fadeInUp
+				+chart({ prefix: 'aplemon', title: 'Lemon juice', unit: 'thousands of litres', rows: lemonjuice })
+
+
+	section
+		h3 Markup
+		p.small Put each figure inside a fragment with an Appearance class. No other settings are needed.
+		.split
+			+code('html', `<div class="panels">
+  <div class="fragment animate__fadeInUp">
+    <figure class="tablechart">…</figure>
+  </div>
+  <div class="fragment animate__fadeInUp">
+    <figure class="tablechart">…</figure>
+  </div>
+</div>`, '2,5')
+			+code('js', `Reveal.initialize({
+  plugins: [ Tablechart, Appearance ]
+});`, '2')
+
+
+block append scripts
+	script(src="plugin/appearance/appearance.js")
+
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				center: true, controlsTutorial: false, history: true,
+				// A fragment in the URL makes Reveal centre the slide again while a
+				// panel is still sliding up, and the title jumps.
+				fragmentInURL: false,
+				plugins: [ Tablechart, Appearance, RevealHighlight ],
+				appearance: {
+					hideagain: true
+				}
+			});
+	else
+		script(type="module").
+			import Tablechart from '@/plugin/js/index';
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				center: true, controlsTutorial: false, history: true,
+				// A fragment in the URL makes Reveal centre the slide again while a
+				// panel is still sliding up, and the title jumps.
+				fragmentInURL: false,
+				plugins: [ Tablechart, Appearance, RevealHighlight ],
+				appearance: {
+					hideagain: true
+				}
+			});

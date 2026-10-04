@@ -1,0 +1,44 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Donuts'
+
+block slides
+	include ../slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Donuts
+
+	section
+		h3 Donut chart
+		p.small Each row is a slice. The slices start at the top and go clockwise, in the order of the table.
+		.split
+			+example({ lines: '8' })
+				+chart({ type: 'donut', prefix: 'dobasic', title: 'Where the crop went', unit: 'thousands of apples', rows: wentwheresmall, aspect: 0.55 })
+
+	section
+		h3 The number in the middle
+		p.small If a row has #[code data-kind="total"], its value is shown in the middle. If there is no total row, the middle shows the sum of the slices.
+		.ring
+			+chart({ type: 'donut', prefix: 'dototal', title: 'Where the crop went', unit: 'thousands of apples', rows: wentwhere })
+
+	section
+		h3 Colours
+		p.small By default, all slices use the text colour, each one a bit lighter. To set your own colours, set #[code --tablechart-color-1], #[code -2] and on.
+		.split
+			.donutpalette
+				+chart({ type: 'donut', prefix: 'docolour', title: 'Given a palette', unit: 'thousands of apples', rows: wentwheresmall, aspect: 0.55 })
+			+style('2-4').
+				.donutpalette {
+					--tablechart-color-1: #b4552d;
+					--tablechart-color-2: #d69a52;
+					--tablechart-color-3: #7fa87f;
+				}
+
+
+block append scripts
+	include ../slides/_init

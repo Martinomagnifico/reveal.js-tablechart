@@ -1,0 +1,16 @@
+include ../includes/_mixins
+
+block variables
+	- let page = {title: "Title", language: "en", author: "Author"}
+	//- A page may take a theme and a class of its own: most of this demo is on the
+	//- deck's own dark blue, and one page shows the same charts on white.
+	- let deck = {theme: presentation.theme, class: ""}
+	//- The path from the page back to the demo folder, for files that are linked
+	//- relatively in the build. A page in a subfolder sets it to '../'.
+	- let base = ""
+
++html
+	include ../includes/_head
+	body
+		block content
+		include ../includes/_scripts

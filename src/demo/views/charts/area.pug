@@ -1,0 +1,53 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Area charts'
+
+block slides
+	include ../slides/_data
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Area charts
+
+	section
+		h3 Area chart
+		p.small A line chart with the space under the line filled. The fill fades in while the line builds.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'area', prefix: 'areabasic', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors })
+
+	section
+		h3 Several areas
+		p.small Each value column is an area. The areas overlap, so each one is see-through.
+		.narrow
+			+chart({ type: 'area', prefix: 'areatwo', title: 'Apples per tree', unit: 'each', series: ['North', 'South'], rows: perTreeTwo })
+
+	section
+		h3 Stacked areas
+		p.small Add #[code data-chart-stack] to the figure. Each area starts on top of the one before it.
+		.narrow
+			+chart({ type: 'area', prefix: 'areastack', stack: true, title: 'Apples sold', unit: 'thousands', series: ['Farm shop', 'Market'], rows: soldBy })
+
+	section
+		h3 Steps
+		p.small Add #[code data-chart-shape="step"] to the figure. Each value is flat across its row, and a number is shown only where the value changes.
+		.narrow
+			+chart({ type: 'area', prefix: 'areasteps', stack: true, shape: 'step', legend: true, title: 'Land at the orchard', unit: 'share of the land, by kind of tree', series: ['Apple trees', 'Pear trees'], rows: landUse })
+
+	section
+		h3 Step by step
+		p.small Add #[code data-fragment] to the figure to show one point per step.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'area', prefix: 'areafrag', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors, fragment: true })
+
+	section
+		h4 That’s it!
+		p.small For more about area charts, see the #[a(href="https://martinomagnifico.github.io/tablechart/types/area.html") Tablechart documentation].
+
+block append scripts
+	include ../slides/_init

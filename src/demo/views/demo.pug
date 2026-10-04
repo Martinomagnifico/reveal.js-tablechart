@@ -1,0 +1,122 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart'
+
+block slides
+	include slides/_data
+
+	- var heroColumn = [{label: 'One', value: '1'}, {label: 'Two', value: '2'}, {label: 'Three', value: '3'}]
+	- var heroDonut = [{label: 'One', value: '1'}, {label: 'Two', value: '1'}, {label: 'Three', value: '1'}]
+	- var heroWaterfall = [{label: 'One', value: '1', kind: 'total'}, {label: 'Two', value: '2'}, {label: 'Three', value: '3', kind: 'total'}]
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js
+		.hero
+			+chart({ prefix: 'herocol', rows: heroColumn, aspect: 0.8 })
+			+chart({ type: 'donut', prefix: 'herodo', rows: heroDonut, aspect: 0.8 })
+			+chart({ type: 'waterfall', prefix: 'herowf', rows: heroWaterfall, aspect: 0.8 })
+
+	section
+		p Sometimes you just want a simple graph in a Reveal.js presentation. Simple colors and style, simple markup. Tablechart does that.
+
+
+	section
+		section
+			h2 Set it up
+			p It’s easy
+
+
+		section
+			h3 JavaScript
+			p.small Download the plugin folder and make a reference to it in the Reveal plugin options: #[br](The CSS file is autoloaded, but you can also load it manually if you want to change it.)
+			+codeblock('html')
+				script(src="plugin/tablechart/tablechart.js")
+				script.
+					Reveal.initialize({
+						plugins: [ Tablechart ]
+					});
+			p.small Or install it with npm (#[code npm i reveal.js-tablechart]) and import it:
+			+codeblock('javascript').
+				import Tablechart from 'reveal.js-tablechart';
+				import 'reveal.js-tablechart/tablechart.css';
+				Reveal.initialize({
+					plugins: [ Tablechart ]
+				});
+
+		section
+			h3 HTML Markup
+			p.small To create a chart, add a table inside the Tablechart figure markup. The first cell of a row is the label, the second the value.
+			.split
+				+example({ lines: '2-8' })
+					+chart({ type: 'column', prefix: 'intro', rows: pickedsmall })
+
+		section
+			h3 HTML Markup
+			p.small Or from a JSON source:
+			.split
+				+example()
+					.tablechart(data-chart="column" data-chart-src="assets/data/apples.json")
+
+
+		section
+			h3 Add a title and subtitle
+			.split
+				+example({ lines: '2-4' })
+					+chart({ type: 'column', prefix: 'introtitle', title: 'Apples per tree', unit: 'each', rows: perTreesmall })
+
+		section
+			h3 Add annotations
+			.split
+				+example({ lines: '9-14' })
+					+chart({ type: 'column', prefix: 'introtrend', rows: perTreesmall })
+						.chart-annotations
+							span(data-annotation="trend" data-years="2" data-at="0.5")
+								span.tablechart-caption Per year
+								span +13%
+
+		//-section
+			h3 Small multiples
+			.panels
+				+chart({ prefix: 'introapple', title: 'Apple juice', unit: 'thousands of litres', rows: applejuice })
+					.chart-annotations
+						span(data-annotation="bracket") +11%
+				+chart({ prefix: 'introorange', title: 'Orange juice', unit: 'thousands of litres', rows: orangejuice })
+					.chart-annotations
+						span(data-annotation="bracket") -17%
+				+chart({ prefix: 'introlemon', title: 'Lemon juice', unit: 'thousands of litres', rows: lemonjuice })
+					.chart-annotations
+						span(data-annotation="bracket") +5%
+
+		section.has-light-background(data-background-color="#f3efe9")
+			h3 On an contrasting/inverted background
+			+chart({ type: 'waterfall', prefix: 'introinverted', title: 'The same chart, nothing set', unit: 'thousands of apples', rows: press })
+
+
+
+	section
+		h4 That’s it!
+		p For everything else Tablechart does, see the other demos and the #[a(href="https://martinomagnifico.github.io/tablechart/") Tablechart documentation].
+
+	section
+		h2 Have a look
+		.centerblock
+			ol.twocol
+				li: a(href="charts/column.html") Column charts
+				li: a(href="charts/bar.html") Bar charts
+				li: a(href="charts/line.html") Line charts
+				li: a(href="charts/area.html") Area charts
+				li: a(href="charts/waterfall.html") Waterfalls
+				li: a(href="charts/donut.html") Donuts
+				li: a(href="demo-annotations.html") Annotations
+				li: a(href="demo-branding.html") Branding
+				li: a(href="demo-white.html") On white
+				li: a(href="demo-internation.html") With Internation
+				li: a(href="demo-appearance.html") With Appearance
+				li: a(href="demo-markdown.html") Using Markdown
+
+
+block append scripts
+	include slides/_init

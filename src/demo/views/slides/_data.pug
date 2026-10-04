@@ -1,0 +1,34 @@
+//- Invented numbers: apples, oranges, and what becomes of them. Nothing here is a
+//- company, and comparing the two is the whole point.
+//- One assignment per line: this pug setup does not take a block-form `-`.
+
+- var picked = [{"label": "Spring", "value": "58"}, {"label": "Summer", "value": "72"}, {"label": "Autumn", "value": "70"}, {"label": "Winter", "value": "91"}];
+- var groves = [{"label": "Apples, north", "value": "58", "fragment": true, "at": "1"}, {"label": "Oranges, north", "value": "72", "fragment": true, "at": "1"}, {"label": "Apples, south", "value": "70", "fragment": true, "at": "2"}, {"label": "Oranges, south", "value": "91", "fragment": true, "at": "2"}];
+- var wentwhere = [{"label": "Picked", "value": "74.5", "kind": "total"}, {"label": "Juiced", "value": "38.2"}, {"label": "Eaten fresh", "value": "18.1"}, {"label": "Sold whole", "value": "12.4"}, {"label": "Composted", "value": "5.8"}];
+- var orchards = [{"label": "North", "value": "12.4"}, {"label": "South", "value": "9.8"}, {"label": "East", "value": "14.1"}, {"label": "The old grove", "value": "168.5"}, {"label": "West", "value": "11.2"}];
+- var varieties = [{"label": "Bramley seedling", "value": "31.4"}, {"label": "Cox's orange pippin", "value": "27.8"}, {"label": "Egremont russet", "value": "18.2"}, {"label": "Discovery", "value": "12.6"}, {"label": "Worcester pearmain", "value": "9.1"}];
+- var rainfall = [{"label": "Jan", "value": "88"}, {"label": "Feb", "value": "74"}, {"label": "Mar", "value": "61"}, {"label": "Apr", "value": "49"}, {"label": "May", "value": "52"}, {"label": "Jun", "value": "44"}, {"label": "Jul", "value": "38"}, {"label": "Aug", "value": "47"}];
+//- Small sets, for the slides that show a chart beside the markup that made it:
+//- there the example is the point, so three rows say it and leave the chart big.
+- var pickedsmall = [{"label": "Spring", "value": "58"}, {"label": "Summer", "value": "72"}, {"label": "Autumn", "value": "70"}];
+- var cropsmall = [{"label": "Picked", "value": "74.5", "kind": "total"}, {"label": "Windfalls", "value": "28.2"}, {"label": "Pressed", "value": "102.7", "kind": "total"}];
+- var varietiessmall = [{"label": "Bramley seedling", "value": "31.4"}, {"label": "Cox's orange pippin", "value": "27.8"}, {"label": "Egremont russet", "value": "18.2"}];
+- var rainsmall = [{"label": "Jan", "value": "88"}, {"label": "Feb", "value": "74"}, {"label": "Mar", "value": "61"}, {"label": "Apr", "value": "49"}];
+- var perTreesmall = [{"label": "2022", "value": "91"}, {"label": "2023", "value": "102"}, {"label": "2024", "value": "116"}];
+- var wentwheresmall = [{"label": "Picked", "value": "68.7", "kind": "total"}, {"label": "Juiced", "value": "38.2"}, {"label": "Eaten fresh", "value": "18.1"}, {"label": "Sold whole", "value": "12.4"}];
+- var perTree = [{"label": "2021", "value": "74"}, {"label": "2022", "value": "80"}, {"label": "2023", "value": "91"}, {"label": "2024", "value": "102"}, {"label": "2025", "value": "116"}];
+- var seeds = [{"label": "Apples", "value": "8.2"}, {"label": "Oranges", "value": "10.0"}, {"label": "Lemons", "value": "6.5"}];
+- var applejuice = [{"label": "Last season", "value": "251.5"}, {"label": "This season", "value": "279.6"}];
+- var orangejuice = [{"label": "Last season", "value": "92.2"}, {"label": "This season", "value": "76.1"}];
+- var lemonjuice = [{"label": "Last season", "value": "248.2"}, {"label": "This season", "value": "261.6"}];
+- var crop = [{"label": "Picked", "value": "74.5", "kind": "total"}, {"label": "Windfalls", "value": "28.2"}, {"label": "Bruised", "value": "-16.1"}, {"label": "Peelings", "value": "-13.3"}, {"label": "Late pick", "value": "4.9"}, {"label": "Pressed", "value": "78.3", "kind": "total"}];
+- var press = [{"label": "Picked", "value": "74.5", "kind": "total"}, {"label": "Windfalls", "value": "28.2"}, {"label": "Bruised", "value": "-16.1"}, {"label": "Peelings", "value": "-13.3"}, {"label": "Pressed", "value": "73.3", "kind": "total"}];
+//- The one that deliberately disagrees with its own steps, for the slide that is about exactly that.
+- var stated = [{"label": "Picked", "value": "74.5", "kind": "total"}, {"label": "Windfalls", "value": "28.2"}, {"label": "Bruised", "value": "-16.1"}, {"label": "Peelings", "value": "-13.3"}, {"label": "Pressed", "value": "67.8", "kind": "total"}];
+- var trees = [{"label": "In spring", "value": "74.5", "kind": "total"}, {"label": "Planted", "value": "1.2"}, {"label": "Lost to frost", "value": "-0.5"}, {"label": "Grafted", "value": "0.8"}, {"label": "In autumn", "value": "76.0", "kind": "total"}];
+- var peelings = [{"label": "2016-2018", "value": "268.7", "kind": "total"}, {"label": "2019", "value": "61.0"}, {"label": "2020", "value": "59.0"}, {"label": "2021", "value": "29.0"}, {"label": "2022", "value": "81.7"}, {"label": "2023", "value": "61.0"}, {"label": "End to end", "value": "560.4", "kind": "total"}];
+- var sold = [{"label": "Elstar", "values": ["118", "131"]}, {"label": "Jonagold", "values": ["140", "135"]}, {"label": "Braeburn", "values": ["109", "121"]}];
+- var soldBy = [{"label": "2023", "values": ["64", "38"]}, {"label": "2024", "values": ["71", "45"]}, {"label": "2025", "values": ["69", "57"]}];
+- var visitors = [{"label": "2021", "value": "12"}, {"label": "2022", "value": "19"}, {"label": "2023", "value": "24"}, {"label": "2024", "value": "31"}, {"label": "2025", "value": "38"}];
+- var perTreeTwo = [{"label": "2016", "values": ["41", "30"]}, {"label": "2019", "values": ["58", "39"]}, {"label": "2022", "values": ["77", "52"]}, {"label": "2025", "values": ["105", "61"]}];
+- var landUse = [["2016", 90], ["2017", 90], ["2018", 75], ["2019", 75], ["2020", 75], ["2021", 60], ["2022", 60], ["2023", 55], ["2024", 55], ["2025", 55]].map(function (row) { return { label: row[0], values: [row[1] + "%", (100 - row[1]) + "%"] }; });

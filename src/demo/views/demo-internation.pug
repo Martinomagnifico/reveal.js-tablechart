@@ -1,0 +1,101 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart: Internation'
+
+block slides
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Internation
+
+	section#harvest
+		h3(data-i18n="title") Translate a chart
+		p.small(data-i18n="lede") Internation translates the names in a chart like any other text on the slide. Numbers are formatted for the chosen language.
+
+		.langchooser
+			each lang in [['en', 'English'], ['nl', 'Nederlands'], ['fr', 'Français']]
+				label
+					input(type="radio" name="langs" value=lang[0] checked=lang[0] === 'en')
+					span= lang[1]
+
+		.narrow
+			figure.tablechart(data-chart="column" data-chart-keys="intl")
+				figcaption
+					b(data-i18n="caption") Seeds per fruit
+					br
+					span(data-i18n="unit") each
+				table
+					tbody
+						tr
+							th Apples
+							td 8.2
+						tr
+							th Oranges
+							td 10.0
+						tr
+							th Lemons
+							td 6.5
+
+	section#harvestcode
+		h3(data-i18n="title") Markup
+		p.small(data-i18n="lede") Add data-chart-keys to the figure. Tablechart then adds translation keys to the rows before Reveal starts, so Internation can find them.
+		.split
+			+code('html', `<figure data-chart="column"
+        data-chart-keys="intl">
+  <figcaption>
+    <b data-i18n="caption">Seeds per fruit</b>
+  </figcaption>
+  <table>
+    <tbody>
+      <!-- intl-row1, intl-row2, intl-row3
+           are written on these by the plugin -->
+      <tr><th>Apples</th><td>8.2</td></tr>
+    </tbody>
+  </table>
+</figure>`, '2,8-9')
+			+code('js', `Reveal.initialize({
+  plugins: [ Tablechart, Internation ],
+  internation: {
+    languages: {
+      nl: { name: "Nederlands",
+            dictionary: "tablechart-nl.json" }
+    }
+  }
+});`, '3-8')
+
+
+block append scripts
+	script(src="plugin/internation/internation.js")
+
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				center: true, controlsTutorial: false, history: true,
+				plugins: [ Tablechart, Internation, RevealHighlight ],
+				internation: {
+					locale: "en", localename: "English",
+					languages: {
+						nl: { name: "Nederlands", dictionary: "assets/languages/tablechart-nl.json" },
+						fr: { name: "Français", dictionary: "assets/languages/tablechart-fr.json" }
+					}
+				}
+			});
+	else
+		script(type="module").
+			import Tablechart from '@/plugin/js/index';
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				center: true, controlsTutorial: false, history: true,
+				plugins: [ Tablechart, Internation, RevealHighlight ],
+				internation: {
+					locale: "en", localename: "English",
+					languages: {
+						nl: { name: "Nederlands", dictionary: "assets/languages/tablechart-nl.json" },
+						fr: { name: "Français", dictionary: "assets/languages/tablechart-fr.json" }
+					}
+				}
+			});
