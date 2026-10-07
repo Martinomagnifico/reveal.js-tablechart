@@ -4,6 +4,7 @@ import "../css/index.scss";
 import {
 	build,
 	type ChartState,
+	entranceOf,
 	layout,
 	prepare,
 	relabel,
@@ -128,11 +129,8 @@ const init = async (
 		.map((figure) => build(figure, config))
 		.filter((state): state is ChartState => state !== null);
 
-	// Building gives a figcaption an id, so the figure and table can point at it with
-	// `aria-labelledby`. Internation looks up a translation under the nearest element
-	// with an id or a `data-name`, so a key inside the caption would then be looked
-	// up under that generated id rather than under its slide. A `data-name` wins over
-	// an id there, so the caption is given the name of the scope it sits in.
+	// Internation before 2.1.0 looked up keys under the caption's generated id; `data-name` points it back to the slide.
+	// TODO: remove once decks use Internation 2.1.0 or later, which always looks up keys under the slide.
 	for (const { figure } of charts) {
 		const caption = figure.querySelector<HTMLElement>(":scope > figcaption");
 		if (!caption?.id || caption.dataset.name) continue;
@@ -248,7 +246,7 @@ const init = async (
 	};
 
 	// A chart in something that animates in, such as a panel animated by Appearance
-	// or a fragment, starts when that animation is halfway, so it builds in a panel
+	// or a fragment, starts when that animation is halfway (or `data-chart-entrance`), so it builds in a panel
 	// that can already be seen. Everything between the figure and its slide counts,
 	// and the figure itself, but only for an animation: its own fade is a transition.
 	// A frame first, because the plugin that animates may react to the same event
@@ -279,8 +277,8 @@ const init = async (
 			const timing = animation.effect?.getComputedTiming();
 			const duration = Number(timing?.activeDuration ?? 0);
 			if (!timing || !Number.isFinite(duration)) continue;
-			const half = Number(timing.delay ?? 0) + duration / 2;
-			left = Math.max(left, half - Number(animation.currentTime ?? 0));
+			const moment = Number(timing.delay ?? 0) + duration * entranceOf(state.figure, config);
+			left = Math.max(left, moment - Number(animation.currentTime ?? 0));
 		}
 		if (left > 0) await wait(left);
 	};
@@ -347,6 +345,18 @@ const init = async (
 		for (const { mode, delay, charts } of groups.values()) void play(charts, mode, delay);
 	};
 
+	// Once a frame, so the charts placed in the same frame, as on a page that opens
+	// on their slide, start as one group and keep their sequence.
+	let syncing = false;
+	const syncSoon = () => {
+		if (syncing) return;
+		syncing = true;
+		requestAnimationFrame(() => {
+			syncing = false;
+			sync();
+		});
+	};
+
 	// Pass 3, whenever a figure has a width. A slide that is not showing has none,
 	// so this cannot be done here and now. The observer stays connected, so a
 	// resize re-places what is already there instead of rebuilding it.
@@ -368,9 +378,9 @@ const init = async (
 		// On paper, nobody steps through the deck: every chart is shown whole.
 		if (printing) setShown(state, true);
 		// Reading the height above has settled the new marks' starting style, so the
-		// class can land now and be animated from rather than arriving with them —
+		// class can land and be animated from rather than arriving with them —
 		// through sync, so a chart placed late still takes its turn in a sequence.
-		if (first && config.animate && settled) sync();
+		if (first && config.animate && settled) syncSoon();
 	};
 
 	for (const state of charts) {

@@ -21,6 +21,20 @@ block slides
 				+chart({ type: 'area', prefix: 'areabasic', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors })
 
 	section
+		h3 Smooth
+		p.small Add #[code data-chart-shape="smooth"] to the figure. The top of each area is a curve through every point. In a stack, each area follows the curve of the one below it.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'area', prefix: 'areasmooth', shape: 'smooth', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors })
+
+	section
+		h3 Grow up
+		p.small Add #[code data-chart-animate="up"] to the figure. The area grows up from zero instead of from left to right. A chart with #[code data-fragment] still builds from left to right, because each step adds a point.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'area', prefix: 'areaup', shape: 'smooth', animate: 'up', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors })
+
+	section
 		h3 Several areas
 		p.small Each value column is an area. The areas overlap, so each one is see-through.
 		.narrow
@@ -44,6 +58,13 @@ block slides
 		.split
 			+example({ lines: '1' })
 				+chart({ type: 'area', prefix: 'areafrag', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors, fragment: true })
+
+	section
+		h3 Smooth, step by step
+		p.small A smooth area also works with #[code data-fragment]. Each step adds one point, and the curve to it.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'area', prefix: 'areasmoothsteps', stack: true, shape: 'smooth', legend: true, title: 'Apples picked', unit: 'thousands', series: ['North', 'South'], rows: harvestBy, fragment: true, code: 2 })
 
 	section
 		h4 That’s it!

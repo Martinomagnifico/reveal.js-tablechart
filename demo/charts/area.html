@@ -38,19 +38,19 @@
                   </tr>
                   <tr>
                     <th>2022</th>
-                    <td>19</td>
+                    <td>18</td>
                   </tr>
                   <tr>
                     <th>2023</th>
-                    <td>24</td>
+                    <td>15</td>
                   </tr>
                   <tr>
                     <th>2024</th>
-                    <td>31</td>
+                    <td>24</td>
                   </tr>
                   <tr>
                     <th>2025</th>
-                    <td>38</td>
+                    <td>29</td>
                   </tr>
                 </tbody>
               </table>
@@ -62,10 +62,106 @@
   &lt;table&gt;
     &lt;tbody&gt;
       &lt;tr&gt;&lt;th&gt;2021&lt;/th&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;19&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;24&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;31&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;38&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;15&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;24&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;29&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Smooth</h3>
+          <p class="small">Add <code>data-chart-shape="smooth"</code> to the figure. The top of each area is a curve through every point. In a stack, each area follows the curve of the one below it.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="area" data-chart-keys="areasmooth" data-chart-shape="smooth">
+              <figcaption><b>Visitors to the orchard</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>2021</th>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <th>2022</th>
+                    <td>18</td>
+                  </tr>
+                  <tr>
+                    <th>2023</th>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td>24</td>
+                  </tr>
+                  <tr>
+                    <th>2025</th>
+                    <td>29</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot; data-chart-shape=&quot;smooth&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Visitors to the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2021&lt;/th&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;15&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;24&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;29&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Grow up</h3>
+          <p class="small">Add <code>data-chart-animate="up"</code> to the figure. The area grows up from zero instead of from left to right. A chart with <code>data-fragment</code> still builds from left to right, because each step adds a point.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="area" data-chart-keys="areaup" data-chart-shape="smooth" data-chart-animate="up">
+              <figcaption><b>Visitors to the orchard</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>2021</th>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <th>2022</th>
+                    <td>18</td>
+                  </tr>
+                  <tr>
+                    <th>2023</th>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td>24</td>
+                  </tr>
+                  <tr>
+                    <th>2025</th>
+                    <td>29</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot; data-chart-shape=&quot;smooth&quot; data-chart-animate=&quot;up&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Visitors to the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2021&lt;/th&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;15&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;24&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;29&lt;/td&gt;&lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
 &lt;/figure&gt;</code></pre>
@@ -234,19 +330,19 @@
                   </tr>
                   <tr>
                     <th>2022</th>
-                    <td>19</td>
+                    <td>18</td>
                   </tr>
                   <tr>
                     <th>2023</th>
-                    <td>24</td>
+                    <td>15</td>
                   </tr>
                   <tr>
                     <th>2024</th>
-                    <td>31</td>
+                    <td>24</td>
                   </tr>
                   <tr>
                     <th>2025</th>
-                    <td>38</td>
+                    <td>29</td>
                   </tr>
                 </tbody>
               </table>
@@ -258,10 +354,76 @@
   &lt;table&gt;
     &lt;tbody&gt;
       &lt;tr&gt;&lt;th&gt;2021&lt;/th&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;19&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;24&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;31&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;38&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;15&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;24&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2025&lt;/th&gt;&lt;td&gt;29&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Smooth, step by step</h3>
+          <p class="small">A smooth area also works with <code>data-fragment</code>. Each step adds one point, and the curve to it.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="area" data-chart-keys="areasmoothsteps" data-chart-stack="" data-chart-shape="smooth" data-chart-legend="" data-fragment="">
+              <figcaption><b>Apples picked</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>North</th>
+                    <th>South</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2020</th>
+                    <td>42</td>
+                    <td>18</td>
+                  </tr>
+                  <tr>
+                    <th>2021</th>
+                    <td>55</td>
+                    <td>26</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2022</th>
+                    <td>38</td>
+                    <td>31</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2023</th>
+                    <td>61</td>
+                    <td>24</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2024</th>
+                    <td>49</td>
+                    <td>35</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2025</th>
+                    <td>68</td>
+                    <td>30</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot; data-chart-stack data-chart-shape=&quot;smooth&quot; data-chart-legend data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples picked&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;North&lt;/th&gt;&lt;th&gt;South&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2020&lt;/th&gt;&lt;td&gt;42&lt;/td&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2021&lt;/th&gt;&lt;td&gt;55&lt;/td&gt;&lt;td&gt;26&lt;/td&gt;&lt;/tr&gt;
+      …
     &lt;/tbody&gt;
   &lt;/table&gt;
 &lt;/figure&gt;</code></pre>

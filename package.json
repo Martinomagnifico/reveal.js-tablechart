@@ -1,6 +1,6 @@
 {
   "name": "reveal.js-tablechart",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "A Reveal.js plugin for simple charts: column, bar, line, waterfall and donut, with annotations. The data is an HTML or Markdown table.",
   "homepage": "https://github.com/martinomagnifico/reveal.js-tablechart",
   "type": "module",
@@ -73,6 +73,6 @@
     "vituum": "^2.0.2"
   },
   "dependencies": {
-    "@martinomagnifico/tablechart": "^0.1.0"
+    "@martinomagnifico/tablechart": "^0.1.3"
   }
 }

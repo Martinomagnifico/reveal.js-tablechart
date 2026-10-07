@@ -34,19 +34,35 @@
                 <tbody>
                   <tr>
                     <th>Jan</th>
-                    <td>88</td>
+                    <td>84</td>
                   </tr>
                   <tr>
                     <th>Feb</th>
-                    <td>74</td>
+                    <td>71</td>
                   </tr>
                   <tr>
                     <th>Mar</th>
-                    <td>61</td>
+                    <td>76</td>
                   </tr>
                   <tr>
                     <th>Apr</th>
-                    <td>49</td>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>May</th>
+                    <td>61</td>
+                  </tr>
+                  <tr>
+                    <th>Jun</th>
+                    <td>47</td>
+                  </tr>
+                  <tr>
+                    <th>Jul</th>
+                    <td>39</td>
+                  </tr>
+                  <tr>
+                    <th>Aug</th>
+                    <td>52</td>
                   </tr>
                 </tbody>
               </table>
@@ -57,10 +73,140 @@
   &lt;/figcaption&gt;
   &lt;table&gt;
     &lt;tbody&gt;
-      &lt;tr&gt;&lt;th&gt;Jan&lt;/th&gt;&lt;td&gt;88&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;Feb&lt;/th&gt;&lt;td&gt;74&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;Mar&lt;/th&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
-      &lt;tr&gt;&lt;th&gt;Apr&lt;/th&gt;&lt;td&gt;49&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jan&lt;/th&gt;&lt;td&gt;84&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Feb&lt;/th&gt;&lt;td&gt;71&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Mar&lt;/th&gt;&lt;td&gt;76&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Apr&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;May&lt;/th&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jun&lt;/th&gt;&lt;td&gt;47&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jul&lt;/th&gt;&lt;td&gt;39&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Aug&lt;/th&gt;&lt;td&gt;52&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Smooth</h3>
+          <p class="small">Add <code>data-chart-shape="smooth"</code> to the figure. The line is a curve through every point, and never goes higher or lower than the points on either side of it.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-keys="linesmooth" data-chart-shape="smooth">
+              <figcaption><b>Rainfall at the orchard</b><br/><span>millimetres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Jan</th>
+                    <td>84</td>
+                  </tr>
+                  <tr>
+                    <th>Feb</th>
+                    <td>71</td>
+                  </tr>
+                  <tr>
+                    <th>Mar</th>
+                    <td>76</td>
+                  </tr>
+                  <tr>
+                    <th>Apr</th>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>May</th>
+                    <td>61</td>
+                  </tr>
+                  <tr>
+                    <th>Jun</th>
+                    <td>47</td>
+                  </tr>
+                  <tr>
+                    <th>Jul</th>
+                    <td>39</td>
+                  </tr>
+                  <tr>
+                    <th>Aug</th>
+                    <td>52</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot; data-chart-shape=&quot;smooth&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Rainfall at the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;millimetres&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Jan&lt;/th&gt;&lt;td&gt;84&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Feb&lt;/th&gt;&lt;td&gt;71&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Mar&lt;/th&gt;&lt;td&gt;76&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Apr&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;May&lt;/th&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jun&lt;/th&gt;&lt;td&gt;47&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jul&lt;/th&gt;&lt;td&gt;39&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Aug&lt;/th&gt;&lt;td&gt;52&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Grow up</h3>
+          <p class="small">Add <code>data-chart-animate="up"</code> to the figure. The line grows up from zero instead of from left to right. A chart with <code>data-fragment</code> still builds from left to right, because each step adds a point.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-keys="lineup" data-chart-shape="smooth" data-chart-animate="up">
+              <figcaption><b>Rainfall at the orchard</b><br/><span>millimetres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Jan</th>
+                    <td>84</td>
+                  </tr>
+                  <tr>
+                    <th>Feb</th>
+                    <td>71</td>
+                  </tr>
+                  <tr>
+                    <th>Mar</th>
+                    <td>76</td>
+                  </tr>
+                  <tr>
+                    <th>Apr</th>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>May</th>
+                    <td>61</td>
+                  </tr>
+                  <tr>
+                    <th>Jun</th>
+                    <td>47</td>
+                  </tr>
+                  <tr>
+                    <th>Jul</th>
+                    <td>39</td>
+                  </tr>
+                  <tr>
+                    <th>Aug</th>
+                    <td>52</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot; data-chart-shape=&quot;smooth&quot; data-chart-animate=&quot;up&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Rainfall at the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;millimetres&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Jan&lt;/th&gt;&lt;td&gt;84&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Feb&lt;/th&gt;&lt;td&gt;71&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Mar&lt;/th&gt;&lt;td&gt;76&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Apr&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;May&lt;/th&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jun&lt;/th&gt;&lt;td&gt;47&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jul&lt;/th&gt;&lt;td&gt;39&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Aug&lt;/th&gt;&lt;td&gt;52&lt;/td&gt;&lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
 &lt;/figure&gt;</code></pre>
@@ -132,6 +278,69 @@
       &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;91&lt;/td&gt;&lt;/tr&gt;
       &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;102&lt;/td&gt;&lt;/tr&gt;
       &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;116&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Smooth, step by step</h3>
+          <p class="small">A smooth line also works with <code>data-fragment</code>. Each step adds one point, and the curve to it.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="line" data-chart-keys="linesmoothsteps" data-chart-shape="smooth" data-fragment="">
+              <figcaption><b>Rainfall at the orchard</b><br/><span>millimetres</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Jan</th>
+                    <td>84</td>
+                  </tr>
+                  <tr>
+                    <th>Feb</th>
+                    <td>71</td>
+                  </tr>
+                  <tr>
+                    <th>Mar</th>
+                    <td>76</td>
+                  </tr>
+                  <tr>
+                    <th>Apr</th>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>May</th>
+                    <td>61</td>
+                  </tr>
+                  <tr>
+                    <th>Jun</th>
+                    <td>47</td>
+                  </tr>
+                  <tr>
+                    <th>Jul</th>
+                    <td>39</td>
+                  </tr>
+                  <tr>
+                    <th>Aug</th>
+                    <td>52</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;line&quot; data-chart-shape=&quot;smooth&quot; data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Rainfall at the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;millimetres&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Jan&lt;/th&gt;&lt;td&gt;84&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Feb&lt;/th&gt;&lt;td&gt;71&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Mar&lt;/th&gt;&lt;td&gt;76&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Apr&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;May&lt;/th&gt;&lt;td&gt;61&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jun&lt;/th&gt;&lt;td&gt;47&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jul&lt;/th&gt;&lt;td&gt;39&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Aug&lt;/th&gt;&lt;td&gt;52&lt;/td&gt;&lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
 &lt;/figure&gt;</code></pre>

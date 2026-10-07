@@ -2,7 +2,7 @@
 //- repetition in the demo; there is nothing here a deck could not write by hand.
 
 mixin chart(opts)
-	figure.tablechart(data-chart=opts.type || 'column' data-chart-keys=opts.prefix data-chart-aspect=opts.aspect data-chart-stack=opts.stack ? '' : false data-chart-shape=opts.shape data-chart-legend=opts.legend ? '' : false data-fragment=opts.fragment ? '' : false)
+	figure.tablechart(data-chart=opts.type || 'column' data-chart-keys=opts.prefix data-chart-aspect=opts.aspect data-chart-stack=opts.stack ? '' : false data-chart-shape=opts.shape data-chart-animate=opts.animate data-chart-legend=opts.legend ? '' : false data-fragment=opts.fragment ? '' : false)
 		if opts.title
 			figcaption
 				b= opts.title

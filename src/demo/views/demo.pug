@@ -14,13 +14,26 @@ block slides
 	section.title-slide
 		h1.title Tablechart
 		h3.subtitle for Reveal.js
-		.hero
+		.hero(data-chart-sequence="delay" data-chart-delay="300")
 			+chart({ prefix: 'herocol', rows: heroColumn, aspect: 0.8 })
 			+chart({ type: 'donut', prefix: 'herodo', rows: heroDonut, aspect: 0.8 })
 			+chart({ type: 'waterfall', prefix: 'herowf', rows: heroWaterfall, aspect: 0.8 })
 
 	section
-		p Sometimes you just want a simple graph in a Reveal.js presentation. Simple colors and style, simple markup. Tablechart does that.
+		section
+			p Sometimes you just want a simple graph in a Reveal.js presentation. Simple colors and style, simple markup. Tablechart does that.
+		section
+			p Six types:
+			.smallgrid(data-chart-sequence="delay" data-chart-delay="200")
+				+chart({ type: 'column', prefix: 'introcolumn', rows: dipsmall, aspect: 0.6 })
+				+chart({ type: 'bar', prefix: 'introbar', rows: dipsmall })
+				+chart({ type: 'line', prefix: 'introline', rows: dipsmall, aspect: 0.6, shape: 'smooth', animate: 'up' })
+				+chart({ type: 'area', prefix: 'introarea', rows: dipsmall, aspect: 0.84, shape: 'smooth', animate: 'up' })
+				+chart({ type: 'waterfall', prefix: 'introwaterfall', rows: dipsmall, aspect: 0.84 })
+				+chart({ type: 'donut', prefix: 'introdonut', rows: dipsmall })
+
+
+
 
 
 	section
@@ -77,19 +90,6 @@ block slides
 								span.tablechart-caption Per year
 								span +13%
 
-		//-section
-			h3 Small multiples
-			.panels
-				+chart({ prefix: 'introapple', title: 'Apple juice', unit: 'thousands of litres', rows: applejuice })
-					.chart-annotations
-						span(data-annotation="bracket") +11%
-				+chart({ prefix: 'introorange', title: 'Orange juice', unit: 'thousands of litres', rows: orangejuice })
-					.chart-annotations
-						span(data-annotation="bracket") -17%
-				+chart({ prefix: 'introlemon', title: 'Lemon juice', unit: 'thousands of litres', rows: lemonjuice })
-					.chart-annotations
-						span(data-annotation="bracket") +5%
-
 		section.has-light-background(data-background-color="#f3efe9")
 			h3 On an contrasting/inverted background
 			+chart({ type: 'waterfall', prefix: 'introinverted', title: 'The same chart, nothing set', unit: 'thousands of apples', rows: press })
@@ -113,7 +113,6 @@ block slides
 				li: a(href="demo-annotations.html") Annotations
 				li: a(href="demo-branding.html") Branding
 				li: a(href="demo-white.html") On white
-				li: a(href="demo-internation.html") With Internation
 				li: a(href="demo-appearance.html") With Appearance
 				li: a(href="demo-markdown.html") Using Markdown
 

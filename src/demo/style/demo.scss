@@ -28,6 +28,7 @@
 	--demo-surface: #051525;
 
 	--tablechart-bar-color: #4f9fd0;
+	--tablechart-slice-color: #4f9fd0;
 	--tablechart-up-color: #4f9fd0;
 	--tablechart-down-color: #46bda4;
 	--tablechart-total-color: #7d95a6;
@@ -48,6 +49,7 @@
 	--demo-surface: #ffffff;
 
 	--tablechart-bar-color: #2f6f8f;
+	--tablechart-slice-color: #2f6f8f;
 	--tablechart-up-color: #2f6f8f;
 	// Darker than it was: a number read on this is white, and the old #3f9c8f gave
 	// it 3.3:1. This clears AA at 4.9:1 without leaving the family.
@@ -237,6 +239,7 @@ a.github-corner {
 
 // A slide that turns the background around within a deck. Tablechart follows it
 // without being told: every mark is currentColor unless a variable says otherwise.
+
 .reveal .has-light-background {
 	--tablechart-bar-color: #16323f;
 	--tablechart-up-color: #16323f;
@@ -294,32 +297,21 @@ a.github-corner {
 	break-inside: avoid;
 }
 
-// The language chooser in the Internation demo: one button per language, and the
-// chosen one filled. Internation hides the radio buttons and keeps them focusable.
-.reveal .langchooser {
-	gap: 0.4em;
-	margin-bottom: 0.8em;
-	font-size: 0.6em;
 
-	label {
-		cursor: pointer;
+.smallgrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.5em;
+	padding: 0 3em;
+	
+	--tablechart-min-height: 100px;
+	.tablechart {
+		padding: 1em;
 	}
 
-	span {
-		display: inline-block;
-		padding: 0.3em 1em;
-		border: 1px solid color-mix(in oklab, currentColor 40%, transparent);
-		border-radius: 0.4em;
-		transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-	}
-
-	label:hover span {
-		border-color: currentColor;
-	}
-
-	input:checked + span {
-		background: var(--r-link-color);
-		border-color: var(--r-link-color);
-		color: var(--r-background-color);
+	// Smaller labels leave more room for the ring.
+	[data-chart="donut"] {
+		--tablechart-value-size: 0.95em;
+		--tablechart-centre-size: 1.2em;
 	}
 }

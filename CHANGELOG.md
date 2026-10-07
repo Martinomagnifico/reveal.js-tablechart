@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [0.1.3] - 2026-10-07
+
+### Added
+- Smooth lines and areas, with `data-chart-shape="smooth"`, also when they build step by step with fragments.
+- Lines and areas that grow up from zero, with `data-chart-animate="up"` or `animate: "up"`. A chart with steps still builds from left to right, because each step adds a row.
+- `data-chart-entrance`, or the `entrance` option, sets how far an element that animates in is in before its chart builds, from `0` to `1`; halfway by default. A container that gives the entrance signal, such as one animated by Appearance, still decides that itself.
 
 ### Changed
 - A chart inside an element that animates in, such as an Appearance container, builds when that element says it is shown, with the entrance signal of reveal.js-plugintoolkit 1.2.7. For elements animated by a plugin that does not give the signal, it still builds when their CSS animation is half way.
@@ -9,6 +14,7 @@
 
 ### Fixed
 - A chart could start while its slide was still moving in. Reveal sends `slidetransitionend` for the first transition that ends on any section, and a section elsewhere in the deck can end one straight away. Tablechart now waits for the slide itself, and the stack it moves with, to finish moving. Appearance 1.4.3 had the same fix.
+- A sequence (`data-chart-sequence`) on the slide a presentation opens on now plays in turn. Before, the charts on that slide all started at once.
 
 ## [0.1.0]
 

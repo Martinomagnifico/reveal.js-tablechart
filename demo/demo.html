@@ -22,7 +22,7 @@
         <section class="title-slide">
           <h1 class="title">Tablechart</h1>
           <h3 class="subtitle">for Reveal.js</h3>
-          <div class="hero">
+          <div class="hero" data-chart-sequence="delay" data-chart-delay="300">
             <figure class="tablechart" data-chart="column" data-chart-keys="herocol" data-chart-aspect="0.8">
               <table>
                 <tbody>
@@ -80,7 +80,122 @@
           </div>
         </section>
         <section>
-          <p>Sometimes you just want a simple graph in a Reveal.js presentation. Simple colors and style, simple markup. Tablechart does that.</p>
+          <section>
+            <p>Sometimes you just want a simple graph in a Reveal.js presentation. Simple colors and style, simple markup. Tablechart does that.</p>
+          </section>
+          <section>
+            <p>Six types:</p>
+            <div class="smallgrid" data-chart-sequence="delay" data-chart-delay="200">
+              <figure class="tablechart" data-chart="column" data-chart-keys="introcolumn" data-chart-aspect="0.6">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>62</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+              <figure class="tablechart" data-chart="bar" data-chart-keys="introbar">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>62</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+              <figure class="tablechart" data-chart="line" data-chart-keys="introline" data-chart-aspect="0.6" data-chart-shape="smooth" data-chart-animate="up">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>62</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+              <figure class="tablechart" data-chart="area" data-chart-keys="introarea" data-chart-aspect="0.84" data-chart-shape="smooth" data-chart-animate="up">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>62</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+              <figure class="tablechart" data-chart="waterfall" data-chart-keys="introwaterfall" data-chart-aspect="0.84">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>62</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+              <figure class="tablechart" data-chart="donut" data-chart-keys="introdonut">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Spring</th>
+                      <td>70</td>
+                    </tr>
+                    <tr>
+                      <th>Summer</th>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>Autumn</th>
+                      <td>62</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+          </section>
         </section>
         <section>
           <section>
@@ -269,7 +384,6 @@ Reveal.initialize({
               <li><a href="demo-annotations.html">Annotations</a></li>
               <li><a href="demo-branding.html">Branding</a></li>
               <li><a href="demo-white.html">On white</a></li>
-              <li><a href="demo-internation.html">With Internation</a></li>
               <li><a href="demo-appearance.html">With Appearance</a></li>
               <li><a href="demo-markdown.html">Using Markdown</a></li>
             </ol>

@@ -18,7 +18,21 @@ block slides
 		p.small Each row is a point. The line builds from left to right.
 		.split
 			+example({ lines: '1' })
-				+chart({ type: 'line', prefix: 'linebasic', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainsmall })
+				+chart({ type: 'line', prefix: 'linebasic', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall })
+
+	section
+		h3 Smooth
+		p.small Add #[code data-chart-shape="smooth"] to the figure. The line is a curve through every point, and never goes higher or lower than the points on either side of it.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'linesmooth', shape: 'smooth', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall })
+
+	section
+		h3 Grow up
+		p.small Add #[code data-chart-animate="up"] to the figure. The line grows up from zero instead of from left to right. A chart with #[code data-fragment] still builds from left to right, because each step adds a point.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'lineup', shape: 'smooth', animate: 'up', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall })
 
 	section
 		h3 Annotations
@@ -36,6 +50,12 @@ block slides
 			+example({ lines: '1' })
 				+chart({ type: 'line', prefix: 'linesteps', title: 'Apples per tree', unit: 'each', rows: perTreesmall, fragment: true })
 
+	section
+		h3 Smooth, step by step
+		p.small A smooth line also works with #[code data-fragment]. Each step adds one point, and the curve to it.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'linesmoothsteps', shape: 'smooth', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall, fragment: true })
 
 	section
 		h3 Several lines
@@ -70,7 +90,6 @@ block slides
 								th 2025
 								td 105
 								td 61
-
 
 	section
 		h3 Legend

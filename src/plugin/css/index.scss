@@ -44,7 +44,7 @@ $taken: "clamp(0, var(--tablechart-step, 0) - var(--step, -1), 1)";
 // pieces start hidden, and the area around them, which Tablechart fades in as a
 // whole, is simply there.
 :where([data-animate][data-steps]) {
-	:where(.tablechart-area polygon) {
+	:where(.tablechart-area-fill > *) {
 		opacity: 0;
 		transition: opacity #{$duration} ease;
 	}
@@ -68,7 +68,7 @@ $taken: "clamp(0, var(--tablechart-step, 0) - var(--step, -1), 1)";
 	:where(.tablechart-centre),
 	:where(.tablechart-point),
 	:where(.tablechart-hole),
-	:where(.tablechart-area polygon) {
+	:where(.tablechart-area-fill > *) {
 		opacity: #{$taken};
 	}
 	:where(.tablechart-connector),

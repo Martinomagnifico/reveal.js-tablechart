@@ -188,6 +188,8 @@ export const createSteps = (figure: HTMLElement, indexes: (string | null)[]): vo
 	}
 	figure.appendChild(holder);
 	figure.setAttribute("data-steps", "");
+	// A step adds a row, so a stepped chart builds across, also when "up" is asked for.
+	figure.setAttribute("data-chart-animate", "across");
 };
 
 /**
@@ -198,6 +200,8 @@ export const applySteps = (figure: HTMLElement, plan: Plan): void => {
 	const last = plan.rows.length - 1;
 	const set = (element: HTMLElement | SVGElement, step: number | null, name: string, place: number) => {
 		element.style.setProperty(name, String(place));
+		// A stepped chart takes one step per piece, not a share of the whole line.
+		element.style.removeProperty("--d");
 		if (step === null) element.style.removeProperty("--step");
 		else element.style.setProperty("--step", String(step));
 	};
