@@ -11,14 +11,17 @@ mixin chart(opts)
 					span= opts.unit
 		//- `code` trims what an example shows of the rows: a number shows that many
 		//- and then …, and 'rows' shows the rows alone. `series` names the value
-		//- columns of a chart with several, and each row then has `values`.
+		//- columns of a chart with several, and each row then has `values`. A
+		//- series is a name, or { name, fragment, at } to make that line a step.
+		//- `cells` makes every value cell a step.
 		table
 			if opts.series
 				thead
 					tr
 						th
-						each name in opts.series
-							th= name
+						each series in opts.series
+							- var head = typeof series === 'string' ? { name: series } : series
+							th(data-fragment=head.fragment ? '' : false data-fragment-index=head.at)= head.name
 			tbody
 				each row, i in opts.rows
 					- var shown = opts.code === 'rows' ? 'only' : typeof opts.code === 'number' && i >= opts.code ? 'skip' : false
@@ -26,9 +29,9 @@ mixin chart(opts)
 						th= row.label
 						if row.values
 							each value in row.values
-								td= value
+								td(data-fragment=opts.cells ? '' : false)= value
 						else
-							td= row.value
+							td(data-fragment=opts.cells ? '' : false)= row.value
 		if block
 			block
 

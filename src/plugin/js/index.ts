@@ -9,6 +9,7 @@ import {
 	prepare,
 	relabel,
 	setShown,
+	stepTo,
 } from "@martinomagnifico/tablechart/core";
 import {
 	pluginDebug as debug,
@@ -32,14 +33,7 @@ const MEASURING_CLASS = "tablechart-measuring";
 // The entrance signal: a container that animates in, for example with Appearance,
 // says when it is shown and when it is in.
 import { entranceTools } from "reveal.js-plugintoolkit";
-import {
-	applySteps,
-	createSteps,
-	type Plan,
-	planSteps,
-	readMarkdownSteps,
-	restep,
-} from "./functions/steps";
+import { createSteps, readMarkdownSteps, restep } from "./functions/steps";
 
 const { pendingAround, whenShown } = entranceTools;
 
@@ -112,22 +106,15 @@ const init = async (
 	const figures = (
 		await Promise.all([...slides.values()].map((group) => prepare(group, config)))
 	).flat();
-	// The steps a table asks for, and the hidden fragments that drive them. On
-	// paper, and without animation, nobody steps through a chart, so it has none.
-	const plans = new WeakMap<HTMLElement, Plan>();
-	if (config.animate && !printing) {
-		for (const figure of figures) {
-			readMarkdownSteps(figure);
-			const planned = planSteps(figure);
-			if (!planned) continue;
-			plans.set(figure, planned.plan);
-			createSteps(figure, planned.indexes);
-		}
-	}
+	// On paper, and without animation, nobody steps through a chart, so it has no steps and is shown whole.
+	const stepping = config.animate && !printing;
+	if (stepping) for (const figure of figures) readMarkdownSteps(figure);
 
 	const charts = figures
-		.map((figure) => build(figure, config))
+		.map((figure) => build(figure, stepping ? config : { ...config, animate: false }))
 		.filter((state): state is ChartState => state !== null);
+	// Tablechart plans the steps of a chart; Reveal's fragments drive them, one hidden fragment per step.
+	for (const state of charts) if (state.plan) createSteps(state.figure, state.plan.indexes);
 
 	// Internation before 2.1.0 looked up keys under the caption's generated id; `data-name` points it back to the slide.
 	// TODO: remove once decks use Internation 2.1.0 or later, which always looks up keys under the slide.
@@ -308,7 +295,8 @@ const init = async (
 		const groups = new Map<Element, { mode: Sequence; delay: number; charts: ChartState[] }>();
 
 		for (const state of charts) {
-			restep(state.figure);
+			const taken = restep(state.figure);
+			if (taken !== null) stepTo(state, taken);
 
 			if (!(placed.has(state) && shown(state))) {
 				const run = runs.get(state);
@@ -371,9 +359,6 @@ const init = async (
 		const before = state.figure.offsetHeight;
 		if (!layout(state, config)) return;
 		placed.set(state, width);
-		// A layout makes the marks in the drawing again, so they get their steps again.
-		const plan = plans.get(state.figure);
-		if (plan) applySteps(state.figure, plan);
 		if (state.figure.offsetHeight !== before) recentre();
 		// On paper, nobody steps through the deck: every chart is shown whole.
 		if (printing) setShown(state, true);

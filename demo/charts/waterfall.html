@@ -54,7 +54,7 @@
         </section>
         <section>
           <h3>Totals are not calculated</h3>
-          <p class="small">Tablechart shows the total you write. It does not add up the steps, so a rounded total stays as you wrote it.</p>
+          <p class="small">See that the last column does not line up? That is not the chart. Tablechart just takes <em>your</em> values, it does <em>not</em> check if those add up correctly. The console will show a warning if there is a mismatch, because it might be hard to see it in the chart itself.</p>
           <figure class="tablechart" data-chart="waterfall" data-chart-keys="wfshort">
             <figcaption><b>A shorter bridge</b><br/><span>thousands of apples</span>
             </figcaption>
@@ -117,43 +117,58 @@
           </figure>
         </section>
         <section>
-          <h3>Only rising steps</h3>
-          <figure class="tablechart" data-chart="waterfall" data-chart-keys="wfrising">
-            <figcaption><b>Peelings, end to end</b><br/><span>kilometres</span>
-            </figcaption>
-            <table>
-              <tbody>
-                <tr data-kind="total">
-                  <th>2016-2018</th>
-                  <td>268.7</td>
-                </tr>
-                <tr>
-                  <th>2019</th>
-                  <td>61.0</td>
-                </tr>
-                <tr>
-                  <th>2020</th>
-                  <td>59.0</td>
-                </tr>
-                <tr>
-                  <th>2021</th>
-                  <td>29.0</td>
-                </tr>
-                <tr>
-                  <th>2022</th>
-                  <td>81.7</td>
-                </tr>
-                <tr>
-                  <th>2023</th>
-                  <td>61.0</td>
-                </tr>
-                <tr data-kind="total">
-                  <th>End to end</th>
-                  <td>560.4</td>
-                </tr>
-              </tbody>
-            </table>
-          </figure>
+          <h3>Step by step</h3>
+          <p class="small">Add <code>data-fragment</code> to the figure to show one column per step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="waterfall" data-chart-keys="wfsteps" data-fragment="">
+              <figcaption><b>What happened to the crop</b><br/><span>thousands of apples</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-kind="total">
+                    <th>Picked</th>
+                    <td>74.5</td>
+                  </tr>
+                  <tr>
+                    <th>Windfalls</th>
+                    <td>28.2</td>
+                  </tr>
+                  <tr>
+                    <th>Bruised</th>
+                    <td>-16.1</td>
+                  </tr>
+                  <tr>
+                    <th>Peelings</th>
+                    <td>-13.3</td>
+                  </tr>
+                  <tr>
+                    <th>Late pick</th>
+                    <td>4.9</td>
+                  </tr>
+                  <tr data-kind="total">
+                    <th>Pressed</th>
+                    <td>78.3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;waterfall&quot; data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;What happened to the crop&lt;/b&gt;&lt;br&gt;
+    &lt;span&gt;thousands of apples&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr data-kind=&quot;total&quot;&gt;&lt;th&gt;Picked&lt;/th&gt;&lt;td&gt;74.5&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Windfalls&lt;/th&gt;&lt;td&gt;28.2&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Bruised&lt;/th&gt;&lt;td&gt;-16.1&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Peelings&lt;/th&gt;&lt;td&gt;-13.3&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Late pick&lt;/th&gt;&lt;td&gt;4.9&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr data-kind=&quot;total&quot;&gt;&lt;th&gt;Pressed&lt;/th&gt;&lt;td&gt;78.3&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
         </section>
       </div>
     </div>

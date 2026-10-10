@@ -138,6 +138,50 @@
 }</code></pre>
           </div>
         </section>
+        <section>
+          <h3>Step by step</h3>
+          <p class="small">Add <code>data-fragment</code> to the figure to show one slice per step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="donut" data-chart-keys="dosteps" data-chart-aspect="0.55" data-fragment="">
+              <figcaption><b>Where the crop went</b><br/><span>thousands of apples</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-kind="total">
+                    <th>Picked</th>
+                    <td>68.7</td>
+                  </tr>
+                  <tr>
+                    <th>Juiced</th>
+                    <td>38.2</td>
+                  </tr>
+                  <tr>
+                    <th>Eaten fresh</th>
+                    <td>18.1</td>
+                  </tr>
+                  <tr>
+                    <th>Sold whole</th>
+                    <td>12.4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;donut&quot; data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Where the crop went&lt;/b&gt;&lt;br&gt;
+    &lt;span&gt;thousands of apples&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr data-kind=&quot;total&quot;&gt;&lt;th&gt;Picked&lt;/th&gt;&lt;td&gt;68.7&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Juiced&lt;/th&gt;&lt;td&gt;38.2&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Eaten fresh&lt;/th&gt;&lt;td&gt;18.1&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Sold whole&lt;/th&gt;&lt;td&gt;12.4&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
       </div>
     </div>
     <script src="../dist/reveal.js"></script>

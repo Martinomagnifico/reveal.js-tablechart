@@ -52,6 +52,48 @@ block slides
 				+chart({ prefix: 'colgroves', title: 'Picked by grove', unit: 'thousands', rows: groves, code: 'rows' })
 
 	section
+		h3 Grouped, step by step
+		p.small With #[code data-fragment] on the figure, each step adds one group.
+		.split
+			+example({ lines: '1' })
+				+chart({ prefix: 'colgsteps', series: ['2022', '2026'], title: 'Apples sold by variety', unit: 'thousands', rows: sold, code: 2, fragment: true })
+
+	section
+		h3 Grouped, series by series
+		p.small Add #[code data-fragment] to a column header to show that series in every group on a step.
+		.split
+			+example({ lines: '9-10' })
+				+chart({ prefix: 'colgseries', series: [{ name: '2022', fragment: true }, { name: '2026', fragment: true }], title: 'Apples sold by variety', unit: 'thousands', rows: sold, code: 2 })
+
+	section
+		h3 Grouped, one by one
+		p.small Add #[code data-fragment] to every cell. The steps go down each column of the table: one series column by column, then the next.
+		.split
+			+example({ lines: '12-13,17-18' })
+				+chart({ prefix: 'colgcells', series: ['2022', '2026'], title: 'Apples sold by variety', unit: 'thousands', rows: sold, code: 2, cells: true })
+
+	section
+		h3 Stacked, step by step
+		p.small With #[code data-fragment] on the figure, each step adds one stack.
+		.split
+			+example({ lines: '1' })
+				+chart({ prefix: 'colssteps', series: ['Farm shop', 'Market'], stack: true, title: 'Apples sold', unit: 'thousands', rows: soldBy, code: 2, fragment: true })
+
+	section
+		h3 Stacked, layer by layer
+		p.small Add #[code data-fragment] to a column header to show that layer on every stack on a step.
+		.split
+			+example({ lines: '9-10' })
+				+chart({ prefix: 'colsseries', series: [{ name: 'Farm shop', fragment: true }, { name: 'Market', fragment: true }], stack: true, title: 'Apples sold', unit: 'thousands', rows: soldBy, code: 2 })
+
+	section
+		h3 Stacked, piece by piece
+		p.small Add #[code data-fragment] to every cell. The steps go down each column of the table: the bottom layer piece by piece, then the next layer on top.
+		.split
+			+example({ lines: '12-13,17-18' })
+				+chart({ prefix: 'colscells', series: ['Farm shop', 'Market'], stack: true, title: 'Apples sold', unit: 'thousands', rows: soldBy, code: 2, cells: true })
+
+	section
 		h3 Break the scale
 		p.small If one value is much larger than the others, add an #[code axis-break] annotation. Above the break, bar heights are not to scale, so every bar shows its number.
 		.split

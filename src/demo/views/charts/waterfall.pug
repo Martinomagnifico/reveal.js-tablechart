@@ -22,7 +22,7 @@ block slides
 
 	section
 		h3 Totals are not calculated
-		p.small Tablechart shows the total you write. It does not add up the steps, so a rounded total stays as you wrote it.
+		p.small See that the last column does not line up? That is not the chart. Tablechart just takes #[em your] values, it does #[em not] check if those add up correctly. The console will show a warning if there is a mismatch, because it might be hard to see it in the chart itself.
 		+chart({ type: 'waterfall', prefix: 'wfshort', title: 'A shorter bridge', unit: 'thousands of apples', rows: stated })
 
 	section
@@ -31,8 +31,11 @@ block slides
 		+chart({ type: 'waterfall', prefix: 'wfthin', title: 'Trees in the orchard', unit: 'thousands', rows: trees })
 
 	section
-		h3 Only rising steps
-		+chart({ type: 'waterfall', prefix: 'wfrising', title: 'Peelings, end to end', unit: 'kilometres', rows: peelings })
+		h3 Step by step
+		p.small Add #[code data-fragment] to the figure to show one column per step.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'waterfall', prefix: 'wfsteps', title: 'What happened to the crop', unit: 'thousands of apples', rows: crop, fragment: true })
 
 
 block append scripts

@@ -33,6 +33,8 @@ export interface Config extends TablechartConfig {
 
 export const defaultConfig: Config = {
 	...tablechartDefaults,
+	// Reveal's fragments step a chart, so it has no buttons of its own.
+	controls: false,
 	sequence: "together",
 	sequencedelay: 0,
 	cssautoload: true,

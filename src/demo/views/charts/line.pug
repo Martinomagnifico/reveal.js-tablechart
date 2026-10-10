@@ -44,20 +44,6 @@ block slides
 					span +12%
 
 	section
-		h3 Step by step
-		p.small Add #[code data-fragment] to the figure to show one point per step.
-		.split
-			+example({ lines: '1' })
-				+chart({ type: 'line', prefix: 'linesteps', title: 'Apples per tree', unit: 'each', rows: perTreesmall, fragment: true })
-
-	section
-		h3 Smooth, step by step
-		p.small A smooth line also works with #[code data-fragment]. Each step adds one point, and the curve to it.
-		.split
-			+example({ lines: '1' })
-				+chart({ type: 'line', prefix: 'linesmoothsteps', shape: 'smooth', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall, fragment: true })
-
-	section
 		h3 Several lines
 		p.small Each value column is a line. The column header is shown as the name at the end of the line.
 		.split
@@ -113,6 +99,34 @@ block slides
 									th= row[0]
 									td= row[1]
 									td= row[2]
+
+	section
+		h3 Step by step
+		p.small Add #[code data-fragment] to the figure to show one point per step.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'linesteps', shape: 'smooth', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors, fragment: true })
+
+	section
+		h3 Several lines, step by step
+		p.small With #[code data-fragment] on the figure, each step adds a point to every line.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'line', prefix: 'linestepstwo', title: 'Apples per tree', unit: 'each', series: ['North', 'South'], rows: perTreeTwo, fragment: true, code: 2 })
+
+	section
+		h3 Line by line
+		p.small Add #[code data-fragment] to a column header to show that whole line on a step.
+		.split
+			+example({ lines: '9-10' })
+				+chart({ type: 'line', prefix: 'linebyline', title: 'Apples per tree', unit: 'each', series: [{ name: 'North', fragment: true }, { name: 'South', fragment: true }], rows: perTreeTwo, code: 2 })
+
+	section
+		h3 Point by point, line by line
+		p.small Add #[code data-fragment] to every cell. The steps go down each column: one line point by point, then the next.
+		.split
+			+example({ lines: '12-13,17-18' })
+				+chart({ type: 'line', prefix: 'linecells', title: 'Apples per tree', unit: 'each', series: ['North', 'South'], rows: perTreeTwo, cells: true, code: 2 })
 
 block append scripts
 	include ../slides/_init

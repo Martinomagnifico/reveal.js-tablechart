@@ -319,7 +319,7 @@
           <h3>Step by step</h3>
           <p class="small">Add <code>data-fragment</code> to the figure to show one point per step.</p>
           <div class="split">
-            <figure class="tablechart" data-chart="area" data-chart-keys="areafrag" data-fragment="">
+            <figure class="tablechart" data-chart="area" data-chart-keys="areafrag" data-chart-shape="smooth" data-fragment="">
               <figcaption><b>Visitors to the orchard</b><br/><span>thousands</span>
               </figcaption>
               <table>
@@ -347,7 +347,7 @@
                 </tbody>
               </table>
             </figure>
-            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot; data-fragment&gt;
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot; data-chart-shape=&quot;smooth&quot; data-fragment&gt;
   &lt;figcaption&gt;
     &lt;b&gt;Visitors to the orchard&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
   &lt;/figcaption&gt;
@@ -364,8 +364,8 @@
           </div>
         </section>
         <section>
-          <h3>Smooth, step by step</h3>
-          <p class="small">A smooth area also works with <code>data-fragment</code>. Each step adds one point, and the curve to it.</p>
+          <h3>Several areas, step by step</h3>
+          <p class="small">With <code>data-fragment</code> on the figure, each step adds a point to every area.</p>
           <div class="split">
             <figure class="tablechart" data-chart="area" data-chart-keys="areasmoothsteps" data-chart-stack="" data-chart-shape="smooth" data-chart-legend="" data-fragment="">
               <figcaption><b>Apples picked</b><br/><span>thousands</span>
@@ -423,6 +423,130 @@
     &lt;tbody&gt;
       &lt;tr&gt;&lt;th&gt;2020&lt;/th&gt;&lt;td&gt;42&lt;/td&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
       &lt;tr&gt;&lt;th&gt;2021&lt;/th&gt;&lt;td&gt;55&lt;/td&gt;&lt;td&gt;26&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Area by area</h3>
+          <p class="small">Add <code>data-fragment</code> to a column header to show that whole area on a step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="area" data-chart-keys="areabyarea">
+              <figcaption><b>Apples per tree</b><br/><span>each</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th data-fragment="">North</th>
+                    <th data-fragment="">South</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2016</th>
+                    <td>41</td>
+                    <td>30</td>
+                  </tr>
+                  <tr>
+                    <th>2019</th>
+                    <td>58</td>
+                    <td>39</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2022</th>
+                    <td>77</td>
+                    <td>52</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2025</th>
+                    <td>105</td>
+                    <td>61</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="9-10">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples per tree&lt;/b&gt;&lt;br&gt;&lt;span&gt;each&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th data-fragment&gt;North&lt;/th&gt;
+        &lt;th data-fragment&gt;South&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2016&lt;/th&gt;&lt;td&gt;41&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2019&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;td&gt;39&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Point by point, area by area</h3>
+          <p class="small">Add <code>data-fragment</code> to every cell. The steps go down each column: one area point by point, then the next.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="area" data-chart-keys="areacells">
+              <figcaption><b>Apples per tree</b><br/><span>each</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>North</th>
+                    <th>South</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2016</th>
+                    <td data-fragment="">41</td>
+                    <td data-fragment="">30</td>
+                  </tr>
+                  <tr>
+                    <th>2019</th>
+                    <td data-fragment="">58</td>
+                    <td data-fragment="">39</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2022</th>
+                    <td data-fragment="">77</td>
+                    <td data-fragment="">52</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2025</th>
+                    <td data-fragment="">105</td>
+                    <td data-fragment="">61</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="12-13,17-18">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;area&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples per tree&lt;/b&gt;&lt;br&gt;&lt;span&gt;each&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;North&lt;/th&gt;&lt;th&gt;South&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;2016&lt;/th&gt;
+        &lt;td data-fragment&gt;41&lt;/td&gt;
+        &lt;td data-fragment&gt;30&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;2019&lt;/th&gt;
+        &lt;td data-fragment&gt;58&lt;/td&gt;
+        &lt;td data-fragment&gt;39&lt;/td&gt;
+      &lt;/tr&gt;
       …
     &lt;/tbody&gt;
   &lt;/table&gt;

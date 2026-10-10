@@ -57,14 +57,28 @@ block slides
 		p.small Add #[code data-fragment] to the figure to show one point per step.
 		.split
 			+example({ lines: '1' })
-				+chart({ type: 'area', prefix: 'areafrag', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors, fragment: true })
+				+chart({ type: 'area', prefix: 'areafrag', shape: 'smooth', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors, fragment: true })
 
 	section
-		h3 Smooth, step by step
-		p.small A smooth area also works with #[code data-fragment]. Each step adds one point, and the curve to it.
+		h3 Several areas, step by step
+		p.small With #[code data-fragment] on the figure, each step adds a point to every area.
 		.split
 			+example({ lines: '1' })
 				+chart({ type: 'area', prefix: 'areasmoothsteps', stack: true, shape: 'smooth', legend: true, title: 'Apples picked', unit: 'thousands', series: ['North', 'South'], rows: harvestBy, fragment: true, code: 2 })
+
+	section
+		h3 Area by area
+		p.small Add #[code data-fragment] to a column header to show that whole area on a step.
+		.split
+			+example({ lines: '9-10' })
+				+chart({ type: 'area', prefix: 'areabyarea', title: 'Apples per tree', unit: 'each', series: [{ name: 'North', fragment: true }, { name: 'South', fragment: true }], rows: perTreeTwo, code: 2 })
+
+	section
+		h3 Point by point, area by area
+		p.small Add #[code data-fragment] to every cell. The steps go down each column: one area point by point, then the next.
+		.split
+			+example({ lines: '12-13,17-18' })
+				+chart({ type: 'area', prefix: 'areacells', title: 'Apples per tree', unit: 'each', series: ['North', 'South'], rows: perTreeTwo, cells: true, code: 2 })
 
 	section
 		h4 That’s it!

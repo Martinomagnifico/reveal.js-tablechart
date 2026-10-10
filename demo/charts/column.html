@@ -258,6 +258,332 @@
           </div>
         </section>
         <section>
+          <h3>Grouped, step by step</h3>
+          <p class="small">With <code>data-fragment</code> on the figure, each step adds one group.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colgsteps" data-fragment="">
+              <figcaption><b>Apples sold by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>2022</th>
+                    <th>2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Elstar</th>
+                    <td>118</td>
+                    <td>131</td>
+                  </tr>
+                  <tr>
+                    <th>Jonagold</th>
+                    <td>140</td>
+                    <td>135</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>Braeburn</th>
+                    <td>109</td>
+                    <td>121</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;2022&lt;/th&gt;&lt;th&gt;2026&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Elstar&lt;/th&gt;&lt;td&gt;118&lt;/td&gt;&lt;td&gt;131&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jonagold&lt;/th&gt;&lt;td&gt;140&lt;/td&gt;&lt;td&gt;135&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Grouped, series by series</h3>
+          <p class="small">Add <code>data-fragment</code> to a column header to show that series in every group on a step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colgseries">
+              <figcaption><b>Apples sold by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th data-fragment="">2022</th>
+                    <th data-fragment="">2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Elstar</th>
+                    <td>118</td>
+                    <td>131</td>
+                  </tr>
+                  <tr>
+                    <th>Jonagold</th>
+                    <td>140</td>
+                    <td>135</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>Braeburn</th>
+                    <td>109</td>
+                    <td>121</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="9-10">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th data-fragment&gt;2022&lt;/th&gt;
+        &lt;th data-fragment&gt;2026&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Elstar&lt;/th&gt;&lt;td&gt;118&lt;/td&gt;&lt;td&gt;131&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Jonagold&lt;/th&gt;&lt;td&gt;140&lt;/td&gt;&lt;td&gt;135&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Grouped, one by one</h3>
+          <p class="small">Add <code>data-fragment</code> to every cell. The steps go down each column of the table: one series column by column, then the next.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colgcells">
+              <figcaption><b>Apples sold by variety</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>2022</th>
+                    <th>2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Elstar</th>
+                    <td data-fragment="">118</td>
+                    <td data-fragment="">131</td>
+                  </tr>
+                  <tr>
+                    <th>Jonagold</th>
+                    <td data-fragment="">140</td>
+                    <td data-fragment="">135</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>Braeburn</th>
+                    <td data-fragment="">109</td>
+                    <td data-fragment="">121</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="12-13,17-18">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold by variety&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;2022&lt;/th&gt;&lt;th&gt;2026&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Elstar&lt;/th&gt;
+        &lt;td data-fragment&gt;118&lt;/td&gt;
+        &lt;td data-fragment&gt;131&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Jonagold&lt;/th&gt;
+        &lt;td data-fragment&gt;140&lt;/td&gt;
+        &lt;td data-fragment&gt;135&lt;/td&gt;
+      &lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Stacked, step by step</h3>
+          <p class="small">With <code>data-fragment</code> on the figure, each step adds one stack.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colssteps" data-chart-stack="" data-fragment="">
+              <figcaption><b>Apples sold</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Farm shop</th>
+                    <th>Market</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2023</th>
+                    <td>64</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td>71</td>
+                    <td>45</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2025</th>
+                    <td>69</td>
+                    <td>57</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-stack data-fragment&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;Farm shop&lt;/th&gt;&lt;th&gt;Market&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;64&lt;/td&gt;&lt;td&gt;38&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;71&lt;/td&gt;&lt;td&gt;45&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Stacked, layer by layer</h3>
+          <p class="small">Add <code>data-fragment</code> to a column header to show that layer on every stack on a step.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colsseries" data-chart-stack="">
+              <figcaption><b>Apples sold</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th data-fragment="">Farm shop</th>
+                    <th data-fragment="">Market</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2023</th>
+                    <td>64</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td>71</td>
+                    <td>45</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2025</th>
+                    <td>69</td>
+                    <td>57</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="9-10">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-stack&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th data-fragment&gt;Farm shop&lt;/th&gt;
+        &lt;th data-fragment&gt;Market&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;64&lt;/td&gt;&lt;td&gt;38&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;71&lt;/td&gt;&lt;td&gt;45&lt;/td&gt;&lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Stacked, piece by piece</h3>
+          <p class="small">Add <code>data-fragment</code> to every cell. The steps go down each column of the table: the bottom layer piece by piece, then the next layer on top.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="colscells" data-chart-stack="">
+              <figcaption><b>Apples sold</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Farm shop</th>
+                    <th>Market</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2023</th>
+                    <td data-fragment="">64</td>
+                    <td data-fragment="">38</td>
+                  </tr>
+                  <tr>
+                    <th>2024</th>
+                    <td data-fragment="">71</td>
+                    <td data-fragment="">45</td>
+                  </tr>
+                  <tr data-code="skip">
+                    <th>2025</th>
+                    <td data-fragment="">69</td>
+                    <td data-fragment="">57</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="12-13,17-18">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-stack&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples sold&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;Farm shop&lt;/th&gt;&lt;th&gt;Market&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;2023&lt;/th&gt;
+        &lt;td data-fragment&gt;64&lt;/td&gt;
+        &lt;td data-fragment&gt;38&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;2024&lt;/th&gt;
+        &lt;td data-fragment&gt;71&lt;/td&gt;
+        &lt;td data-fragment&gt;45&lt;/td&gt;
+      &lt;/tr&gt;
+      …
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
           <h3>Break the scale</h3>
           <p class="small">If one value is much larger than the others, add an <code>axis-break</code> annotation. Above the break, bar heights are not to scale, so every bar shows its number.</p>
           <div class="split">

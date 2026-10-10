@@ -39,6 +39,13 @@ block slides
 					--tablechart-color-3: #7fa87f;
 				}
 
+	section
+		h3 Step by step
+		p.small Add #[code data-fragment] to the figure to show one slice per step.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'donut', prefix: 'dosteps', title: 'Where the crop went', unit: 'thousands of apples', rows: wentwheresmall, aspect: 0.55, fragment: true })
+
 
 block append scripts
 	include ../slides/_init
