@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.0.4] - 2026-10-14
+
+Uses Tablechart 1.0.4.
+
+### Added
+
+- Values below zero on column, bar, line, area and waterfall charts, also in stacks.
+- `data-chart-animate="sweep"` on a donut draws the ring in one sweep, and on a waterfall builds it at one speed.
+- `--tablechart-animation-element-duration`, `--tablechart-animation-stagger` and `--tablechart-animation-max` set the timing of a chart.
+- The console lists the old variable names and `animate` values that a presentation still uses.
+
+### Changed
+
+- A large chart builds within 2s.
+- A waterfall builds one step at a time: a column, then its connector, then the next column.
+- New names for the CSS variables, such as `--tablechart-animation-` and `--tablechart-name-`. The old names work until the next minor version.
+- `data-chart-animate` takes `grow` and `sweep`. `up` and `across` are the old names.
+- The demo uses the new variable names and `grow`.
+
+### Removed
+
+- The `closing` option and `data-chart-closing`. The last total of a waterfall always grows from the last connector to the baseline, except when the columns is there at the start.
+
+### Fixed
+
+- A chart's hidden table no longer adds empty pages in print.
+- With steps, the last total of a waterfall grows from the baseline if the column before it is not there yet.
+- The link to the Data page in the readme.
+- The "Animation speed" slide in the demo used a variable that does not exist.
+
+
+
+
 ## [1.0.2] - 2026-10-10
 
 Now at version 1!

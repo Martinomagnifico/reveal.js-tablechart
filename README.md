@@ -62,7 +62,7 @@ A chart is a `figure` with `data-chart` and a table in it:
 ```
 
 For the chart types and everything a table can say, see
-[Data](https://martinomagnifico.github.io/tablechart/features/data.html) and the
+[Data](https://martinomagnifico.github.io/tablechart/data.html) and the
 chart types on the Tablechart site.
 
 ## When a chart builds

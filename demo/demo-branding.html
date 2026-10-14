@@ -100,7 +100,7 @@
         </section>
         <section>
           <h3>Waterfall colours</h3>
-          <p class="small">Set the colours for rising steps, falling steps and totals. The ink variables set the colour of the number inside each bar.</p>
+          <p class="small">Set the colours for rising steps, falling steps and totals. The value colour variables set the colour of the number inside each bar.</p>
           <div class="split">
             <div class="warm">
               <figure class="tablechart" data-chart="waterfall" data-chart-keys="brwarm">
@@ -123,14 +123,14 @@
                   </tbody>
                 </table>
               </figure>
-            </div><style>.warm{--tablechart-up-color:#b4552d;--tablechart-down-color:#d69a52;--tablechart-total-color:#cfc4b4;--tablechart-up-ink:#fff;--tablechart-down-ink:#3a2312;--tablechart-total-ink:#3a2312}</style>
+            </div><style>.warm{--tablechart-up-color:#b4552d;--tablechart-down-color:#d69a52;--tablechart-total-color:#cfc4b4;--tablechart-up-value-color:#fff;--tablechart-down-value-color:#3a2312;--tablechart-total-value-color:#3a2312}</style>
             <pre><code class="css" data-trim="data-trim" data-line-numbers="2-4">.warm {
     --tablechart-up-color: #b4552d;
     --tablechart-down-color: #d69a52;
     --tablechart-total-color: #cfc4b4;
-    --tablechart-up-ink: #ffffff;
-    --tablechart-down-ink: #3a2312;
-    --tablechart-total-ink: #3a2312;
+    --tablechart-up-value-color: #ffffff;
+    --tablechart-down-value-color: #3a2312;
+    --tablechart-total-value-color: #3a2312;
 }</code></pre>
           </div>
         </section>
@@ -337,16 +337,16 @@
                   </tbody>
                 </table>
               </figure>
-            </div><style>.sizes{--tablechart-font-size:.5em;--tablechart-value-size:1.6em;--tablechart-category-size:.75em}</style>
+            </div><style>.sizes{--tablechart-font-size:.5em;--tablechart-value-size:1.6em;--tablechart-name-size:.75em}</style>
             <pre><code class="css" data-trim="data-trim" data-line-numbers="2-4">.sizes {
     --tablechart-font-size: 0.5em;
     --tablechart-value-size: 1.6em;
-    --tablechart-category-size: 0.75em;
+    --tablechart-name-size: 0.75em;
 }</code></pre>
           </div>
         </section>
         <section>
-          <h3>Rules and connectors</h3>
+          <h3>Baseline and connectors</h3>
           <div class="split">
             <div class="dotty">
               <figure class="tablechart" data-chart="waterfall" data-chart-keys="brdotty">
@@ -369,13 +369,13 @@
                   </tbody>
                 </table>
               </figure>
-            </div><style>.dotty{--tablechart-connector-width:2.5px;--tablechart-connector-dash:0 6;--tablechart-connector-opacity:1;--tablechart-rule-width:2px;--tablechart-rule-opacity:1}.dotty .tablechart-connector{stroke-linecap:round}</style>
+            </div><style>.dotty{--tablechart-connector-width:2.5px;--tablechart-connector-dash:0 6;--tablechart-connector-opacity:1;--tablechart-baseline-width:2px;--tablechart-baseline-opacity:1}.dotty .tablechart-connector{stroke-linecap:round}</style>
             <pre><code class="css" data-trim="data-trim" data-line-numbers="2-6,10">.dotty {
     --tablechart-connector-width: 2.5px;
     --tablechart-connector-dash: 0 6;
     --tablechart-connector-opacity: 1;
-    --tablechart-rule-width: 2px;
-    --tablechart-rule-opacity: 1;
+    --tablechart-baseline-width: 2px;
+    --tablechart-baseline-opacity: 1;
 }
 /* A dash of 0 with round ends is a dot. */
 .dotty .tablechart-connector {
@@ -384,7 +384,7 @@
           </div>
         </section>
         <section>
-          <h3>The callout</h3>
+          <h3>The badge</h3>
           <div class="split">
             <div class="pill">
               <figure class="tablechart" data-chart="column" data-chart-keys="brpill">
@@ -447,10 +447,9 @@
                   </tbody>
                 </table>
               </figure>
-            </div><style>.slow{--tablechart-duration:.9s;--tablechart-stagger:.22s}</style>
+            </div><style>.slow{--tablechart-animation-element-duration:.9s}</style>
             <pre><code class="css" data-trim="data-trim" data-line-numbers="2-3">.slow {
-    --tablechart-duration: 0.9s;
-    --tablechart-stagger: 0.22s;
+    --tablechart-animation-element-duration: 0.9s;
 }</code></pre>
           </div>
         </section>

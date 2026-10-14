@@ -43,7 +43,7 @@ block slides
 
 	section
 		h3 Waterfall colours
-		p.small Set the colours for rising steps, falling steps and totals. The ink variables set the colour of the number inside each bar.
+		p.small Set the colours for rising steps, falling steps and totals. The value colour variables set the colour of the number inside each bar.
 		.split
 			.warm
 				+chart({ type: 'waterfall', prefix: 'brwarm', title: 'Three colours', unit: 'thousands of apples', rows: cropsmall })
@@ -52,9 +52,9 @@ block slides
 					--tablechart-up-color: #b4552d;
 					--tablechart-down-color: #d69a52;
 					--tablechart-total-color: #cfc4b4;
-					--tablechart-up-ink: #ffffff;
-					--tablechart-down-ink: #3a2312;
-					--tablechart-total-ink: #3a2312;
+					--tablechart-up-value-color: #ffffff;
+					--tablechart-down-value-color: #3a2312;
+					--tablechart-total-value-color: #3a2312;
 				}
 
 	section
@@ -147,11 +147,11 @@ block slides
 				.sizes {
 					--tablechart-font-size: 0.5em;
 					--tablechart-value-size: 1.6em;
-					--tablechart-category-size: 0.75em;
+					--tablechart-name-size: 0.75em;
 				}
 
 	section
-		h3 Rules and connectors
+		h3 Baseline and connectors
 		.split
 			.dotty
 				+chart({ type: 'waterfall', prefix: 'brdotty', title: 'Heavier connectors', unit: 'thousands of apples', rows: cropsmall })
@@ -160,8 +160,8 @@ block slides
 					--tablechart-connector-width: 2.5px;
 					--tablechart-connector-dash: 0 6;
 					--tablechart-connector-opacity: 1;
-					--tablechart-rule-width: 2px;
-					--tablechart-rule-opacity: 1;
+					--tablechart-baseline-width: 2px;
+					--tablechart-baseline-opacity: 1;
 				}
 				/* A dash of 0 with round ends is a dot. */
 				.dotty .tablechart-connector {
@@ -169,7 +169,7 @@ block slides
 				}
 
 	section
-		h3 The callout
+		h3 The badge
 		.split
 			.pill
 				+chart({ prefix: 'brpill', title: 'Rounded corners', unit: 'thousands of litres', rows: applejuice })
@@ -188,8 +188,7 @@ block slides
 				+chart({ type: 'waterfall', prefix: 'brslow', title: 'Slower', unit: 'thousands of apples', rows: crop })
 			+style('2-3').
 				.slow {
-					--tablechart-duration: 0.9s;
-					--tablechart-stagger: 0.22s;
+					--tablechart-animation-element-duration: 0.9s;
 				}
 
 	section

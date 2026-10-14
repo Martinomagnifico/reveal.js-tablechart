@@ -32,9 +32,9 @@
 	--tablechart-up-color: #4f9fd0;
 	--tablechart-down-color: #46bda4;
 	--tablechart-total-color: #7d95a6;
-	--tablechart-up-ink: #051525;
-	--tablechart-down-ink: #051525;
-	--tablechart-total-ink: #051525;
+	--tablechart-up-value-color: #051525;
+	--tablechart-down-value-color: #051525;
+	--tablechart-total-value-color: #051525;
 
 	--r-main-color: var(--demo-ink);
 	--r-heading-color: #ffffff;
@@ -55,9 +55,9 @@
 	// it 3.3:1. This clears AA at 4.9:1 without leaving the family.
 	--tablechart-down-color: #2b7d70;
 	--tablechart-total-color: #9fb3bd;
-	--tablechart-up-ink: #ffffff;
-	--tablechart-down-ink: #ffffff;
-	--tablechart-total-ink: #16323f;
+	--tablechart-up-value-color: #ffffff;
+	--tablechart-down-value-color: #ffffff;
+	--tablechart-total-value-color: #16323f;
 
 	--r-main-color: var(--demo-ink);
 	--r-heading-color: var(--demo-ink);
@@ -245,9 +245,9 @@ a.github-corner {
 	--tablechart-up-color: #16323f;
 	--tablechart-down-color: #2b7d70;
 	--tablechart-total-color: #9fb3bd;
-	--tablechart-up-ink: #f3efe9;
-	--tablechart-down-ink: #f3efe9;
-	--tablechart-total-ink: #16323f;
+	--tablechart-up-value-color: #f3efe9;
+	--tablechart-down-value-color: #f3efe9;
+	--tablechart-total-value-color: #16323f;
 	--tablechart-surface: #f3efe9;
 
 	color: #16323f;
@@ -269,9 +269,9 @@ a.github-corner {
 	--tablechart-up-color: initial;
 	--tablechart-down-color: initial;
 	--tablechart-total-color: initial;
-	--tablechart-up-ink: initial;
-	--tablechart-down-ink: initial;
-	--tablechart-total-ink: initial;
+	--tablechart-up-value-color: initial;
+	--tablechart-down-value-color: initial;
+	--tablechart-total-value-color: initial;
 }
 
 

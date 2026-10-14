@@ -29,10 +29,10 @@ block slides
 
 	section
 		h3 Grow up
-		p.small Add #[code data-chart-animate="up"] to the figure. The area grows up from zero instead of from left to right. A chart with #[code data-fragment] still builds from left to right, because each step adds a point.
+		p.small Add #[code data-chart-animate="grow"] to the figure. The area grows up from zero instead of from left to right. A chart with #[code data-fragment] still builds from left to right, because each step adds a point.
 		.split
 			+example({ lines: '1' })
-				+chart({ type: 'area', prefix: 'areaup', shape: 'smooth', animate: 'up', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors })
+				+chart({ type: 'area', prefix: 'areaup', shape: 'smooth', animate: 'grow', title: 'Visitors to the orchard', unit: 'thousands', rows: visitors })
 
 	section
 		h3 Several areas

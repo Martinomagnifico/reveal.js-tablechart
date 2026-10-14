@@ -29,10 +29,10 @@ block slides
 
 	section
 		h3 Grow up
-		p.small Add #[code data-chart-animate="up"] to the figure. The line grows up from zero instead of from left to right. A chart with #[code data-fragment] still builds from left to right, because each step adds a point.
+		p.small Add #[code data-chart-animate="grow"] to the figure. The line grows up from zero instead of from left to right. A chart with #[code data-fragment] still builds from left to right, because each step adds a point.
 		.split
 			+example({ lines: '1' })
-				+chart({ type: 'line', prefix: 'lineup', shape: 'smooth', animate: 'up', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall })
+				+chart({ type: 'line', prefix: 'lineup', shape: 'smooth', animate: 'grow', title: 'Rainfall at the orchard', unit: 'millimetres', rows: rainfall })
 
 	section
 		h3 Annotations
