@@ -1,7 +1,7 @@
  /*****************************************************************
  *
  * reveal.js-tablechart for Reveal.js 
- * Version 1.0.6
+ * Version 1.0.7
  * 
  * @link
  * https://github.com/martinomagnifico/reveal.js-tablechart
@@ -38,6 +38,7 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	shape: "straight",
 	legend: !1,
 	tooltip: "auto",
+	tooltipparent: null,
 	table: "never",
 	totallabel: "Total",
 	controls: !0,
@@ -1228,9 +1229,13 @@ var Ne = (e) => e.map((e) => ({
 		]), i;
 	};
 	return r.append(i("previous"), i("next")), r;
-}, Qe = (e, t, n, r = 10, i = 8, a = 12) => {
-	let { offsetWidth: o, offsetHeight: s } = e, { clientWidth: c, clientHeight: l } = document.documentElement, u = n.top - i, d = l - n.bottom - i, f = s + r <= u ? !0 : s + r <= d ? !1 : u >= d, p = f ? n.top - r - s : n.bottom + r, m = n.left + n.width / 2, h = Math.max(i, Math.min(m - o / 2, c - o - i));
-	e.style.left = `${h}px`, e.style.top = `${Math.max(i, Math.min(p, l - s - i))}px`, e.dataset.side = f ? "top" : "bottom", t.style.left = `${Math.max(a, Math.min(m - h, o - a))}px`;
+}, Qe = (e, t, n, r = {
+	x: 0,
+	y: 0,
+	scale: 1
+}, i = 2, a = 8, o = 12) => {
+	let s = e.getBoundingClientRect(), c = s.width, l = s.height, u = Number.parseFloat(getComputedStyle(e).borderLeftWidth) || 0, d = t.getBoundingClientRect().height / 2 + (i - u) * r.scale, f = o * r.scale, { clientWidth: p, clientHeight: m } = document.documentElement, h = n.top - a, g = m - n.bottom - a, _ = l + d <= h ? !0 : l + d <= g ? !1 : h >= g, v = _ ? n.top - d - l : n.bottom + d, y = n.left + n.width / 2, b = Math.max(a, Math.min(y - c / 2, p - c - a));
+	e.style.left = `${(b - r.x) / r.scale}px`, e.style.top = `${(Math.max(a, Math.min(v, m - l - a)) - r.y) / r.scale}px`, e.dataset.side = _ ? "top" : "bottom", t.style.left = `${Math.max(f, Math.min(y - b, c - f)) / r.scale - u}px`;
 }, $e = "tablechart-tooltip", et = [
 	"--tablechart-surface",
 	"--tablechart-tooltip-surface",
@@ -1242,42 +1247,48 @@ var Ne = (e) => e.map((e) => ({
 ], Z = null, tt, nt, Q = null, rt = null, it = 0, $ = () => {
 	clearTimeout(it), Z && Q && (Z.hidden = !0, Q = null, rt = null);
 }, at = !1, ot = !0, st = NaN, ct = NaN, lt = !1, ut = () => {
-	lt || (lt = !0, document.addEventListener("pointermove", (e) => {
+	if (lt) return;
+	lt = !0, document.addEventListener("pointermove", (e) => {
 		e.pointerType === "mouse" && (ot = e.screenX !== st || e.screenY !== ct, st = e.screenX, ct = e.screenY, ot && (at = !1));
 	}, {
 		capture: !0,
 		passive: !0
-	}), document.addEventListener("keydown", () => {
+	});
+	let e = () => {
 		at = !0, $();
-	}, !0));
-}, dt = () => {
-	clearTimeout(it), it = window.setTimeout($, 120);
-}, ft = () => {
-	let e = document.createElement("div");
-	return e.className = $e, e.setAttribute("aria-hidden", "true"), e.hidden = !0, tt = document.createElement("div"), nt = document.createElement("div"), nt.className = `${$e}-arrow`, e.append(tt, nt), document.body.append(e), e.addEventListener("pointerenter", () => clearTimeout(it)), e.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && dt()), document.addEventListener("pointerdown", (t) => {
-		let n = t.target;
-		Q && !Q.plot.contains(n) && !e.contains(n) && $();
-	}), window.addEventListener("scroll", $, {
+	};
+	document.addEventListener("keydown", e, !0), window.addEventListener("scroll", e, {
 		capture: !0,
 		passive: !0
+	});
+}, dt = (e, t) => t / Number.parseFloat(getComputedStyle(e).width) || 1, ft = (e) => {
+	let t = e.tooltipparent;
+	return (typeof t == "string" ? document.querySelector(t) : t) ?? document.body;
+}, pt = () => {
+	clearTimeout(it), it = window.setTimeout($, 120);
+}, mt = () => {
+	let e = document.createElement("div");
+	return e.className = $e, e.setAttribute("aria-hidden", "true"), e.hidden = !0, tt = document.createElement("div"), nt = document.createElement("div"), nt.className = `${$e}-arrow`, e.append(tt, nt), document.body.append(e), e.addEventListener("pointerenter", () => clearTimeout(it)), e.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && pt()), document.addEventListener("pointerdown", (t) => {
+		let n = t.target;
+		Q && !Q.plot.contains(n) && !e.contains(n) && $();
 	}), window.addEventListener("resize", $), e;
-}, pt = (e, t) => {
+}, ht = (e, t) => {
 	let n = t ? t.style.getPropertyValue("--step") : "x";
 	return n === "" || Number(n) < e.step;
-}, mt = (e, t) => {
+}, gt = (e, t) => {
 	let n = e.svg.querySelector(`[data-series="${t + 1}"]:not(.tablechart-hole)`);
 	if (!n) return;
 	let r = getComputedStyle(n);
 	return r.fill && r.fill !== "none" ? r.fill : r.stroke;
-}, ht = (e, t, n) => {
+}, _t = (e, t, n) => {
 	let r = e.series.length > 1, i = [];
 	for (let [n, a] of e.seriesValues.entries()) {
-		if (!pt(e, a[t])) continue;
+		if (!ht(e, a[t])) continue;
 		let o = r ? e.figure.querySelector(`.tablechart-name[data-series="${n + 1}"]`) : null;
 		i.push({
 			name: r ? o?.textContent ?? e.series[n].name : "",
 			value: a[t].textContent ?? "",
-			colour: r ? mt(e, n) : void 0,
+			colour: r ? gt(e, n) : void 0,
 			sample: o ? {
 				marker: o.dataset.marker ?? null,
 				open: o.hasAttribute("data-open"),
@@ -1287,11 +1298,11 @@ var Ne = (e) => e.map((e) => ({
 		});
 	}
 	let a = e.totals[t];
-	return i.length > 1 && pt(e, a) && i.push({
+	return i.length > 1 && ht(e, a) && i.push({
 		name: n.totallabel,
 		value: a.textContent ?? ""
 	}), i;
-}, gt = (e, t) => {
+}, vt = (e, t) => {
 	if (e.type.centre && e.values[t]) return e.values[t].getBoundingClientRect();
 	let n = e.svg.querySelectorAll(`[data-row="${t + 1}"]:not(.tablechart-connector, .tablechart-leader)`), r = null;
 	for (let e of n) {
@@ -1306,11 +1317,11 @@ var Ne = (e) => e.map((e) => ({
 		100
 	];
 	return new DOMRect(i.left + i.width * a / 100, i.top + i.height * o / 100, i.width * s / 100, i.height * c / 100);
-}, _t = (e, t, n) => {
+}, yt = (e, t, n) => {
 	if (clearTimeout(it), Q === e && rt === t) return;
-	let r = (e.type.tooltip ?? ht)(e, t, n);
+	let r = (e.type.tooltip ?? _t)(e, t, n);
 	if (!r.length) return $();
-	Q && Q !== e && $(), Z ??= ft();
+	Q && Q !== e && $(), Z ??= mt();
 	let i = (e, t, n, r = !1, i) => {
 		let a = document.createElement("div");
 		if (a.className = `${$e}-line`, n) {
@@ -1331,13 +1342,21 @@ var Ne = (e) => e.map((e) => ({
 		let t = s.getPropertyValue(e).trim();
 		t ? Z.style.setProperty(e, t) : Z.style.removeProperty(e);
 	}
-	Z.style.setProperty("--_color", s.color), Z.style.colorScheme = s.colorScheme, Z.style.fontFamily = s.fontFamily, Z.style.fontSize = s.fontSize, Q = e, rt = t, Z.hidden = !1, Z.style.left = "0px", Qe(Z, nt, gt(e, t));
-}, vt = (e, t, n = !1) => {
+	Z.style.setProperty("--_color", s.color), Z.style.colorScheme = s.colorScheme, Z.style.fontFamily = s.fontFamily;
+	let c = ft(n);
+	Z.parentElement !== c && c.append(Z), Q = e, rt = t, Z.hidden = !1, Z.style.left = "0px", Z.style.top = "0px";
+	let l = Z.getBoundingClientRect(), u = {
+		x: l.left,
+		y: l.top,
+		scale: dt(Z, l.width)
+	}, d = dt(e.plot, e.plot.getBoundingClientRect().width);
+	Z.style.fontSize = `${Number.parseFloat(s.fontSize) * d / u.scale}px`, Qe(Z, nt, vt(e, t), u);
+}, bt = (e, t, n = !1) => {
 	let { plot: r } = e;
 	r.setAttribute("data-hover", ""), ut();
 	let i = (t) => {
 		if (e.rowAt) {
-			let n = r.getBoundingClientRect(), i = n.width / r.offsetWidth || 1;
+			let n = r.getBoundingClientRect(), i = dt(r, n.width);
 			return e.rowAt((t.clientX - n.left) / i, (t.clientY - n.top) / i);
 		}
 		let n = t.target.closest?.("[data-row]")?.getAttribute("data-row");
@@ -1352,8 +1371,8 @@ var Ne = (e) => e.map((e) => ({
 		if (!r.classList.contains("is-placed") || !e.figure.classList.contains("is-shown")) return;
 		if (n && !e.figure.hasAttribute("data-left-out")) return Q === e ? $() : void 0;
 		let c = i(a);
-		if (s = c, c === null || o(c)) return Q === e ? dt() : void 0;
-		_t(e, c, t);
+		if (s = c, c === null || o(c)) return Q === e ? pt() : void 0;
+		yt(e, c, t);
 	}, l = (t) => {
 		let n = t.target;
 		return e.svg.contains(n) && n.hasAttribute("data-row") ? n : null;
@@ -1367,40 +1386,40 @@ var Ne = (e) => e.map((e) => ({
 		if (!r) return;
 		a.delete(r);
 		let i = Number(r.getAttribute("data-row")) - 1;
-		s === i && !o(i) && !at && _t(e, i, t);
+		s === i && !o(i) && !at && yt(e, i, t);
 	};
 	e.svg.addEventListener("transitionend", u), e.svg.addEventListener("transitioncancel", u), r.addEventListener("pointermove", c), r.addEventListener("pointerdown", c), r.addEventListener("pointerleave", (t) => {
-		t.pointerType === "mouse" && (s = null, Q === e && dt());
+		t.pointerType === "mouse" && (s = null, Q === e && pt());
 	});
-}, yt = {
+}, xt = {
 	area: Ie,
 	bar: xe,
 	column: Se,
 	donut: Te,
 	line: Fe,
 	waterfall: ze
-}, bt = {
+}, St = {
 	"axis-break": B,
 	trend: ce,
 	bracket: ie
-}, xt = Object.keys(bt), St = (e) => {
+}, Ct = Object.keys(St), wt = (e) => {
 	let t = "";
 	for (let n = e.previousSibling; n && (t = (n.textContent ?? "") + t, !t.trim()); n = n.previousSibling);
 	return t.trim();
-}, Ct = [
+}, Tt = [
 	"straight",
 	"step",
 	"smooth"
-], wt = (e, t) => {
+], Et = (e, t) => {
 	let n = e.dataset.chartShape;
-	return n && Ct.includes(n) ? n : Ct.includes(t.shape) ? t.shape : "straight";
-}, Tt = (e) => {
+	return n && Tt.includes(n) ? n : Tt.includes(t.shape) ? t.shape : "straight";
+}, Dt = (e) => {
 	for (let t of e.querySelectorAll("br")) {
-		if (t.previousElementSibling?.classList.contains("tablechart-sr") || /[.!?:;,…]$/.test(St(t))) continue;
+		if (t.previousElementSibling?.classList.contains("tablechart-sr") || /[.!?:;,…]$/.test(wt(t))) continue;
 		let e = document.createElement("span");
 		e.className = S, e.textContent = ". ", t.before(e);
 	}
-}, Et = (e, t, n) => {
+}, Ot = (e, t, n) => {
 	let r = e.querySelector("table");
 	if (!r) return null;
 	let i = r.querySelector("tfoot [data-chart-total]");
@@ -1411,22 +1430,22 @@ var Ne = (e) => e.map((e) => ({
 	s && n.langattribute && o.setAttribute(n.langattribute, `${s}-total`);
 	let c = a.insertCell();
 	return c.setAttribute("data-chart-total", ""), c.dataset.value = t.dataset.value ?? "0", a.prepend(o), c;
-}, Dt = 0, Ot = (e) => {
+}, kt = 0, At = (e) => {
 	let t = e.querySelector(":scope > figcaption");
 	if (!t) return;
-	Tt(t);
+	Dt(t);
 	let n = (e) => e.hasAttribute("aria-label") || e.hasAttribute("aria-labelledby"), r = (e) => {
-		t.id ||= `tablechart-caption-${++Dt}`, e.setAttribute("aria-labelledby", t.id);
+		t.id ||= `tablechart-caption-${++kt}`, e.setAttribute("aria-labelledby", t.id);
 	};
 	e.tagName === "FIGURE" && !n(e) && r(e);
 	let i = e.querySelector("table");
 	i && !n(i) && !i.querySelector(":scope > caption") && r(i);
-}, kt = (e, t, n = null) => {
-	let r = n ?? (e.getAttribute("data-chart") || "column"), i = yt[r];
-	if (!i) return console.warn(`[${l}] Unknown chart type "${r}". Known types: ${Object.keys(yt).join(", ")}.`), e.setAttribute("data-chart-empty", ""), null;
+}, jt = (e, t, n = null) => {
+	let r = n ?? (e.getAttribute("data-chart") || "column"), i = xt[r];
+	if (!i) return console.warn(`[${l}] Unknown chart type "${r}". Known types: ${Object.keys(xt).join(", ")}.`), e.setAttribute("data-chart-empty", ""), null;
 	let a = Ve(e, t.langattribute);
 	if (!a.length) return console.warn(e.querySelector("table") ? `[${l}] A chart has no rows in its table, so there is nothing to draw.` : `[${l}] A chart has no table, so there is nothing to draw.`, e), e.setAttribute("data-chart-empty", ""), null;
-	Ot(e);
+	At(e);
 	let o = We(e, a, t.langattribute);
 	o.length > 1 && !i.series && (console.warn(`[${l}] A ${r} chart uses only the first of its ${o.length} value columns.`), o = o.slice(0, 1));
 	let s = o.length > 1;
@@ -1454,7 +1473,7 @@ var Ne = (e) => e.map((e) => ({
 		let a = P("tablechart-name", T ?? p);
 		T && (a.dataset.place = "legend");
 		let s = i.legend ?? i.swatch;
-		if (s && (a.dataset.swatch = s), a.textContent = n.name, !s && wt(e, t) !== "step") {
+		if (s && (a.dataset.swatch = s), a.textContent = n.name, !s && Et(e, t) !== "step") {
 			let e = De(o, r);
 			a.dataset.marker = e.shape, a.toggleAttribute("data-open", e.open);
 		}
@@ -1464,7 +1483,7 @@ var Ne = (e) => e.map((e) => ({
 		let e = a.find((e) => e.isTotal), t = e ? e.value : a.reduce((e, t) => e + Math.abs(t.value), 0);
 		D.dataset.value = String(t), e && (D.dataset.decimals = String(ee(e.number)));
 	}
-	let O = D && !a.some((e) => e.isTotal) ? Et(e, D, t) : null, k = i.categories === "beside", A = document.createElement("div");
+	let O = D && !a.some((e) => e.isTotal) ? Ot(e, D, t) : null, k = i.categories === "beside", A = document.createElement("div");
 	A.className = "tablechart-categories", A.setAttribute("aria-hidden", "true"), A.inert = !0, k ? A.dataset.place = "beside" : i.centre && (A.dataset.place = "key"), A.style.setProperty("--_columns", String(a.length));
 	let j = 0;
 	for (let [e, n] of a.entries()) {
@@ -1484,7 +1503,7 @@ var Ne = (e) => e.map((e) => ({
 		hint: F && `${F}-step`
 	}, t.langattribute) : null;
 	I && e.appendChild(I);
-	let L = e.getAttribute("data-chart-table"), R = L && jt.includes(L) ? L : t.table;
+	let L = e.getAttribute("data-chart-table"), R = L && Nt.includes(L) ? L : t.table;
 	if (R === "never") e.removeAttribute("data-table");
 	else {
 		e.setAttribute("data-table", R);
@@ -1492,8 +1511,8 @@ var Ne = (e) => e.map((e) => ({
 		t && e.append(t);
 	}
 	let z = Array.from(e.querySelectorAll("[data-annotation]")).map((e) => {
-		let t = e.getAttribute("data-annotation"), n = bt[t];
-		if (!n) return console.warn(`[${l}] Unknown annotation "${t}". Known annotations: ${Object.keys(bt).join(", ")}.`), null;
+		let t = e.getAttribute("data-annotation"), n = St[t];
+		if (!n) return console.warn(`[${l}] Unknown annotation "${t}". Known annotations: ${Object.keys(St).join(", ")}.`), null;
 		let r = Number.parseInt(e.getAttribute("data-series") ?? "1", 10), i = r >= 1 && r <= o.length ? r - 1 : 0;
 		return r !== i + 1 && console.warn(`[${l}] An annotation reads line ${r}, which is not there; it reads line 1.`), {
 			spec: e,
@@ -1503,7 +1522,7 @@ var Ne = (e) => e.map((e) => ({
 			after: a.length
 		};
 	}).filter((e) => e !== null);
-	t.animate && e.setAttribute("data-animate", Nt(e, r, t, !!N));
+	t.animate && e.setAttribute("data-animate", Ft(e, r, t, !!N));
 	let B = {
 		figure: e,
 		plot: p,
@@ -1533,31 +1552,31 @@ var Ne = (e) => e.map((e) => ({
 		t && Xe(B, B.step + (t === "next" ? 1 : -1));
 	}), Xe(B, 0, !0);
 	let H = e.getAttribute("data-chart-tooltip") ?? e.getAttribute("data-chart-hover"), U = H === "false" ? !1 : H === "auto" ? "auto" : H !== null || t.hover !== !1 && t.tooltip;
-	return U && vt(B, t, U === "auto"), Rt(B, t), B;
-}, At = {
+	return U && bt(B, t, U === "auto"), Bt(B, t), B;
+}, Mt = {
 	grow: "grow",
 	sweep: "sweep"
-}, jt = [
+}, Nt = [
 	"never",
 	"auto",
 	"print",
 	"always"
-], Mt = {
-	...At,
+], Pt = {
+	...Mt,
 	up: "grow",
 	across: "sweep"
-}, Nt = (e, t, n, r) => {
-	let i = t === "line" || t === "area", a = i ? Mt : At, o = a[e.getAttribute("data-chart-animate") ?? ""] ?? a[String(n.animate)];
+}, Ft = (e, t, n, r) => {
+	let i = t === "line" || t === "area", a = i ? Pt : Mt, o = a[e.getAttribute("data-chart-animate") ?? ""] ?? a[String(n.animate)];
 	return i ? r ? "sweep" : o ?? "sweep" : t === "donut" || t === "waterfall" ? o ?? "grow" : "grow";
-}, Pt = (e) => {
+}, It = (e) => {
 	let t = getComputedStyle(e), n = (t.getPropertyValue("--tablechart-value-align") || t.getPropertyValue("--tablechart-inside-align")).trim();
 	return n === "start" || n === "center" || n === "end" ? n : null;
-}, Ft = (e, t, n, r) => {
+}, Lt = (e, t, n, r) => {
 	let i = getComputedStyle(e), a = (i.getPropertyValue(n).trim() || r).match(/^(\d+(?:\.\d+)?)(px|%|em|rem)$/);
 	if (!a) return null;
 	let o = Number(a[1]);
 	return a[2] === "%" ? o / 100 * T : o * (a[2] === "em" ? Number.parseFloat(i.fontSize) : a[2] === "rem" ? Number.parseFloat(getComputedStyle(document.documentElement).fontSize) : 1) * t;
-}, It = (e, t) => Ft(e, t, "--tablechart-bar-max", "60px") ?? Infinity, Lt = (e, t) => {
+}, Rt = (e, t) => Lt(e, t, "--tablechart-bar-max", "60px") ?? Infinity, zt = (e, t) => {
 	let { plot: n, svg: r, rows: i, type: a, values: o, series: s, seriesValues: c, names: u, annotations: d } = e, f = n.clientWidth;
 	if (!f) return !1;
 	let p = T / f, m = Number.parseFloat(e.figure.dataset.chartAspect ?? ""), h = T * (m > 0 ? m : a.aspect ?? t.aspect);
@@ -1570,7 +1589,7 @@ var Ne = (e) => e.map((e) => ({
 		...e.categories,
 		...d.map((e) => e.badge)
 	]);
-	let g = (o[0] ? K(o[0]).height : 0) * p, _ = d[0]?.badge ? K(d[0].badge).height * p : 0, y = Math.max(h, Ft(e.figure, p, "--tablechart-min-height", "200px") ?? 0, a.minHeight?.({
+	let g = (o[0] ? K(o[0]).height : 0) * p, _ = d[0]?.badge ? K(d[0].badge).height * p : 0, y = Math.max(h, Lt(e.figure, p, "--tablechart-min-height", "200px") ?? 0, a.minHeight?.({
 		labelHeight: g,
 		nameHeight: Math.max(0, V(e.categories.map((e) => K(e).height))) * p,
 		unit: p,
@@ -1622,7 +1641,7 @@ var Ne = (e) => e.map((e) => ({
 			share: o
 		} : console.warn(`[${l}] This kind of chart cannot break its scale.`);
 	}
-	let ee = B ? B.gap : null, H = (B && Ft(e.figure, p, "--tablechart-break-gap", "")) ?? 13, U = y - k, te = N - P || 1, W = (e) => U - (e - P) / te * A;
+	let ee = B ? B.gap : null, H = (B && Lt(e.figure, p, "--tablechart-break-gap", "")) ?? 13, U = y - k, te = N - P || 1, W = (e) => U - (e - P) / te * A;
 	if (B) {
 		let { lo: e, hi: t, gap: n, share: r } = B, i = A * r, a = (A - i - H) / (e + (N - t)), o = i / (t - e);
 		W = (r) => r <= e ? U - r * a : r <= n ? U - e * a - (r - e) * o : r <= t ? U - e * a - (r - e) * o - H : U - e * a - i - H - (r - t) * a;
@@ -1648,8 +1667,8 @@ var Ne = (e) => e.map((e) => ({
 		segments: S,
 		cx: ie,
 		y: W,
-		barWidth: Math.min(G * t.barfill, It(e.figure, p)),
-		barMax: It(e.figure, p),
+		barWidth: Math.min(G * t.barfill, Rt(e.figure, p)),
+		barMax: Rt(e.figure, p),
 		height: y,
 		unit: p,
 		labelHeight: g,
@@ -1657,12 +1676,12 @@ var Ne = (e) => e.map((e) => ({
 		after: i.length,
 		note: 0,
 		labels: e.figure.dataset.chartLabels === "inside" || e.figure.dataset.chartLabels !== "outside" && t.labels === "inside" ? "inside" : "outside",
-		insideAlign: Pt(e.figure),
+		insideAlign: It(e.figure),
 		breakAt: ee,
 		squeeze: B,
 		breakGap: H,
 		stacked: e.stacked,
-		shape: wt(e.figure, t),
+		shape: Et(e.figure, t),
 		totals: e.totals,
 		svg: r,
 		plot: n,
@@ -1729,7 +1748,7 @@ var Ne = (e) => e.map((e) => ({
 		return t.some((e) => de(e) && Number(e.dataset.row) <= n && n <= Number(e.dataset.rowEnd ?? e.dataset.row));
 	};
 	return e.figure.toggleAttribute("data-left-out", [...c, e.totals].some((e) => e.some((t) => !ue(t) && !de(t) && !pe(t, e)))), !0;
-}, Rt = (e, t) => {
+}, Bt = (e, t) => {
 	let n = [
 		...e.seriesValues.flat(),
 		...e.totals,
@@ -1747,27 +1766,27 @@ var Ne = (e) => e.map((e) => ({
 			e.className = "tablechart-minus", e.textContent = o, r.prepend(e);
 		}
 	}
-}, zt = (e, t) => {
+}, Vt = (e, t) => {
 	e.figure.classList.toggle(C, t);
-}, Bt = (e) => e === "id" || e === "style" || e.startsWith("data-chart"), Vt = /^\s*(?:Table)?:\s+/, Ht = (e) => e?.tagName === "P" && Vt.test(e.textContent ?? ""), Ut = (e) => {
+}, Ht = (e) => e === "id" || e === "style" || e.startsWith("data-chart"), Ut = /^\s*(?:Table)?:\s+/, Wt = (e) => e?.tagName === "P" && Ut.test(e.textContent ?? ""), Gt = (e) => {
 	let t = document.createElement("figcaption");
 	for (let { name: n, value: r } of Array.from(e.attributes)) t.setAttribute(n, r);
 	let n = e.firstChild;
-	n?.nodeType === Node.TEXT_NODE && (n.textContent = (n.textContent ?? "").replace(Vt, ""), n.textContent || n.remove());
+	n?.nodeType === Node.TEXT_NODE && (n.textContent = (n.textContent ?? "").replace(Ut, ""), n.textContent || n.remove());
 	let r = Array.from(e.childNodes), i = r.findIndex((e) => e.nodeName === "BR");
 	if (t.append(...i === -1 ? r : r.slice(0, i + 1)), i !== -1 && i < r.length - 1) {
 		let e = document.createElement("span");
 		e.append(...r.slice(i + 1)), t.append(e);
 	}
 	return e.remove(), t;
-}, Wt = /^\s*([a-z][\w-]*)((?:\s+[\w-]+=[^\s:]+)*)\s*(:\s*|$)/, Gt = (e) => {
-	let t = $t(e);
+}, Kt = /^\s*([a-z][\w-]*)((?:\s+[\w-]+=[^\s:]+)*)\s*(:\s*|$)/, qt = (e) => {
+	let t = tn(e);
 	return t?.tagName === "P" ? t : e;
-}, Kt = (e) => {
-	let t = Gt(e).firstChild;
+}, Jt = (e) => {
+	let t = qt(e).firstChild;
 	if (t?.nodeType !== Node.TEXT_NODE) return null;
-	let n = Wt.exec(t.textContent ?? "");
-	if (!n || !xt.includes(n[1]) || !n[3] && t.nextSibling) return null;
+	let n = Kt.exec(t.textContent ?? "");
+	if (!n || !Ct.includes(n[1]) || !n[3] && t.nextSibling) return null;
 	let r = n[2].trim().split(/\s+/).filter(Boolean).map((e) => e.split("="));
 	return {
 		name: n[1],
@@ -1775,11 +1794,11 @@ var Ne = (e) => e.map((e) => ({
 		text: t,
 		length: n[0].length
 	};
-}, qt = (e) => {
+}, Yt = (e) => {
 	if (e?.tagName !== "UL" && e?.tagName !== "OL") return null;
-	let t = Array.from(e.children), n = t.map((e) => e.hasAttribute("data-annotation") ? null : Kt(e));
+	let t = Array.from(e.children), n = t.map((e) => e.hasAttribute("data-annotation") ? null : Jt(e));
 	return !t.length || t.some((e, t) => !n[t] && !e.hasAttribute("data-annotation")) ? null : (t.forEach((e, t) => {
-		let r = n[t], i = Gt(e);
+		let r = n[t], i = qt(e);
 		if (i !== e && i.replaceWith(...i.childNodes), r) {
 			e.setAttribute("data-annotation", r.name);
 			for (let [t, n] of r.options) e.setAttribute(`data-${t}`, n);
@@ -1790,18 +1809,18 @@ var Ne = (e) => e.map((e) => ({
 			t === 0 && e instanceof HTMLElement && e.matches("em, i") ? (n.className = "tablechart-caption", n.append(...e.childNodes), e.replaceWith(n)) : e.nodeType === Node.TEXT_NODE && (n.textContent = (e.textContent ?? "").trim(), e.replaceWith(n));
 		});
 	}), e.classList.add("chart-annotations"), e);
-}, Jt = (e, t) => {
-	for (let { name: n, value: r } of Array.from(e.attributes)) (n === "class" || Bt(n)) && (t.setAttribute(n, r), e.removeAttribute(n));
-}, Yt = (e) => e.map((e) => {
-	let t = e.closest("p"), n = Ht(t) ? t : e;
+}, Xt = (e, t) => {
+	for (let { name: n, value: r } of Array.from(e.attributes)) (n === "class" || Ht(n)) && (t.setAttribute(n, r), e.removeAttribute(n));
+}, Zt = (e) => e.map((e) => {
+	let t = e.closest("p"), n = Wt(t) ? t : e;
 	if (n.tagName !== "TABLE" && n.tagName !== "P") return n;
 	let r = document.createElement("figure");
-	Jt(e, r), e.classList.length || e.removeAttribute("class");
-	let i = n.tagName === "TABLE" ? n : null, a = n.previousElementSibling, o = n.nextElementSibling, s = i ? Ht(a) ? a : Ht(o) ? o : null : n;
+	Xt(e, r), e.classList.length || e.removeAttribute("class");
+	let i = n.tagName === "TABLE" ? n : null, a = n.previousElementSibling, o = n.nextElementSibling, s = i ? Wt(a) ? a : Wt(o) ? o : null : n;
 	i && s === o && (o = o?.nextElementSibling ?? null);
-	let c = o?.classList.contains("chart-annotations") ? o : qt(o);
-	return n.replaceWith(r), s && r.append(Ut(s)), i && r.append(i), c && r.append(c), X?.log?.(`A ${i ? "table" : "caption"} with chart attributes was wrapped in a figure of its own`), r;
-}), Xt = (e, t, n, r = document.createElement("table")) => {
+	let c = o?.classList.contains("chart-annotations") ? o : Yt(o);
+	return n.replaceWith(r), s && r.append(Gt(s)), i && r.append(i), c && r.append(c), X?.log?.(`A ${i ? "table" : "caption"} with chart attributes was wrapped in a figure of its own`), r;
+}), Qt = (e, t, n, r = document.createElement("table")) => {
 	for (let e of r.querySelectorAll(":scope > tbody, :scope > tfoot, :scope > tr")) e.remove();
 	if (!r.tHead && (t.length || n)) {
 		let e = r.createTHead().insertRow(), i = document.createElement("th");
@@ -1821,7 +1840,7 @@ var Ne = (e) => e.map((e) => ({
 		for (let n of t.values ?? [t.value ?? null]) e.insertCell().textContent = n === null ? "" : String(n);
 	}
 	return r;
-}, Zt = (e) => {
+}, $t = (e) => {
 	if (!e || typeof e != "object") return;
 	let t = Object.entries(e), n = (e) => e === null || typeof e == "string" || typeof e == "number";
 	if (t.length && t.every(([, e]) => n(e) || Array.isArray(e) && e.every(n))) return t.map(([e, t]) => Array.isArray(t) ? {
@@ -1831,16 +1850,16 @@ var Ne = (e) => e.map((e) => ({
 		label: e,
 		value: t
 	});
-}, Qt = async (e) => {
+}, en = async (e) => {
 	await Promise.all(e.filter((e) => e.hasAttribute("data-chart-src")).map(async (e) => {
 		let t = e.getAttribute("data-chart-src"), n = Array.from(e.querySelectorAll("table")).find((e) => e.tHead) ?? null;
 		for (let t of e.querySelectorAll("table")) t !== n && t.remove();
 		try {
 			let r = await fetch(t);
 			if (!r.ok) throw Error(`${r.status} ${r.statusText}`);
-			let i = await r.json(), a = Array.isArray(i) ? i : i?.rows ? Array.isArray(i.rows) ? i.rows : Zt(i.rows) : Zt(i);
+			let i = await r.json(), a = Array.isArray(i) ? i : i?.rows ? Array.isArray(i.rows) ? i.rows : $t(i.rows) : $t(i);
 			if (!Array.isArray(a)) throw Error("no rows in it: a list of rows, an object with rows, or names with their values");
-			let o = Xt(a, Array.isArray(i?.series) ? i.series.map(String) : [], typeof i?.label == "string" ? i.label : "", n ?? void 0);
+			let o = Qt(a, Array.isArray(i?.series) ? i.series.map(String) : [], typeof i?.label == "string" ? i.label : "", n ?? void 0);
 			if (!n) {
 				let t = e.querySelector(":scope > figcaption");
 				t ? t.after(o) : e.prepend(o);
@@ -1851,10 +1870,10 @@ var Ne = (e) => e.map((e) => ({
 			console.warn(`[${l}] Could not read the chart data in "${t}": ${e.message}.` + (n ? " A page opened as a file cannot fetch files; open it from a server." : ""));
 		}
 	}));
-}, $t = (e) => {
+}, tn = (e) => {
 	let t = Array.from(e.childNodes).filter((e) => e.nodeType === Node.ELEMENT_NODE || e.nodeType === Node.TEXT_NODE && e.textContent?.trim());
 	return t.length === 1 && t[0] instanceof HTMLElement ? t[0] : null;
-}, en = "strong, b, span.total", tn = (e) => {
+}, nn = "strong, b, span.total", rn = (e) => {
 	for (let t of e) {
 		for (let e of t.querySelectorAll("tbody tr")) {
 			let t = e.cells[0];
@@ -1862,21 +1881,21 @@ var Ne = (e) => e.map((e) => ({
 			let n = document.createElement("th");
 			for (let { name: e, value: r } of Array.from(t.attributes)) n.setAttribute(e, r);
 			n.append(...t.childNodes), t.replaceWith(n);
-			for (let t = $t(n); t?.matches(en); t = $t(n)) e.dataset.kind = "total", t.replaceWith(...t.childNodes);
+			for (let t = tn(n); t?.matches(nn); t = tn(n)) e.dataset.kind = "total", t.replaceWith(...t.childNodes);
 		}
 		let e = Array.from(t.querySelector("thead tr:last-child")?.children ?? []);
-		for (let t of e.slice(1)) for (let e = $t(t); e?.matches(en); e = $t(t)) t.setAttribute("data-kind", "focus"), e.replaceWith(...e.childNodes);
+		for (let t of e.slice(1)) for (let e = tn(t); e?.matches(nn); e = tn(t)) t.setAttribute("data-kind", "focus"), e.replaceWith(...e.childNodes);
 	}
-}, nn = "data-chart-made", rn = (e, t) => {
+}, an = "data-chart-made", on = (e, t) => {
 	let n = Number.parseFloat(e.dataset.chartEntrance ?? ""), r = Number.isFinite(n) ? n : t.entrance;
 	return Math.min(Math.max(r, 0), 1);
-}, an = !1, on = (e) => {
+}, sn = !1, cn = (e) => {
 	let t = e.find((e) => e.tagName !== "FIGURE");
-	!an && t && (an = !0, console.warn(`[${l}] A chart is a <${t.tagName.toLowerCase()}>. Use a <figure> with a <figcaption>, so the chart has a title, also for screen readers.`, t));
-}, sn = async (e, t) => {
-	let n = Yt(e.filter((e) => !e.hasAttribute(nn)));
-	return on(n), await Qt(n), tn(n), Ge(n, t.langattribute), n;
-}, cn = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
+	!sn && t && (sn = !0, console.warn(`[${l}] A chart is a <${t.tagName.toLowerCase()}>. Use a <figure> with a <figcaption>, so the chart has a title, also for screen readers.`, t));
+}, ln = async (e, t) => {
+	let n = Zt(e.filter((e) => !e.hasAttribute(an)));
+	return cn(n), await en(n), rn(n), Ge(n, t.langattribute), n;
+}, un = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 	var n = function(e) {
 		return r(e) && !i(e);
 	};
@@ -1944,41 +1963,41 @@ var Ne = (e) => e.map((e) => ({
 			return g(e, n, t);
 		}, {});
 	}, t.exports = g;
-})))(), 1), ln = Object.defineProperty, un = (e, t) => {
+})))(), 1), dn = Object.defineProperty, fn = (e, t) => {
 	let n = {};
-	for (var r in e) ln(n, r, {
+	for (var r in e) dn(n, r, {
 		get: e[r],
 		enumerable: !0
 	});
-	return t || ln(n, Symbol.toStringTag, { value: "Module" }), n;
-}, dn = [
+	return t || dn(n, Symbol.toStringTag, { value: "Module" }), n;
+}, pn = [
 	".js",
 	".min.js",
 	".mjs"
-], fn = (() => {
+], mn = (() => {
 	let e = import.meta;
 	if (typeof e?.url == "string" && e.url !== "") return e.url;
 	let t = typeof document < "u" ? document.currentScript : null;
 	return t && "src" in t && t.src ? t.src : "";
-})(), pn = (e) => {
+})(), hn = (e) => {
 	let t = e.lastIndexOf("/");
 	return t === -1 ? "" : e.slice(0, t + 1);
-}, mn = (e) => {
+}, gn = (e) => {
 	let t = e.split(/[?#]/)[0];
 	return t.slice(t.lastIndexOf("/") + 1);
-}, hn = (e, t) => dn.some((n) => e === `${t}${n}`), gn = [
+}, _n = (e, t) => pn.some((n) => e === `${t}${n}`), vn = [
 	/\/@fs\//,
 	/\/@id\//,
 	/\/\.vite\/deps\//,
 	/[?&][vt]=/
-], _n = (e) => gn.some((t) => t.test(e)), vn = (e) => {
+], yn = (e) => vn.some((t) => t.test(e)), bn = (e) => {
 	if (typeof document < "u") {
-		let t = dn.map((t) => `script[src$="${e}${t}"]`).join(", "), n = document.querySelector(t)?.getAttribute("src");
-		if (n) return { directory: pn(n) };
+		let t = pn.map((t) => `script[src$="${e}${t}"]`).join(", "), n = document.querySelector(t)?.getAttribute("src");
+		if (n) return { directory: hn(n) };
 	}
-	return fn && !_n(fn) && hn(mn(fn), e) ? { directory: pn(fn) } : { directory: null };
-}, yn = (e) => vn(e).directory !== null, bn = /* @__PURE__ */ new Map(), xn = (e = "") => {
-	let t = bn.get(e);
+	return mn && !yn(mn) && _n(gn(mn), e) ? { directory: hn(mn) } : { directory: null };
+}, xn = (e) => bn(e).directory !== null, Sn = /* @__PURE__ */ new Map(), Cn = (e = "") => {
+	let t = Sn.get(e);
 	if (t) return t;
 	let n = typeof window < "u", r = typeof document < "u", i = import.meta, a = !1;
 	try {
@@ -1992,7 +2011,7 @@ var Ne = (e) => e.map((e) => ({
 	try {
 		c = i?.env?.DEV === !0;
 	} catch {}
-	let l = e !== "" && yn(e), u = {
+	let l = e !== "" && xn(e), u = {
 		hasResolvableSource: l,
 		hasWindow: n,
 		hasDocument: r,
@@ -2001,8 +2020,8 @@ var Ne = (e) => e.map((e) => ({
 		hasHMR: s,
 		isViteDev: c
 	};
-	return bn.set(e, u), u;
-}, Sn = class {
+	return Sn.set(e, u), u;
+}, wn = class {
 	defaultConfig;
 	pluginInit;
 	pluginId;
@@ -2014,7 +2033,7 @@ var Ne = (e) => e.map((e) => ({
 	}
 	initializeConfig(e) {
 		let t = this.defaultConfig, n = e.getConfig()[this.pluginId] || {};
-		this.userConfigData = n, this.mergedConfig = (0, cn.default)(t, n, {
+		this.userConfigData = n, this.mergedConfig = (0, un.default)(t, n, {
 			arrayMerge: (e, t) => t,
 			clone: !0
 		});
@@ -2029,7 +2048,7 @@ var Ne = (e) => e.map((e) => ({
 	get userConfig() {
 		return this.userConfigData || {};
 	}
-	getEnvironmentInfo = () => xn(this.pluginId);
+	getEnvironmentInfo = () => Cn(this.pluginId);
 	init(e) {
 		if (this.initializeConfig(e), this.pluginInit) return this.pluginInit(this, e, this.getCurrentConfig());
 	}
@@ -2042,9 +2061,9 @@ var Ne = (e) => e.map((e) => ({
 			...e
 		};
 	}
-}, Cn = "data-css-id", wn = (e, t) => new Promise((n, r) => {
+}, Tn = "data-css-id", En = (e, t) => new Promise((n, r) => {
 	let i = document.createElement("link");
-	i.rel = "stylesheet", i.href = t, i.setAttribute(Cn, e);
+	i.rel = "stylesheet", i.href = t, i.setAttribute(Tn, e);
 	let a = setTimeout(() => {
 		i.parentNode && i.parentNode.removeChild(i), r(/* @__PURE__ */ Error(`[${e}] Timeout loading CSS from: ${t}`));
 	}, 5e3);
@@ -2053,30 +2072,30 @@ var Ne = (e) => e.map((e) => ({
 	}, i.onerror = () => {
 		clearTimeout(a), i.parentNode && i.parentNode.removeChild(i), r(/* @__PURE__ */ Error(`[${e}] Failed to load CSS from: ${t}`));
 	}, document.head.appendChild(i);
-}), Tn = (e) => document.querySelectorAll(`[${Cn}="${e}"]`).length > 0, En = 1e4, Dn = (e) => new Promise((t) => {
-	if (On(e)) return t(!0);
+}), Dn = (e) => document.querySelectorAll(`[${Tn}="${e}"]`).length > 0, On = 1e4, kn = (e) => new Promise((t) => {
+	if (An(e)) return t(!0);
 	if (typeof MutationObserver > "u") return t(!1);
 	let n = !1, r = (e) => {
 		n || (n = !0, i.disconnect(), clearTimeout(o), window.removeEventListener("load", a), t(e));
 	}, i = new MutationObserver(() => {
-		On(e) && r(!0);
+		An(e) && r(!0);
 	});
 	i.observe(document.documentElement, {
 		childList: !0,
 		subtree: !0,
 		attributeFilter: ["href", "rel"]
 	});
-	let a = () => requestAnimationFrame(() => r(On(e)));
+	let a = () => requestAnimationFrame(() => r(An(e)));
 	document.readyState === "complete" ? a() : window.addEventListener("load", a, { once: !0 });
-	let o = setTimeout(() => r(On(e)), En);
-}), On = (e) => {
-	if (Tn(e)) return !0;
+	let o = setTimeout(() => r(An(e)), On);
+}), An = (e) => {
+	if (Dn(e)) return !0;
 	try {
 		return window.getComputedStyle(document.documentElement).getPropertyValue(`--cssimported-${e}`).trim() !== "";
 	} catch {
 		return !1;
 	}
-}, kn = ((e) => new Proxy(e, { get: (e, t) => {
+}, jn = ((e) => new Proxy(e, { get: (e, t) => {
 	if (t in e) return e[t];
 	let n = t.toString();
 	if (typeof console[n] == "function") return (...t) => {
@@ -2147,16 +2166,16 @@ var Ne = (e) => e.map((e) => ({
 			this.groupDepth > 0 ? this.emit(e, t) : t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]);
 		}
 	}
-}()), An = /* @__PURE__ */ new Set(), jn = (e, t) => {
+}()), Mn = /* @__PURE__ */ new Set(), Nn = (e, t) => {
 	let n = `${e}::${t}`;
-	An.has(n) || (An.add(n), console.warn(`[${e}] ${t}`));
-}, Mn = (e) => [`dist/plugin/${e}/${e}.css`, `plugin/${e}/${e}.css`], Nn = (e) => typeof e == "string" && e.trim() !== "", Pn = async (e, t) => {
+	Mn.has(n) || (Mn.add(n), console.warn(`[${e}] ${t}`));
+}, Pn = (e) => [`dist/plugin/${e}/${e}.css`, `plugin/${e}/${e}.css`], Fn = (e) => typeof e == "string" && e.trim() !== "", In = async (e, t) => {
 	let { cssautoload: n, csspath: r, debug: i = !1 } = t;
 	if (n === !1 || r === !1) return i && console.log(`[${e}] CSS loading is switched off`), { status: "skipped" };
-	if (Nn(r)) {
-		let t = r.trim(), n = On(e), a = n && !!document.querySelector(`[data-css-id="${e}"]`);
+	if (Fn(r)) {
+		let t = r.trim(), n = An(e), a = n && !!document.querySelector(`[data-css-id="${e}"]`);
 		try {
-			return await wn(e, t), i && console.log(`[${e}] CSS loaded from: ${t}`), n && jn(e, `Loaded CSS from ${t}, but a stylesheet for this plugin was already on the page (${a ? "a tagged <link>" : "an import or inline <style>"}) — csspath adds one, it cannot remove one. Both are live and the cascade decides. Remove the other import or <link>, or drop csspath.`), {
+			return await En(e, t), i && console.log(`[${e}] CSS loaded from: ${t}`), n && Nn(e, `Loaded CSS from ${t}, but a stylesheet for this plugin was already on the page (${a ? "a tagged <link>" : "an import or inline <style>"}) — csspath adds one, it cannot remove one. Both are live and the cascade decides. Remove the other import or <link>, or drop csspath.`), {
 				status: "loaded",
 				path: t
 			};
@@ -2167,12 +2186,12 @@ var Ne = (e) => e.map((e) => ({
 			};
 		}
 	}
-	if (On(e)) return i && console.log(`[${e}] CSS is already imported, skipping`), { status: "present" };
-	let { directory: a } = vn(e);
+	if (An(e)) return i && console.log(`[${e}] CSS is already imported, skipping`), { status: "present" };
+	let { directory: a } = bn(e);
 	if (a !== null || n === !0) {
-		let t = [...a === null ? [] : [`${a}${e}.css`], ...Mn(e)].filter((e, t, n) => n.indexOf(e) === t);
+		let t = [...a === null ? [] : [`${a}${e}.css`], ...Pn(e)].filter((e, t, n) => n.indexOf(e) === t);
 		for (let n of t) try {
-			return await wn(e, n), i && console.log(`[${e}] CSS loaded from: ${n}`), {
+			return await En(e, n), i && console.log(`[${e}] CSS loaded from: ${n}`), {
 				status: "loaded",
 				path: n
 			};
@@ -2181,111 +2200,111 @@ var Ne = (e) => e.map((e) => ({
 		}
 		return console.warn(`[${e}] Could not load CSS. Tried: ${t.join(", ")}. Import the stylesheet yourself, or set csspath to where it is.`), { status: "failed" };
 	}
-	return Dn(e).then((t) => {
-		t || jn(e, `CSS could not be autoloaded here, because the plugin is part of a bundle. Import it once in your own code: import 'reveal.js-${e}/${e}.css'`);
+	return kn(e).then((t) => {
+		t || Nn(e, `CSS could not be autoloaded here, because the plugin is part of a bundle. Import it once in your own code: import 'reveal.js-${e}/${e}.css'`);
 	}), { status: "advised" };
 };
-async function Fn(e, t) {
+async function Ln(e, t) {
 	if ("getEnvironmentInfo" in e && t) {
 		let n = e, r = n.userConfig, i = "cssautoload" in r && r.cssautoload !== "auto" ? t.cssautoload : void 0;
-		return Pn(n.pluginId, {
+		return In(n.pluginId, {
 			...t,
 			cssautoload: i
 		});
 	}
 	let { id: n, cssautoload: r, csspath: i, debug: a } = e;
-	return Pn(n, {
+	return In(n, {
 		cssautoload: r === "auto" ? void 0 : r,
 		csspath: i,
 		debug: a
 	});
 }
-var In = /* @__PURE__ */ un({
-	ENTRANCE_ATTRIBUTE: () => zn,
-	IN_EVENT: () => Rn,
-	SHOWN_EVENT: () => Ln,
-	announce: () => qn,
-	markPending: () => Kn,
-	pendingAround: () => Yn,
-	reset: () => Jn,
-	stateOf: () => Un,
-	whenShown: () => Xn
-}), Ln = "entranceshown", Rn = "entrancein", zn = "data-entrance", Bn = {
+var Rn = /* @__PURE__ */ fn({
+	ENTRANCE_ATTRIBUTE: () => Vn,
+	IN_EVENT: () => Bn,
+	SHOWN_EVENT: () => zn,
+	announce: () => Yn,
+	markPending: () => Jn,
+	pendingAround: () => Zn,
+	reset: () => Xn,
+	stateOf: () => Gn,
+	whenShown: () => Qn
+}), zn = "entranceshown", Bn = "entrancein", Vn = "data-entrance", Hn = {
 	pending: 0,
 	shown: 1,
 	in: 2
-}, Vn = Symbol.for("reveal.js-plugintoolkit.entranceTimers"), Hn = () => typeof window.matchMedia == "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-function Un(e) {
-	let t = e.getAttribute(zn);
+}, Un = Symbol.for("reveal.js-plugintoolkit.entranceTimers"), Wn = () => typeof window.matchMedia == "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function Gn(e) {
+	let t = e.getAttribute(Vn);
 	return t === "pending" || t === "shown" || t === "in" ? t : null;
 }
-function Wn(e, t) {
-	if (e.setAttribute(zn, t), t === "pending") return;
+function Kn(e, t) {
+	if (e.setAttribute(Vn, t), t === "pending") return;
 	let n = {
 		element: e,
 		state: t
 	};
-	e.dispatchEvent(new CustomEvent(t === "shown" ? Ln : Rn, {
+	e.dispatchEvent(new CustomEvent(t === "shown" ? zn : Bn, {
 		bubbles: !0,
 		detail: n
 	}));
 }
-function Gn(e) {
-	for (let t of e[Vn] ?? []) window.clearTimeout(t);
-	delete e[Vn];
-}
-function Kn(e) {
-	Gn(e), Wn(e, "pending");
-}
-function qn(e, t) {
-	Gn(e);
-	let n = Math.max(0, t.delay ?? 0), r = Math.max(0, t.duration), i = Number.parseFloat(e.dataset.entranceAt ?? ""), a = Number.isFinite(i) ? Math.min(1, Math.max(0, i)) : .5;
-	Wn(e, "pending"), e[Vn] = [window.setTimeout(() => Wn(e, "shown"), n + r * a), window.setTimeout(() => {
-		Un(e) === "pending" && Wn(e, "shown"), Wn(e, "in"), delete e[Vn];
-	}, n + r)];
+function qn(e) {
+	for (let t of e[Un] ?? []) window.clearTimeout(t);
+	delete e[Un];
 }
 function Jn(e) {
-	Kn(e);
+	qn(e), Kn(e, "pending");
 }
-function Yn(e, t = "shown") {
+function Yn(e, t) {
+	qn(e);
+	let n = Math.max(0, t.delay ?? 0), r = Math.max(0, t.duration), i = Number.parseFloat(e.dataset.entranceAt ?? ""), a = Number.isFinite(i) ? Math.min(1, Math.max(0, i)) : .5;
+	Kn(e, "pending"), e[Un] = [window.setTimeout(() => Kn(e, "shown"), n + r * a), window.setTimeout(() => {
+		Gn(e) === "pending" && Kn(e, "shown"), Kn(e, "in"), delete e[Un];
+	}, n + r)];
+}
+function Xn(e) {
+	Jn(e);
+}
+function Zn(e, t = "shown") {
 	let n = [];
 	for (let r = e; r && r.tagName !== "SECTION"; r = r.parentElement) {
-		let e = Un(r);
-		e && Bn[e] < Bn[t] && n.push(r);
+		let e = Gn(r);
+		e && Hn[e] < Hn[t] && n.push(r);
 	}
 	return n;
 }
-function Xn(e, t = "shown", n) {
+function Qn(e, t = "shown", n) {
 	if (n?.aborted) return Promise.resolve(!1);
-	if (Hn()) return Promise.resolve(!0);
-	let r = Yn(e, t);
+	if (Wn()) return Promise.resolve(!0);
+	let r = Zn(e, t);
 	return r.length ? new Promise((i) => {
 		let a = () => {
-			Yn(e, t).length || (s(), i(!0));
+			Zn(e, t).length || (s(), i(!0));
 		}, o = () => {
 			s(), i(!1);
 		}, s = () => {
-			for (let e of r) e.removeEventListener(Ln, a), e.removeEventListener(Rn, a);
+			for (let e of r) e.removeEventListener(zn, a), e.removeEventListener(Bn, a);
 			n?.removeEventListener("abort", o);
 		};
-		for (let e of r) e.addEventListener(Ln, a), e.addEventListener(Rn, a);
+		for (let e of r) e.addEventListener(zn, a), e.addEventListener(Bn, a);
 		n?.addEventListener("abort", o);
 	}) : Promise.resolve(!0);
 }
 //#endregion
 //#region src/plugin/js/config.ts
-var Zn = "tablechart", Qn = "tablechart-steps", $n = [
+var $n = "tablechart", er = "tablechart-steps", tr = [
 	"together",
 	"delay",
 	"after"
-], er = {
+], nr = {
 	...E,
 	controls: !1,
 	sequence: "together",
 	sequencedelay: 0,
 	cssautoload: !0,
 	csspath: ""
-}, tr = [
+}, rr = [
 	["--tablechart-duration", "--tablechart-animation-element-duration"],
 	["--tablechart-stagger", "--tablechart-animation-stagger, a share of the element time"],
 	["--tablechart-easing", "--tablechart-animation-ease"],
@@ -2308,30 +2327,30 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 	["--tablechart-key-size", "--tablechart-legend-key-size"],
 	["--tablechart-controls-justify", "--tablechart-control-justify"],
 	["--tablechart-controls-gap", "--tablechart-control-gap"]
-], nr = {
+], ir = {
 	up: "grow",
 	across: "sweep"
-}, rr = (e, t) => {
+}, ar = (e, t) => {
 	let n = (e) => {
-		let t = nr[String(e)];
+		let t = ir[String(e)];
 		return t ? [`"${e}" is now "${t}"`] : [];
 	}, r = new Set(n(t.animate));
 	t.hover !== void 0 && r.add("the \"hover\" option is now \"tooltip\"");
 	for (let t of e) {
 		t.hasAttribute("data-chart-hover") && r.add("data-chart-hover is now data-chart-tooltip");
 		let e = getComputedStyle(t);
-		for (let [t, n] of tr) e.getPropertyValue(t).trim() && r.add(`${t} is now ${n}`);
+		for (let [t, n] of rr) e.getPropertyValue(t).trim() && r.add(`${t} is now ${n}`);
 		for (let e of n(t.getAttribute("data-chart-animate"))) r.add(e);
 	}
-	r.size && console.warn(`[${Zn}] ${[...r].join("; ")}. The old names work until the next minor version.`);
-}, ir = "em, i, .fragment", ar = (e, t) => {
+	r.size && console.warn(`[${$n}] ${[...r].join("; ")}. The old names work until the next minor version.`);
+}, or = "em, i, .fragment", sr = (e, t) => {
 	e.setAttribute("data-fragment", "");
 	let n = t.getAttribute("data-fragment-index");
 	n !== null && e.setAttribute("data-fragment-index", n), t.classList.remove("fragment"), t.removeAttribute("data-fragment-index"), t.classList.length || t.removeAttribute("class");
-}, or = (e) => {
+}, cr = (e) => {
 	let t = Array.from(e.childNodes).filter((e) => e.nodeType === Node.ELEMENT_NODE || e.nodeType === Node.TEXT_NODE && e.textContent?.trim());
 	return t.length === 1 && t[0] instanceof Element ? t[0] : null;
-}, sr = (e) => {
+}, lr = (e) => {
 	let t = [...Array.from(e.querySelectorAll("tbody tr")).map((e) => ({
 		owner: e,
 		cells: Array.from(e.children)
@@ -2340,57 +2359,57 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 		cells: [e]
 	}))];
 	for (let { owner: e, cells: n } of t) {
-		for (let t of n) t.classList.contains("fragment") && ar(e, t);
+		for (let t of n) t.classList.contains("fragment") && sr(e, t);
 		let t = n[0];
-		if (t) for (let n = or(t); n?.matches(ir); n = or(t)) ar(e, n), n.replaceWith(...n.childNodes);
+		if (t) for (let n = cr(t); n?.matches(or); n = cr(t)) sr(e, n), n.replaceWith(...n.childNodes);
 	}
-}, cr = (e, t) => {
+}, ur = (e, t) => {
 	if (!t.length) return;
 	let n = document.createElement("span");
-	n.className = Qn, n.setAttribute("aria-hidden", "true");
+	n.className = er, n.setAttribute("aria-hidden", "true");
 	for (let e of t) {
 		let t = document.createElement("span");
 		t.className = "fragment", e !== null && t.setAttribute("data-fragment-index", e), n.appendChild(t);
 	}
 	e.appendChild(n);
-}, lr = (e) => {
-	let t = e.querySelectorAll(`:scope > .${Qn} > .fragment`);
+}, dr = (e) => {
+	let t = e.querySelectorAll(`:scope > .${er} > .fragment`);
 	if (!t.length) return null;
 	let n = 0;
 	for (let e of t) e.classList.contains("visible") && n++;
 	return n;
-}, ur = "tablechart-measuring", { pendingAround: dr, whenShown: fr } = In, pr = (e) => {
+}, fr = "tablechart-measuring", { pendingAround: pr, whenShown: mr } = Rn, hr = (e) => {
 	for (let t = e.parentElement; t && t.tagName !== "SECTION"; t = t.parentElement) if (t.dataset.entrance) return !0;
 	return !1;
-}, mr = (e) => Math.max(0, ...getComputedStyle(e ?? document.body).transitionDuration.split(",").map((e) => Number.parseFloat(e) * 1e3 || 0)), hr = async (e, t, n) => {
+}, gr = (e) => Math.max(0, ...getComputedStyle(e ?? document.body).transitionDuration.split(",").map((e) => Number.parseFloat(e) * 1e3 || 0)), _r = async (e, t, n) => {
 	let r = t.getConfig(), i = r.view === "print" || /print-pdf/gi.test(window.location.search);
-	kn && (n.debug || r.debug) && (kn.initialize(!0, Zn), kn.log("Tablechart debugging enabled."));
+	jn && (n.debug || r.debug) && (jn.initialize(!0, $n), jn.log("Tablechart debugging enabled."));
 	let a = t.getViewportElement() ?? document.body, o = Array.from(a.querySelectorAll(n.selector));
-	if (!o.length) return;
+	if (n.tooltipparent ??= a.querySelector(".slides"), !o.length) return;
 	n.langattribute = r.internation?.langattribute || n.langattribute;
 	let s = /* @__PURE__ */ new Map();
 	for (let e of o) {
 		let t = e.closest("section") ?? a;
 		s.set(t, [...s.get(t) ?? [], e]);
 	}
-	let c = (await Promise.all([...s.values()].map((e) => sn(e, n)))).flat();
-	rr(c, n);
+	let c = (await Promise.all([...s.values()].map((e) => ln(e, n)))).flat();
+	ar(c, n);
 	let l = n.animate && !i;
-	if (l) for (let e of c) sr(e);
-	let u = c.map((e) => kt(e, l ? n : {
+	if (l) for (let e of c) lr(e);
+	let u = c.map((e) => jt(e, l ? n : {
 		...n,
 		animate: !1
 	})).filter((e) => e !== null);
-	for (let e of u) e.plan && cr(e.figure, e.plan.indexes);
+	for (let e of u) e.plan && ur(e.figure, e.plan.indexes);
 	for (let { figure: e } of u) {
 		let t = e.querySelector(":scope > figcaption");
 		if (!t?.id || t.dataset.name) continue;
 		let n = t.parentElement?.closest("[id], [data-name]"), r = n?.dataset.name || n?.id;
 		r && (t.dataset.name = r);
 	}
-	await Fn(e, n);
+	await Ln(e, n);
 	let d = () => {
-		a.classList.add(ur), t.layout(), a.classList.remove(ur);
+		a.classList.add(fr), t.layout(), a.classList.remove(fr);
 	};
 	window.addEventListener("load", d, { once: !0 });
 	let f = !1;
@@ -2407,7 +2426,7 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 		return !t || t.classList.contains("visible");
 	}, g = /* @__PURE__ */ new WeakMap(), _ = !0, v = window.matchMedia("(prefers-reduced-motion: reduce)"), y = (e) => {
 		let t = e.figure.closest("[data-chart-sequence]"), r = t?.dataset.chartSequence, i = n.sequence;
-		r && $n.includes(r) ? i = r : r && console.warn(`Tablechart: data-chart-sequence="${r}" is not one of ${$n.join(", ")}.`);
+		r && tr.includes(r) ? i = r : r && console.warn(`Tablechart: data-chart-sequence="${r}" is not one of ${tr.join(", ")}.`);
 		let a = Number.parseFloat(t?.dataset.chartDelay ?? "");
 		return {
 			group: t ?? e.figure.closest("section"),
@@ -2418,8 +2437,8 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 		await new Promise(requestAnimationFrame), await Promise.allSettled(e.getAnimations({ subtree: !0 }).map((e) => e.finished));
 	}, C = async (e) => {
 		if (v.matches) return;
-		if (dr(e.figure, "shown").length) {
-			await fr(e.figure, "shown");
+		if (pr(e.figure, "shown").length) {
+			await mr(e.figure, "shown");
 			return;
 		}
 		await new Promise(requestAnimationFrame);
@@ -2429,24 +2448,24 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 		for (let i of t) {
 			let t = i.effect?.getComputedTiming(), a = Number(t?.activeDuration ?? 0);
 			if (!t || !Number.isFinite(a)) continue;
-			let o = Number(t.delay ?? 0) + a * rn(e.figure, n);
+			let o = Number(t.delay ?? 0) + a * on(e.figure, n);
 			r = Math.max(r, o - Number(i.currentTime ?? 0));
 		}
 		r > 0 && await x(r);
 	}, T = async (e, t, n) => {
 		let r = { live: !0 };
 		for (let t of e) b.set(t, r);
-		if (!(t !== "together" && e.some((e) => pr(e.figure)) && (await Promise.all(e.map((e) => fr(e.figure, "in"))), !r.live))) for (let [i, a] of e.entries()) {
+		if (!(t !== "together" && e.some((e) => hr(e.figure)) && (await Promise.all(e.map((e) => mr(e.figure, "in"))), !r.live))) for (let [i, a] of e.entries()) {
 			if (i > 0 && (t === "after" && await S(e[i - 1].figure), n && await x(n)), await C(a), !r.live) return;
-			a.figure.classList.remove(w), zt(a, !0);
+			a.figure.classList.remove(w), Vt(a, !0);
 		}
 	}, E = () => {
 		let e = /* @__PURE__ */ new Map();
 		for (let t of u) {
-			let n = lr(t.figure);
+			let n = dr(t.figure);
 			if (n !== null && Xe(t, n), !(g.has(t) && h(t))) {
 				let e = b.get(t);
-				e && (e.live = !1), b.delete(t), zt(t, !1), t.figure.classList.toggle(w, y(t).mode !== "together" && !pr(t.figure));
+				e && (e.live = !1), b.delete(t), Vt(t, !1), t.figure.classList.toggle(w, y(t).mode !== "together" && !hr(t.figure));
 				continue;
 			}
 			if (t.figure.classList.contains("is-shown") || b.has(t)) continue;
@@ -2455,7 +2474,7 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 				t.figure.classList.remove(w), T([t], "together", 0);
 				continue;
 			}
-			pr(t.figure) || t.figure.classList.add(w);
+			hr(t.figure) || t.figure.classList.add(w);
 			let o = e.get(r) ?? {
 				mode: i,
 				delay: a,
@@ -2472,7 +2491,7 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 		let t = e.plot.clientWidth;
 		if (!t || t === g.get(e)) return;
 		let r = !g.has(e), a = e.figure.offsetHeight;
-		Lt(e, n) && (g.set(e, t), e.figure.offsetHeight !== a && m(), i && zt(e, !0), r && n.animate && _ && O());
+		zt(e, n) && (g.set(e, t), e.figure.offsetHeight !== a && m(), i && Vt(e, !0), r && n.animate && _ && O());
 	};
 	for (let e of u) {
 		k(e);
@@ -2484,7 +2503,7 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 		}).observe(e.figure);
 	}
 	if (new MutationObserver(() => {
-		for (let e of u) Rt(e, n);
+		for (let e of u) Bt(e, n);
 		requestAnimationFrame(() => requestAnimationFrame(() => {
 			for (let e of u) g.delete(e), k(e);
 		}));
@@ -2499,10 +2518,10 @@ var Zn = "tablechart", Qn = "tablechart-steps", $n = [
 			let e = t.getCurrentSlide(), r = [e, e?.parentElement?.matches("section.stack") ? e.parentElement : null].flatMap((e) => e ? e.getAnimations() : []).filter((e) => e.playState === "running");
 			await Promise.all(r.map((e) => e.finished.catch(() => void 0))), t.getCurrentSlide() === e && n();
 		}), t.on("slidechanged", () => {
-			_ = !1, clearTimeout(e), e = setTimeout(n, mr(t.getCurrentSlide()) + 50);
+			_ = !1, clearTimeout(e), e = setTimeout(n, gr(t.getCurrentSlide()) + 50);
 		}), t.on("ready", n), t.on("fragmentshown", E), t.on("fragmenthidden", E), E();
 	}
-	kn?.log?.(`Tablechart started ${u.length} chart(s).`);
-}, gr = () => new Sn(Zn, hr, er).createInterface();
+	jn?.log?.(`Tablechart started ${u.length} chart(s).`);
+}, vr = () => new wn($n, _r, nr).createInterface();
 //#endregion
-export { gr as default };
+export { vr as default };

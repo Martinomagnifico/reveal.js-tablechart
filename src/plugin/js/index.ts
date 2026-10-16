@@ -86,6 +86,9 @@ const init = async (
 
 	const viewport = deck.getViewportElement() ?? document.body;
 	const found = Array.from(viewport.querySelectorAll<HTMLElement>(config.selector));
+
+	// The tooltip goes in the slides, so it has their scale on every screen, unless a deck says otherwise.
+	config.tooltipparent ??= viewport.querySelector<HTMLElement>(".slides");
 	if (!found.length) return;
 
 	// Internation names the attribute it translates by; a deck using it with a

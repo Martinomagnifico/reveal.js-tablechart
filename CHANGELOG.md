@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.7] - 2026-10-14
+
+Uses Tablechart 1.0.7.
+
+### Fixed
+- Tooltip size error is now fixed.
+
+
+
 ## [1.0.6] - 2026-10-14
 
 Uses Tablechart 1.0.6.
