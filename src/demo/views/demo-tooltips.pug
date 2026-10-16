@@ -1,0 +1,56 @@
+extends templates/layouts/_reveal.pug
+
+include slides/_mixins
+
+append variables
+	- presentation.title = 'Tablechart: Tooltips'
+
+block slides
+	include slides/_data
+	- var perTreeThree = [{"label": "2016", "values": ["41", "30", "22"]}, {"label": "2019", "values": ["58", "39", "35"]}, {"label": "2022", "values": ["77", "52", "41"]}, {"label": "2025", "values": ["105", "61", "70"]}]
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Tooltips
+
+	section
+		h3 Tooltips
+		p.small If a chart leaves numbers out, point at a row or tap it. A tooltip shows the name of the row and its values. This chart has three lines, so it shows no numbers.
+		.narrow
+			+chart({ type: 'line', prefix: 'ttlines', legend: true, title: 'Apples per tree', unit: 'each', series: ['North', 'South', 'East'], rows: perTreeThree })
+
+	section
+		h3 Always or never
+		p.small This chart shows all its numbers, so it has no tooltip by default. Add #[code data-chart-tooltip="true"] to give it one anyway, or #[code data-chart-tooltip="false"] to turn it off.
+		.split
+			+example({ lines: '1' })
+				+chart({ prefix: 'ttalways', title: 'Apples picked', unit: 'thousands', rows: picked, tooltip: true })
+
+	section
+		h3 With steps
+		p.small A row that has not arrived yet has no tooltip. Go to the next step, then point at the new column.
+		.split
+			+example({ lines: '1' })
+				+chart({ prefix: 'ttsteps', title: 'Apples picked', unit: 'thousands', rows: picked, tooltip: true, fragment: true })
+
+	section
+		h3 Style it
+		p.small The tooltip has its own variables for the background, text, border, corners, padding and shadow.
+		.split
+			.darktip
+				+chart({ type: 'line', prefix: 'ttdark', legend: true, title: 'Apples per tree', unit: 'each', series: ['North', 'South', 'East'], rows: perTreeThree })
+			+style('2-5').
+				.darktip {
+					--tablechart-tooltip-surface: #16323f;
+					--tablechart-tooltip-color: #f3efe9;
+					--tablechart-tooltip-border: 1px solid #4f9fd0;
+					--tablechart-tooltip-radius: 0.6em;
+				}
+
+	section
+		h4 That’s it!
+		p.small For more about tooltips, see the #[a(href="https://martinomagnifico.github.io/tablechart/features/tooltips.html") Tablechart documentation].
+
+
+block append scripts
+	include slides/_init

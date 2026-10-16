@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.6] - 2026-10-14
+
+Uses Tablechart 1.0.6.
+
+### Added
+
+- Tooltips: on a chart that leaves numbers out, point at a row or tap it to see its values. The `tooltip` option and `data-chart-tooltip` set it: `"auto"` by default, `true` always, `false` never.
+- `--tablechart-tooltip-surface`, `-color`, `-border`, `-radius`, `-padding` and `-shadow`.
+- A Tooltips page in the demo, and a Tooltips slide in the main demo.
+
+### Changed
+
+- In a presentation, a tooltip has the background of the slide, a bit lighter. A dark theme does not say it is dark, so the tooltip was white with light text.
+- The console also lists the old `hover` option and `data-chart-hover`.
+
+### Removed
+
+- The band behind a row that is pointed at, and `--tablechart-pointer-color`: the tooltip shows the row.
+
+### Fixed
+
+- A key that shows the next slide closes the tooltip, and the next slide does not open one under a mouse that rests. It stayed open for a moment while the next slide came in.
+
+
+
+
 ## [1.0.4] - 2026-10-14
 
 Uses Tablechart 1.0.4.

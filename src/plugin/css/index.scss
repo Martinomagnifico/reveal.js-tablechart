@@ -15,6 +15,9 @@
 	--tablechart-legend-border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
 	--tablechart-legend-padding: 0.3em 0.6em;
 	--tablechart-legend-radius: 0.4em;
+	// A dark theme does not set `color-scheme: dark`, so the tooltip would be white
+	// with the light text of the slide. It is the deck's background, a bit lighter.
+	--tablechart-tooltip-surface: oklch(from var(--r-background-color, Canvas) calc(l + 0.06) c h);
 }
 
 // While the deck measures its slides, nothing on them is moved by a transform, so

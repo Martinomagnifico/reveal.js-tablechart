@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tablechart: Tooltips</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal"><a class="github-corner" href="https://github.com/martinomagnifico/reveal.js-tablechart" target="blank" title="View source on GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+          <path fill="currentColor" d="M27.5 11.2a16.3 16.3 0 0 0-5.1 31.7c.8.2 1.1-.3 1.1-.7v-2.8c-4.5 1-5.5-2.2-5.5-2.2-.7-1.9-1.8-2.4-1.8-2.4-1.5-1 .1-1 .1-1 1.6.1 2.5 1.7 2.5 1.7 1.5 2.5 3.8 1.8 4.7 1.4.2-1 .6-1.8 1-2.2-3.5-.4-7.3-1.8-7.3-8 0-1.8.6-3.3 1.6-4.4-.1-.5-.7-2.1.2-4.4 0 0 1.4-.4 4.5 1.7a15.6 15.6 0 0 1 8.1 0c3.1-2 4.5-1.7 4.5-1.7.9 2.3.3 4 .2 4.4 1 1 1.6 2.6 1.6 4.3 0 6.3-3.8 7.7-7.4 8 .6.6 1.1 1.6 1.1 3v4.6c0 .4.3.9 1.1.7a16.3 16.3 0 0 0-5.2-31.7"></path>
+        </svg></a>
+      <div class="slides">
+        <section class="title-slide">
+          <h1 class="title">Tablechart</h1>
+          <h3 class="subtitle">for Reveal.js: Tooltips</h3>
+        </section>
+        <section>
+          <h3>Tooltips</h3>
+          <p class="small">If a chart leaves numbers out, point at a row or tap it. A tooltip shows the name of the row and its values. This chart has three lines, so it shows no numbers.</p>
+          <div class="narrow">
+            <figure class="tablechart" data-chart="line" data-chart-keys="ttlines" data-chart-legend="">
+              <figcaption><b>Apples per tree</b><br/><span>each</span>
+              </figcaption>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>North</th>
+                    <th>South</th>
+                    <th>East</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>2016</th>
+                    <td>41</td>
+                    <td>30</td>
+                    <td>22</td>
+                  </tr>
+                  <tr>
+                    <th>2019</th>
+                    <td>58</td>
+                    <td>39</td>
+                    <td>35</td>
+                  </tr>
+                  <tr>
+                    <th>2022</th>
+                    <td>77</td>
+                    <td>52</td>
+                    <td>41</td>
+                  </tr>
+                  <tr>
+                    <th>2025</th>
+                    <td>105</td>
+                    <td>61</td>
+                    <td>70</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+          </div>
+        </section>
+        <section>
+          <h3>Always or never</h3>
+          <p class="small">This chart shows all its numbers, so it has no tooltip by default. Add <code>data-chart-tooltip="true"</code> to give it one anyway, or <code>data-chart-tooltip="false"</code> to turn it off.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="ttalways" data-chart-tooltip="true">
+              <figcaption><b>Apples picked</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Spring</th>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>Summer</th>
+                    <td>72</td>
+                  </tr>
+                  <tr>
+                    <th>Autumn</th>
+                    <td>70</td>
+                  </tr>
+                  <tr>
+                    <th>Winter</th>
+                    <td>91</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-tooltip=&quot;true&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples picked&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Spring&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Summer&lt;/th&gt;&lt;td&gt;72&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Autumn&lt;/th&gt;&lt;td&gt;70&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Winter&lt;/th&gt;&lt;td&gt;91&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>With steps</h3>
+          <p class="small">A row that has not arrived yet has no tooltip. Go to the next step, then point at the new column.</p>
+          <div class="split">
+            <figure class="tablechart" data-chart="column" data-chart-keys="ttsteps" data-fragment="" data-chart-tooltip="true">
+              <figcaption><b>Apples picked</b><br/><span>thousands</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Spring</th>
+                    <td>58</td>
+                  </tr>
+                  <tr>
+                    <th>Summer</th>
+                    <td>72</td>
+                  </tr>
+                  <tr>
+                    <th>Autumn</th>
+                    <td>70</td>
+                  </tr>
+                  <tr>
+                    <th>Winter</th>
+                    <td>91</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-fragment data-chart-tooltip=&quot;true&quot;&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples picked&lt;/b&gt;&lt;br&gt;&lt;span&gt;thousands&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;Spring&lt;/th&gt;&lt;td&gt;58&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Summer&lt;/th&gt;&lt;td&gt;72&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Autumn&lt;/th&gt;&lt;td&gt;70&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;Winter&lt;/th&gt;&lt;td&gt;91&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Style it</h3>
+          <p class="small">The tooltip has its own variables for the background, text, border, corners, padding and shadow.</p>
+          <div class="split">
+            <div class="darktip">
+              <figure class="tablechart" data-chart="line" data-chart-keys="ttdark" data-chart-legend="">
+                <figcaption><b>Apples per tree</b><br/><span>each</span>
+                </figcaption>
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>North</th>
+                      <th>South</th>
+                      <th>East</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>2016</th>
+                      <td>41</td>
+                      <td>30</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <th>2019</th>
+                      <td>58</td>
+                      <td>39</td>
+                      <td>35</td>
+                    </tr>
+                    <tr>
+                      <th>2022</th>
+                      <td>77</td>
+                      <td>52</td>
+                      <td>41</td>
+                    </tr>
+                    <tr>
+                      <th>2025</th>
+                      <td>105</td>
+                      <td>61</td>
+                      <td>70</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div><style>.darktip{--tablechart-tooltip-surface:#16323f;--tablechart-tooltip-color:#f3efe9;--tablechart-tooltip-border:1px solid #4f9fd0;--tablechart-tooltip-radius:.6em}</style>
+            <pre><code class="css" data-trim="data-trim" data-line-numbers="2-5">.darktip {
+    --tablechart-tooltip-surface: #16323f;
+    --tablechart-tooltip-color: #f3efe9;
+    --tablechart-tooltip-border: 1px solid #4f9fd0;
+    --tablechart-tooltip-radius: 0.6em;
+}</code></pre>
+          </div>
+        </section>
+        <section>
+          <h4>That’s it!</h4>
+          <p class="small">For more about tooltips, see the <a href="https://martinomagnifico.github.io/tablechart/features/tooltips.html">Tablechart documentation</a>.</p>
+        </section>
+      </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/tablechart/tablechart.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	center: true, controlsTutorial: false,
+      	plugins: [ Tablechart, RevealHighlight ]
+      });
+    </script>
+  </body>
+</html>

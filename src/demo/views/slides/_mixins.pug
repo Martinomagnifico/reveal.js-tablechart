@@ -2,7 +2,7 @@
 //- repetition in the demo; there is nothing here a deck could not write by hand.
 
 mixin chart(opts)
-	figure.tablechart(data-chart=opts.type || 'column' data-chart-keys=opts.prefix data-chart-aspect=opts.aspect data-chart-stack=opts.stack ? '' : false data-chart-shape=opts.shape data-chart-animate=opts.animate data-chart-legend=opts.legend ? '' : false data-fragment=opts.fragment ? '' : false)
+	figure.tablechart(data-chart=opts.type || 'column' data-chart-keys=opts.prefix data-chart-aspect=opts.aspect data-chart-stack=opts.stack ? '' : false data-chart-shape=opts.shape data-chart-animate=opts.animate data-chart-legend=opts.legend ? '' : false data-fragment=opts.fragment ? '' : false data-chart-tooltip=opts.tooltip === undefined ? false : String(opts.tooltip))
 		if opts.title
 			figcaption
 				b= opts.title
@@ -12,7 +12,8 @@ mixin chart(opts)
 		//- `code` trims what an example shows of the rows: a number shows that many
 		//- and then …, and 'rows' shows the rows alone. `series` names the value
 		//- columns of a chart with several, and each row then has `values`. A
-		//- series is a name, or { name, fragment, at } to make that line a step.
+		//- series is a name, or { name, fragment, at, line } to make that line a step or
+		//- give it a pattern: `line` is 'dashed' or 'dotted'.
 		//- `cells` makes every value cell a step.
 		table
 			if opts.series
@@ -21,7 +22,7 @@ mixin chart(opts)
 						th
 						each series in opts.series
 							- var head = typeof series === 'string' ? { name: series } : series
-							th(data-fragment=head.fragment ? '' : false data-fragment-index=head.at)= head.name
+							th(data-fragment=head.fragment ? '' : false data-fragment-index=head.at data-line=head.line)= head.name
 			tbody
 				each row, i in opts.rows
 					- var shown = opts.code === 'rows' ? 'only' : typeof opts.code === 'number' && i >= opts.code ? 'skip' : false

@@ -108,7 +108,7 @@ const init = async (
 		await Promise.all([...slides.values()].map((group) => prepare(group, config)))
 	).flat();
 	// Old variable names and `animate` values still work until the next minor version of Tablechart.
-	warnOldNames(figures, config.animate);
+	warnOldNames(figures, config);
 	// On paper, and without animation, nobody steps through a chart, so it has no steps and is shown whole.
 	const stepping = config.animate && !printing;
 	if (stepping) for (const figure of figures) readMarkdownSteps(figure);

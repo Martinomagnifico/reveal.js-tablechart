@@ -30,14 +30,20 @@ const OLD_NAMES: [string, string][] = [
 
 const OLD_MOTIONS: Record<string, string> = { up: "grow", across: "sweep" };
 
-/** Lists in the console, once, the old variable names and `animate` values that the charts still use. */
-export const warnOldNames = (figures: HTMLElement[], animate: unknown): void => {
+/** Lists in the console, once, the old variable names, `animate` values and options that the charts still use. */
+export const warnOldNames = (
+	figures: HTMLElement[],
+	config: { animate?: unknown; hover?: unknown }
+): void => {
 	const motion = (value: unknown) => {
 		const now = OLD_MOTIONS[String(value)];
 		return now ? [`"${value}" is now "${now}"`] : [];
 	};
-	const used = new Set(motion(animate));
+	const used = new Set(motion(config.animate));
+	if (config.hover !== undefined) used.add(`the "hover" option is now "tooltip"`);
 	for (const figure of figures) {
+		if (figure.hasAttribute("data-chart-hover"))
+			used.add("data-chart-hover is now data-chart-tooltip");
 		const style = getComputedStyle(figure);
 		for (const [old, now] of OLD_NAMES)
 			if (style.getPropertyValue(old).trim()) used.add(`${old} is now ${now}`);

@@ -255,8 +255,12 @@ Reveal.initialize({
             <h3>HTML Markup</h3>
             <p class="small">Or from a JSON source:</p>
             <div class="split">
-              <div class="tablechart" data-chart="column" data-chart-src="assets/data/apples.json"></div>
-              <pre><code class="html" data-trim="data-trim" data-line-numbers="data-line-numbers">&lt;div class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-src=&quot;assets/data/apples.json&quot;&gt;&lt;/div&gt;</code></pre>
+              <figure class="tablechart" data-chart="column" data-chart-src="assets/data/apples.json">
+                <figcaption><b>Apples picked</b></figcaption>
+              </figure>
+              <pre><code class="html" data-trim="data-trim" data-line-numbers="data-line-numbers">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-src=&quot;assets/data/apples.json&quot;&gt;
+  &lt;figcaption&gt;&lt;b&gt;Apples picked&lt;/b&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
             </div>
           </section>
           <section>
@@ -335,6 +339,57 @@ Reveal.initialize({
 &lt;/figure&gt;</code></pre>
             </div>
           </section>
+          <section>
+            <h3>Tooltips</h3>
+            <p class="small">A chart with four lines has no room for every number. Point at a year, or tap it, to see its values.</p>
+            <div class="narrow">
+              <figure class="tablechart" data-chart="line" data-chart-keys="introtooltip" data-chart-legend="">
+                <figcaption><b>Apples per tree</b><br/><span>each</span>
+                </figcaption>
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>North</th>
+                      <th data-line="dashed">South</th>
+                      <th data-line="dotted">East</th>
+                      <th>West</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>2016</th>
+                      <td>41</td>
+                      <td>30</td>
+                      <td>22</td>
+                      <td>35</td>
+                    </tr>
+                    <tr>
+                      <th>2019</th>
+                      <td>58</td>
+                      <td>39</td>
+                      <td>35</td>
+                      <td>37</td>
+                    </tr>
+                    <tr>
+                      <th>2022</th>
+                      <td>77</td>
+                      <td>52</td>
+                      <td>41</td>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <th>2025</th>
+                      <td>105</td>
+                      <td>61</td>
+                      <td>70</td>
+                      <td>55</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+          </section>
           <section class="has-light-background" data-background-color="#f3efe9">
             <h3>On an contrasting/inverted background</h3>
             <figure class="tablechart" data-chart="waterfall" data-chart-keys="introinverted">
@@ -382,6 +437,7 @@ Reveal.initialize({
               <li><a href="charts/waterfall.html">Waterfalls</a></li>
               <li><a href="charts/donut.html">Donuts</a></li>
               <li><a href="demo-annotations.html">Annotations</a></li>
+              <li><a href="demo-tooltips.html">Tooltips</a></li>
               <li><a href="demo-branding.html">Branding</a></li>
               <li><a href="demo-white.html">On white</a></li>
               <li><a href="demo-appearance.html">With Appearance</a></li>
