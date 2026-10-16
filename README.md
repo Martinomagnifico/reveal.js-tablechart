@@ -6,7 +6,7 @@ Simple charts in a Reveal.js presentation.
 
 A plugin for [Reveal.js](https://revealjs.com) that makes easy charts. Can't get it very much simpler. Use it for areas, bars, columns, donuts, lines and waterfall charts. In its core is the regular version of [Tablechart](https://martinomagnifico.github.io/tablechart/). Accessibility first. This plugin optimises it for Reveal slide use. 
 
-[<img src="screenshot.png" width="100%">](https://martinomagnifico.github.io/reveal.js-appearance/demo/demo.html)
+[<img src="screenshot.png" width="100%">](https://martinomagnifico.github.io/reveal.js-tablechart/demo/demo.html)
 
 
 
