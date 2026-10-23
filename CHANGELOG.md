@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.0] - 2026-10-23
+
+Uses Tablechart 1.1.0.
+
+### Added
+
+- Scatter and bubble charts: `data-chart="scatter"`. Tablechart has them in its additional types; the plugin adds them, so a presentation needs no other script.
+- A Scatter page in the demo.
+- An axis and gridlines slide on the column, bar, line, area and waterfall pages, and in the main demo.
+- The readme lists the chart types, with links to their demo pages.
+- From Tablechart 1.1.0: a value axis (`data-chart-axis`) and gridlines (`data-chart-grid`), a reference line annotation, and `data-chart-animate="false"`.
+
+### Removed
+
+- The console list of old variable names and `animate` values. Tablechart 1.1.0 no longer has them.
+
+
+
 ## [1.0.7] - 2026-10-14
 
 Uses Tablechart 1.0.7.

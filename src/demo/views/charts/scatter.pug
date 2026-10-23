@@ -1,0 +1,59 @@
+extends ../templates/layouts/_reveal.pug
+
+include ../slides/_mixins
+
+append variables
+	- base = '../'
+	- presentation.title = 'Tablechart: Scatter charts'
+
+block slides
+	include ../slides/_data
+	- var apples = [['Elstar', '62', '1.20', '420', 'Eating'], ['Jonagold', '75', '1.05', '310', 'Eating'], ['Braeburn', '48', '1.45', '180', 'Eating'], ['Gala', '55', '1.30', '260', 'Eating'], ['Cox', '35', '1.85', '120', 'Eating'], ['Discovery', '30', '1.75', '60', 'Eating'], ['Boskoop', '70', '0.95', '200', 'Cooking'], ['Granny Smith', '40', '1.60', '90', 'Cooking'], ['Bramley', '70', '0.95', '140', 'Cooking']]
+	- var two = apples.slice(0, 6).map(function (row) { return { label: row[0], values: [row[1], row[2]] }; })
+	- var three = apples.slice(0, 6).map(function (row) { return { label: row[0], values: [row[1], row[2], row[3]] }; })
+	- var grouped = apples.map(function (row) { return { label: row[0], values: row.slice(1) }; })
+
+	section.title-slide
+		h1.title Tablechart
+		h3.subtitle for Reveal.js: Scatter charts
+
+	section
+		h3 Scatter chart
+		p.small Each row is a marker. The first value column is the position across, the second the position up. Their headers are the titles of the axes.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'scatter', prefix: 'scbasic', title: 'Harvest and price per variety', series: ['Harvest per tree (kg)', 'Price per kg (€)'], rows: two, code: 2 })
+
+	section
+		h3 Bubbles
+		p.small A third value column sets the size of each marker: its area matches the value.
+		.split
+			+example({ lines: '11' })
+				+chart({ type: 'scatter', prefix: 'scbubbles', title: 'Harvest, price and number of trees', series: ['Harvest per tree (kg)', 'Price per kg (€)', 'Trees'], rows: three, code: 1 })
+
+	section
+		h3 Groups
+		p.small Add #[code data-group] to the header of a column with names. Each group has its own colour, shape and entry in the legend.
+		.split
+			.scattergroups
+				+chart({ type: 'scatter', prefix: 'scgroups', title: 'Eating and cooking apples', series: ['Harvest per tree (kg)', 'Price per kg (€)', 'Trees', { name: 'Use', group: true }], rows: grouped })
+			+style('2-3').
+				.scattergroups {
+					--tablechart-color-1: #4f9fd0;
+					--tablechart-color-2: #e0a35b;
+				}
+
+	section
+		h3 Axes and gridlines
+		p.small #[code data-chart-scale-x] and #[code data-chart-scale] set the axes: two numbers for where they start and end, or more for the numbers along them. #[code data-chart-grid] adds gridlines.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'scatter', prefix: 'scaxes', title: 'From zero', series: ['Harvest per tree (kg)', 'Price per kg (€)'], rows: two, code: 2, attrs: { 'data-chart-scale-x': '0 100', 'data-chart-scale': '0 0.5 1 1.5 2', 'data-chart-grid': '' } })
+
+	section
+		h4 That’s it!
+		p.small For more about scatter charts, see the #[a(href="https://martinomagnifico.github.io/tablechart/types/scatter.html") Tablechart documentation].
+
+
+block append scripts
+	include ../slides/_init

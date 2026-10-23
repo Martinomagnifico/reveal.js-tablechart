@@ -1,7 +1,9 @@
 import "@martinomagnifico/tablechart/style.css";
 import "../css/index.scss";
 
+import { scatter } from "@martinomagnifico/tablechart/additional-types";
 import {
+	addType,
 	build,
 	type ChartState,
 	entranceOf,
@@ -33,10 +35,12 @@ const MEASURING_CLASS = "tablechart-measuring";
 // The entrance signal: a container that animates in, for example with Appearance,
 // says when it is shown and when it is in.
 import { entranceTools } from "reveal.js-plugintoolkit";
-import { warnOldNames } from "./functions/old-names";
 import { createSteps, readMarkdownSteps, restep } from "./functions/steps";
 
 const { pendingAround, whenShown } = entranceTools;
+
+// The additional types of Tablechart: a presentation has every type, without loading another script.
+addType("scatter", scatter);
 
 // A figure inside something that announces its entrance, such as an Appearance
 // container. It waits for the signal, and in a sequence it does not hide whole:
@@ -110,8 +114,6 @@ const init = async (
 	const figures = (
 		await Promise.all([...slides.values()].map((group) => prepare(group, config)))
 	).flat();
-	// Old variable names and `animate` values still work until the next minor version of Tablechart.
-	warnOldNames(figures, config);
 	// On paper, and without animation, nobody steps through a chart, so it has no steps and is shown whole.
 	const stepping = config.animate && !printing;
 	if (stepping) for (const figure of figures) readMarkdownSteps(figure);

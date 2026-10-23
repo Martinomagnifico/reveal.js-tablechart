@@ -21,6 +21,13 @@ block slides
 				+chart({ type: 'waterfall', prefix: 'wfbasic', title: 'What happened to the crop', unit: 'thousands of apples', rows: cropsmall, code: 'rows' })
 
 	section
+		h3 Axis and gridlines
+		p.small Add #[code data-chart-axis] for the numbers along the value axis, and #[code data-chart-grid] for a line at each of them. The scale then ends on a number of the axis.
+		.split
+			+example({ lines: '1' })
+				+chart({ type: 'waterfall', prefix: 'wfaxis', title: 'What happened to the crop', unit: 'thousands of apples', rows: crop, code: 3, axis: true, grid: true })
+
+	section
 		h3 Totals are not calculated
 		p.small See that the last column does not line up? That is not Tablechart. That is your data. Tablechart just takes #[em your] values, it does #[em not] check if those add up correctly. The console will show a warning if there is a mismatch, because it might be hard to see it in the chart itself.
 		+chart({ type: 'waterfall', prefix: 'wfshort', title: 'A shorter bridge', unit: 'thousands of apples', rows: stated })

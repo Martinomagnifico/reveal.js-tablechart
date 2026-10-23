@@ -92,6 +92,13 @@ block slides
 								span +13%
 
 		section
+			h3 Add an axis and gridlines
+			p.small Add #[code data-chart-axis] and #[code data-chart-grid] to any chart but a donut.
+			.split
+				+example({ lines: '1' })
+					+chart({ type: 'column', prefix: 'introaxis', title: 'Apples per tree', unit: 'each', rows: perTreesmall, axis: true, grid: true })
+
+		section
 			h3 Tooltips
 			p.small A chart with four lines has no room for every number. Point at a year, or tap it, to see its values.
 			- var perTreeFour = [{"label": "2016", "values": ["41", "30", "22", "35"]}, {"label": "2019", "values": ["58", "39", "35", "37"]}, {"label": "2022", "values": ["77", "52", "41", "48"]}, {"label": "2025", "values": ["105", "61", "70", "55"]}]
@@ -118,6 +125,7 @@ block slides
 				li: a(href="charts/area.html") Area charts
 				li: a(href="charts/waterfall.html") Waterfalls
 				li: a(href="charts/donut.html") Donuts
+				li: a(href="charts/scatter.html") Scatter charts
 				li: a(href="demo-annotations.html") Annotations
 				li: a(href="demo-tooltips.html") Tooltips
 				li: a(href="demo-branding.html") Branding

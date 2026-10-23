@@ -340,6 +340,44 @@ Reveal.initialize({
             </div>
           </section>
           <section>
+            <h3>Add an axis and gridlines</h3>
+            <p class="small">Add <code>data-chart-axis</code> and <code>data-chart-grid</code> to any chart but a donut.</p>
+            <div class="split">
+              <figure class="tablechart" data-chart="column" data-chart-keys="introaxis" data-chart-axis="" data-chart-grid="">
+                <figcaption><b>Apples per tree</b><br/><span>each</span>
+                </figcaption>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>2022</th>
+                      <td>91</td>
+                    </tr>
+                    <tr>
+                      <th>2023</th>
+                      <td>102</td>
+                    </tr>
+                    <tr>
+                      <th>2024</th>
+                      <td>116</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+              <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure class=&quot;tablechart&quot; data-chart=&quot;column&quot; data-chart-axis data-chart-grid&gt;
+  &lt;figcaption&gt;
+    &lt;b&gt;Apples per tree&lt;/b&gt;&lt;br&gt;&lt;span&gt;each&lt;/span&gt;
+  &lt;/figcaption&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th&gt;2022&lt;/th&gt;&lt;td&gt;91&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2023&lt;/th&gt;&lt;td&gt;102&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th&gt;2024&lt;/th&gt;&lt;td&gt;116&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+            </div>
+          </section>
+          <section>
             <h3>Tooltips</h3>
             <p class="small">A chart with four lines has no room for every number. Point at a year, or tap it, to see its values.</p>
             <div class="narrow">
@@ -436,6 +474,7 @@ Reveal.initialize({
               <li><a href="charts/area.html">Area charts</a></li>
               <li><a href="charts/waterfall.html">Waterfalls</a></li>
               <li><a href="charts/donut.html">Donuts</a></li>
+              <li><a href="charts/scatter.html">Scatter charts</a></li>
               <li><a href="demo-annotations.html">Annotations</a></li>
               <li><a href="demo-tooltips.html">Tooltips</a></li>
               <li><a href="demo-branding.html">Branding</a></li>

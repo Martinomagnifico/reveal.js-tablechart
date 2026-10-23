@@ -4,7 +4,7 @@
 
 Simple charts in a Reveal.js presentation.
 
-A plugin for [Reveal.js](https://revealjs.com) that makes easy charts. Can't get it very much simpler. Use it for areas, bars, columns, donuts, lines and waterfall charts. In its core is the regular version of [Tablechart](https://martinomagnifico.github.io/tablechart/). Accessibility first. This plugin optimises it for Reveal slide use. 
+A plugin for [Reveal.js](https://revealjs.com) that makes easy charts. Can't get it very much simpler. Use it for areas, bars, columns, donuts, lines, waterfall and scatter charts. In its core is the regular version of [Tablechart](https://martinomagnifico.github.io/tablechart/). Accessibility first. This plugin optimises it for Reveal slide use. 
 
 [<img src="screenshot.png" width="100%">](https://martinomagnifico.github.io/reveal.js-tablechart/demo/demo.html)
 
@@ -61,14 +61,25 @@ A chart is a `figure` with `data-chart` and a table in it:
 </section>
 ```
 
-For the chart types and everything a table can say, see
+The value of `data-chart` is the type of chart. See each type in the demo:
+
+- [Column](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/column.html): `column`, the default
+- [Bar](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/bar.html): `bar`
+- [Line](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/line.html): `line`
+- [Area](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/area.html): `area`
+- [Waterfall](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/waterfall.html): `waterfall`
+- [Donut](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/donut.html): `donut`
+- [Scatter and bubble](https://martinomagnifico.github.io/reveal.js-tablechart/demo/charts/scatter.html): `scatter`
+
+For everything a table can say, see
 [Data](https://martinomagnifico.github.io/tablechart/data.html) and the
 chart types on the Tablechart site.
 
-## When a chart builds
+## When a chart is shown
 
-A chart builds when its slide is shown, once the slide has stopped moving. When
-you leave the slide, the chart is reset, so it builds again when you come back.
+A chart builds up, animates, when you get to the slide it is on. If it built while the slide was still coming in, it would be half done before you could see it. So Tablechart waits until the slide has stopped moving. When you leave the slide, the chart is reset, so it builds again when you come back.
+
+### In a fragment
 
 If the figure is a fragment, or is inside one, the chart builds when that
 fragment is shown:
@@ -77,13 +88,18 @@ fragment is shown:
 <figure class="fragment" data-chart="column">…</figure>
 ```
 
-If the chart is inside an element that animates in, for example with
-[Appearance](https://github.com/martinomagnifico/reveal.js-appearance), the chart
-builds when that element says it is shown: half way in, unless the element says
-otherwise with `data-entrance-at`. This is the entrance signal of
-[reveal.js-plugintoolkit](https://github.com/martinomagnifico/reveal.js-plugintoolkit),
-so it works with any plugin that gives it. For an element animated by a plugin
-that does not give the signal, the chart builds when its CSS animation is half way.
+### In an element that animates in
+
+A chart can be inside an element that animates in, such as a block that slides in
+with [Appearance](https://github.com/martinomagnifico/reveal.js-appearance). The
+chart then builds when that element is halfway in. You do not need to set
+anything. To choose another moment, add `data-entrance-at` to the element.
+
+This works with any plugin that gives the entrance signal of
+[reveal.js-plugintoolkit](https://github.com/martinomagnifico/reveal.js-plugintoolkit).
+If a plugin does not give it, Tablechart waits until the CSS animation of the
+element is halfway. Add `data-chart-entrance` to the figure to choose another
+moment, from `0` (as soon as the element starts to move) to `1` (when it is in).
 
 ## Steps
 
