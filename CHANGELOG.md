@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2026-10-23
+
+### Changed
+- Uses Tablechart 1.1.1 and its changes.
+
+
 ## [1.1.0] - 2026-10-23
 
 Uses Tablechart 1.1.0.
