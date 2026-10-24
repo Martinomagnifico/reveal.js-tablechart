@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2] - 2026-10-23
+
+### Changed
+- Uses Tablechart 1.1.2 and its changes: Performance fixes.
+
+
 ## [1.1.1] - 2026-10-23
 
 ### Changed
