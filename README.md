@@ -210,7 +210,8 @@ Reveal.initialize({
 | --- | --- | --- |
 | `sequence` | `"together"` | How the charts on a slide follow each other: `together`, `delay` or `after` |
 | `sequencedelay` | `0` | The time between two charts in a sequence, in milliseconds |
-| `animate` | `true` | If `false`, charts are shown whole, without animation and steps |
+| `buildonload` | `true` | Builds the charts on the slide that the presentation opens with, also after a reload. If `false`, they are shown immediately |
+| `animate` | `true` | If `false`, charts are shown immediately, without animation and steps |
 | `cssautoload` | `true` | Loads the stylesheet of the plugin |
 | `csspath` | `""` | Where the stylesheet is, if it is not next to the plugin |
 

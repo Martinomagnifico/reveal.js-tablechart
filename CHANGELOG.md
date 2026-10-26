@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.3] - 2026-10-26
+
+### Changed
+- Uses Tablechart 1.1.3 and its changes: annotation badges and charts that show directly.
+- A chart on the previous slide resets at once. Before, it built backwards off screen.
+
+### Added
+- `buildonload` option. `true` (the default) builds the charts on the slide the deck opens on, also after a reload. `false` shows them directly, with their labels and annotations.
+- `replay` option. `true` (the default) builds a chart again each time its slide comes back. `false` builds it once, and it stays built. A chart with steps follows its fragments either way.
+
+### Fixed
+- Slides that move up or down no longer jump halfway through the transition. The plugin measured the deck again during the move, and its measuring rule also affected the vertical slides. It now leaves slides and chart marks alone, and measures once the slides have stopped moving.
+
+
 ## [1.1.2] - 2026-10-23
 
 ### Changed

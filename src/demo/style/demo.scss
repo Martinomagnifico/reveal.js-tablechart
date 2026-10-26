@@ -275,6 +275,12 @@ a.github-corner {
 }
 
 
+// The two groups of the scatter chart in the main demo: the blue of the bars, and an orange.
+.twogroups {
+	--tablechart-color-1: #4f9fd0;
+	--tablechart-color-2: #e0a35b;
+}
+
 // A donut on its own on a slide.
 .ring {
 	max-width: 44%;

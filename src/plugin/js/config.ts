@@ -25,6 +25,11 @@ export interface Config extends TablechartConfig {
 	sequence: Sequence;
 	/** Milliseconds between two charts in a `delay` or an `after` sequence. */
 	sequencedelay: number;
+	/**
+	 * Build the charts on the slide the deck opens on, also after a reload. `false`
+	 * shows them whole, as they are when you get back to a slide you left built.
+	 */
+	buildonload: boolean;
 	/** Load the stylesheet of the plugin by itself. */
 	cssautoload: boolean;
 	/** Where the stylesheet is, if it is not next to the plugin. */
@@ -35,8 +40,12 @@ export const defaultConfig: Config = {
 	...tablechartDefaults,
 	// Reveal's fragments step a chart, so it has no buttons of its own.
 	controls: false,
+	// A chart builds again each time its slide comes back. `false` builds it once: it stays built after that.
+	// A chart with steps follows its fragments either way.
+	replay: true,
 	sequence: "together",
 	sequencedelay: 0,
+	buildonload: true,
 	cssautoload: true,
 	csspath: "",
 };

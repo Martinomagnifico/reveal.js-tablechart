@@ -22,7 +22,13 @@
 
 // While the deck measures its slides, nothing on them is moved by a transform, so
 // a slide is centred on where its content ends up. Only for that moment.
-.tablechart-measuring .slides section :where(*) {
+//
+// Not a slide itself: a vertical slide is a section in a section, and Reveal moves
+// it with a transform. Switched off for a moment, the browser starts that slide's
+// transition again, and a slide that is moving jumps. Nor the marks of a chart,
+// which stay inside its plot: their transforms are the build, and a build that is
+// switched off and on starts again.
+.tablechart-measuring .slides section :where(*:not(section, [data-chart] *)) {
 	transform: none !important;
 	translate: none !important;
 }

@@ -169,8 +169,17 @@ const init = async (
 		ready = true;
 	});
 	let recentring = false;
+	// Not while the deck is moving. A chart on a slide that has just come within
+	// reach is laid out then, and asks for this, but the slides that move are laid
+	// out again in the middle of their transition, and Safari shows that as a jump.
+	// The settle below measures once they have come to rest.
+	let recentreLater = false;
 	const recentre = () => {
 		if (!ready || recentring) return;
+		if (!settled) {
+			recentreLater = true;
+			return;
+		}
 		recentring = true;
 		requestAnimationFrame(() => {
 			recentring = false;
@@ -199,6 +208,11 @@ const init = async (
 	// False while the deck is moving. A chart drawn mid-transition is left to the
 	// settle below, so that it animates on a slide that has come to rest.
 	let settled = true;
+
+	// True until the presenter first moves: a slide change or a fragment. With
+	// `buildonload: false`, a chart on the slide the deck opens on is simply there,
+	// as a reload leaves it, rather than building.
+	let opening = true;
 
 	// --- sequencing ---------------------------------------------------------------
 	// Which charts start together, and how the rest follow them. The nearest element
@@ -307,10 +321,20 @@ const init = async (
 			if (taken !== null) stepTo(state, taken);
 
 			if (!(placed.has(state) && shown(state))) {
+				const up = state.figure.classList.contains(SHOWN_CLASS);
+				// With `replay: false`, a chart that has built stays built. Not one with
+				// steps, which follows its fragments.
+				if (up && !config.replay && !state.plan) continue;
 				const run = runs.get(state);
 				if (run) run.live = false;
 				runs.delete(state);
-				setShown(state, false);
+				// On a slide that has gone, nobody sees the marks move back, so they are
+				// back at once, rather than building backwards off screen for seconds.
+				setShown(
+					state,
+					false,
+					up && !state.figure.closest("section")?.classList.contains("present")
+				);
 				// A chart in a sequence is hidden whole until its turn comes round, so
 				// coming back to the slide does not flash the frames of charts to come.
 				// Not in a container, which is in view already.
@@ -323,6 +347,15 @@ const init = async (
 
 			// Already up, or already waiting its turn.
 			if (state.figure.classList.contains(SHOWN_CLASS) || runs.has(state)) continue;
+
+			// On the slide the deck opens on, without `buildonload`: there at once, its
+			// text and annotations too. Not in a container that comes in, such as an
+			// Appearance panel, which builds when it is in.
+			if (opening && !config.buildonload && !inContainer(state.figure)) {
+				state.figure.classList.remove(QUEUED_CLASS);
+				setShown(state, true, true);
+				continue;
+			}
 
 			const { group, mode, delay } = sequenceOf(state);
 			if (mode === "together" || !group) {
@@ -429,6 +462,10 @@ const init = async (
 		const settle = () => {
 			clearTimeout(settling);
 			settled = true;
+			if (recentreLater) {
+				recentreLater = false;
+				recentre();
+			}
 			sync();
 		};
 		// Reveal sends slidetransitionend for the first transition that ends on any
@@ -449,6 +486,9 @@ const init = async (
 			if (deck.getCurrentSlide() === slide) settle();
 		});
 		deck.on("slidechanged", () => {
+			// Reveal goes to the slide in the address as it starts, before it is ready:
+			// that is still the slide the deck opens on.
+			if (ready) opening = false;
 			settled = false;
 			clearTimeout(settling);
 			settling = setTimeout(settle, transitionMS(deck.getCurrentSlide()) + 50);
@@ -458,8 +498,12 @@ const init = async (
 		// A fragment is a keypress rather than a move: nothing is sliding, so the
 		// chart it holds can build at once. Going back hides it again, which resets
 		// the marks so that the step can be played a second time.
-		deck.on("fragmentshown", sync);
-		deck.on("fragmenthidden", sync);
+		const step = () => {
+			opening = false;
+			sync();
+		};
+		deck.on("fragmentshown", step);
+		deck.on("fragmenthidden", step);
 
 		sync();
 	}

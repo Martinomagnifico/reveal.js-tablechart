@@ -23,7 +23,7 @@ block slides
 		section
 			p Sometimes you just want a simple graph in a Reveal.js presentation. Simple colors and style, simple markup. Tablechart does that.
 		section
-			p Six types:
+			p Six main types:
 			.smallgrid(data-chart-sequence="delay" data-chart-delay="200")
 				+chart({ type: 'column', prefix: 'introcolumn', rows: dipsmall, aspect: 0.6 })
 				+chart({ type: 'bar', prefix: 'introbar', rows: dipsmall })
@@ -31,6 +31,11 @@ block slides
 				+chart({ type: 'area', prefix: 'introarea', rows: dipsmall, aspect: 0.84, shape: 'smooth', animate: 'grow' })
 				+chart({ type: 'waterfall', prefix: 'introwaterfall', rows: dipsmall, aspect: 0.84 })
 				+chart({ type: 'donut', prefix: 'introdonut', rows: dipsmall })
+		section
+			p And scatter charts, with bubbles and groups:
+			- var introApples = [['Elstar', '62', '1.20', '420', 'Eating'], ['Jonagold', '75', '1.05', '310', 'Eating'], ['Braeburn', '48', '1.45', '180', 'Eating'], ['Gala', '55', '1.30', '260', 'Eating'], ['Cox', '35', '1.85', '120', 'Eating'], ['Discovery', '30', '1.75', '60', 'Eating'], ['Boskoop', '70', '0.95', '200', 'Cooking'], ['Granny Smith', '40', '1.60', '90', 'Cooking']].map(function (row) { return { label: row[0], values: row.slice(1) }; })
+			.narrow.twogroups
+				+chart({ type: 'scatter', prefix: 'introscatter', title: 'Eating and cooking apples', series: ['Harvest per tree (kg)', 'Price per kg (€)', 'Trees', { name: 'Use', group: true }], rows: introApples })
 
 
 
