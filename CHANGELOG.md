@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.2] - 2026-10-30
+
+### Changed
+- Uses Tablechart 1.2.2 and its changes: a line over columns, notes, colour ranges, readable numbers inside bars, and the same animation timing for every chart type.
+- The background colour of a chart is that of its slide, or else that of the deck. A slide with its own background no longer needs `--tablechart-surface`.
+- A chart with its own `--tablechart-surface` has that colour as its background. So the box shows the colour that its slices and lines are mixed with.
+- A tooltip is a little lighter than the background colour of its chart. On a light slide it was dark.
+
+
 ## [1.1.3] - 2026-10-26
 
 ### Changed

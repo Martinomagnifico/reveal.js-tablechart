@@ -29,6 +29,9 @@
 
 	--tablechart-bar-color: #4f9fd0;
 	--tablechart-slice-color: #4f9fd0;
+	// Lighter towards the last line or slice, so each keeps 3:1 with the dark background.
+	--tablechart-series-color-end: #a9d3f0;
+	--tablechart-slice-color-end: #a9d3f0;
 	--tablechart-up-color: #4f9fd0;
 	--tablechart-down-color: #46bda4;
 	--tablechart-total-color: #7d95a6;
@@ -50,6 +53,8 @@
 
 	--tablechart-bar-color: #2f6f8f;
 	--tablechart-slice-color: #2f6f8f;
+	--tablechart-series-color-end: #173a4b;
+	--tablechart-slice-color-end: #173a4b;
 	--tablechart-up-color: #2f6f8f;
 	// Darker than it was: a number read on this is white, and the old #3f9c8f gave
 	// it 3.3:1. This clears AA at 4.9:1 without leaving the family.
@@ -248,7 +253,10 @@ a.github-corner {
 	--tablechart-up-value-color: #f3efe9;
 	--tablechart-down-value-color: #f3efe9;
 	--tablechart-total-value-color: #16323f;
-	--tablechart-surface: #f3efe9;
+	--tablechart-series-color: #16323f;
+	--tablechart-slice-color: #16323f;
+	--tablechart-series-color-end: #5b8aa1;
+	--tablechart-slice-color-end: #5b8aa1;
 
 	color: #16323f;
 
@@ -261,6 +269,14 @@ a.github-corner {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 1.2em 1.6em;
+}
+
+// Two charts to compare, side by side.
+.pair {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.6em;
+	margin-bottom: 0.6em;
 }
 
 // The Default slide in demo-branding.pug: no colours from this demo.

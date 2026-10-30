@@ -126,16 +126,13 @@ block slides
 					--tablechart-legend-radius: 0.4em;
 				}
 
-	section.has-light-background(data-background-color="#f3efe9")
+	section.has-light-background(data-background-color="oldlace")
 		h3 Background
-		p.small Text inside bars, the gaps between slices and open points use the background colour. By default that is the Reveal background. If a slide has its own background, set it on that slide.
-		.split
-			.cream
-				+chart({ type: 'waterfall', prefix: 'brcream', title: 'On a light slide', unit: 'thousands of apples', rows: cropsmall })
-			+style('2').
-				.cream {
-					--tablechart-surface: #f3efe9;
-				}
+		p.small Lighter slices and lines are a mix of their colour and the background colour: that of the slide, or else that of the deck. If a chart has #[code --tablechart-surface], that colour is its background.
+		.pair
+			+chart({ type: 'donut', prefix: 'brdeck', title: 'On the slide', unit: 'slices mixed with the colour of the slide', rows: wentwheresmall, aspect: 0.4 })
+			+chart({ type: 'donut', prefix: 'brslide', title: 'With --tablechart-surface: white', unit: 'a white background, and slices mixed with white', rows: wentwheresmall, aspect: 0.4, attrs: { style: '--tablechart-surface: white' } })
+		+code('html', `<figure data-chart="donut" style="--tablechart-surface: white">`, '1')
 
 	section
 		h3 Text

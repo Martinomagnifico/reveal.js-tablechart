@@ -225,8 +225,9 @@ few things differently from Tablechart:
 
 - The text of a chart is smaller, `0.34em`, because the text of a slide is large.
   `--tablechart-font-size` changes it.
-- The background colour of a chart is the background of the presentation,
-  `--r-background-color`.
+- The background colour of a chart is that of its slide (`data-background-color`),
+  or else that of the presentation. If a chart has its own `--tablechart-surface`,
+  that colour is also its background.
 - A legend has a thin box around it.
 
 For colours, light and dark slides and all CSS variables, see

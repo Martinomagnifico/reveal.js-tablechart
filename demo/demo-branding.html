@@ -281,36 +281,60 @@
 }</code></pre>
           </div>
         </section>
-        <section class="has-light-background" data-background-color="#f3efe9">
+        <section class="has-light-background" data-background-color="oldlace">
           <h3>Background</h3>
-          <p class="small">Text inside bars, the gaps between slices and open points use the background colour. By default that is the Reveal background. If a slide has its own background, set it on that slide.</p>
-          <div class="split">
-            <div class="cream">
-              <figure class="tablechart" data-chart="waterfall" data-chart-keys="brcream">
-                <figcaption><b>On a light slide</b><br/><span>thousands of apples</span>
-                </figcaption>
-                <table>
-                  <tbody>
-                    <tr data-kind="total">
-                      <th>Picked</th>
-                      <td>74.5</td>
-                    </tr>
-                    <tr>
-                      <th>Windfalls</th>
-                      <td>28.2</td>
-                    </tr>
-                    <tr data-kind="total">
-                      <th>Pressed</th>
-                      <td>102.7</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </figure>
-            </div><style>.cream{--tablechart-surface:#f3efe9}</style>
-            <pre><code class="css" data-trim="data-trim" data-line-numbers="2">.cream {
-    --tablechart-surface: #f3efe9;
-}</code></pre>
+          <p class="small">Lighter slices and lines are a mix of their colour and the background colour: that of the slide, or else that of the deck. If a chart has <code>--tablechart-surface</code>, that colour is its background.</p>
+          <div class="pair">
+            <figure class="tablechart" data-chart="donut" data-chart-keys="brdeck" data-chart-aspect="0.4">
+              <figcaption><b>On the slide</b><br/><span>slices mixed with the colour of the slide</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-kind="total">
+                    <th>Picked</th>
+                    <td>68.7</td>
+                  </tr>
+                  <tr>
+                    <th>Juiced</th>
+                    <td>38.2</td>
+                  </tr>
+                  <tr>
+                    <th>Eaten fresh</th>
+                    <td>18.1</td>
+                  </tr>
+                  <tr>
+                    <th>Sold whole</th>
+                    <td>12.4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
+            <figure class="tablechart" data-chart="donut" data-chart-keys="brslide" data-chart-aspect="0.4" style="--tablechart-surface: white;">
+              <figcaption><b>With --tablechart-surface: white</b><br/><span>a white background, and slices mixed with white</span>
+              </figcaption>
+              <table>
+                <tbody>
+                  <tr data-kind="total">
+                    <th>Picked</th>
+                    <td>68.7</td>
+                  </tr>
+                  <tr>
+                    <th>Juiced</th>
+                    <td>38.2</td>
+                  </tr>
+                  <tr>
+                    <th>Eaten fresh</th>
+                    <td>18.1</td>
+                  </tr>
+                  <tr>
+                    <th>Sold whole</th>
+                    <td>12.4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </figure>
           </div>
+          <pre><code class="html" data-trim="data-trim" data-line-numbers="1">&lt;figure data-chart=&quot;donut&quot; style=&quot;--tablechart-surface: white&quot;&gt;</code></pre>
         </section>
         <section>
           <h3>Text</h3>
