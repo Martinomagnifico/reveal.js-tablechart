@@ -14,11 +14,6 @@
 	--tablechart-legend-radius: 0.4em;
 }
 
-// A chart with its own --tablechart-surface has that colour as its background.
-.reveal [data-chart][data-surface] {
-	background: var(--tablechart-surface);
-}
-
 // While the deck measures its slides, nothing on them is moved by a transform, so
 // a slide is centred on where its content ends up. Only for that moment.
 //

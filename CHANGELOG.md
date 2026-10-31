@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.3] - 2026-10-31
+
+### Changed
+- Uses Tablechart 1.2.3 and its changes: numbers inside bars that choose between two colours, APCA from the draft of WCAG 3 as an option, and fixes for scatter charts, steps and Safari.
+- The contrast check runs for every chart, also without `debug`. A PDF of the presentation has the same colours as the screen.
+- Tablechart measures the colour behind a chart, so the plugin no longer sets `--tablechart-surface`. A chart on a card or on a slide with its own background no longer needs it.
+
+### Removed
+- The background in the colour of `--tablechart-surface` on a chart that sets it. The colour behind a chart is now measured, so the box no longer needs to show it.
+
+### Deprecated
+- `--tablechart-bar-value-color` and the other `-value-color` variables. They go in Tablechart 1.3.0; `--tablechart-value-on-dark` and `--tablechart-value-on-light` replace them.
+
+
 ## [1.2.2] - 2026-10-30
 
 ### Changed

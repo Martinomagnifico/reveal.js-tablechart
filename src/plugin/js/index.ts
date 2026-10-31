@@ -6,6 +6,8 @@ import {
 	addType,
 	build,
 	type ChartState,
+	checkContrast,
+	checkTextContrast,
 	entranceOf,
 	layout,
 	prepare,
@@ -114,24 +116,14 @@ const init = async (
 	const figures = (
 		await Promise.all([...slides.values()].map((group) => prepare(group, config)))
 	).flat();
-	// The colour behind a chart: its own --tablechart-surface, the background of its slide, or that of the deck.
-	const behind = getComputedStyle(viewport).backgroundColor;
-	const deckColour = behind && behind !== "rgba(0, 0, 0, 0)" ? behind : "Canvas";
+	// Tablechart measures the colour behind a chart, such as a card or the slide. A dark theme does not set
+	// `color-scheme: dark`, so the tooltip is that colour, a little lighter, rather than white with light text.
 	for (const figure of figures) {
-		const style = getComputedStyle(figure);
-		const own = style.getPropertyValue("--tablechart-surface").trim();
-		const slide = figure.closest<HTMLElement>("section[data-background-color]")?.dataset
-			.backgroundColor;
-		const surface = own || slide || deckColour;
-		if (own) figure.dataset.surface = "";
-		else figure.style.setProperty("--tablechart-surface", surface);
-		// A dark theme does not set `color-scheme: dark`, so a tooltip would be white with light text.
-		if (!style.getPropertyValue("--tablechart-tooltip-surface").trim()) {
-			figure.style.setProperty(
-				"--tablechart-tooltip-surface",
-				`oklch(from ${surface} calc(l + 0.06) c h)`
-			);
-		}
+		if (getComputedStyle(figure).getPropertyValue("--tablechart-tooltip-surface").trim()) continue;
+		figure.style.setProperty(
+			"--tablechart-tooltip-surface",
+			"oklch(from var(--tablechart-surface, var(--_surface, Canvas)) calc(l + 0.06) c h)"
+		);
 	}
 	// On paper, and without animation, nobody steps through a chart, so it has no steps and is shown whole.
 	const stepping = config.animate && !printing;
@@ -419,6 +411,10 @@ const init = async (
 		const before = state.figure.offsetHeight;
 		if (!layout(state, config)) return;
 		placed.set(state, width);
+		if (first) {
+			checkContrast(state.figure);
+			checkTextContrast(state.figure);
+		}
 		if (state.figure.offsetHeight !== before) recentre();
 		// On paper, nobody steps through the deck: every chart is shown whole.
 		if (printing) setShown(state, true);

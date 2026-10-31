@@ -1,7 +1,7 @@
  /*****************************************************************
  *
  * reveal.js-tablechart for Reveal.js 
- * Version 1.2.2
+ * Version 1.2.3
  * 
  * @link
  * https://github.com/martinomagnifico/reveal.js-tablechart
@@ -17,17 +17,8 @@
  ******************************************************************/
 
 
-// \0rolldown/runtime.js
-var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescriptor, r = Object.getOwnPropertyNames, i = Object.getPrototypeOf, a = Object.prototype.hasOwnProperty, o = (e, t) => () => (t || (e((t = { exports: {} }).exports, t, t.exports), e = null), t.exports), s = (e, i, o, s) => {
-	if (i && typeof i == "object" || typeof i == "function") for (var c = r(i), l = 0, u = c.length, d; l < u; l++) d = c[l], !a.call(e, d) && d !== o && t(e, d, {
-		get: ((e) => i[e]).bind(null, d),
-		enumerable: !(s = n(i, d)) || s.enumerable
-	});
-	return e;
-}, c = (n, r, o) => (o = n == null ? {} : e(i(n)), s(r || !n || !n.__esModule || !a.call(n, "default") ? t(o, "default", {
-	value: n,
-	enumerable: !0
-}) : o, n)), l = "tablechart", u = "tablechart-plot", d = "tablechart-value", f = "tablechart-bar", p = "tablechart-rule", m = "tablechart-line", h = "tablechart-reference", g = "tablechart-quadrant", _ = "tablechart-head", v = "tablechart-slice", y = "tablechart-series", b = "tablechart-area", x = "tablechart-name", S = "tablechart-legend", C = "tablechart-point", w = "tablechart-hole", T = "tablechart-centre", E = "tablechart-break", D = "is-placed", O = "tablechart-sr", k = "is-shown", A = "is-at-once", j = "tablechart-queued", M = "tablechart-axis", N = "tablechart-tick", P = "tablechart-grid", F = 1e3, ee = {
+// node_modules/@martinomagnifico/tablechart/dist/tablechart-shared.mjs
+var e = "tablechart", t = "tablechart-value", n = "tablechart-bar", r = "tablechart-rule", i = "tablechart-line", a = "tablechart-reference", o = "tablechart-quadrant", s = "tablechart-head", c = "tablechart-slice", l = "tablechart-series", u = "tablechart-area", d = "tablechart-name", f = "tablechart-legend", p = "tablechart-point", m = "tablechart-hole", h = "tablechart-centre", g = "tablechart-break", _ = "tablechart-sr", v = "is-shown", y = "is-at-once", b = "is-built", x = "tablechart-queued", S = "tablechart-axis", C = "tablechart-tick", w = "tablechart-grid", T = 1e3, E = {
 	selector: "[data-chart]",
 	aspect: .38,
 	barfill: .58,
@@ -55,33 +46,33 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	threshold: .5,
 	replay: !1,
 	langattribute: "data-i18n"
-}, I = "cubic-bezier(0.3, 0.3, 0.6, 1)", L = (e, t, n = 1) => ({
+}, D = "cubic-bezier(0.3, 0.3, 0.6, 1)", O = (e, t, n = 1) => ({
 	start: e,
 	span: t,
-	easing: e + t >= n - 1e-4 ? I : "linear"
-}), R = (e, t) => `${e}:${t}`, z = "http://www.w3.org/2000/svg", B = (e) => Math.round(e * 100) / 100, V = (e, t = {}) => {
-	let n = document.createElementNS(z, e);
+	easing: e + t >= n - 1e-4 ? D : "linear"
+}), k = (e, t) => `${e}:${t}`, A = "http://www.w3.org/2000/svg", j = (e) => Math.round(e * 100) / 100, M = (e, t = {}) => {
+	let n = document.createElementNS(A, e);
 	for (let e in t) {
 		let r = t[e];
-		n.setAttribute(e, String(typeof r == "number" ? B(r) : r));
+		n.setAttribute(e, String(typeof r == "number" ? j(r) : r));
 	}
 	return n;
-}, H = (e, t) => [e, ...t.classes].join(" "), te = (e, t) => {
+}, N = (e, t) => [e, ...t.classes].join(" "), P = (e, t) => {
 	let n = document.createElement("span");
 	return n.className = e, n.inert = !0, t.appendChild(n), n;
-}, U = (e, t, n, r, i) => {
+}, F = (e, t, n, r, i) => {
 	e.style.left = `${t / r * 100}%`, e.style.top = `${n / i * 100}%`;
-}, W = 0, ne = 0, G = (e) => {
+}, I = 0, L = 0, R = (e) => {
 	let t = e.querySelector(":scope > defs");
-	return t || (t = V("defs"), e.prepend(t)), t;
-}, K = (e) => {
+	return t || (t = M("defs"), e.prepend(t)), t;
+}, z = (e) => {
 	if (e.tagName === "circle") {
 		let [t, n, r] = [
 			"cx",
 			"cy",
 			"r"
 		].map((t) => Number(e.getAttribute(t)) || 0);
-		return `M${B(t - r)},${B(n)}a${B(r)},${B(r)} 0 1 0 ${B(2 * r)},0a${B(r)},${B(r)} 0 1 0 ${B(-2 * r)},0z`;
+		return `M${j(t - r)},${j(n)}a${j(r)},${j(r)} 0 1 0 ${j(2 * r)},0a${j(r)},${j(r)} 0 1 0 ${j(-2 * r)},0z`;
 	}
 	if (e.tagName === "polygon") return `M${(e.getAttribute("points") ?? "").trim().split(/\s+/).join("L")}z`;
 	let [t, n, r, i, a, o] = [
@@ -91,26 +82,26 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 		"height",
 		"rx",
 		"ry"
-	].map((t) => Number(e.getAttribute(t)) || 0), s = Math.min(a, r / 2), c = Math.min(o, i / 2), l = (e, t) => s && c ? `a${B(s)},${B(c)} 0 0 1 ${B(e)},${B(t)}` : "";
-	return `M${B(t + s)},${B(n)}h${B(r - 2 * s)}${l(s, c)}v${B(i - 2 * c)}${l(-s, c)}h${B(2 * s - r)}${l(-s, -c)}v${B(2 * c - i)}${l(s, -c)}z`;
-}, re = (e, t, n, r, i) => {
+	].map((t) => Number(e.getAttribute(t)) || 0), s = Math.min(a, r / 2), c = Math.min(o, i / 2), l = (e, t) => s && c ? `a${j(s)},${j(c)} 0 0 1 ${j(e)},${j(t)}` : "";
+	return `M${j(t + s)},${j(n)}h${j(r - 2 * s)}${l(s, c)}v${j(i - 2 * c)}${l(-s, c)}h${j(2 * s - r)}${l(-s, -c)}v${j(2 * c - i)}${l(s, -c)}z`;
+}, B = (e, t, n, r, i) => {
 	if (!t.length || !i.length) return;
-	let a = `tablechart-clip-${++ne}`, o = V("clipPath", {
+	let a = `tablechart-clip-${++L}`, o = M("clipPath", {
 		id: a,
 		clipPathUnits: "userSpaceOnUse"
 	}), s = `M${-n},${-r}h${n * 3}v${r * 3}h${-n * 3}z`;
-	o.appendChild(V("path", {
-		d: s + t.map(K).join(""),
+	o.appendChild(M("path", {
+		d: s + t.map(z).join(""),
 		"clip-rule": "evenodd"
-	})), G(e).appendChild(o);
+	})), R(e).appendChild(o);
 	for (let e of i) e.setAttribute("clip-path", `url(#${a})`);
-}, ie = (e, t, n, r, i, a) => {
+}, ee = (e, t, n, r, i, a) => {
 	if (!t.length) return;
-	let o = `tablechart-cut-${++W}`, s = V("mask", {
+	let o = `tablechart-cut-${++I}`, s = M("mask", {
 		id: o,
 		maskUnits: "userSpaceOnUse"
 	});
-	s.appendChild(V("rect", {
+	s.appendChild(M("rect", {
 		x: -n,
 		y: -r,
 		width: n * 3,
@@ -118,14 +109,14 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 		fill: "white"
 	}));
 	for (let e of t) e.setAttribute("fill", "black"), s.appendChild(e);
-	let c = G(e);
+	let c = R(e);
 	if (c.appendChild(s), i) {
 		for (let e of i) e.setAttribute("mask", `url(#${o})`);
 		return;
 	}
 	let l = null;
-	for (let t of Array.from(e.childNodes)) t !== c && (a && t instanceof Element && t.matches(a) ? (l = null, e.appendChild(t)) : (l ??= e.appendChild(V("g", { mask: `url(#${o})` })), l.appendChild(t)));
-}, ae = 0, oe = (e) => Array.from(e.querySelectorAll(`.${f}`)).map((e) => {
+	for (let t of Array.from(e.childNodes)) t !== c && (a && t instanceof Element && t.matches(a) ? (l = null, e.appendChild(t)) : (l ??= e.appendChild(M("g", { mask: `url(#${o})` })), l.appendChild(t)));
+}, V = 0, H = (e) => Array.from(e.querySelectorAll(`.${n}`)).map((e) => {
 	let t = e.tagName === "rect" ? [e] : Array.from(e.querySelectorAll("rect")), n = (e, t) => Number(e.getAttribute(t)), r = Math.min(...t.map((e) => n(e, "x"))), i = Math.min(...t.map((e) => n(e, "y"))), a = Math.max(...t.map((e) => n(e, "x") + n(e, "width"))), o = Math.max(...t.map((e) => n(e, "y") + n(e, "height"))), s = ["--start", "--span"].map((t) => e.style.getPropertyValue(t) && `${t}:${e.style.getPropertyValue(t)}`).filter(Boolean).join("; ");
 	return {
 		row: Number(e.dataset.row),
@@ -136,7 +127,7 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 		sideways: e.dataset.grow === "right",
 		part: s
 	};
-}), se = {
+}), U = {
 	create: () => null,
 	draw(e, t, n) {
 		let { rows: r, y: i, svg: a, breakAt: o } = n;
@@ -163,29 +154,29 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 				[c + 2 * l, t + o],
 				[c + i, t - o]
 			];
-		}, l = (e, t = !1) => e.map(([e, t], n) => `${n === 0 ? "M" : "L"} ${e.toFixed(1)} ${t.toFixed(1)}`).join(" ") + (t ? " Z" : ""), u = `tablechart-break-${++ae}`, d = V("mask", {
+		}, l = (e, t = !1) => e.map(([e, t], n) => `${n === 0 ? "M" : "L"} ${e.toFixed(1)} ${t.toFixed(1)}`).join(" ") + (t ? " Z" : ""), u = `tablechart-break-${++V}`, d = M("mask", {
 			id: u,
 			maskUnits: "userSpaceOnUse"
 		});
-		d.appendChild(V("rect", {
-			x: -F,
+		d.appendChild(M("rect", {
+			x: -1e3,
 			y: -n.height,
-			width: F * 3,
+			width: T * 3,
 			height: n.height * 3,
 			fill: "white"
 		}));
 		let f = [], p = i(o);
-		for (let e of oe(a)) {
+		for (let e of H(a)) {
 			let t = e.sideways ? n.breakX : p;
 			if (t === void 0 || !(e.sideways ? e.x < t && e.x + e.width > t : e.y < p && e.y + e.height > p)) continue;
 			let [i, o] = e.sideways ? [c(e, t), c(e, t + n.breakGap)] : [c(e, p - n.breakGap), c(e, p)];
-			d.appendChild(V("path", {
+			d.appendChild(M("path", {
 				d: l([...i, ...o.slice().reverse()], !0),
 				fill: "black"
 			})), f.push(i, o);
-			let s = [R("--after", r[e.row - 1]?.slot ?? 0), e.part].filter(Boolean).join("; ");
-			for (let e of [i, o]) a.appendChild(V("path", {
-				class: E,
+			let s = [k("--after", r[e.row - 1]?.slot ?? 0), e.part].filter(Boolean).join("; ");
+			for (let e of [i, o]) a.appendChild(M("path", {
+				class: g,
 				"data-part": "edge",
 				"data-note": n.note,
 				d: l(e),
@@ -193,22 +184,22 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 			}));
 		}
 		if (!f.length) return;
-		let m = Array.from(a.querySelectorAll(`.${E}`)), h = V("g", { mask: `url(#${u})` });
+		let m = Array.from(a.querySelectorAll(`.${g}`)), h = M("g", { mask: `url(#${u})` });
 		for (let e of Array.from(a.childNodes)) m.includes(e) || h.appendChild(e);
-		let g = V("defs");
-		g.appendChild(d), a.prepend(g, h);
+		let _ = M("defs");
+		_.appendChild(d), a.prepend(_, h);
 	}
-}, q = (e) => {
+}, W = (e) => {
 	let t = -Infinity;
 	for (let n of e) t = Math.max(t, n);
 	return t;
-}, ce = (e) => (e.split(/[.,]/)[1] || "").length, le = (e, t) => new Intl.NumberFormat(t || document.documentElement.lang || void 0, {
+}, te = (e) => (e.split(/[.,]/)[1] || "").length, G = (e, t) => new Intl.NumberFormat(t || document.documentElement.lang || void 0, {
 	minimumFractionDigits: e,
 	maximumFractionDigits: e
-}), ue = (e, t, n) => {
-	let r = le(t, n).formatToParts(e), i = r[0]?.type === "minusSign" ? r[0].value : "";
+}), ne = (e, t, n) => {
+	let r = G(t, n).formatToParts(e), i = r[0]?.type === "minusSign" ? r[0].value : "";
 	return [i, r.slice(+!!i).map((e) => e.value).join("")];
-}, de = (e) => Number.parseFloat((e.match(/-?[\d.,]+/) || ["NaN"])[0].replace(",", ".")), fe = (e, t) => {
+}, K = (e) => Number.parseFloat((e.match(/-?[\d.,]+/) || ["NaN"])[0].replace(",", ".")), q = (e, t) => {
 	let n = document.createElement("span");
 	if (n.className = "tablechart-badge", n.inert = !0, e.childElementCount > 0) for (let t of Array.from(e.children)) n.appendChild(t.cloneNode(!0));
 	else {
@@ -217,44 +208,44 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 		t && n.setAttribute("data-i18n", t);
 	}
 	return t.appendChild(n), n;
-}, pe = (e, t, n, r, i = "%") => {
-	let a = e?.textContent || "", o = de(a), s = i ? .5 : .5 * 10 ** -ce(a.match(/-?[\d.,]+/)?.[0] ?? ""), c = Number.isNaN(o) ? !0 : Math.abs(t - o) <= s + 1e-9, l = {
+}, J = (e, t, n, r, i = "%") => {
+	let a = e?.textContent || "", o = K(a), s = i ? .5 : .5 * 10 ** -te(a.match(/-?[\d.,]+/)?.[0] ?? ""), c = Number.isNaN(o) ? !0 : Math.abs(t - o) <= s + 1e-9, l = {
 		label: n,
 		computed: t,
 		stated: o,
 		agrees: c
 	};
 	r.checks.push(l), c || console.warn(`[tablechart] An annotation reads ${o}${i}, but ${n} is ${Number(t.toFixed(2))}${i}. The chart shows your number.`);
-}, me = (e, t) => (t - e) / Math.abs(e) * 100, he = (e, t) => {
+}, re = (e, t) => (t - e) / Math.abs(e) * 100, ie = (e, t) => {
 	let n = (t, n) => {
 		let r = Number.parseInt(e.getAttribute(t) ?? "", 10);
 		return Number.isFinite(r) ? r - 1 : n;
 	};
 	return [n("data-from", 0), n("data-to", t - 1)];
-}, ge = {
-	create: fe,
-	draw(e, t, n) {
-		let { rows: r, cx: i, y: a, unit: o, labelHeight: s, badgeHeight: c, height: u, svg: d, after: f } = n, [p, h] = he(e, r.length), g = r[p], v = r[h];
-		if (!g || !v) {
-			console.warn(`[${l}] A bracket points at a row that is not there (row ${p + 1} to ${h + 1}, of ${r.length}).`);
+}, ae = {
+	create: q,
+	draw(t, n, r) {
+		let { rows: a, cx: o, y: c, unit: l, labelHeight: u, badgeHeight: d, height: f, svg: p, after: m } = r, [h, g] = ie(t, a.length), _ = a[h], v = a[g];
+		if (!_ || !v) {
+			console.warn(`[${e}] A bracket points at a row that is not there (row ${h + 1} to ${g + 1}, of ${a.length}).`);
 			return;
 		}
-		let y = 7 * o, b = 4 * o, x = i(p), S = i(h), C = Math.min(a(g.value), a(v.value)) - s - b - c * .9, w = (e) => a(e) - s - b, T = `M ${x} ${w(g.value)} L ${x} ${C} L ${S} ${C} L ${S} ${w(v.value) - y}`, E = (w(g.value) - C + Math.abs(S - x) + (w(v.value) - y - C)) / o + 1;
-		d.appendChild(V("path", {
-			class: m,
-			"data-note": n.note,
+		let y = 7 * l, b = 4 * l, x = o(h), S = o(g), C = Math.min(c(_.value), c(v.value)) - u - b - d * .9, w = (e) => c(e) - u - b, T = `M ${x} ${w(_.value)} L ${x} ${C} L ${S} ${C} L ${S} ${w(v.value) - y}`, E = (w(_.value) - C + Math.abs(S - x) + (w(v.value) - y - C)) / l + 1;
+		p.appendChild(M("path", {
+			class: i,
+			"data-note": r.note,
 			d: T,
-			style: `--len:${E.toFixed(1)}; ${R("--after", f)}`
+			style: `--len:${E.toFixed(1)}; ${k("--after", m)}`
 		}));
 		let D = w(v.value);
-		d.appendChild(V("polygon", {
-			class: _,
-			"data-note": n.note,
+		p.appendChild(M("polygon", {
+			class: s,
+			"data-note": r.note,
 			points: `${S},${D} ${S - y * .45},${D - y} ${S + y * .45},${D - y}`,
-			style: R("--after", f)
-		})), t && (U(t, (x + S) / 2, C, 1e3, u), t.style.setProperty("--after", String(f))), pe(t, me(g.value, v.value), `${g.value} to ${v.value}`, n);
+			style: k("--after", m)
+		})), n && (F(n, (x + S) / 2, C, 1e3, f), n.style.setProperty("--after", String(m))), J(n, re(_.value, v.value), `${_.value} to ${v.value}`, r);
 	}
-}, _e = (e, t) => e[0] < t[0] + t[2] && t[0] < e[0] + e[2] && e[1] < t[1] + t[3] && t[1] < e[1] + e[3], ve = (e, t) => e[0] >= t[0] && e[1] >= t[1] && e[0] + e[2] <= t[0] + t[2] && e[1] + e[3] <= t[1] + t[3], ye = (e, t, n) => {
+}, oe = (e, t) => e[0] < t[0] + t[2] && t[0] < e[0] + e[2] && e[1] < t[1] + t[3] && t[1] < e[1] + e[3], se = (e, t) => e[0] >= t[0] && e[1] >= t[1] && e[0] + e[2] <= t[0] + t[2] && e[1] + e[3] <= t[1] + t[3], ce = (e, t, n) => {
 	if (e.length > 400) return e.map(() => null);
 	let r = 1;
 	for (let t of e) for (let [, , e, n] of t) r = Math.max(r, e, n);
@@ -264,21 +255,21 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 		return a;
 	}, o = (e) => {
 		for (let t of a(e)) i.get(t)?.push(e) ?? i.set(t, [e]);
-	}, s = (e) => ve(e, n) && a(e).every((t) => !i.get(t)?.some((t) => _e(e, t)));
+	}, s = (e) => se(e, n) && a(e).every((t) => !i.get(t)?.some((t) => oe(e, t)));
 	return t.forEach(o), e.map((e) => {
 		let t = e.findIndex(s);
 		return t < 0 ? null : (o(e[t]), t);
 	});
-}, J = /* @__PURE__ */ new WeakMap(), be = (e) => {
+}, le = /* @__PURE__ */ new WeakMap(), ue = (e) => {
 	let t = [...e].filter((e) => !!e), n = t.map((e) => ({
 		width: e.offsetWidth,
 		height: e.offsetHeight
 	}));
-	t.forEach((e, t) => J.set(e, n[t]));
-}, Y = (e) => J.get(e) ?? {
+	t.forEach((e, t) => le.set(e, n[t]));
+}, Y = (e) => le.get(e) ?? {
 	width: e.offsetWidth,
 	height: e.offsetHeight
-}, xe = 6, Se = (e, t, n) => e.some((e) => Y(e).width * n > t - xe * n), Ce = (e, t, n) => t >= Y(e).height * n * 1.6, we = (e, t, n) => t >= Y(e).width * n * 1.5, Te = (e, t, n, r, i = .7) => {
+}, de = 6, fe = (e, t, n) => e.some((e) => Y(e).width * n > t - de * n), pe = (e, t, n) => t >= Y(e).height * n * 1.6, me = (e, t, n) => t >= Y(e).width * n * 1.5, he = (e, t, n, r, i = .7) => {
 	e.style.setProperty(r, "1");
 	let a = 1;
 	for (let e of t) {
@@ -287,97 +278,97 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	}
 	let o = a >= i ? a : 0;
 	return e.style.setProperty(r, String(o || i)), o;
-}, Ee = (e, t) => (e.sort((e, t) => e.y - t.y), e.forEach((n, r) => {
+}, ge = (e, t) => (e.sort((e, t) => e.y - t.y), e.forEach((n, r) => {
 	let i = e[r - 1];
 	i && n.y < i.y + t && (n.y = i.y + t);
-}), e), De = {
+}), e), _e = {
 	outside: [.5, 1],
 	below: [.5, 0],
 	after: [0, .5],
 	before: [1, .5]
-}, Oe = (e, t, n, r, i = [.5, .5]) => {
-	let [a, o] = De[e.dataset.place ?? ""] ?? i, { width: s, height: c } = Y(e);
+}, ve = (e, t, n, r, i = [.5, .5]) => {
+	let [a, o] = _e[e.dataset.place ?? ""] ?? i, { width: s, height: c } = Y(e);
 	return [
 		Number.parseFloat(e.style.left) / 100 * n - s * t * a,
 		Number.parseFloat(e.style.top) / 100 * r - c * t * o,
 		s * t,
 		c * t
 	];
-}, ke = (e, t, n) => {
+}, ye = (e, t, n) => {
 	for (let r of e) {
 		if (r.dataset.place === "none" || !r.style.left) continue;
-		let [e] = De[r.dataset.place ?? ""] ?? [.5, .5], i = Y(r).width * t, a = Number.parseFloat(r.style.left) / 100 * n, o = Math.min(Math.max(a, i * e), n - i * (1 - e));
+		let [e] = _e[r.dataset.place ?? ""] ?? [.5, .5], i = Y(r).width * t, a = Number.parseFloat(r.style.left) / 100 * n, o = Math.min(Math.max(a, i * e), n - i * (1 - e));
 		o !== a && (r.style.left = `${o / n * 100}%`);
 	}
-}, Ae = (e, t, n, r) => {
-	let i = e.filter((e) => e.dataset.place !== "none" && !e.hasAttribute("data-left-out")), a = je(i, t, n, r);
+}, be = (e, t, n, r) => {
+	let i = e.filter((e) => e.dataset.place !== "none" && !e.hasAttribute("data-left-out")), a = xe(i, t, n, r);
 	i.forEach((e, t) => {
 		t % a && e.setAttribute("data-left-out", "");
 	});
-}, je = (e, t, n, r) => {
+}, xe = (e, t, n, r) => {
 	if (e.length < 2) return 1;
-	let i = e.map((e) => Oe(e, t, n, r)), a = 2 * t, o = (e, t) => e[0] + e[2] + a <= t[0] || t[0] + t[2] + a <= e[0] || e[1] + e[3] <= t[1] || t[1] + t[3] <= e[1], s = 1;
+	let i = e.map((e) => ve(e, t, n, r)), a = 2 * t, o = (e, t) => e[0] + e[2] + a <= t[0] || t[0] + t[2] + a <= e[0] || e[1] + e[3] <= t[1] || t[1] + t[3] <= e[1], s = 1;
 	for (; s < e.length && i.some((e, t) => t >= s && t % s === 0 && !o(i[t - s], e));) s++;
 	return s;
-}, Me = {
+}, X = {
 	create(e, t) {
 		if (!e.textContent?.trim()) return null;
-		let n = fe(e, t);
+		let n = q(e, t);
 		return n.dataset.kind = "note", n;
 	},
-	draw(e, t, n) {
-		let { rows: r, cx: i, y: a, height: o, unit: s, svg: c, after: u, seriesValues: d } = n;
-		if (n.x || n.centre || n.categories[0]?.parentElement?.dataset.place === "beside") {
-			console.warn(`[${l}] A note works on a chart with its rows across, such as a line or column chart.`);
+	draw(t, n, r) {
+		let { rows: i, cx: o, y: s, height: c, unit: l, svg: u, after: d, seriesValues: f } = r;
+		if (r.x || r.centre || r.categories[0]?.parentElement?.dataset.place === "beside") {
+			console.warn(`[${e}] A note works on a chart with its rows across, such as a line or column chart.`);
 			return;
 		}
-		let f = (e.getAttribute("data-row") ?? "").trim(), p = /^\d+$/.test(f) ? Number(f) - 1 : r.findIndex((e) => e.label === f);
-		if (p < 0 || p >= r.length) {
-			console.warn(`[${l}] A note is for row "${f}", which is not there.`);
+		let p = (t.getAttribute("data-row") ?? "").trim(), m = /^\d+$/.test(p) ? Number(p) - 1 : i.findIndex((e) => e.label === p);
+		if (m < 0 || m >= i.length) {
+			console.warn(`[${e}] A note is for row "${p}", which is not there.`);
 			return;
 		}
-		let m = i(p), g = a(0);
-		if (c.insertBefore(V("line", {
-			class: h,
+		let h = o(m), g = s(0);
+		if (u.insertBefore(M("line", {
+			class: a,
 			"data-kind": "note",
-			"data-note": n.note,
-			x1: m,
-			x2: m,
+			"data-note": r.note,
+			x1: h,
+			x2: h,
 			y1: 0,
 			y2: g,
-			style: R("--after", u)
-		}), c.querySelector(":scope > .tablechart-point")), !t) return;
-		let _ = Y(t).width * s, v = Y(t).height * s, y = 4 * s, b = d.flat().flatMap((e) => !e.style.left || e.dataset.place === "none" || e.hasAttribute("data-left-out") ? [] : [{
+			style: k("--after", d)
+		}), u.querySelector(":scope > .tablechart-point")), !n) return;
+		let _ = Y(n).width * l, v = Y(n).height * l, y = 4 * l, b = f.flat().flatMap((e) => !e.style.left || e.dataset.place === "none" || e.hasAttribute("data-left-out") ? [] : [{
 			label: e,
-			box: Oe(e, s, F, o)
+			box: ve(e, l, T, c)
 		}]), x = [0, v + y / 2].flatMap((e) => [
 			[
-				m - _ / 2,
+				h - _ / 2,
 				e,
 				_,
 				v
 			],
 			[
-				m + y,
+				h + y,
 				e,
 				_,
 				v
 			],
 			[
-				m - y - _,
+				h - y - _,
 				e,
 				_,
 				v
 			]
-		]), [S] = ye([x], [...n.taken, ...b.map((e) => e.box)], [
+		]), [S] = ce([x], [...r.taken, ...b.map((e) => e.box)], [
 			0,
 			0,
-			F,
-			o
+			T,
+			c
 		]), C = x[S ?? 0];
-		if (n.taken.push(C), U(t, C[0] + _ / 2, C[1] + v / 2, 1e3, o), t.style.setProperty("--after", String(u)), S === null) for (let e of b) _e(e.box, C) && e.label.setAttribute("data-left-out", "");
+		if (r.taken.push(C), F(n, C[0] + _ / 2, C[1] + v / 2, 1e3, c), n.style.setProperty("--after", String(d)), S === null) for (let e of b) oe(e.box, C) && e.label.setAttribute("data-left-out", "");
 	}
-}, Ne = (e, t, n) => {
+}, Se = (e, t, n) => {
 	let r = n.reduce((e, t) => e + t, 0);
 	if (e === "mean") return r ? t.reduce((e, t, r) => e + t * n[r], 0) / r : null;
 	if (e === "median") {
@@ -390,45 +381,45 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	}
 	let i = Number.parseFloat(e);
 	return Number.isFinite(i) ? i : null;
-}, Pe = {
+}, Ce = {
 	create(e, t) {
 		if (!e.textContent?.trim()) return null;
-		let n = fe(e, t);
+		let n = q(e, t);
 		return n.dataset.kind = "reference", n;
 	},
-	draw(e, t, n) {
-		let { rows: r, cx: i, y: a, x: o, height: s, unit: c, svg: u, after: d } = n, f = r.filter((e) => !e.isTotal && !e.missing), p = e.hasAttribute("data-name"), m = (e.getAttribute(p ? "data-name" : "data-value") ?? "").trim(), g, _, v;
-		if (p) {
-			let e = f.map((e) => de(e.label));
-			if (n.categories[0]?.parentElement?.dataset.place === "beside" || e.some(Number.isNaN)) {
-				console.warn(`[${l}] A reference line among the names needs names that are numbers, under columns or points.`);
+	draw(t, n, r) {
+		let { rows: i, cx: o, y: s, x: c, height: l, unit: u, svg: d, after: f } = r, p = i.filter((e) => !e.isTotal && !e.missing), m = t.hasAttribute("data-name"), h = (t.getAttribute(m ? "data-name" : "data-value") ?? "").trim(), g, _, v;
+		if (m) {
+			let t = p.map((e) => K(e.label));
+			if (r.categories[0]?.parentElement?.dataset.place === "beside" || t.some(Number.isNaN)) {
+				console.warn(`[${e}] A reference line among the names needs names that are numbers, under columns or points.`);
 				return;
 			}
-			let t = Ne(m, e, f.map((e) => e.value)), a = t === null ? -1 : e.findIndex((n, r) => n <= t && t <= (e[r + 1] ?? n)), [o, s] = [f[a], f[a + 1] ?? f[a]].map((e) => i(r.indexOf(e))), c = t === null || a < 0 || e[a + 1] === void 0 || e[a + 1] === e[a] ? 0 : (t - e[a]) / (e[a + 1] - e[a]);
-			v = t, _ = a < 0 ? null : o + c * (s - o), g = !1;
+			let n = Se(h, t, p.map((e) => e.value)), a = n === null ? -1 : t.findIndex((e, r) => e <= n && n <= (t[r + 1] ?? e)), [s, c] = [p[a], p[a + 1] ?? p[a]].map((e) => o(i.indexOf(e))), l = n === null || a < 0 || t[a + 1] === void 0 || t[a + 1] === t[a] ? 0 : (n - t[a]) / (t[a + 1] - t[a]);
+			v = n, _ = a < 0 ? null : s + l * (c - s), g = !1;
 		} else {
-			let t = !!n.frame && e.getAttribute("data-axis") === "y", r = n.frame ? n.series.flatMap((e, t) => e.group ? [] : [t])[+!!t] ?? 0 : 0;
-			v = Ne(m, f.map((e) => e.cells[r]?.value ?? e.value), f.map(() => 1)), g = t || !o, _ = v === null ? null : o && !t ? o(v) : a(v);
+			let e = !!r.frame && t.getAttribute("data-axis") === "y", n = r.frame ? r.series.flatMap((e, t) => e.group ? [] : [t])[+!!e] ?? 0 : 0;
+			v = Se(h, p.map((e) => e.cells[n]?.value ?? e.value), p.map(() => 1)), g = e || !c, _ = v === null ? null : c && !e ? c(v) : s(v);
 		}
 		if (_ === null || v === null) {
-			console.warn(`[${l}] A reference line needs a number, "mean" or "median", not "${m}".`);
+			console.warn(`[${e}] A reference line needs a number, "mean" or "median", not "${h}".`);
 			return;
 		}
-		let [y, b, x, S] = n.frame ? [
-			n.frame[0],
-			n.frame[1],
-			n.frame[0] + n.frame[2],
-			n.frame[1] + n.frame[3]
+		let [y, b, x, S] = r.frame ? [
+			r.frame[0],
+			r.frame[1],
+			r.frame[0] + r.frame[2],
+			r.frame[1] + r.frame[3]
 		] : [
 			0,
 			0,
-			r.length > 0 ? i(r.length - 1) + i(0) : F,
-			o ? s : a(0)
+			i.length > 0 ? o(i.length - 1) + o(0) : T,
+			c ? l : s(0)
 		];
-		if (u.insertBefore(V("line", {
-			class: h,
-			"data-note": n.note,
-			...e.getAttribute("data-line") === "dotted" && { "data-line": "dotted" },
+		if (d.insertBefore(M("line", {
+			class: a,
+			"data-note": r.note,
+			...t.getAttribute("data-line") === "dotted" && { "data-line": "dotted" },
 			...g ? {
 				x1: y,
 				x2: x,
@@ -440,124 +431,124 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 				y1: b,
 				y2: S
 			},
-			style: R("--after", d)
-		}), u.querySelector(":scope > .tablechart-point")), t) {
-			let e = Y(t).width * c, r = Y(t).height * c, i = 4 * c, a = g ? [
+			style: k("--after", f)
+		}), d.querySelector(":scope > .tablechart-point")), n) {
+			let e = Y(n).width * u, t = Y(n).height * u, i = 4 * u, a = g ? [
 				[
 					x - e,
-					_ - r / 2,
+					_ - t / 2,
 					e,
-					r
+					t
 				],
 				[
 					x - e,
-					_ - r - i,
+					_ - t - i,
 					e,
-					r
+					t
 				],
 				[
 					x - e,
 					_ + i,
 					e,
-					r
+					t
 				]
 			] : [
 				b,
-				b + r,
-				b + 2 * r
-			].flatMap((t) => [
+				b + t,
+				b + 2 * t
+			].flatMap((n) => [
 				[
 					_ - e / 2,
-					t,
+					n,
 					e,
-					r
+					t
 				],
 				[
 					_ + i,
-					t,
+					n,
 					e,
-					r
+					t
 				],
 				[
 					_ - i - e,
-					t,
+					n,
 					e,
-					r
+					t
 				]
-			]), [o] = ye([a], n.taken, [
+			]), [o] = ce([a], r.taken, [
 				0,
 				0,
-				F,
-				s
-			]), l = a[o ?? 0];
-			n.taken.push(l), U(t, l[0] + e / 2, l[1] + r / 2, F, s), t.style.setProperty("--after", String(d)), (m === "mean" || m === "median") && pe(t, v, `the ${m}`, n, "");
+				T,
+				l
+			]), s = a[o ?? 0];
+			r.taken.push(s), F(n, s[0] + e / 2, s[1] + t / 2, T, l), n.style.setProperty("--after", String(f)), (h === "mean" || h === "median") && J(n, v, `the ${h}`, r, "");
 		}
 	}
-}, Fe = (e, t, n) => ((t / e) ** (1 / n) - 1) * 100, Ie = {
-	create: fe,
+}, we = (e, t, n) => ((t / e) ** (1 / n) - 1) * 100, Te = {
+	create: q,
 	draw(e, t, n) {
-		let { rows: r, cx: i, y: a, unit: o, labelHeight: s, height: c, svg: l, values: u, after: d } = n, f = r[0], p = r[r.length - 1];
-		if (!f || !p) return;
-		let h = s + 18 * o, g = 10 * o, v = 10 * o, y = i(0), b = a(f.value) - h, x = i(r.length - 1), S = a(p.value) - h, C = 0;
+		let { rows: r, cx: a, y: o, unit: c, labelHeight: l, height: u, svg: d, values: f, after: p } = n, m = r[0], h = r[r.length - 1];
+		if (!m || !h) return;
+		let g = l + 18 * c, _ = 10 * c, v = 10 * c, y = a(0), b = o(m.value) - g, x = a(r.length - 1), S = o(h.value) - g, C = 0;
 		r.forEach((e, t) => {
-			let n = x === y ? 0 : (i(t) - y) / (x - y), r = b + n * (S - b) - (a(e.value) - h);
+			let n = x === y ? 0 : (a(t) - y) / (x - y), r = b + n * (S - b) - (o(e.value) - g);
 			r > C && (C = r);
 		}), b -= C, S -= C;
 		let w = x - y, T = S - b, E = Math.hypot(w, T) || 1, D = w / E, O = T / E;
-		y -= D * g, b -= O * g, x += D * g, S += O * g;
-		let k = Number.parseFloat(e.getAttribute("data-at") || "0.5");
+		y -= D * _, b -= O * _, x += D * _, S += O * _;
+		let A = Number.parseFloat(e.getAttribute("data-at") || "0.5");
 		if (t) {
-			let e = y + (x - y) * k, n = b + (S - b) * k, c = Y(t).width * o / 2, l = n + Y(t).height * o / 2 + 8 * o, d = 0;
+			let e = y + (x - y) * A, n = b + (S - b) * A, i = Y(t).width * c / 2, s = n + Y(t).height * c / 2 + 8 * c, u = 0;
 			r.forEach((t, n) => {
-				let r = (u[n] ? Y(u[n]).width : 0) * o / 2;
-				if (Math.abs(i(n) - e) >= c + r) return;
-				let f = a(t.value) - 7 * o - s;
-				d = Math.max(d, l - f);
-			}), b -= d, S -= d;
+				let r = (f[n] ? Y(f[n]).width : 0) * c / 2;
+				if (Math.abs(a(n) - e) >= i + r) return;
+				let d = o(t.value) - 7 * c - l;
+				u = Math.max(u, s - d);
+			}), b -= u, S -= u;
 		}
-		let A = x - D * v, j = S - O * v, M = Math.hypot(A - y, j - b) / o + 1;
-		l.appendChild(V("line", {
-			class: m,
+		let j = x - D * v, N = S - O * v, P = Math.hypot(j - y, N - b) / c + 1;
+		d.appendChild(M("line", {
+			class: i,
 			"data-note": n.note,
 			x1: y,
 			y1: b,
-			x2: A,
-			y2: j,
-			style: `--len:${M.toFixed(1)}; ${R("--after", d)}`
+			x2: j,
+			y2: N,
+			style: `--len:${P.toFixed(1)}; ${k("--after", p)}`
 		}));
-		let N = -O, P = D, F = v * .42;
-		l.appendChild(V("polygon", {
-			class: _,
+		let I = -O, L = D, R = v * .42;
+		d.appendChild(M("polygon", {
+			class: s,
 			"data-note": n.note,
 			points: [
 				`${x},${S}`,
-				`${A + N * F},${j + P * F}`,
-				`${A - N * F},${j - P * F}`
+				`${j + I * R},${N + L * R}`,
+				`${j - I * R},${N - L * R}`
 			].join(" "),
-			style: R("--after", d)
-		})), t && (U(t, y + (x - y) * k, b + (S - b) * k, 1e3, c), t.style.setProperty("--after", String(d)));
-		let ee = Number.parseFloat(e.getAttribute("data-years") || "");
-		!Number.isNaN(ee) && ee > 0 && pe(t, Fe(f.value, p.value, ee), `${f.value} to ${p.value} over ${ee} years`, n);
+			style: k("--after", p)
+		})), t && (F(t, y + (x - y) * A, b + (S - b) * A, 1e3, u), t.style.setProperty("--after", String(p)));
+		let z = Number.parseFloat(e.getAttribute("data-years") || "");
+		!Number.isNaN(z) && z > 0 && J(t, we(m.value, h.value, z), `${m.value} to ${h.value} over ${z} years`, n);
 	}
-}, Le = (e, t, n, r, i) => {
+}, Ee = (e, t, n, r, i) => {
 	if (!r) return e / t * n;
 	let { lo: a, hi: o, gap: s, share: c } = r, l = n * c, u = (n - l - i) / (a + (t - o)), d = l / (o - a);
 	return e <= a ? e * u : e <= s ? a * u + (e - a) * d : e <= o ? a * u + (e - a) * d + i : a * u + l + i + (e - o) * u;
-}, Re = (e, t, n) => {
+}, De = (e, t, n) => {
 	let r = .15, i = Math.min(e * .7 / (t + (t - 1) * r), n), a = t * i + (t - 1) * i * r;
 	return {
 		size: i,
 		gap: i * r,
 		offset: (e) => -a / 2 + e * i * 1.15
 	};
-}, X = (e, t, n) => {
+}, Oe = (e, t, n) => {
 	let r = e.series[n], i = e.series.some((e) => e.focus) && !r.focus;
 	return {
 		"data-series": n + 1,
 		...i && { "data-muted": "" },
-		style: `--n:${n}; --m:${+!!i}; --palette:var(--tablechart-color-${n + 1}); ${R("--i", t.slot)}`
+		style: `--n:${n}; --m:${+!!i}; --palette:var(--tablechart-color-${n + 1}); ${k("--i", t.slot)}`
 	};
-}, ze = (e, t, n = !1) => {
+}, ke = (e, t, n = !1) => {
 	let r = 0, i = 0;
 	return Array.from({ length: t }, (t, a) => {
 		let o = e.cells[a] ?? e.cells[0], s = o.missing ? 0 : o.value;
@@ -584,40 +575,40 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 			cell: o
 		};
 	});
-}, Be = (e, t, n = !1) => {
-	let r = ze(e, t, n);
+}, Ae = (e, t, n = !1) => {
+	let r = ke(e, t, n);
 	return {
 		top: Math.max(0, ...r.map((e) => e.to)),
 		bottom: Math.min(0, ...r.map((e) => e.to))
 	};
-}, Ve = (e, t) => {
-	let { top: n, bottom: r } = Be(e, t);
+}, je = (e, t) => {
+	let { top: n, bottom: r } = Ae(e, t);
 	return n + r;
-}, He = (e, t, n) => {
+}, Me = (e, t, n) => {
 	let r = t.series.some((e) => e.focus);
 	e.style.setProperty("--n", String(n)), e.style.setProperty("--m", r && !t.series[n].focus ? "1" : "0"), e.style.setProperty("--palette", `var(--tablechart-color-${n + 1})`);
-}, Z = (e, t) => e.some((n, r) => r !== t && !n.cell.missing && n.to !== n.from && n.from === e[t].to), Ue = (e, t, n, r = {}, i = "") => {
-	let a = {
-		class: H(f, t),
+}, Ne = (e, t) => e.some((n, r) => r !== t && !n.cell.missing && n.to !== n.from && n.from === e[t].to), Pe = (e, t, r, i = {}, a = "") => {
+	let o = {
+		class: N(n, t),
 		"data-kind": "bar",
-		"data-row": n + 1,
-		...r
-	}, o = R("--i", t.slot) + (i ? `; transform-origin: ${i}` : ""), s = V("g", {
-		...a,
+		"data-row": r + 1,
+		...i
+	}, s = k("--i", t.slot) + (a ? `; transform-origin: ${a}` : ""), c = M("g", {
+		...o,
 		"data-stack": "",
-		style: o
+		style: s
 	});
-	return e.svg.appendChild(s), (i, a) => {
-		let o = r["data-grow"] === void 0 ? {} : { "data-grow": r["data-grow"] };
-		s.appendChild(V("rect", {
+	return e.svg.appendChild(c), (n, a) => {
+		let o = i["data-grow"] === void 0 ? {} : { "data-grow": i["data-grow"] };
+		c.appendChild(M("rect", {
 			...o,
 			...a,
-			class: H("tablechart-piece", t),
-			"data-row": n + 1,
-			...X(e, t, i)
+			class: N("tablechart-piece", t),
+			"data-row": r + 1,
+			...Oe(e, t, n)
 		}));
 	};
-}, We = {
+}, Fe = {
 	segments: (e) => e.map((e) => ({
 		...e,
 		from: 0,
@@ -638,116 +629,116 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	categories: "beside",
 	headroom: () => 0,
 	draw(e) {
-		let { segments: t, height: n, unit: r, svg: i, values: a, categories: o, config: s, barMax: c } = e, l = e.series.length > 1, u = Math.max(q(o.map((e) => Y(e).width * r)), 0), d = Math.min(u + 10 * r, F * .42);
-		o[0]?.parentElement?.style.setProperty("--_beside", `${((d - 8 * r) / F * 100).toFixed(2)}%`);
-		let m = F - 4 * r, h = e.stacked ? Math.max(q(e.rows.map((t) => Be(t, e.series.length).top)), 0) || 1 : Math.max(q(e.rows.flatMap((t) => t.cells.slice(0, e.series.length).map((e) => Math.abs(e.value)))), 0) || 1, g = e.stacked ? Math.max(q(e.rows.map((t) => -Be(t, e.series.length).bottom)), 0) : Math.max(q(e.rows.flatMap((t) => t.cells.slice(0, e.series.length).map((e) => -e.value))), 0), _ = Math.max(h, e.domain?.[1] ?? 0), v = Math.max(g, -(e.domain?.[0] ?? 0)), y = Math.max(_, e.squeeze?.hi ?? 0) + v, b = (t, n) => Le(Math.abs(t), y, n, e.squeeze, e.breakGap), x = n / t.length, S = (e) => (e + .5) * x, C = Math.min(x * s.barfill, c), w = Re(x, e.series.length, c), T = a[0] ?? e.totals[0], E = T ? Y(T).height * r * .56 : 0, D = Math.max(((l && !e.stacked ? w.size : C) - E) / 2, 5 * r), O = (e) => Y(e).width * r, k = (e) => e.length ? q(e.map(O)) + D + 4 * r : 0, A = (t, n) => (e.rows[n].cells[t] ?? e.rows[n].cells[0]).value, j = e.seriesValues.flatMap((e, t) => e.map((e, n) => ({
+		let { segments: t, height: i, unit: a, svg: o, values: s, categories: c, config: l, barMax: u } = e, d = e.series.length > 1, f = Math.max(W(c.map((e) => Y(e).width * a)), 0), p = Math.min(f + 10 * a, T * .42);
+		c[0]?.parentElement?.style.setProperty("--_beside", `${((p - 8 * a) / T * 100).toFixed(2)}%`);
+		let m = T - 4 * a, h = e.stacked ? Math.max(W(e.rows.map((t) => Ae(t, e.series.length).top)), 0) || 1 : Math.max(W(e.rows.flatMap((t) => t.cells.slice(0, e.series.length).map((e) => Math.abs(e.value)))), 0) || 1, g = e.stacked ? Math.max(W(e.rows.map((t) => -Ae(t, e.series.length).bottom)), 0) : Math.max(W(e.rows.flatMap((t) => t.cells.slice(0, e.series.length).map((e) => -e.value))), 0), _ = Math.max(h, e.domain?.[1] ?? 0), v = Math.max(g, -(e.domain?.[0] ?? 0)), y = Math.max(_, e.squeeze?.hi ?? 0) + v, b = (t, n) => Ee(Math.abs(t), y, n, e.squeeze, e.breakGap), x = i / t.length, S = (e) => (e + .5) * x, C = Math.min(x * l.barfill, u), w = De(x, e.series.length, u), E = s[0] ?? e.totals[0], D = E ? Y(E).height * a * .56 : 0, O = Math.max(((d && !e.stacked ? w.size : C) - D) / 2, 5 * a), A = (e) => Y(e).width * a, j = (e) => e.length ? W(e.map(A)) + O + 4 * a : 0, P = (t, n) => (e.rows[n].cells[t] ?? e.rows[n].cells[0]).value, I = e.seriesValues.flatMap((e, t) => e.map((e, n) => ({
 			label: e,
-			value: A(t, n)
-		}))), M = (t) => {
-			let n = Be(e.rows[t], e.series.length);
+			value: P(t, n)
+		}))), L = (t) => {
+			let n = Ae(e.rows[t], e.series.length);
 			return n.top === 0 && n.bottom < 0;
-		}, N = e.stacked ? k(e.totals.filter((e, t) => !M(t))) : l ? k(j.filter((e) => e.value >= 0).map((e) => e.label)) : 0, P = e.stacked ? k(e.totals.filter((e, t) => M(t))) : l ? k(j.filter((e) => e.value < 0).map((e) => e.label)) : 0, ee = (t, n) => e.labels === "inside" && we(t, n, r);
-		if (!l && !e.stacked) for (let e = 0; e < 3; e++) {
-			let e = m - d - N - P, n = t.map((e, t) => ({
+		}, R = e.stacked ? j(e.totals.filter((e, t) => !L(t))) : d ? j(I.filter((e) => e.value >= 0).map((e) => e.label)) : 0, z = e.stacked ? j(e.totals.filter((e, t) => L(t))) : d ? j(I.filter((e) => e.value < 0).map((e) => e.label)) : 0, B = (t, n) => e.labels === "inside" && me(t, n, a);
+		if (!d && !e.stacked) for (let e = 0; e < 3; e++) {
+			let e = m - p - R - z, n = t.map((e, t) => ({
 				seg: e,
-				label: a[t]
-			})).filter(({ seg: t, label: n }) => !ee(n, b(t.value, e))), r = k(n.filter(({ seg: e }) => e.value >= 0).map(({ label: e }) => e)), i = k(n.filter(({ seg: e }) => e.value < 0).map(({ label: e }) => e));
-			if (r <= N && i <= P) break;
-			N = Math.max(N, r), P = Math.max(P, i);
+				label: s[t]
+			})).filter(({ seg: t, label: n }) => !B(n, b(t.value, e))), r = j(n.filter(({ seg: e }) => e.value >= 0).map(({ label: e }) => e)), i = j(n.filter(({ seg: e }) => e.value < 0).map(({ label: e }) => e));
+			if (r <= R && i <= z) break;
+			R = Math.max(R, r), z = Math.max(z, i);
 		}
-		let I = m - d - N - P, L = d + P + b(v, I), z = (e) => e < 0 ? L - b(e, I) : L + b(e, I);
-		if (e.squeeze && (e.breakX = z(e.squeeze.gap)), e.x = z, e.stacked) {
-			let t = e.length("--tablechart-stack-gap", "1px") ?? r;
-			e.rows.forEach((i, a) => {
-				let s = Be(i, e.series.length), c = Ue(e, i, a, { "data-grow": "right" }, s.bottom < 0 ? `${L - z(s.bottom)}px center` : ""), l = S(a) - C / 2, u = ze(i, e.series.length);
-				u.forEach(({ from: i, to: o, cell: s }, d) => {
-					let f = e.seriesValues[d][a];
-					if (f.dataset.place = "none", s.missing || o === i) return;
-					let p = Math.min(z(i), z(o)), m = Math.max(z(i), z(o)), h = Z(u, d) ? Math.min(t, (m - p) / 2) : 0, [g, _] = z(o) > z(i) ? [p, m - h] : [p + h, m];
-					c(d, {
+		let ee = m - p - R - z, V = p + z + b(v, ee), H = (e) => e < 0 ? V - b(e, ee) : V + b(e, ee);
+		if (e.squeeze && (e.breakX = H(e.squeeze.gap)), e.x = H, e.stacked) {
+			let t = e.length("--tablechart-stack-gap", "1px") ?? a;
+			e.rows.forEach((n, r) => {
+				let o = Ae(n, e.series.length), s = Pe(e, n, r, { "data-grow": "right" }, o.bottom < 0 ? `${V - H(o.bottom)}px center` : ""), l = S(r) - C / 2, u = ke(n, e.series.length);
+				u.forEach(({ from: n, to: o, cell: c }, d) => {
+					let f = e.seriesValues[d][r];
+					if (f.dataset.place = "none", c.missing || o === n) return;
+					let p = Math.min(H(n), H(o)), m = Math.max(H(n), H(o)), h = Ne(u, d) ? Math.min(t, (m - p) / 2) : 0, [g, _] = H(o) > H(n) ? [p, m - h] : [p + h, m];
+					s(d, {
 						x: g,
 						y: l,
 						width: Math.max(_ - g, 1),
 						height: C,
-						...o < i && { "data-grow": "left" }
-					}), f.dataset.place = "inside", f.toggleAttribute("data-left-out", !we(f, m - p, r) || Y(f).height * r > C), He(f, e, d), U(f, (p + m) / 2, S(a), F, n);
+						...o < n && { "data-grow": "left" }
+					}), f.dataset.place = "inside", f.toggleAttribute("data-left-out", !me(f, m - p, a) || Y(f).height * a > C), Me(f, e, d), F(f, (p + m) / 2, S(r), T, i);
 				});
-				let f = e.totals[a];
-				f && (f.dataset.place = M(a) ? "before" : "after", U(f, M(a) ? z(s.bottom) - D : z(s.top) + D, S(a), 1e3, n));
-				let p = o[a];
-				p && U(p, d - 8 * r, S(a), 1e3, n);
-			}), i.appendChild(V("line", {
-				class: p,
-				x1: L,
-				x2: L,
+				let d = e.totals[r];
+				d && (d.dataset.place = L(r) ? "before" : "after", F(d, L(r) ? H(o.bottom) - O : H(o.top) + O, S(r), 1e3, i));
+				let f = c[r];
+				f && F(f, p - 8 * a, S(r), 1e3, i);
+			}), o.appendChild(M("line", {
+				class: r,
+				x1: V,
+				x2: V,
 				y1: 0,
-				y2: n
+				y2: i
 			}));
 			return;
 		}
-		if (l) {
-			let t = e.seriesValues.flat().filter((e) => e.dataset.missing === void 0), a = Te(e.plot, t, (e) => ({
-				size: Y(e).height * r,
+		if (d) {
+			let t = e.seriesValues.flat().filter((e) => e.dataset.missing === void 0), s = he(e.plot, t, (e) => ({
+				size: Y(e).height * a,
 				room: w.size + w.gap * .5
 			}), "--_fit");
-			e.rows.forEach((t, s) => {
-				e.series.forEach((r, o) => {
-					let c = t.cells[o] ?? t.cells[0], l = e.seriesValues[o][s];
-					if (c.missing) {
-						l.dataset.place = "none";
+			e.rows.forEach((t, r) => {
+				e.series.forEach((a, c) => {
+					let l = t.cells[c] ?? t.cells[0], u = e.seriesValues[c][r];
+					if (l.missing) {
+						u.dataset.place = "none";
 						return;
 					}
-					let u = z(c.value), d = c.value < 0, p = S(s) + w.offset(o), m = Math.max(Math.abs(u - L), 1);
-					c.value !== 0 && i.appendChild(V("rect", {
-						class: H(f, t),
+					let d = H(l.value), f = l.value < 0, p = S(r) + w.offset(c), m = Math.max(Math.abs(d - V), 1);
+					l.value !== 0 && o.appendChild(M("rect", {
+						class: N(n, t),
 						"data-kind": "bar",
-						"data-row": s + 1,
-						"data-grow": d ? "left" : "right",
-						x: d ? L - m : L,
+						"data-row": r + 1,
+						"data-grow": f ? "left" : "right",
+						x: f ? V - m : V,
 						y: p,
 						width: m,
 						height: w.size,
-						...X(e, t, o)
-					})), l.dataset.place = d ? "before" : "after", l.toggleAttribute("data-left-out", !a), U(l, d ? u - D : u + D, p + w.size / 2, F, n);
+						...Oe(e, t, c)
+					})), u.dataset.place = f ? "before" : "after", u.toggleAttribute("data-left-out", !s), F(u, f ? d - O : d + O, p + w.size / 2, T, i);
 				});
-				let c = o[s];
-				c && U(c, d - 8 * r, S(s), 1e3, n);
-			}), i.appendChild(V("line", {
-				class: p,
-				x1: L,
-				x2: L,
+				let l = c[r];
+				l && F(l, p - 8 * a, S(r), 1e3, i);
+			}), o.appendChild(M("line", {
+				class: r,
+				x1: V,
+				x2: V,
 				y1: 0,
-				y2: n
+				y2: i
 			}));
 			return;
 		}
-		let B = t.map((e, t) => ee(a[t], Math.abs(z(e.value) - L)));
-		t.forEach((t, s) => {
-			let c = z(t.value), l = S(s), u = t.value < 0, p = Math.abs(c - L), m = Math.max(p, 1);
-			t.value !== 0 && i.appendChild(V("rect", {
-				class: H(f, t),
+		let U = t.map((e, t) => B(s[t], Math.abs(H(e.value) - V)));
+		t.forEach((t, r) => {
+			let l = H(t.value), u = S(r), d = t.value < 0, f = Math.abs(l - V), m = Math.max(f, 1);
+			t.value !== 0 && o.appendChild(M("rect", {
+				class: N(n, t),
 				"data-kind": t.kind,
-				"data-row": s + 1,
-				"data-grow": u ? "left" : "right",
-				x: u ? L - m : L,
-				y: l - C / 2,
+				"data-row": r + 1,
+				"data-grow": d ? "left" : "right",
+				x: d ? V - m : V,
+				y: u - C / 2,
 				width: m,
 				height: C,
-				style: R("--i", t.slot)
+				style: k("--i", t.slot)
 			}));
-			let h = a[s], g = Math.max(Math.min(D, p - O(h) - 6 * r), 6 * r), _ = u ? 1 : -1;
-			h.dataset.place = B[s] ? "inside" : u ? "before" : "after", h.dataset.kind = t.kind, U(h, B[s] ? e.insideAlign === "center" ? (L + c) / 2 : e.insideAlign === "start" ? L - _ * (g + O(h) / 2) : c + _ * (g + O(h) / 2) : c - _ * D, l, F, n);
-			let v = o[s];
-			v && U(v, d - 8 * r, l, 1e3, n);
-		}), i.appendChild(V("line", {
-			class: p,
-			x1: L,
-			x2: L,
+			let h = s[r], g = Math.max(Math.min(O, f - A(h) - 6 * a), 6 * a), _ = d ? 1 : -1;
+			h.dataset.place = U[r] ? "inside" : d ? "before" : "after", h.dataset.kind = t.kind, F(h, U[r] ? e.insideAlign === "center" ? (V + l) / 2 : e.insideAlign === "start" ? V - _ * (g + A(h) / 2) : l + _ * (g + A(h) / 2) : l - _ * O, u, T, i);
+			let v = c[r];
+			v && F(v, p - 8 * a, u, 1e3, i);
+		}), o.appendChild(M("line", {
+			class: r,
+			x1: V,
+			x2: V,
 			y1: 0,
-			y2: n
+			y2: i
 		}));
 	}
-}, Ge = {
+}, Ie = {
 	segments: (e) => e.map((e) => ({
 		...e,
 		from: 0,
@@ -763,103 +754,103 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	breakable: !0,
 	headroom: ({ labelHeight: e, badgeHeight: t, hasAnnotations: n, unit: r }) => e + 4 * r + (n ? t * 1.6 : 0),
 	draw(e) {
-		let { segments: t, cx: n, y: r, barWidth: i, height: a, unit: o, svg: s, values: c, labels: l, insideAlign: u } = e, d = r(0);
+		let { segments: t, cx: i, y: a, barWidth: o, height: s, unit: c, svg: l, values: u, labels: d, insideAlign: f } = e, p = a(0);
 		if (e.stacked) {
-			let t = e.length("--tablechart-stack-gap", "1px") ?? o;
-			e.rows.forEach((s, c) => {
-				let l = Be(s, e.series.length), u = Ue(e, s, c, {}, l.bottom < 0 ? `center ${d - r(l.top)}px` : ""), f = n(c) - i / 2, p = ze(s, e.series.length);
-				p.forEach(({ from: s, to: l, cell: d }, m) => {
-					let h = e.seriesValues[m][c];
-					if (h.dataset.place = "none", d.missing || l === s) return;
-					let g = Math.min(r(l), r(s)), _ = Math.max(r(l), r(s)), v = Z(p, m) ? Math.min(t, (_ - g) / 2) : 0, [y, b] = r(l) < r(s) ? [g + v, _] : [g, _ - v];
+			let t = e.length("--tablechart-stack-gap", "1px") ?? c;
+			e.rows.forEach((n, r) => {
+				let l = Ae(n, e.series.length), u = Pe(e, n, r, {}, l.bottom < 0 ? `center ${p - a(l.top)}px` : ""), d = i(r) - o / 2, f = ke(n, e.series.length);
+				f.forEach(({ from: n, to: l, cell: p }, m) => {
+					let h = e.seriesValues[m][r];
+					if (h.dataset.place = "none", p.missing || l === n) return;
+					let g = Math.min(a(l), a(n)), _ = Math.max(a(l), a(n)), v = Ne(f, m) ? Math.min(t, (_ - g) / 2) : 0, [y, b] = a(l) < a(n) ? [g + v, _] : [g, _ - v];
 					u(m, {
-						x: f,
+						x: d,
 						y,
-						width: i,
+						width: o,
 						height: Math.max(b - y, 1),
-						...l < s && { "data-grow": "down" }
-					}), h.dataset.place = "inside", h.toggleAttribute("data-left-out", !Ce(h, _ - g, o) || Y(h).width * o > i - 4 * o), He(h, e, m), U(h, n(c), (g + _) / 2, F, a);
+						...l < n && { "data-grow": "down" }
+					}), h.dataset.place = "inside", h.toggleAttribute("data-left-out", !pe(h, _ - g, c) || Y(h).width * c > o - 4 * c), Me(h, e, m), F(h, i(r), (g + _) / 2, T, s);
 				});
-				let m = e.totals[c];
+				let m = e.totals[r];
 				if (m) {
 					let e = l.top === 0 && l.bottom < 0;
-					m.dataset.place = e ? "below" : "outside", U(m, n(c), e ? r(l.bottom) + 4 * o : r(l.top) - 4 * o, F, a);
+					m.dataset.place = e ? "below" : "outside", F(m, i(r), e ? a(l.bottom) + 4 * c : a(l.top) - 4 * c, T, s);
 				}
-			}), s.appendChild(V("line", {
-				class: p,
+			}), l.appendChild(M("line", {
+				class: r,
 				x1: 0,
-				x2: F,
-				y1: d,
-				y2: d
+				x2: T,
+				y1: p,
+				y2: p
 			}));
 			return;
 		}
 		if (e.own.length > 1) {
-			let t = Re(n(1) - n(0) || n(0) * 2, e.own.length, e.barMax), i = e.own.flatMap((t) => e.seriesValues[t]).filter((e) => e.dataset.missing === void 0), c = Te(e.plot, i, (e) => ({
-				size: Y(e).width * o,
+			let t = De(i(1) - i(0) || i(0) * 2, e.own.length, e.barMax), o = e.own.flatMap((t) => e.seriesValues[t]).filter((e) => e.dataset.missing === void 0), u = he(e.plot, o, (e) => ({
+				size: Y(e).width * c,
 				room: t.size + t.gap * .5
 			}), "--_fit");
-			e.rows.forEach((i, l) => {
-				e.own.forEach((u, p) => {
-					let m = i.cells[u] ?? i.cells[0], h = e.seriesValues[u][l], g = n(l) + t.offset(p);
+			e.rows.forEach((r, o) => {
+				e.own.forEach((d, f) => {
+					let m = r.cells[d] ?? r.cells[0], h = e.seriesValues[d][o], g = i(o) + t.offset(f);
 					if (m.missing) {
 						h.dataset.place = "none";
 						return;
 					}
-					let _ = r(m.value), v = m.value < 0, y = Math.max(Math.abs(d - _), 1);
-					m.value !== 0 && s.appendChild(V("rect", {
-						class: H(f, i),
+					let _ = a(m.value), v = m.value < 0, y = Math.max(Math.abs(p - _), 1);
+					m.value !== 0 && l.appendChild(M("rect", {
+						class: N(n, r),
 						"data-kind": "bar",
-						"data-row": l + 1,
+						"data-row": o + 1,
 						...v && { "data-grow": "down" },
 						x: g,
-						y: v ? d : d - y,
+						y: v ? p : p - y,
 						width: t.size,
 						height: y,
-						...X(e, i, u)
-					})), h.dataset.place = v ? "below" : "outside", h.toggleAttribute("data-left-out", !c), U(h, g + t.size / 2, v ? _ + 4 * o : _ - 4 * o, F, a);
+						...Oe(e, r, d)
+					})), h.dataset.place = v ? "below" : "outside", h.toggleAttribute("data-left-out", !u), F(h, g + t.size / 2, v ? _ + 4 * c : _ - 4 * c, T, s);
 				});
-			}), s.appendChild(V("line", {
-				class: p,
+			}), l.appendChild(M("line", {
+				class: r,
 				x1: 0,
-				x2: F,
-				y1: d,
-				y2: d
+				x2: T,
+				y1: p,
+				y2: p
 			}));
 			return;
 		}
-		let m = e.own[0], h = e.own.length < e.series.length, g = Se(c, i, o), _ = t.map((e, t) => l === "inside" && !g && !e.missing && Ce(c[t], Math.abs(d - r(e.value)), o)), v = c[0] ? Y(c[0]).height * o * .56 : 0, y = Infinity;
-		for (let [e, t] of c.entries()) _[e] && (y = Math.min(y, (i - Y(t).width * o) / 2));
-		t.forEach((t, l) => {
-			let p = r(t.value), g = t.value < 0;
+		let m = e.own[0], h = e.own.length < e.series.length, g = fe(u, o, c), _ = t.map((e, t) => d === "inside" && !g && !e.missing && pe(u[t], Math.abs(p - a(e.value)), c)), v = u[0] ? Y(u[0]).height * c * .56 : 0, y = Infinity;
+		for (let [e, t] of u.entries()) _[e] && (y = Math.min(y, (o - Y(t).width * c) / 2));
+		t.forEach((t, r) => {
+			let d = a(t.value), g = t.value < 0;
 			if (t.missing) {
-				U(c[l], n(l), d - 4 * o, F, a), c[l].dataset.place = "outside";
+				F(u[r], i(r), p - 4 * c, T, s), u[r].dataset.place = "outside";
 				return;
 			}
-			let b = Math.max(Math.abs(d - p), 1);
-			t.value !== 0 && s.appendChild(V("rect", {
-				class: H(f, t),
+			let b = Math.max(Math.abs(p - d), 1);
+			t.value !== 0 && l.appendChild(M("rect", {
+				class: N(n, t),
 				"data-kind": t.kind,
-				"data-row": l + 1,
+				"data-row": r + 1,
 				...g && { "data-grow": "down" },
-				x: n(l) - i / 2,
-				y: g ? d : d - b,
-				width: i,
+				x: i(r) - o / 2,
+				y: g ? p : p - b,
+				width: o,
 				height: b,
-				style: R("--i", t.slot),
-				...h && X(e, t, m)
+				style: k("--i", t.slot),
+				...h && Oe(e, t, m)
 			}));
-			let x = g ? -1 : 1, S = Math.min(y, (Math.abs(d - p) - v) / 2), C = u === "center" ? (p + d) / 2 : u === "start" ? d - x * (S + v / 2) : p + x * (S + v / 2), w = g ? p + 4 * o : p - 4 * o;
-			U(c[l], n(l), _[l] ? C : w, F, a), c[l].dataset.place = _[l] ? "inside" : g ? "below" : "outside", h && _[l] && He(c[l], e, m);
-		}), s.appendChild(V("line", {
-			class: p,
+			let x = g ? -1 : 1, S = Math.min(y, (Math.abs(p - d) - v) / 2), C = f === "center" ? (d + p) / 2 : f === "start" ? p - x * (S + v / 2) : d + x * (S + v / 2), w = g ? d + 4 * c : d - 4 * c;
+			F(u[r], i(r), _[r] ? C : w, T, s), u[r].dataset.place = _[r] ? "inside" : g ? "below" : "outside", h && _[r] && Me(u[r], e, m);
+		}), l.appendChild(M("line", {
+			class: r,
 			x1: 0,
-			x2: F,
-			y1: d,
-			y2: d
+			x2: T,
+			y1: p,
+			y2: p
 		}));
 	}
-}, Ke = 0, qe = (e) => e.filter((e) => !e.isTotal), Je = {
+}, Le = 0, Re = (e) => e.filter((e) => !e.isTotal), ze = {
 	aspect: .66,
 	centre: !0,
 	headroom: () => 0,
@@ -870,81 +861,81 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 		kind: "bar"
 	})),
 	draw({ rows: e, height: t, unit: n, labelHeight: r, svg: i, values: a, config: o, centre: s }) {
-		let c = F / 2, l = t / 2, u = qe(e).reduce((e, t) => e + Math.abs(t.value), 0);
+		let l = t / 2, u = Re(e).reduce((e, t) => e + Math.abs(t.value), 0);
 		if (!u) return;
-		let d = r * 1.2 + 10 * n, f = Math.max(Math.min(F, t) / 2 - d, 10), p = f * o.ringfill, m = f - p / 2, h = 2 * Math.PI * m, g = [], _ = 0, y = 0, b = 0;
+		let d = r * 1.2 + 10 * n, f = Math.max(Math.min(T, t) / 2 - d, 10), p = f * o.ringfill, m = f - p / 2, h = 2 * Math.PI * m, g = [], _ = 0, v = 0, y = 0;
 		if (e.forEach((e, o) => {
 			let s = a[o];
 			if (e.isTotal) {
 				s.dataset.place = "none";
 				return;
 			}
-			let d = Math.abs(e.value) / u, x = L(b, d), S = `--share:${d.toFixed(4)}; --start:${x.start.toFixed(4)}; --span:${x.span.toFixed(4)};`, C = d * h, w = _ / h * 2 * Math.PI - Math.PI / 2;
-			g.push(w), i.appendChild(V("circle", {
-				class: H(v, e),
-				"data-slice": y + 1,
+			let d = Math.abs(e.value) / u, b = O(y, d), x = `--share:${d.toFixed(4)}; --start:${b.start.toFixed(4)}; --span:${b.span.toFixed(4)};`, S = d * h, C = _ / h * 2 * Math.PI - Math.PI / 2;
+			g.push(C), i.appendChild(M("circle", {
+				class: N(c, e),
+				"data-slice": v + 1,
 				"data-row": o + 1,
-				cx: c,
+				cx: 500,
 				cy: l,
 				r: m,
 				"stroke-width": p,
-				transform: `rotate(-90 ${c} ${l})`,
-				"stroke-dasharray": `${C.toFixed(1)} ${(h - C).toFixed(1)}`,
+				transform: `rotate(-90 500 ${l})`,
+				"stroke-dasharray": `${S.toFixed(1)} ${(h - S).toFixed(1)}`,
 				"stroke-dashoffset": (-_).toFixed(1),
-				style: `--n:${y}; --palette:var(--tablechart-color-${y + 1}); --arc:${C.toFixed(1)}; --circ:${h.toFixed(1)}; ${S} --ease:${x.easing}; ${R("--i", e.slot)}`
+				style: `--n:${v}; --palette:var(--tablechart-color-${v + 1}); --arc:${S.toFixed(1)}; --circ:${h.toFixed(1)}; ${x} --ease:${b.easing}; ${k("--i", e.slot)}`
 			}));
-			let T = w + C / h * Math.PI, E = Math.cos(T), D = Math.sin(T);
-			i.appendChild(V("line", {
+			let w = C + S / h * Math.PI, T = Math.cos(w), E = Math.sin(w);
+			i.appendChild(M("line", {
 				class: "tablechart-leader",
-				x1: c + E * (f + 2 * n),
-				y1: l + D * (f + 2 * n),
-				x2: c + E * (f + 7 * n),
-				y2: l + D * (f + 7 * n),
+				x1: 500 + T * (f + 2 * n),
+				y1: l + E * (f + 2 * n),
+				x2: 500 + T * (f + 7 * n),
+				y2: l + E * (f + 7 * n),
 				"data-row": o + 1,
-				style: `${S} ${R("--i", e.slot)}`
-			})), s.style.setProperty("--start", x.start.toFixed(4)), s.style.setProperty("--span", x.span.toFixed(4));
-			let O = f + 9 * n, k = Y(s).width * n / 2;
-			U(s, c + E * (O + Math.abs(E) * k), l + D * (O + Math.abs(D) * r * .7), 1e3, t), s.dataset.place = "around", _ += C, b += d, y += 1;
+				style: `${x} ${k("--i", e.slot)}`
+			})), s.style.setProperty("--start", b.start.toFixed(4)), s.style.setProperty("--span", b.span.toFixed(4));
+			let D = f + 9 * n, A = Y(s).width * n / 2;
+			F(s, 500 + T * (D + Math.abs(T) * A), l + E * (D + Math.abs(E) * r * .7), 1e3, t), s.dataset.place = "around", _ += S, y += d, v += 1;
 		}), g.length > 1) {
-			let e = m - p / 2 - 1, n = m + p / 2 + 1, r = `tablechart-slices-${++Ke}`, a = V("mask", {
+			let e = m - p / 2 - 1, n = m + p / 2 + 1, r = `tablechart-slices-${++Le}`, a = M("mask", {
 				id: r,
 				maskUnits: "userSpaceOnUse"
 			});
-			a.appendChild(V("rect", {
+			a.appendChild(M("rect", {
 				x: 0,
 				y: 0,
-				width: F,
+				width: T,
 				height: t,
 				fill: "white"
 			}));
-			for (let t of g) a.appendChild(V("line", {
+			for (let t of g) a.appendChild(M("line", {
 				class: "tablechart-divide",
-				x1: c + Math.cos(t) * e,
+				x1: 500 + Math.cos(t) * e,
 				y1: l + Math.sin(t) * e,
-				x2: c + Math.cos(t) * n,
+				x2: 500 + Math.cos(t) * n,
 				y2: l + Math.sin(t) * n
 			}));
-			let o = V("g", { mask: `url(#${r})` });
-			for (let e of Array.from(i.querySelectorAll(`.${v}`))) o.appendChild(e);
-			let s = V("defs");
+			let o = M("g", { mask: `url(#${r})` });
+			for (let e of Array.from(i.querySelectorAll(`.${c}`))) o.appendChild(e);
+			let s = M("defs");
 			s.appendChild(a), i.prepend(s, o);
 		}
-		s && U(s, c, l, 1e3, t);
+		s && F(s, 500, l, 1e3, t);
 	}
-}, Ye = [
+}, Be = [
 	"circle",
 	"square",
 	"diamond"
-], Xe = (e, t) => {
-	let n = e[t]?.marker?.toLowerCase().split(/\s+/) ?? [], r = Ye.find((e) => n.includes(e));
+], Ve = (e, t) => {
+	let n = e[t]?.marker?.toLowerCase().split(/\s+/) ?? [], r = Be.find((e) => n.includes(e));
 	return {
-		shape: r ?? Ye[Math.floor(t / 2) % Ye.length],
+		shape: r ?? Be[Math.floor(t / 2) % Be.length],
 		open: n.includes("open") || !n.includes("filled") && !r && t % 2 == 1
 	};
-}, Ze = (e, t, n, r, i = {}) => {
+}, Z = (e, t, n, r, i = {}) => {
 	if (e === "square") {
 		let e = r * .88;
-		return V("rect", {
+		return M("rect", {
 			x: t - e,
 			y: n - e,
 			width: e * 2,
@@ -954,26 +945,26 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	}
 	if (e === "diamond") {
 		let e = r * 1.2;
-		return V("polygon", {
+		return M("polygon", {
 			points: `${t},${n - e} ${t + e},${n} ${t},${n + e} ${t - e},${n}`,
 			...i
 		});
 	}
 	if (e === "triangle") {
 		let e = r * 1.3;
-		return V("polygon", {
+		return M("polygon", {
 			points: `${t},${n - e * .75} ${t + e * .87},${n + e * .75} ${t - e * .87},${n + e * .75}`,
 			...i
 		});
 	}
-	return V("circle", {
+	return M("circle", {
 		cx: t,
 		cy: n,
 		r,
 		...i
 	});
 }, Q = (e) => Number(e.toFixed(2));
-function Qe(e, t) {
+function He(e, t) {
 	let n = e.length;
 	if (n < 2) return e.map(() => 0);
 	let r = (n) => (t[n + 1] - t[n]) / (e[n + 1] - e[n] || 1), i = Array(n).fill(0);
@@ -990,24 +981,24 @@ function Qe(e, t) {
 	};
 	return i[0] = a(0, 1, i[1]), i[n - 1] = a(n - 2, n - 1, i[n - 2]), i;
 }
-function $e(e, t, n, r) {
+function Ue(e, t, n, r) {
 	let i = (t[0] - e[0]) / 3;
 	return [[e[0] + i, e[1] + n * i], [t[0] - i, t[1] - r * i]];
 }
-function et(e, t, n, r) {
-	let [i, a] = $e(e, t, n, r), o = ([e, t]) => `${Q(e)},${Q(t)}`;
+function We(e, t, n, r) {
+	let [i, a] = Ue(e, t, n, r), o = ([e, t]) => `${Q(e)},${Q(t)}`;
 	return `C${o(i)} ${o(a)} ${o(t)}`;
 }
-function tt(e, t, n) {
+function Ge(e, t, n) {
 	let r = Array(e).fill(0), i = [], a = () => {
-		Qe(i.map((e) => n(e)[0]), i.map((e) => n(e)[1])).forEach((e, t) => {
+		He(i.map((e) => n(e)[0]), i.map((e) => n(e)[1])).forEach((e, t) => {
 			r[i[t]] = e;
 		}), i = [];
 	};
 	for (let n = 0; n < e; n++) t(n) ? a() : i.push(n);
 	return a(), r;
 }
-var nt = (e) => {
+var Ke = (e) => {
 	let t = e.length, n = e.reduce((e, t) => e + t.x, 0) / t, r = e.reduce((e, t) => e + t.y, 0) / t, i = e.reduce((e, t) => e + (t.x - n) ** 2, 0), a = i ? e.reduce((e, t) => e + (t.x - n) * (t.y - r), 0) / i : 0, o = (e) => r + a * (e - n), s = t > 2 ? Math.sqrt(e.reduce((e, t) => e + (t.y - o(t.x)) ** 2, 0) / (t - 2)) : 0, c = i ? s / Math.sqrt(i) : 0;
 	return {
 		at: o,
@@ -1015,7 +1006,7 @@ var nt = (e) => {
 		t: c ? a / c : a ? Infinity : 0,
 		n: t
 	};
-}, rt = [
+}, qe = [
 	12.71,
 	4.3,
 	3.18,
@@ -1031,29 +1022,29 @@ var nt = (e) => {
 	2.16,
 	2.14,
 	2.13
-], it = (e) => rt[e - 1] ?? (e < 30 ? 2.1 : 2), at = (e) => {
+], Je = (e) => qe[e - 1] ?? (e < 30 ? 2.1 : 2), Ye = (e) => {
 	let t = e.map((e) => e.y), n = Math.min(...t), r = Math.max(...t), i = n < 0 && r > 0, a = r - n || 1;
 	return {
 		mean: t.reduce((e, t) => e + t, 0) / t.length,
 		share: (e, t) => e / (i ? a : Math.abs(t) || a) * 100
 	};
-}, ot = (e, t = 5, n = 25) => {
+}, Xe = (e, t = 5, n = 25) => {
 	if (e.length < 4) return null;
-	let { mean: r, share: i } = at(e), a = (t) => e.filter((e) => Math.abs(i(e.y - t(e.x), t(e.x))) > n), o = (t) => t.length <= e.length / 5, s = nt(e), c = a(s.at);
-	c.length && o(c) && (s = nt(e.filter((e) => !c.includes(e))), c = a(s.at)), o(c) || (s = nt(e), c = []);
-	let l = s.at, u = e[0], d = e[e.length - 1], f = i(l(d.x) - l(u.x), r), p = Math.abs(s.t) >= it(s.n - 2), m = Math.abs(i(s.spread, r)) < t, h = Math.abs(f) < t ? "flat" : f > 0 ? "up" : "down", g = h === "flat" ? m ? "flat" : "unclear" : p ? h : "unclear";
+	let { mean: r, share: i } = Ye(e), a = (t) => e.filter((e) => Math.abs(i(e.y - t(e.x), t(e.x))) > n), o = (t) => t.length <= e.length / 5, s = Ke(e), c = a(s.at);
+	c.length && o(c) && (s = Ke(e.filter((e) => !c.includes(e))), c = a(s.at)), o(c) || (s = Ke(e), c = []);
+	let l = s.at, u = e[0], d = e[e.length - 1], f = i(l(d.x) - l(u.x), r), p = Math.abs(s.t) >= Je(s.n - 2), m = Math.abs(i(s.spread, r)) < t, h = Math.abs(f) < t ? "flat" : f > 0 ? "up" : "down", g = h === "flat" ? m ? "flat" : "unclear" : p ? h : "unclear";
 	return {
 		course: g,
 		line: l,
 		outside: g === "unclear" ? [] : c
 	};
-}, st = (e) => e.map((e) => ({
+}, Ze = (e) => e.map((e) => ({
 	...e,
 	from: 0,
 	to: e.value,
 	kind: "bar"
-})), ct = (e) => ({
-	segments: st,
+})), Qe = (e) => ({
+	segments: Ze,
 	series: !0,
 	stackable: !0,
 	running: !0,
@@ -1061,14 +1052,14 @@ var nt = (e) => {
 	headroom: ({ labelHeight: e, unit: t }) => e * 1.6 + 6 * t,
 	footroom: ({ labelHeight: t, unit: n, series: r, focused: i, stacked: a }) => !e && !a && r === 2 && !i ? t + 7 * n : 0,
 	draw(t) {
-		let { rows: n, series: r, own: i, seriesValues: a, names: o, cx: s, y: c, height: l, unit: u, labelHeight: d, svg: f, stacked: m } = t, h = i.length < r.length, g = t.shape === "step", _ = t.shape === "smooth", v = r.length > 1, x = r.some((e) => e.focus), S = n.length - 1, T = c(0), E = n.length > 1 ? s(1) - s(0) : s(0) * 2;
-		f.style.setProperty("--_base", `${Q(T)}px`);
-		let D = (e) => `--rise:${Q(T - e)}px; `, O = (e, t) => n[t]?.cells[e] ?? n[t]?.cells[0], k = (e, t) => !O(e, t) || !!O(e, t)?.missing, A = n.map((e) => m ? ze(e, r.length, !0) : null), j = (e, t) => A[t]?.[e].to ?? O(e, t)?.value ?? 0, M = (e, t) => A[t]?.[e].from ?? 0, N = (e, t) => [s(t), c(j(e, t))], P = r.map((e, t) => {
-			if (!v) return {
+		let { rows: n, series: i, own: a, seriesValues: o, names: s, cx: c, y: d, height: f, unit: h, labelHeight: g, svg: _, stacked: v } = t, y = a.length < i.length, b = t.shape === "step", x = t.shape === "smooth", S = i.length > 1, C = i.some((e) => e.focus), w = n.length - 1, E = d(0), D = n.length > 1 ? c(1) - c(0) : c(0) * 2;
+		_.style.setProperty("--_base", `${Q(E)}px`);
+		let O = (e) => `--rise:${Q(E - e)}px; `, k = (e, t) => n[t]?.cells[e] ?? n[t]?.cells[0], A = (e, t) => !k(e, t) || !!k(e, t)?.missing, j = n.map((e) => v ? ke(e, i.length, !0) : null), N = (e, t) => j[t]?.[e].to ?? k(e, t)?.value ?? 0, P = (e, t) => j[t]?.[e].from ?? 0, I = (e, t) => [c(t), d(N(e, t))], L = i.map((e, t) => {
+			if (!S) return {
 				attrs: {},
 				ink: ""
 			};
-			let n = x && !e.focus;
+			let n = C && !e.focus;
 			return {
 				attrs: {
 					"data-series": t + 1,
@@ -1076,128 +1067,128 @@ var nt = (e) => {
 				},
 				ink: `--n:${t}; --m:${+!!n}; --palette:var(--tablechart-color-${t + 1}); `
 			};
-		}), ee = h ? S : Math.min(S, 6);
-		t.plot.style.setProperty("--count", String(ee + 1));
-		let I = S > 0 ? ee / (g ? n.length : S) : 1, L = (e) => e * I, R = (e) => `--i:${Q(L(e))}`, z = (e) => {
+		}), R = y ? w : Math.min(w, 6);
+		t.plot.style.setProperty("--count", String(R + 1));
+		let z = w > 0 ? R / (b ? n.length : w) : 1, B = (e) => e * z, V = (e) => `--i:${Q(B(e))}`, H = (e) => {
 			let t = [], r = -1;
 			return n.forEach((n, i) => {
-				k(e, i) || (r < 0 && (r = i), (i === S || k(e, i + 1)) && ((g || i > r) && t.push([r, i]), r = -1));
+				A(e, i) || (r < 0 && (r = i), (i === w || A(e, i + 1)) && ((b || i > r) && t.push([r, i]), r = -1));
 			}), t;
-		}, B = (e, t) => `--i:${Q(L(e) + 1)}; --d:${Q(L(g ? t + 1 : t) - L(e))}`, H = (e, t) => ({
+		}, U = (e, t) => `--i:${Q(B(e) + 1)}; --d:${Q(B(b ? t + 1 : t) - B(e))}`, W = (e, t) => ({
 			"data-from": e + 1,
 			"data-to": t + 1,
-			...g && { "data-flat": "" }
-		}), te = _ ? r.map((e, t) => tt(n.length, (e) => k(t, e), (e) => N(t, e))) : [], W = _ && e ? r.map((e, t) => tt(n.length, (e) => k(t, e), (e) => [s(e), c(M(t, e))])) : [], ne = (e, t, n) => {
+			...b && { "data-flat": "" }
+		}), te = x ? i.map((e, t) => Ge(n.length, (e) => A(t, e), (e) => I(t, e))) : [], G = x && e ? i.map((e, t) => Ge(n.length, (e) => A(t, e), (e) => [c(e), d(P(t, e))])) : [], ne = (e, t, n) => {
 			let r = [];
 			return e.forEach(([i, a], o) => {
-				g ? (r.push(`H${Q(i + n * E / 2)}`), o < e.length - 1 && r.push(`V${Q(e[o + 1][1])}`)) : o > 0 && r.push(t ? et(e[o - 1], [i, a], t[o - 1], t[o]) : `L${Q(i)},${Q(a)}`);
+				b ? (r.push(`H${Q(i + n * D / 2)}`), o < e.length - 1 && r.push(`V${Q(e[o + 1][1])}`)) : o > 0 && r.push(t ? We(e[o - 1], [i, a], t[o - 1], t[o]) : `L${Q(i)},${Q(a)}`);
 			}), r;
-		}, G = (e, t, r, i) => n.slice(t, r + 1).map((n, r) => [s(t + r), c(i(e, t + r))]), K = (e, t, n, r) => _ ? e[t].slice(n, r + 1) : null, re = (e) => s(e) - (g ? E / 2 : 0), ae = (e) => s(e) + (g ? E / 2 : 0), oe = (e) => {
-			let t = V("g", {
-				class: b,
-				...P[e].attrs,
-				...m && { "data-stacked": "" },
-				style: P[e].ink
-			}), n = z(e), r = V("g", {
+		}, K = (e, t, r, i) => n.slice(t, r + 1).map((n, r) => [c(t + r), d(i(e, t + r))]), q = (e, t, n, r) => x ? e[t].slice(n, r + 1) : null, J = (e) => c(e) - (b ? D / 2 : 0), re = (e) => c(e) + (b ? D / 2 : 0), ie = (e) => {
+			let t = M("g", {
+				class: u,
+				...L[e].attrs,
+				...v && { "data-stacked": "" },
+				style: L[e].ink
+			}), n = H(e), r = M("g", {
 				class: "tablechart-area-fill",
-				style: `--rows:${Q(ee + 1)}; ${n.length ? B(...n[0]) : ""}`
+				style: `--rows:${Q(R + 1)}; ${n.length ? U(...n[0]) : ""}`
 			});
 			t.appendChild(r);
 			for (let [t, i] of n) {
-				let n = G(e, t, i, j), a = G(e, t, i, M), o = K(W, e, t, i)?.reverse() ?? null, s = [
-					`M${Q(re(t))},${Q(a[0][1])}`,
-					`L${Q(re(t))},${Q(n[0][1])}`,
-					...ne(n, K(te, e, t, i), 1),
-					`L${Q(ae(i))},${Q(a[a.length - 1][1])}`,
+				let n = K(e, t, i, N), a = K(e, t, i, P), o = q(G, e, t, i)?.reverse() ?? null, s = [
+					`M${Q(J(t))},${Q(a[0][1])}`,
+					`L${Q(J(t))},${Q(n[0][1])}`,
+					...ne(n, q(te, e, t, i), 1),
+					`L${Q(re(i))},${Q(a[a.length - 1][1])}`,
 					...ne(a.reverse(), o, -1),
 					"Z"
 				].join(" ");
-				r.appendChild(V("path", {
+				r.appendChild(M("path", {
 					d: s,
-					...H(t, i),
-					style: B(t, i)
+					...W(t, i),
+					style: U(t, i)
 				}));
 			}
-			f.appendChild(t);
-		}, se = (e) => {
-			let t = r[e];
-			for (let [n, r] of z(e)) {
-				let i = G(e, n, r, j), a = [`M${Q(re(n))},${Q(i[0][1])}`, ...ne(i, K(te, e, n, r), 1)].join(" ");
-				f.appendChild(V("path", {
-					class: y,
-					...P[e].attrs,
+			_.appendChild(t);
+		}, ae = (e) => {
+			let t = i[e];
+			for (let [n, r] of H(e)) {
+				let i = K(e, n, r, N), a = [`M${Q(J(n))},${Q(i[0][1])}`, ...ne(i, q(te, e, n, r), 1)].join(" ");
+				_.appendChild(M("path", {
+					class: l,
+					...L[e].attrs,
 					d: a,
 					...t.line && { "data-line": t.line },
-					...H(n, r),
-					style: `${P[e].ink}${B(n, r)}`
+					...W(n, r),
+					style: `${L[e].ink}${U(n, r)}`
 				}));
 			}
-		}, q = (e) => {
-			let a = i.map((e) => r[e]), o = r.map((e, t) => h ? Xe(a, i.indexOf(t)) : v ? Xe(r, t) : {
+		}, se = (e) => {
+			let r = a.map((e) => i[e]), o = i.map((e, t) => y ? Ve(r, a.indexOf(t)) : S ? Ve(i, t) : {
 				shape: "circle",
 				open: !1
 			}), s = (e, t, n) => {
-				let [r, i] = N(e, t);
-				return Ze(o[e].shape, r, i, 4 * u, {
+				let [r, i] = I(e, t);
+				return Z(o[e].shape, r, i, 4 * h, {
 					...n,
-					style: `${n.style ?? ""}${D(i)}${R(t)}`
+					style: `${n.style ?? ""}${O(i)}${V(t)}`
 				});
-			}, c = (t) => n.map((e, t) => t).filter((n) => !k(t, n) && e(t, n)), d = i.flatMap((e) => o[e].open ? c(e).map((t) => s(e, t, {
-				class: w,
+			}, c = (t) => n.map((e, t) => t).filter((n) => !A(t, n) && e(t, n)), l = a.flatMap((e) => o[e].open ? c(e).map((t) => s(e, t, {
+				class: m,
 				"data-row": t + 1,
-				...v && { "data-series": e + 1 }
+				...S && { "data-series": e + 1 }
 			})) : []);
-			f.closest("[data-animate]")?.getAttribute("data-animate") === "grow" ? ie(f, d, F, l) : t.lineHoles.push(...d), i.forEach((e) => {
-				for (let t of c(e)) f.appendChild(s(e, t, {
-					class: C,
-					...P[e].attrs,
+			_.closest("[data-animate]")?.getAttribute("data-animate") === "grow" ? ee(_, l, T, f) : t.lineHoles.push(...l), a.forEach((e) => {
+				for (let t of c(e)) _.appendChild(s(e, t, {
+					class: p,
+					...L[e].attrs,
 					"data-marker": o[e].shape,
 					...o[e].open && { "data-open": "" },
 					"data-row": t + 1,
-					style: P[e].ink
+					style: L[e].ink
 				}));
 			});
 		};
-		e && i.forEach((e) => oe(e)), i.forEach((e) => se(e));
-		let ce = h ? r.flatMap((e, t) => i.includes(t) ? [] : a[t].flatMap((e) => {
+		e && a.forEach((e) => ie(e)), a.forEach((e) => ae(e));
+		let le = y ? i.flatMap((e, t) => a.includes(t) ? [] : o[t].flatMap((e) => {
 			let t = e.dataset.place;
 			if (!t || t === "none" || e.hasAttribute("data-left-out")) return [];
-			let [n, r, i, a] = Oe(e, u, F, l);
+			let [n, r, i, a] = ve(e, h, T, f);
 			return [{
 				label: e,
 				box: [
-					n - 2 * u,
-					r - 3 * u,
-					i + 4 * u,
-					a + 6 * u
+					n - 2 * h,
+					r - 3 * h,
+					i + 4 * h,
+					a + 6 * h
 				]
 			}];
-		})) : [], le = g ? [] : i.flatMap((e) => n.flatMap((t, n) => {
-			if (k(e, n)) return [];
-			let [r, i] = N(e, n);
+		})) : [], ue = b ? [] : a.flatMap((e) => n.flatMap((t, n) => {
+			if (A(e, n)) return [];
+			let [r, i] = I(e, n);
 			return [[
-				r - 4 * u,
-				i - 4 * u,
-				8 * u,
-				8 * u
+				r - 4 * h,
+				i - 4 * h,
+				8 * h,
+				8 * h
 			]];
-		})), ue = ce.filter(({ label: e, box: t }) => {
-			let n = le.some((e) => _e(e, t));
+		})), de = le.filter(({ label: e, box: t }) => {
+			let n = ue.some((e) => oe(e, t));
 			return n && e.setAttribute("data-left-out", ""), !n;
-		}), de = (e, t) => {
+		}), fe = (e, t) => {
 			let n = t;
-			for (; n < S && !k(e, n + 1) && O(e, n + 1)?.value === O(e, t)?.value;) n++;
+			for (; n < w && !A(e, n + 1) && k(e, n + 1)?.value === k(e, t)?.value;) n++;
 			return n;
-		}, fe = (e) => e === "above" ? "below" : "above", pe = (e, t, n) => {
-			let [r, i] = N(e, t), o = Y(a[e][t]).width * u, s = [
-				r - o / 2,
-				n === "above" ? i - 7 * u - d : i + 7 * u,
-				o,
-				d
+		}, pe = (e) => e === "above" ? "below" : "above", me = (e, t, n) => {
+			let [r, i] = I(e, t), a = Y(o[e][t]).width * h, s = [
+				r - a / 2,
+				n === "above" ? i - 7 * h - g : i + 7 * h,
+				a,
+				g
 			];
-			return s[1] + d > l ? Infinity : [t - 1, t + 1].filter((t) => t >= 0 && t <= S && !k(e, t)).flatMap((n) => me(e, t, n, 0)).filter((e) => _e(e, s)).length;
-		}, me = (e, t, n, r) => {
-			let [i, a] = N(e, t), [o, s] = N(e, n), c = Math.max(1, Math.ceil(Math.hypot(o - i, s - a) / (3 * u)));
+			return s[1] + g > f ? Infinity : [t - 1, t + 1].filter((t) => t >= 0 && t <= w && !A(e, t)).flatMap((n) => he(e, t, n, 0)).filter((e) => oe(e, s)).length;
+		}, he = (e, t, n, r) => {
+			let [i, a] = I(e, t), [o, s] = I(e, n), c = Math.max(1, Math.ceil(Math.hypot(o - i, s - a) / (3 * h)));
 			return Array.from({ length: c + 1 }, (e, t) => {
 				let n = t / c;
 				return [
@@ -1207,102 +1198,102 @@ var nt = (e) => {
 					2 * r
 				];
 			});
-		}, he = (t, n) => {
-			let i = O(t, n);
-			if (!i || i.missing || g && n > 0 && !k(t, n - 1) && O(t, n - 1)?.value === i.value || x && !r[t].focus) return "none";
-			if (m) return "middle";
-			let a = i.value < 0 ? "below" : "above";
-			if (!v || x || r.length > 2) return e || g || pe(t, n, a) <= pe(t, n, fe(a)) ? a : fe(a);
-			let o = O(1 - t, n);
-			return !o || o.missing ? a : i.value > o.value || i.value === o.value && t === 0 || e && i.value >= 0 && N(t, n)[1] + 7 * u + d > T ? "above" : "below";
-		}, ge = (h || v && !x && r.length > 2 && !m) && !g, ve = /* @__PURE__ */ new Map();
-		if (ge) {
-			let e = n.flatMap((e, t) => i.map((e) => ({
+		}, _e = (t, n) => {
+			let r = k(t, n);
+			if (!r || r.missing || b && n > 0 && !A(t, n - 1) && k(t, n - 1)?.value === r.value || C && !i[t].focus) return "none";
+			if (v) return "middle";
+			let a = r.value < 0 ? "below" : "above";
+			if (!S || C || i.length > 2) return e || b || me(t, n, a) <= me(t, n, pe(a)) ? a : pe(a);
+			let o = k(1 - t, n);
+			return !o || o.missing ? a : r.value > o.value || r.value === o.value && t === 0 || e && r.value >= 0 && I(t, n)[1] + 7 * h + g > E ? "above" : "below";
+		}, ye = (y || S && !C && i.length > 2 && !v) && !b, be = /* @__PURE__ */ new Map();
+		if (ye) {
+			let e = n.flatMap((e, t) => a.map((e) => ({
 				s: e,
 				i: t,
-				value: O(e, t)?.value ?? 0
-			}))).filter(({ s: e, i: t }) => he(e, t) !== "none").sort((e, t) => e.i - t.i || t.value - e.value || e.s - t.s), t = (e) => e < 0 ? ["below", "above"] : ["above", "below"], r = ye(e.map(({ s: e, i: n, value: r }) => {
-				let i = Y(a[e][n]).width * u, [o, s] = N(e, n);
+				value: k(e, t)?.value ?? 0
+			}))).filter(({ s: e, i: t }) => _e(e, t) !== "none").sort((e, t) => e.i - t.i || t.value - e.value || e.s - t.s), t = (e) => e < 0 ? ["below", "above"] : ["above", "below"], r = ce(e.map(({ s: e, i: n, value: r }) => {
+				let i = Y(o[e][n]).width * h, [a, s] = I(e, n);
 				return t(r).map((e) => [
-					o - i / 2,
-					e === "above" ? s - 7 * u - d : s + 7 * u,
+					a - i / 2,
+					e === "above" ? s - 7 * h - g : s + 7 * h,
 					i,
-					d
+					g
 				]);
-			}), [...i.flatMap((e) => n.flatMap((t, n) => {
-				if (k(e, n)) return [];
-				let [r, i] = N(e, n);
+			}), [...a.flatMap((e) => n.flatMap((t, n) => {
+				if (A(e, n)) return [];
+				let [r, i] = I(e, n);
 				return [[
-					r - 4 * u,
-					i - 4 * u,
-					8 * u,
-					8 * u
+					r - 4 * h,
+					i - 4 * h,
+					8 * h,
+					8 * h
 				]];
-			})), ...ue.map(({ box: e }) => e)], [
+			})), ...de.map(({ box: e }) => e)], [
 				0,
 				0,
-				s(S) + s(0),
-				l
+				c(w) + c(0),
+				f
 			]);
-			e.forEach(({ s: e, i: n, value: i }, o) => ve.set(a[e][n], r[o] === null ? null : t(i)[r[o]]));
+			e.forEach(({ s: e, i: n, value: i }, a) => be.set(o[e][n], r[a] === null ? null : t(i)[r[a]]));
 		}
-		let J = (e, t) => ge ? ve.get(a[e][t]) === null : !m && !g ? !1 : Y(a[e][t]).width * u > (g ? de(e, t) - t + 1 : 1) * E - 4 * u || m && e > 0 && j(e, t) < M(e, t) ? !0 : m && Math.abs(c(M(e, t)) - c(j(e, t))) < d * 1.2;
-		i.forEach((e) => {
-			a[e].forEach((t, n) => {
-				t.style.setProperty("--i", String(Q(g ? (L(n) + L(n + 1)) / 2 : L(n))));
-				let r = ve.get(t) ?? he(e, n);
-				if (t.dataset.place = r === "above" ? "outside" : r, t.toggleAttribute("data-left-out", r !== "none" && J(e, n)), g && r !== "none" ? t.dataset.rowEnd = String(de(e, n) + 1) : delete t.dataset.rowEnd, r === "none") return;
-				let i = Y(t).width * u / 2 + 4 * u, a = s(n);
-				g ? a = (s(n) + s(de(e, n))) / 2 : r === "middle" && n === 0 ? a += i : r === "middle" && n === S && (a -= i);
-				let o = c(j(e, n)), d = {
-					middle: (c(M(e, n)) - o) / 2,
-					above: -7 * u,
-					below: 7 * u
+		let X = (e, t) => ye ? be.get(o[e][t]) === null : !v && !b ? !1 : Y(o[e][t]).width * h > (b ? fe(e, t) - t + 1 : 1) * D - 4 * h || v && e > 0 && N(e, t) < P(e, t) ? !0 : v && Math.abs(d(P(e, t)) - d(N(e, t))) < g * 1.2;
+		a.forEach((e) => {
+			o[e].forEach((t, n) => {
+				t.style.setProperty("--i", String(Q(b ? (B(n) + B(n + 1)) / 2 : B(n))));
+				let r = be.get(t) ?? _e(e, n);
+				if (t.dataset.place = r === "above" ? "outside" : r, t.toggleAttribute("data-left-out", r !== "none" && X(e, n)), b && r !== "none" ? t.dataset.rowEnd = String(fe(e, n) + 1) : delete t.dataset.rowEnd, r === "none") return;
+				let i = Y(t).width * h / 2 + 4 * h, a = c(n);
+				b ? a = (c(n) + c(fe(e, n))) / 2 : r === "middle" && n === 0 ? a += i : r === "middle" && n === w && (a -= i);
+				let o = d(N(e, n)), s = {
+					middle: (d(P(e, n)) - o) / 2,
+					above: -7 * h,
+					below: 7 * h
 				};
-				U(t, a, o + d[r], F, l);
+				F(t, a, o + s[r], T, f);
 			});
 		});
-		let be = (e) => {
-			let r = n.flatMap((t, n) => t.pinned && !k(e, n) ? [n] : []), i = n.map((e, t) => t).filter((t) => !k(e, t)), o = (t) => O(e, t)?.value ?? 0, { keys: s } = t.pick;
-			i.length && (s.includes("last") && r.push(i[i.length - 1]), s.includes("first") && r.push(i[0]), s.includes("highest") && r.push(i.reduce((e, t) => o(t) > o(e) ? t : e)), s.includes("lowest") && r.push(i.reduce((e, t) => o(t) < o(e) ? t : e)), s.includes("outliers") && r.push(...ot(i.map((e) => ({
+		let Se = (e) => {
+			let r = n.flatMap((t, n) => t.pinned && !A(e, n) ? [n] : []), i = n.map((e, t) => t).filter((t) => !A(e, t)), a = (t) => k(e, t)?.value ?? 0, { keys: s } = t.pick;
+			i.length && (s.includes("last") && r.push(i[i.length - 1]), s.includes("first") && r.push(i[0]), s.includes("highest") && r.push(i.reduce((e, t) => a(t) > a(e) ? t : e)), s.includes("lowest") && r.push(i.reduce((e, t) => a(t) < a(e) ? t : e)), s.includes("outliers") && r.push(...Xe(i.map((e) => ({
 				x: e,
-				y: o(e)
+				y: a(e)
 			})))?.outside.map((e) => e.x) ?? []));
 			let c = [];
 			for (let t of r) {
-				let n = a[e][t];
-				c.includes(t) || n.dataset.place === "none" || c.every((t) => je([a[e][t], n], u, 1e3, l) === 1) && c.push(t);
+				let n = o[e][t];
+				c.includes(t) || n.dataset.place === "none" || c.every((t) => xe([o[e][t], n], h, 1e3, f) === 1) && c.push(t);
 			}
 			return new Set(c);
-		}, xe = (e) => je(a[e].filter((e) => e.dataset.place !== "none" && !e.hasAttribute("data-left-out")), u, F, l) === 1, Se = (e) => {
-			let t = S;
-			for (; t > 0 && k(e, t);) t--;
+		}, Ce = (e) => xe(o[e].filter((e) => e.dataset.place !== "none" && !e.hasAttribute("data-left-out")), h, T, f) === 1, we = (e) => {
+			let t = w;
+			for (; t > 0 && A(e, t);) t--;
 			return t;
-		}, Ce = /* @__PURE__ */ new Map();
-		for (let e of i) {
-			let n = t.pick.mode === "all" || t.pick.mode === "auto" && xe(e) ? null : be(e);
-			Ce.set(e, n), n && a[e].forEach((e, t) => {
+		}, Te = /* @__PURE__ */ new Map();
+		for (let e of a) {
+			let n = t.pick.mode === "all" || t.pick.mode === "auto" && Ce(e) ? null : Se(e);
+			Te.set(e, n), n && o[e].forEach((e, t) => {
 				e.dataset.place !== "none" && !n.has(t) && e.setAttribute("data-left-out", "");
 			});
 		}
-		if (!m && !g && i.some((e) => Ce.get(e))) {
-			let e = s(S) + s(0), t = 2 * u, r = i.flatMap((e) => n.flatMap((n, r) => r === S || k(e, r) || k(e, r + 1) ? [] : me(e, r, r + 1, t))), c = (o[0] ? Y(o[0]).height : 0) * u, f = i.flatMap((e) => {
-				let t = o[e];
+		if (!v && !b && a.some((e) => Te.get(e))) {
+			let e = c(w) + c(0), t = 2 * h, r = a.flatMap((e) => n.flatMap((n, r) => r === w || A(e, r) || A(e, r + 1) ? [] : he(e, r, r + 1, t))), i = (s[0] ? Y(s[0]).height : 0) * h, l = a.flatMap((e) => {
+				let t = s[e];
 				if (!t) return [];
-				let n = S;
-				for (; n > 0 && k(e, n);) n--;
-				let [r, i] = N(e, n);
+				let n = w;
+				for (; n > 0 && A(e, n);) n--;
+				let [r, a] = I(e, n);
 				return [[
-					r + 10 * u,
-					i - c / 2,
-					Y(t).width * u,
-					c
+					r + 10 * h,
+					a - i / 2,
+					Y(t).width * h,
+					i
 				]];
-			}), p = i.flatMap((e) => [...Ce.get(e) ?? []].map((t) => ({
+			}), u = a.flatMap((e) => [...Te.get(e) ?? []].map((t) => ({
 				s: e,
 				i: t
-			}))), m = ({ s: e, i: t }) => {
-				let n = O(e, t)?.value ?? 0, r = t > 0 && !k(e, t - 1) ? O(e, t - 1)?.value : void 0, i = t < S && !k(e, t + 1) ? O(e, t + 1)?.value : void 0;
+			}))), d = ({ s: e, i: t }) => {
+				let n = k(e, t)?.value ?? 0, r = t > 0 && !A(e, t - 1) ? k(e, t - 1)?.value : void 0, i = t < w && !A(e, t + 1) ? k(e, t + 1)?.value : void 0;
 				return (r ?? i) !== void 0 && (r === void 0 || n <= r) && (i === void 0 || n <= i) ? [
 					"below",
 					"outside",
@@ -1318,98 +1309,98 @@ var nt = (e) => {
 					"after",
 					"before"
 				];
-			}, h = ({ s: t, i: n }, r) => {
-				let i = Y(a[t][n]).width * u, o = d, [s, c] = N(t, n), l = Math.min(Math.max(s - i / 2, 0), e - i);
+			}, p = ({ s: t, i: n }, r) => {
+				let i = Y(o[t][n]).width * h, a = g, [s, c] = I(t, n), l = Math.min(Math.max(s - i / 2, 0), e - i);
 				return r === "outside" ? [
 					l,
-					c - 7 * u - o,
+					c - 7 * h - a,
 					i,
-					o
+					a
 				] : r === "below" ? [
 					l,
-					c + 7 * u,
+					c + 7 * h,
 					i,
-					o
+					a
 				] : r === "outside far" ? [
 					l,
-					c - 7 * u - 2 * o,
+					c - 7 * h - 2 * a,
 					i,
-					o
+					a
 				] : r === "below far" ? [
 					l,
-					c + 7 * u + o,
+					c + 7 * h + a,
 					i,
-					o
+					a
 				] : r === "after" ? [
-					s + 7 * u,
-					c - o / 2,
+					s + 7 * h,
+					c - a / 2,
 					i,
-					o
+					a
 				] : [
-					s - 7 * u - i,
-					c - o / 2,
+					s - 7 * h - i,
+					c - a / 2,
 					i,
-					o
+					a
 				];
-			}, g = p.map(m), _ = (t) => t[0] >= 0 && t[1] >= 0 && t[0] + t[2] <= e && t[1] + t[3] <= l - 2 * u, v = p.map(({ s: e, i: t }) => {
-				let [n, r] = N(e, t);
+			}, m = u.map(d), _ = (t) => t[0] >= 0 && t[1] >= 0 && t[0] + t[2] <= e && t[1] + t[3] <= f - 2 * h, v = u.map(({ s: e, i: t }) => {
+				let [n, r] = I(e, t);
 				return [
-					n - 6 * u,
-					r - 6 * u,
-					12 * u,
-					12 * u
+					n - 6 * h,
+					r - 6 * h,
+					12 * h,
+					12 * h
 				];
-			}), y = [], b = /* @__PURE__ */ new Set(), x = p.map((e, t) => {
-				let n = g[t].map((t) => h(e, t)), i = (e) => _(e) && ![
+			}), y = [], b = /* @__PURE__ */ new Set(), x = u.map((e, t) => {
+				let n = m[t].map((t) => p(e, t)), i = (e) => _(e) && ![
 					...y,
-					...f,
+					...l,
 					...v
-				].some((t) => _e(e, t)), a = n.findIndex((e) => i(e) && !r.some((t) => _e(e, t)));
+				].some((t) => oe(e, t)), a = n.findIndex((e) => i(e) && !r.some((t) => oe(e, t)));
 				return a < 0 && (a = n.findIndex(i), a >= 0 && b.add(t)), a >= 0 && y.push(n[a]), a < 0 ? null : a;
 			});
-			p.forEach((e, t) => {
-				let n = a[e.s][e.i];
+			u.forEach((e, t) => {
+				let n = o[e.s][e.i];
 				n.toggleAttribute("data-cut", b.has(t));
 				let r = x[t];
 				if (r === null) return n.setAttribute("data-left-out", "");
-				let i = g[t][r], [o, s, c, u] = h(e, i), d = i.split(" ")[0];
-				n.dataset.place = d, U(n, d === "after" ? o : d === "before" ? o + c : o + c / 2, d === "outside" ? s + u : d === "below" ? s : s + u / 2, F, l);
+				let i = m[t][r], [a, s, c, l] = p(e, i), u = i.split(" ")[0];
+				n.dataset.place = u, F(n, u === "after" ? a : u === "before" ? a + c : a + c / 2, u === "outside" ? s + l : u === "below" ? s : s + l / 2, T, f);
 			});
 		}
-		g || q((e, t) => {
-			let n = Ce.get(e);
-			return n ? n.has(t) : E >= 10 * u;
+		b || se((e, t) => {
+			let n = Te.get(e);
+			return n ? n.has(t) : D >= 10 * h;
 		}), t.pointOf = (e) => {
-			let t = i.filter((t) => !k(t, e)).map((t) => N(t, e));
+			let t = a.filter((t) => !A(t, e)).map((t) => I(t, e));
 			return t.length ? t.reduce((e, t) => t[1] < e[1] ? t : e) : null;
 		};
-		let we = (h ? [] : o).map((e, t) => {
-			let n = Se(t), [r, i] = N(t, n);
+		let Ee = (y ? [] : s).map((e, t) => {
+			let n = we(t), [r, i] = I(t, n);
 			return {
 				name: e,
-				x: (g ? r + E / 2 : r) + 10 * u,
-				y: m ? (i + c(M(t, n))) / 2 : i
+				x: (b ? r + D / 2 : r) + 10 * h,
+				y: v ? (i + d(P(t, n))) / 2 : i
 			};
-		}), Te = (o[0] ? Y(o[0]).height : 0) * u;
-		for (let e of Ee(we, Te)) U(e.name, e.x, e.y, F, l);
-		let De = n.some((e) => e.cells.some((e) => !e.missing && e.value < 0)), ke = !e && !m && r.length === 2 && !x && !De ? l - 2 * u : T;
-		h || f.appendChild(V("line", {
-			class: p,
+		}), De = (s[0] ? Y(s[0]).height : 0) * h;
+		for (let e of ge(Ee, De)) F(e.name, e.x, e.y, T, f);
+		let Oe = n.some((e) => e.cells.some((e) => !e.missing && e.value < 0)), Ae = !e && !v && i.length === 2 && !C && !Oe ? f - 2 * h : E;
+		y || _.appendChild(M("line", {
+			class: r,
 			x1: 0,
-			x2: s(S) + s(0),
-			y1: ke,
-			y2: ke
+			x2: c(w) + c(0),
+			y1: Ae,
+			y2: Ae
 		}));
 	}
-}), lt = ct(!1), ut = ct(!0), dt = /* @__PURE__ */ new Set(), ft = (e, t) => {
-	if (Math.abs(e - t) <= Math.abs(t) / 100) return;
-	let n = `[${l}] A total reads ${e}, but the steps before it add up to ${Number(t.toFixed(6))}. The chart shows your number.`;
-	dt.has(n) || (dt.add(n), console.warn(n));
-}, pt = {
+}), $e = Qe(!1), et = Qe(!0), tt = /* @__PURE__ */ new Set(), nt = (t, n) => {
+	if (Math.abs(t - n) <= Math.abs(n) / 100) return;
+	let r = `[${e}] A total reads ${t}, but the steps before it add up to ${Number(n.toFixed(6))}. The chart shows your number.`;
+	tt.has(r) || (tt.add(r), console.warn(r));
+}, rt = {
 	segments: (e) => {
 		let t = 0, n = !1;
 		return e.map((e) => {
-			if (e.isTotal) return n && ft(e.value, t), n = !1, t = e.value, {
+			if (e.isTotal) return n && nt(e.value, t), n = !1, t = e.value, {
 				...e,
 				from: 0,
 				to: e.value,
@@ -1426,69 +1417,69 @@ var nt = (e) => {
 	},
 	breakable: !0,
 	headroom: ({ labelHeight: e, badgeHeight: t, hasAnnotations: n, unit: r }) => e + 6 * r + (n ? t * 1.6 : 0),
-	draw({ segments: e, cx: t, y: n, barWidth: r, height: i, unit: a, svg: o, values: s, breakAt: c, insideAlign: l }) {
-		let u = n(0), d = Se(s, r, a), m = l ?? "center", h = e.map((t, r) => {
-			let i = n(Math.max(t.from, t.to)), o = Math.abs(n(t.from) - n(t.to)), l = c !== null && Math.min(t.from, t.to) < c && Math.max(t.from, t.to) > c, u = t.kind === "total" && r > 0 && r === e.length - 1;
+	draw({ segments: e, cx: t, y: i, barWidth: a, height: o, unit: s, svg: c, values: l, breakAt: u, insideAlign: d }) {
+		let f = i(0), p = fe(l, a, s), m = d ?? "center", h = e.map((t, n) => {
+			let r = i(Math.max(t.from, t.to)), a = Math.abs(i(t.from) - i(t.to)), o = u !== null && Math.min(t.from, t.to) < u && Math.max(t.from, t.to) > u, c = t.kind === "total" && n > 0 && n === e.length - 1;
 			return {
-				top: i,
-				length: o,
-				down: t.kind === "down" || t.kind === "total" && (u ? t.to >= 0 : t.to < 0),
-				inside: !l && !d && Ce(s[r], o, a)
+				top: r,
+				length: a,
+				down: t.kind === "down" || t.kind === "total" && (c ? t.to >= 0 : t.to < 0),
+				inside: !o && !p && pe(l[n], a, s)
 			};
-		}), g = s[0] ? Y(s[0]).height * a * .56 : 0, _ = Infinity;
-		for (let [e, t] of h.entries()) t.inside && (_ = Math.min(_, (r - Y(s[e]).width * a) / 2));
-		let v = e.length, y = (e, t, n = !1) => `--start:${(e / v).toFixed(4)}; --span:${(t / v).toFixed(4)}; --ease:${n ? I : "linear"};`;
-		e.forEach((i, a) => {
-			let s = e[a + 1];
-			if (!s) return;
-			let c = n(i.to), l = t(a) + r / 2, u = t(a + 1) - r / 2;
-			o.appendChild(V("line", {
+		}), g = l[0] ? Y(l[0]).height * s * .56 : 0, _ = Infinity;
+		for (let [e, t] of h.entries()) t.inside && (_ = Math.min(_, (a - Y(l[e]).width * s) / 2));
+		let v = e.length, y = (e, t, n = !1) => `--start:${(e / v).toFixed(4)}; --span:${(t / v).toFixed(4)}; --ease:${n ? D : "linear"};`;
+		e.forEach((n, r) => {
+			let o = e[r + 1];
+			if (!o) return;
+			let s = i(n.to), l = t(r) + a / 2, u = t(r + 1) - a / 2;
+			c.appendChild(M("line", {
 				class: "tablechart-connector",
 				x1: l,
 				x2: u,
-				y1: c,
-				y2: c,
-				"data-row": a + 2,
-				style: `${R("--i", s.slot)}; ${y(a + 1, 1 / 3)}`
+				y1: s,
+				y2: s,
+				"data-row": r + 2,
+				style: `${k("--i", o.slot)}; ${y(r + 1, 1 / 3)}`
 			}));
-		}), e.forEach((n, c) => {
-			let { top: l, length: u, down: d, inside: p } = h[c];
-			o.appendChild(V("rect", {
-				class: H(f, n),
-				"data-kind": n.kind,
-				"data-row": c + 1,
-				"data-grow": d ? "down" : "up",
-				x: t(c) - r / 2,
-				y: l,
-				width: r,
-				height: Math.max(u, 1),
-				style: `${R("--i", n.slot)}; ${y(c, 1, c === e.length - 1)}`
+		}), e.forEach((r, i) => {
+			let { top: u, length: d, down: f, inside: p } = h[i];
+			c.appendChild(M("rect", {
+				class: N(n, r),
+				"data-kind": r.kind,
+				"data-row": i + 1,
+				"data-grow": f ? "down" : "up",
+				x: t(i) - a / 2,
+				y: u,
+				width: a,
+				height: Math.max(d, 1),
+				style: `${k("--i", r.slot)}; ${y(i, 1, i === e.length - 1)}`
 			}));
-			let b = s[c];
-			b.style.setProperty("--start", (c / v).toFixed(4)), b.style.setProperty("--span", (1 / v).toFixed(4));
-			let x = Math.min(_, (u - g) / 2), S = l + x + g / 2, C = l + u - x - g / 2, w = m === "center" ? l + u / 2 : m === "end" === d ? C : S;
-			b.dataset.place = p ? "inside" : "outside", b.dataset.kind = n.kind;
-			let T = p ? w : n.kind === "down" ? l + u + Y(b).height * a + 3 * a : l - 3 * a;
-			U(b, t(c), T, F, i);
-		}), o.appendChild(V("line", {
-			class: p,
+			let b = l[i];
+			b.style.setProperty("--start", (i / v).toFixed(4)), b.style.setProperty("--span", (1 / v).toFixed(4));
+			let x = Math.min(_, (d - g) / 2), S = u + x + g / 2, C = u + d - x - g / 2, w = m === "center" ? u + d / 2 : m === "end" === f ? C : S;
+			b.dataset.place = p ? "inside" : "outside", b.dataset.kind = r.kind;
+			let E = p ? w : r.kind === "down" ? u + d + Y(b).height * s + 3 * s : u - 3 * s;
+			F(b, t(i), E, T, o);
+		}), c.appendChild(M("line", {
+			class: r,
 			x1: 0,
-			x2: F,
-			y1: u,
-			y2: u
+			x2: T,
+			y1: f,
+			y2: f
 		}));
 	}
-}, mt = {
+}, it = {
 	enabled: !1,
 	log(...e) {
-		mt.enabled && console.log("[tablechart]", ...e);
+		it.enabled && console.log("[tablechart]", ...e);
 	},
-	timed(e, t, n) {
-		if (!mt.enabled) return n();
-		let r = performance.now(), i = n(), a = performance.now() - r, o = t.querySelectorAll("tbody tr").length;
-		return a > 50 ? console.warn(`[${l}] ${e} took ${a.toFixed(1)} ms for ${o} rows, more than 50 ms.`, t) : mt.log(`${e} took ${a.toFixed(1)} ms for ${o} rows.`, t), i;
+	timed(t, n, r) {
+		if (!it.enabled) return r();
+		let i = performance.now(), a = r(), o = performance.now() - i, s = n.querySelectorAll("tbody tr").length;
+		return o > 50 ? console.warn(`[${e}] ${t} took ${o.toFixed(1)} ms for ${s} rows, more than 50 ms.`, n) : it.log(`${t} took ${o.toFixed(1)} ms for ${s} rows.`, n), a;
 	}
-}, ht = (e) => {
+}, at = (e) => {
 	let t = (e?.textContent || "").trim(), n = t.match(/^(.*?)(-?\d+(?:[.,]\d+)?)(.*)$/);
 	return {
 		raw: t,
@@ -1498,14 +1489,14 @@ var nt = (e) => {
 		missing: !n,
 		value: n ? Number.parseFloat(n[2].replace(",", ".")) : 0
 	};
-}, gt = (e) => Array.from(e.querySelector("thead tr:last-child")?.children ?? []).slice(1).flatMap((e, t) => e.hasAttribute("data-note") ? [t] : []), _t = (e, t) => {
-	let n = gt(e), r = e.querySelectorAll("tbody tr")[t]?.querySelectorAll("td") ?? [];
+}, ot = (e) => Array.from(e.querySelector("thead tr:last-child")?.children ?? []).slice(1).flatMap((e, t) => e.hasAttribute("data-note") ? [t] : []), st = (e, t) => {
+	let n = ot(e), r = e.querySelectorAll("tbody tr")[t]?.querySelectorAll("td") ?? [];
 	return n.map((e) => r[e]).find((e) => e?.textContent?.trim()) ?? null;
-}, vt = (e, t = "data-i18n") => {
-	let n = gt(e);
+}, ct = (e, t = "data-i18n") => {
+	let n = ot(e);
 	return Array.from(e.querySelectorAll("tbody tr")).map((e, r) => {
-		let i = e.querySelector("th"), a = Array.from(e.querySelectorAll("td")), o = a.filter((e, t) => !n.includes(t)).map(ht);
-		o.length || o.push(ht(null));
+		let i = e.querySelector("th"), a = Array.from(e.querySelectorAll("td")), o = a.filter((e, t) => !n.includes(t)).map(at);
+		o.length || o.push(at(null));
 		let s = n.map((e) => a[e]).find((e) => e?.textContent?.trim());
 		return {
 			...o[0],
@@ -1521,8 +1512,8 @@ var nt = (e) => {
 			slot: r
 		};
 	});
-}, yt = (e) => Array.from(e.querySelector("thead tr:last-child")?.children ?? []).slice(1).filter((e) => !e.hasAttribute("data-note")), bt = (e) => e === "dashed" || e === "dotted" ? e : null, xt = (e, t, n = "data-i18n") => {
-	let r = yt(e), i = Math.max(1, q(t.map((e) => e.cells.length)));
+}, lt = (e) => Array.from(e.querySelector("thead tr:last-child")?.children ?? []).slice(1).filter((e) => !e.hasAttribute("data-note")), ut = (e) => e === "dashed" || e === "dotted" ? e : null, dt = (e, t, n = "data-i18n") => {
+	let r = lt(e), i = Math.max(1, W(t.map((e) => e.cells.length)));
 	return Array.from({ length: i }, (e, t) => {
 		let i = r[t];
 		return {
@@ -1530,155 +1521,171 @@ var nt = (e) => {
 			key: n && i?.getAttribute(n) || null,
 			focus: i?.getAttribute("data-kind") === "focus",
 			marker: i?.getAttribute("data-marker") ?? null,
-			line: bt(i?.getAttribute("data-line")),
+			line: ut(i?.getAttribute("data-line")),
 			group: !!i?.hasAttribute("data-group"),
 			chart: i?.getAttribute("data-chart") === "line" ? "line" : null
 		};
 	});
-}, St = (e, t) => {
-	if (!t) return;
-	let n = /* @__PURE__ */ new Map();
-	for (let r of e) {
-		let e = r.getAttribute("data-chart-keys") || null;
-		if (!e) continue;
-		if (n.has(e)) {
-			let t = n.get(e) + 1;
-			n.set(e, t), console.warn(`[${l}] Two charts have data-chart-keys="${e}", so this one uses "${e}-${t}" to keep their translations apart.`), e = `${e}-${t}`;
-		} else n.set(e, 1);
-		r.querySelectorAll("tbody th").forEach((n, r) => {
-			n.getAttribute(t) || n.setAttribute(t, `${e}-row${r + 1}`);
+}, ft = (t, n) => {
+	if (!n) return;
+	let r = /* @__PURE__ */ new Map();
+	for (let i of t) {
+		let t = i.getAttribute("data-chart-keys") || null;
+		if (!t) continue;
+		if (r.has(t)) {
+			let n = r.get(t) + 1;
+			r.set(t, n), console.warn(`[${e}] Two charts have data-chart-keys="${t}", so this one uses "${t}-${n}" to keep their translations apart.`), t = `${t}-${n}`;
+		} else r.set(t, 1);
+		i.querySelectorAll("tbody th").forEach((e, r) => {
+			e.getAttribute(n) || e.setAttribute(n, `${t}-row${r + 1}`);
 		});
-		let i = yt(r);
-		i.length > 1 && i.forEach((n, r) => {
-			n.getAttribute(t) || n.setAttribute(t, `${e}-col${r + 1}`);
-		}), i.forEach((n, i) => {
-			if (!n.hasAttribute("data-group")) return;
+		let a = lt(i);
+		a.length > 1 && a.forEach((e, r) => {
+			e.getAttribute(n) || e.setAttribute(n, `${t}-col${r + 1}`);
+		}), a.forEach((e, r) => {
+			if (!e.hasAttribute("data-group")) return;
 			let a = [];
-			r.querySelectorAll(`tbody tr > td:nth-of-type(${i + 1})`).forEach((n) => {
-				let r = (n.textContent || "").trim();
-				a.includes(r) || a.push(r), n.getAttribute(t) || n.setAttribute(t, `${e}-group${a.indexOf(r) + 1}`);
+			i.querySelectorAll(`tbody tr > td:nth-of-type(${r + 1})`).forEach((e) => {
+				let r = (e.textContent || "").trim();
+				a.includes(r) || a.push(r), e.getAttribute(n) || e.setAttribute(n, `${t}-group${a.indexOf(r) + 1}`);
 			});
 		});
-		let a = gt(r);
-		r.querySelectorAll("tbody tr").forEach((n, r) => {
-			let i = n.querySelectorAll("td");
-			for (let n of a) {
-				let a = i[n];
-				a?.textContent?.trim() && !a.getAttribute(t) && a.setAttribute(t, `${e}-note${r + 1}`);
+		let o = ot(i);
+		i.querySelectorAll("tbody tr").forEach((e, r) => {
+			let i = e.querySelectorAll("td");
+			for (let e of o) {
+				let a = i[e];
+				a?.textContent?.trim() && !a.getAttribute(n) && a.setAttribute(n, `${t}-note${r + 1}`);
 			}
-		}), mt?.log?.(`Keys for "${e}" written onto ${r.querySelectorAll("tbody th").length} rows`);
+		}), it?.log?.(`Keys for "${t}" written onto ${i.querySelectorAll("tbody th").length} rows`);
 	}
-}, Ct = (e) => Number(e.toPrecision(12)), wt = (e, t) => {
+}, pt = (e) => Number(e.toPrecision(12)), mt = (e, t) => {
 	let n = e / Math.max(1, t) || 1, r = 10 ** Math.floor(Math.log10(n)), i = n / r;
-	return Ct((i < 1.42 ? 1 : i < 3.17 ? 2 : i < 7.08 ? 5 : 10) * r);
-}, Tt = (e, t, n) => {
+	return pt((i < 1.42 ? 1 : i < 3.17 ? 2 : i < 7.08 ? 5 : 10) * r);
+}, ht = (e, t, n) => {
 	let r = [];
-	for (let i = Math.ceil(e / n - 1e-9); i * n <= t + n * 1e-9; i++) r.push(Ct(i * n));
+	for (let i = Math.ceil(e / n - 1e-9); i * n <= t + n * 1e-9; i++) r.push(pt(i * n));
 	return r;
-}, Et = (e, t = e) => {
+}, gt = (e, t = e) => {
 	do {
 		let t = Math.round(e / 10 ** Math.floor(Math.log10(e) + 1e-9));
-		e = Ct(e * (t === 2 ? 2.5 : 2));
+		e = pt(e * (t === 2 ? 2.5 : 2));
 	} while (Math.abs(e / t - Math.round(e / t)) > 1e-9);
 	return e;
-}, Dt = (e) => {
+}, _t = (e) => {
 	let t = (e ?? "").trim().split(/\s+/).map(Number.parseFloat);
 	return t.length > 1 && t.every(Number.isFinite) ? t.sort((e, t) => e - t) : null;
-}, Ot = (e, t, n) => {
+}, vt = (e, t, n) => {
 	if (n && n.length > 2) return {
 		min: n[0],
 		max: n[n.length - 1],
 		step: 0,
 		ticks: n
 	};
-	let r = n?.[0] ?? -q(e.map((e) => -e)), i = n?.[1] ?? q(e);
+	let r = n?.[0] ?? -W(e.map((e) => -e)), i = n?.[1] ?? W(e);
 	if (!n) {
 		let e = (i - r || Math.abs(i) || 1) * .05;
 		r -= e, i += e;
 	}
-	let a = wt(i - r, t);
+	let a = mt(i - r, t);
 	return {
 		min: r,
 		max: i,
 		step: a,
-		ticks: Tt(r, i, a)
+		ticks: ht(r, i, a)
 	};
-}, kt = (e, t) => {
+}, yt = (e, t) => {
 	let { step: n, ticks: r } = e;
-	for (; n && r.length > 2 && !t(r);) n = Et(n, e.step), r = Tt(e.min, e.max, n);
+	for (; n && r.length > 2 && !t(r);) n = gt(n, e.step), r = ht(e.min, e.max, n);
 	return {
 		...e,
 		step: n,
 		ticks: r
 	};
-}, At = null, jt = (e) => {
-	if (At ??= document.createElement("canvas").getContext("2d", { willReadFrequently: !0 }), !At) return [
+}, bt = null, xt = (e) => {
+	if (bt ??= document.createElement("canvas").getContext("2d", { willReadFrequently: !0 }), !bt) return [
 		0,
 		0,
 		0,
 		1
 	];
-	At.clearRect(0, 0, 1, 1), At.fillStyle = e, At.fillRect(0, 0, 1, 1);
-	let [t, n, r, i] = At.getImageData(0, 0, 1, 1).data;
+	bt.clearRect(0, 0, 1, 1), bt.fillStyle = e, bt.fillRect(0, 0, 1, 1);
+	let [t, n, r, i] = bt.getImageData(0, 0, 1, 1).data;
 	return [
 		t,
 		n,
 		r,
 		i / 255
 	];
-}, Mt = ([e, t, n]) => {
+}, St = ([e, t, n]) => {
 	let r = (e) => {
 		let t = e / 255;
 		return t <= .03928 ? t / 12.92 : ((t + .055) / 1.055) ** 2.4;
 	};
 	return .2126 * r(e) + .7152 * r(t) + .0722 * r(n);
-}, Nt = (e, t) => {
-	let [n, r] = [Mt(e), Mt(t)].sort((e, t) => t - e);
+}, Ct = (e) => getComputedStyle(e).getPropertyValue("--tablechart-contrast-wcag").trim() === "3" ? 3 : 2, wt = ([e, t, n]) => {
+	let r = .2126729 * (e / 255) ** 2.4 + .7151522 * (t / 255) ** 2.4 + .072175 * (n / 255) ** 2.4;
+	return r < .022 ? r + (.022 - r) ** 1.414 : r;
+}, Tt = (e, t) => {
+	let n = wt(e), r = wt(t);
+	if (Math.abs(r - n) < 5e-4) return 0;
+	let i = r > n ? (r ** .56 - n ** .57) * 1.14 : (r ** .65 - n ** .62) * 1.14;
+	return Math.abs(i) < .1 ? 0 : (Math.abs(i) - .027) * 100;
+}, Et = (e, t, n) => e === 3 ? Tt(t, n) : Dt(t, n), Dt = (e, t) => {
+	let [n, r] = [St(e), St(t)].sort((e, t) => t - e);
 	return (n + .05) / (r + .05);
-}, Pt = (e) => {
-	let t = document.createElement("span");
-	t.style.color = "var(--tablechart-surface, Canvas)", e.append(t);
-	let n = jt(getComputedStyle(t).color);
-	return t.remove(), n;
-}, Ft = (e, t) => e.querySelector(`:is(.tablechart-bar, .tablechart-piece)[data-row="${t.dataset.row}"]${t.dataset.series ? `[data-series="${t.dataset.series}"]` : ""}`), It = (e) => {
+}, Ot = (e, t) => {
+	let n = document.createElement("span");
+	n.style.color = t, e.append(n);
+	let r = xt(getComputedStyle(n).color);
+	return n.remove(), r;
+}, kt = (e) => {
+	let t = [], n = null;
+	for (let r = e; r && !n; r = r.parentElement) {
+		let { background: e, backgroundColor: i } = r.dataset, a = xt(i || (e && CSS.supports("color", e) ? e : "") || getComputedStyle(r).backgroundColor);
+		a[3] >= 1 ? n = a : a[3] > 0 && t.push(a);
+	}
+	n ??= Ot(e, "Canvas");
+	for (let [e, r, i, a] of t.reverse()) n = [
+		e,
+		r,
+		i
+	].map((e, t) => e * a + n[t] * (1 - a));
+	e.style.setProperty("--_surface", `rgb(${n.slice(0, 3).map(Math.round).join(" ")})`);
+}, At = (e) => Ot(e, "var(--tablechart-surface, var(--_surface, Canvas))"), jt = (e, t) => e.querySelector(`:is(.tablechart-bar, .tablechart-piece)[data-row="${t.dataset.row}"]${t.dataset.series ? `[data-series="${t.dataset.series}"]` : ""}`), Mt = [
+	255,
+	255,
+	255
+], Nt = [
+	0,
+	0,
+	0
+], Pt = (e, t, n) => {
+	let r = Et(n, Mt, e), i = Et(n, Nt, e);
+	return r >= t ? Mt : i >= t ? Nt : n === 2 && r >= 4.5 || r > i ? Mt : Nt;
+}, Ft = (e) => {
 	let t = e.querySelectorAll(".tablechart-value[data-place='inside']");
 	if (!t.length) return;
-	let n = Pt(e);
-	for (let r of t) {
-		let t = Ft(e, r);
-		if (!t || r.hasAttribute("data-left-out")) continue;
-		let i = jt(getComputedStyle(t).fill), a = Mt(n) > Mt(i), o = a ? [
-			255,
-			255,
-			255
-		] : [
-			0,
-			0,
-			0
-		], s = a ? [
-			0,
-			0,
-			0
-		] : [
-			255,
-			255,
-			255
-		];
-		for (let e = 0; e <= 20; e++) {
-			let t = n.slice(0, 3).map((t, n) => Math.round(t + (o[n] - t) * e / 20));
-			if (Nt(t, i) >= 4.5) {
-				s = t;
-				break;
-			}
-		}
-		r.style.setProperty("--_ink", `rgb(${s.join(" ")})`);
+	let n = At(e).slice(0, 3), r = St(n) > .179, i = (t, n) => {
+		let [r, i, a, o] = Ot(e, `var(${t}, transparent)`);
+		return o > 0 ? [
+			r,
+			i,
+			a
+		] : n;
+	}, a = Ct(e), o = Number.parseFloat(getComputedStyle(e).getPropertyValue("--tablechart-value-contrast")) || (a === 3 ? 60 : 5), s = xt(getComputedStyle(e).color).slice(0, 3), c = i("--tablechart-value-on-dark", r ? n : s), l = i("--tablechart-value-on-light", r ? s : n);
+	for (let n of t) {
+		let t = jt(e, n);
+		if (!t || n.hasAttribute("data-left-out")) continue;
+		let r = xt(getComputedStyle(t).fill), i = Et(a, c, r) > Et(a, l, r) ? c : l, s = Et(a, i, r) >= o ? i : Pt(r, o, a);
+		n.style.setProperty("--_ink", `rgb(${s.join(" ")})`);
 	}
-}, Lt = [
+}, It = [
 	"axis-break",
 	"trend",
 	"bracket"
-], Rt = (e, t = !1) => {
-	let n = e.hasAttribute("data-fragment"), r = Array.from(e.querySelectorAll("tbody tr")), i = Array.from(e.querySelector("thead tr:last-child")?.children ?? []).slice(1), a = Array.from(e.querySelectorAll("[data-annotation]")).filter((e) => Lt.includes(e.getAttribute("data-annotation") ?? "")), o = (e) => e.hasAttribute("data-fragment"), s = r.map((e) => Array.from(e.querySelectorAll(":scope > td")));
+], Lt = (e, t = !1) => {
+	let n = e.hasAttribute("data-fragment"), r = Array.from(e.querySelectorAll("tbody tr")), i = Array.from(e.querySelector("thead tr:last-child")?.children ?? []).slice(1), a = Array.from(e.querySelectorAll("[data-annotation]")).filter((e) => It.includes(e.getAttribute("data-annotation") ?? "")), o = (e) => e.hasAttribute("data-fragment"), s = r.map((e) => Array.from(e.querySelectorAll(":scope > td")));
 	if (!n && !r.some(o) && !i.some(o) && !s.flat().some(o) && !a.some(o) || t && !n) return null;
 	let c = [], l = /* @__PURE__ */ new Map(), u = [], d = (e) => {
 		let t = e === null ? void 0 : l.get(e);
@@ -1740,7 +1747,7 @@ var nt = (e) => {
 		count: c.length,
 		indexes: c
 	};
-}, zt = (e) => {
+}, Rt = (e) => {
 	let t = e.plan;
 	if (!t) return;
 	let n = (t) => t === null || e.step - t >= 1;
@@ -1751,90 +1758,90 @@ var nt = (e) => {
 		let u = r.hasAttribute("data-flat") ? (l - e + 1) / (i - e + 1) : i > e ? Math.max(0, l - e) / (i - e) : 0;
 		r.style.setProperty("--reveal", String(u));
 	}
-}, Bt = (e) => {
+}, zt = (e) => {
 	let t = e.plan;
 	if (!t) return;
-	let n = t.rows.length - 1, r = (e) => t.series.map((n, r) => t.cells[e]?.[r]?.step ?? n.step ?? t.rows[e]?.step ?? null), i = (e) => {
-		let t = r(e);
+	let r = t.rows.length - 1, i = (e) => t.series.map((n, r) => t.cells[e]?.[r]?.step ?? n.step ?? t.rows[e]?.step ?? null), a = (e) => {
+		let t = i(e);
 		return t.some((e) => e === null) ? null : Math.min(...t);
-	}, a = new Set(e.totals), o = !!e.type.axes, s = (e, t, n, r) => {
-		o && n === "--i" || e.style.setProperty(n, String(r)), e.style.removeProperty("--d"), t === null ? e.style.removeProperty("--step") : e.style.setProperty("--step", String(t));
+	}, o = new Set(e.totals), s = !!e.type.axes, l = (e, t, n, r) => {
+		s && n === "--i" || e.style.setProperty(n, String(r)), e.style.removeProperty("--d"), t === null ? e.style.removeProperty("--step") : e.style.setProperty("--step", String(t));
 	};
-	for (let o of e.figure.querySelectorAll("[data-row], [data-series], [data-note]")) {
-		if (o.closest("table, .tablechart-controls") || o.hasAttribute("data-from")) continue;
-		let e = Number(o.dataset.note);
+	for (let n of e.figure.querySelectorAll("[data-row], [data-series], [data-note]")) {
+		if (n.closest("table, .tablechart-controls") || n.hasAttribute("data-from")) continue;
+		let e = Number(n.dataset.note);
 		if (e > 0) {
-			let n = t.notes[e - 1];
-			n && s(o, n.step, "--after", n.after);
+			let r = t.notes[e - 1];
+			r && l(n, r.step, "--after", r.after);
 			continue;
 		}
-		let c = o.dataset.row ? Number(o.dataset.row) - 1 : n;
-		if (o.classList.contains("tablechart-connector")) {
-			let e = t.rows[c - 1], n = t.rows[c];
-			if (e && n) {
-				let t = (e.step ?? -1) > (n.step ?? -1);
-				s(o, t ? e.step : n.step, "--i", t ? e.slot + 1 : n.slot);
+		let s = n.dataset.row ? Number(n.dataset.row) - 1 : r;
+		if (n.classList.contains("tablechart-connector")) {
+			let e = t.rows[s - 1], r = t.rows[s];
+			if (e && r) {
+				let t = (e.step ?? -1) > (r.step ?? -1);
+				l(n, t ? e.step : r.step, "--i", t ? e.slot + 1 : r.slot);
 			}
 			continue;
 		}
-		if (a.has(o)) {
-			let e = r(c).filter((e) => e !== null);
-			s(o, e.length ? Math.max(...e) : null, "--i", t.rows[c]?.slot ?? 0);
+		if (o.has(n)) {
+			let e = i(s).filter((e) => e !== null);
+			l(n, e.length ? Math.max(...e) : null, "--i", t.rows[s]?.slot ?? 0);
 			continue;
 		}
-		if (o.hasAttribute("data-stack")) {
-			s(o, i(c), "--i", t.rows[c]?.slot ?? 0);
+		if (n.hasAttribute("data-stack")) {
+			l(n, a(s), "--i", t.rows[s]?.slot ?? 0);
 			continue;
 		}
-		let l = o.dataset.series ? Number(o.dataset.series) - 1 : 0, u = o.dataset.series ? t.series[l] : void 0;
-		if (o.classList.contains("tablechart-piece")) {
-			let e = r(c)[l] ?? null, n = t.cells[c]?.[l];
-			s(o, e === i(c) ? null : e, "--i", n && n.step !== null ? n.slot : c);
+		let c = n.dataset.series ? Number(n.dataset.series) - 1 : 0, u = n.dataset.series ? t.series[c] : void 0;
+		if (n.classList.contains("tablechart-piece")) {
+			let e = i(s)[c] ?? null, r = t.cells[s]?.[c];
+			l(n, e === a(s) ? null : e, "--i", r && r.step !== null ? r.slot : s);
 			continue;
 		}
-		if (o.dataset.place === "legend") {
-			let e = Math.min(...t.cells.map((e) => e[l]?.step ?? Infinity));
-			s(o, u?.step ?? (Number.isFinite(e) ? e : null), "--i", 0);
+		if (n.dataset.place === "legend") {
+			let e = Math.min(...t.cells.map((e) => e[c]?.step ?? Infinity));
+			l(n, u?.step ?? (Number.isFinite(e) ? e : null), "--i", 0);
 			continue;
 		}
-		let d = t.cells[c]?.[l];
-		d && d.step !== null ? s(o, d.step, "--i", d.slot) : u && u.step !== null ? s(o, u.step, "--i", c) : t.rows[c] && s(o, t.rows[c].step, "--i", t.rows[c].slot);
+		let d = t.cells[s]?.[c];
+		d && d.step !== null ? l(n, d.step, "--i", d.slot) : u && u.step !== null ? l(n, u.step, "--i", s) : t.rows[s] && l(n, t.rows[s].step, "--i", t.rows[s].slot);
 	}
-	let c = e.figure.querySelector(`.${T}`);
-	if (c) {
+	let u = e.figure.querySelector(`.${h}`);
+	if (u) {
 		let e = [...t.rows, ...t.cells.flat()].map((e) => e.step ?? -1), n = Math.max(-1, ...e);
-		n < 0 ? s(c, null, "--i", 0) : s(c, n, "--i", e.filter((e) => e === n).length);
+		n < 0 ? l(u, null, "--i", 0) : l(u, n, "--i", e.filter((e) => e === n).length);
 	}
-	let l = [...t.rows, ...t.cells.flat()].map((e) => e.slot + 1), u = t.series.some((e) => e.step !== null) ? t.rows.length : 1;
-	o || e.plot.style.setProperty("--count", String(Math.max(u, ...l)));
-	let d = e.figure.querySelectorAll(`.${f}`), p = d[d.length - 1];
-	if (e.figure.dataset.chart === "waterfall" && p?.dataset.kind === "total" && d.length > 1) {
-		let e = Number(p.dataset.row) - 1;
-		(t.rows[e - 1]?.step ?? -1) > (t.rows[e]?.step ?? -1) && (p.dataset.grow = p.dataset.grow === "down" ? "up" : "down");
+	let d = [...t.rows, ...t.cells.flat()].map((e) => e.slot + 1), f = t.series.some((e) => e.step !== null) ? t.rows.length : 1;
+	s || e.plot.style.setProperty("--count", String(Math.max(f, ...d)));
+	let p = e.figure.querySelectorAll(`.${n}`), m = p[p.length - 1];
+	if (e.figure.dataset.chart === "waterfall" && m?.dataset.kind === "total" && p.length > 1) {
+		let e = Number(m.dataset.row) - 1;
+		(t.rows[e - 1]?.step ?? -1) > (t.rows[e]?.step ?? -1) && (m.dataset.grow = m.dataset.grow === "down" ? "up" : "down");
 	}
-	let m = Array.from(e.figure.querySelectorAll(`.${v}`));
-	if (m.length) {
-		let t = (e) => e.style.getPropertyValue("--step") || "none", n = (e) => Number(e.style.getPropertyValue("--share") || 0), r = m.length, i = Math.max(0, m.findIndex((e, n) => t(e) !== t(m[(n - 1 + r) % r]))), a = [];
+	let g = Array.from(e.figure.querySelectorAll(`.${c}`));
+	if (g.length) {
+		let t = (e) => e.style.getPropertyValue("--step") || "none", n = (e) => Number(e.style.getPropertyValue("--share") || 0), r = g.length, i = Math.max(0, g.findIndex((e, n) => t(e) !== t(g[(n - 1 + r) % r]))), a = [];
 		for (let e = 0; e < r; e++) {
-			let n = m[(i + e) % r], o = a[a.length - 1];
+			let n = g[(i + e) % r], o = a[a.length - 1];
 			o && t(o[0]) === t(n) ? o.push(n) : a.push([n]);
 		}
 		let o = /* @__PURE__ */ new Map();
 		for (let e of a) {
 			let t = e.reduce((e, t) => e + n(t), 0), r = 0;
-			for (let i of e) o.set(i.dataset.row ?? "", L(r, n(i), t)), r += n(i);
+			for (let i of e) o.set(i.dataset.row ?? "", O(r, n(i), t)), r += n(i);
 		}
 		for (let t of e.figure.querySelectorAll("[data-row]")) {
 			let e = o.get(t.dataset.row ?? "");
 			e && t.style.getPropertyValue("--start") && (t.style.setProperty("--start", e.start.toFixed(4)), t.style.setProperty("--span", e.span.toFixed(4)), t.classList.contains("tablechart-slice") && t.style.setProperty("--ease", e.easing));
 		}
 	}
-	zt(e);
-}, Vt = (e, t, n = !1) => {
+	Rt(e);
+}, Bt = (e, t, n = !1) => {
 	let r = e.plan;
 	if (!r) return;
 	let i = Math.min(Math.max(Math.round(t), 0), r.count), a = i !== e.step;
-	e.step = i, e.figure.style.setProperty("--_step", String(i)), zt(e);
+	e.step = i, e.figure.style.setProperty("--_step", String(i)), Rt(e);
 	let [o, s] = e.controls?.querySelectorAll("button") ?? [];
 	o && (o.disabled = i === 0), s && (s.disabled = i === r.count), a && !n && e.figure.dispatchEvent(new CustomEvent("tablechart:step", {
 		bubbles: !0,
@@ -1843,7 +1850,7 @@ var nt = (e) => {
 			steps: r.count
 		}
 	}));
-}, Ht = (e, t, n) => {
+}, Vt = (e, t, n) => {
 	let r = document.createElement("div");
 	r.className = "tablechart-controls";
 	let i = (r) => {
@@ -1851,17 +1858,17 @@ var nt = (e) => {
 		i.type = "button", i.className = `tablechart-${r}`, i.dataset.go = r;
 		let a = document.createElement("span");
 		a.className = "tablechart-control-icon", a.setAttribute("aria-hidden", "true");
-		let o = V("svg", {
+		let o = M("svg", {
 			viewBox: "0 0 16 16",
 			focusable: "false"
 		});
-		o.appendChild(V("path", { d: r === "next" ? "M6 3l5 5-5 5" : "M10 3L5 8l5 5" })), a.appendChild(o);
+		o.appendChild(M("path", { d: r === "next" ? "M6 3l5 5-5 5" : "M10 3L5 8l5 5" })), a.appendChild(o);
 		let s = document.createElement("span");
 		s.className = "tablechart-control-label", s.textContent = e[r];
 		let c = t[r];
 		c && n && s.setAttribute(n, c);
 		let l = document.createElement("span");
-		return l.className = O, l.textContent = e.hint, t.hint && n && l.setAttribute(n, t.hint), i.append(...r === "next" ? [
+		return l.className = _, l.textContent = e.hint, t.hint && n && l.setAttribute(n, t.hint), i.append(...r === "next" ? [
 			s,
 			l,
 			a
@@ -1872,66 +1879,67 @@ var nt = (e) => {
 		]), i;
 	};
 	return r.append(i("previous"), i("next")), r;
-}, Ut = (e, t, n, r = {
+}, Ht = (e, t, n, r = {
 	x: 0,
 	y: 0,
 	scale: 1
 }, i = 2, a = 8, o = 12) => {
 	let s = e.getBoundingClientRect(), c = s.width, l = s.height, u = Number.parseFloat(getComputedStyle(e).borderLeftWidth) || 0, d = t.getBoundingClientRect().height / 2 + (i - u) * r.scale, f = o * r.scale, { clientWidth: p, clientHeight: m } = document.documentElement, h = n.top - a, g = m - n.bottom - a, _ = l + d <= h ? !0 : l + d <= g ? !1 : h >= g, v = _ ? n.top - d - l : n.bottom + d, y = n.left + n.width / 2, b = Math.max(a, Math.min(y - c / 2, p - c - a));
 	e.style.left = `${(b - r.x) / r.scale}px`, e.style.top = `${(Math.max(a, Math.min(v, m - l - a)) - r.y) / r.scale}px`, e.dataset.side = _ ? "top" : "bottom", t.style.left = `${Math.max(f, Math.min(y - b, c - f)) / r.scale - u}px`;
-}, Wt = "tablechart-tooltip", Gt = [
+}, Ut = "tablechart-tooltip", Wt = [
 	"--tablechart-surface",
+	"--_surface",
 	"--tablechart-tooltip-surface",
 	"--tablechart-tooltip-color",
 	"--tablechart-tooltip-border",
 	"--tablechart-tooltip-radius",
 	"--tablechart-tooltip-padding",
 	"--tablechart-tooltip-shadow"
-], $ = null, Kt, qt, Jt = null, Yt = null, Xt = 0, Zt = () => {
-	clearTimeout(Xt), $ && Jt && ($.hidden = !0, Jt = null, Yt = null);
-}, Qt = !1, $t = !0, en = NaN, tn = NaN, nn = !1, rn = () => {
-	if (nn) return;
-	nn = !0, document.addEventListener("pointermove", (e) => {
-		e.pointerType === "mouse" && ($t = e.screenX !== en || e.screenY !== tn, en = e.screenX, tn = e.screenY, $t && (Qt = !1));
+], $ = null, Gt, Kt, qt = null, Jt = null, Yt = 0, Xt = () => {
+	clearTimeout(Yt), $ && qt && ($.hidden = !0, qt = null, Jt = null);
+}, Zt = !1, Qt = !0, $t = NaN, en = NaN, tn = !1, nn = () => {
+	if (tn) return;
+	tn = !0, document.addEventListener("pointermove", (e) => {
+		e.pointerType === "mouse" && (Qt = e.screenX !== $t || e.screenY !== en, $t = e.screenX, en = e.screenY, Qt && (Zt = !1));
 	}, {
 		capture: !0,
 		passive: !0
 	});
 	let e = () => {
-		Qt = !0, Zt();
+		Zt = !0, Xt();
 	};
 	document.addEventListener("keydown", e, !0), window.addEventListener("scroll", e, {
 		capture: !0,
 		passive: !0
 	});
-}, an = (e, t) => t / Number.parseFloat(getComputedStyle(e).width) || 1, on = (e) => {
+}, rn = (e, t) => t / Number.parseFloat(getComputedStyle(e).width) || 1, an = (e) => {
 	let t = e.tooltipparent;
 	return (typeof t == "string" ? document.querySelector(t) : t) ?? document.body;
+}, on = () => {
+	clearTimeout(Yt), Yt = window.setTimeout(Xt, 120);
 }, sn = () => {
-	clearTimeout(Xt), Xt = window.setTimeout(Zt, 120);
-}, cn = () => {
 	let e = document.createElement("div");
-	return e.className = Wt, e.setAttribute("aria-hidden", "true"), e.hidden = !0, Kt = document.createElement("div"), qt = document.createElement("div"), qt.className = `${Wt}-arrow`, e.append(Kt, qt), document.body.append(e), e.addEventListener("pointerenter", () => clearTimeout(Xt)), e.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && sn()), document.addEventListener("pointerdown", (t) => {
+	return e.className = Ut, e.setAttribute("aria-hidden", "true"), e.hidden = !0, Gt = document.createElement("div"), Kt = document.createElement("div"), Kt.className = `${Ut}-arrow`, e.append(Gt, Kt), document.body.append(e), e.addEventListener("pointerenter", () => clearTimeout(Yt)), e.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && on()), document.addEventListener("pointerdown", (t) => {
 		let n = t.target;
-		Jt && !Jt.plot.contains(n) && !e.contains(n) && Zt();
-	}), window.addEventListener("resize", Zt), e;
-}, ln = (e, t) => {
+		qt && !qt.plot.contains(n) && !e.contains(n) && Xt();
+	}), window.addEventListener("resize", Xt), e;
+}, cn = (e, t) => {
 	let n = t ? t.style.getPropertyValue("--step") : "x";
 	return n === "" || Number(n) < e.step;
-}, un = (e, t) => {
+}, ln = (e, t) => {
 	let n = e.svg.querySelector(`[data-series="${t + 1}"]:not(.tablechart-hole)`);
 	if (!n) return;
 	let r = getComputedStyle(n);
 	return r.fill && r.fill !== "none" ? r.fill : r.stroke;
-}, dn = (e, t, n) => {
+}, un = (e, t, n) => {
 	let r = e.series.length > 1, i = [];
 	for (let [n, a] of e.seriesValues.entries()) {
-		if (!ln(e, a[t])) continue;
+		if (!cn(e, a[t])) continue;
 		let o = r ? e.figure.querySelector(`.tablechart-name[data-series="${n + 1}"]`) : null;
 		i.push({
 			name: r ? o?.textContent ?? e.series[n].name : "",
 			value: a[t].textContent ?? "",
-			colour: r ? un(e, n) : void 0,
+			colour: r ? ln(e, n) : void 0,
 			sample: o ? {
 				marker: o.dataset.marker ?? null,
 				open: o.hasAttribute("data-open"),
@@ -1941,15 +1949,15 @@ var nt = (e) => {
 		});
 	}
 	let a = e.totals[t];
-	return i.length > 1 && ln(e, a) && i.push({
+	return i.length > 1 && cn(e, a) && i.push({
 		name: n.totallabel,
 		value: a.textContent ?? ""
 	}), i;
-}, fn = (e, t) => {
+}, dn = (e, t) => {
 	if (e.type.centre && e.values[t]) return e.values[t].getBoundingClientRect();
 	let n = e.pointOf?.(t);
 	if (n) {
-		let t = e.svg.getBoundingClientRect(), r = t.width / F, i = 4 * r * (F / e.plot.clientWidth);
+		let t = e.svg.getBoundingClientRect(), r = t.width / T, i = 4 * r * (T / e.plot.clientWidth);
 		return new DOMRect(t.left + n[0] * r - i, t.top + n[1] * r - i, 2 * i, 2 * i);
 	}
 	let r = e.svg.querySelectorAll(`[data-row="${t + 1}"]:not(.tablechart-connector, .tablechart-leader)`), i = null;
@@ -1965,49 +1973,49 @@ var nt = (e) => {
 		100
 	];
 	return new DOMRect(a.left + a.width * o / 100, a.top + a.height * s / 100, a.width * c / 100, a.height * l / 100);
-}, pn = (e, t, n) => {
-	if (clearTimeout(Xt), Jt === e && Yt === t) return;
-	let r = (e.type.tooltip ?? dn)(e, t, n);
-	if (!r.length) return Zt();
-	Jt && Jt !== e && Zt(), $ ??= cn();
+}, fn = (e, t, n) => {
+	if (clearTimeout(Yt), qt === e && Jt === t) return;
+	let r = (e.type.tooltip ?? un)(e, t, n);
+	if (!r.length) return Xt();
+	qt && qt !== e && Xt(), $ ??= sn();
 	let i = (e, t, n, r = !1, i) => {
 		let a = document.createElement("div");
-		if (a.className = `${Wt}-line`, n) {
+		if (a.className = `${Ut}-line`, n) {
 			let e = document.createElement("span");
-			e.className = `${Wt}-key`, e.style.background = n, i?.box ? e.dataset.sample = "box" : i && (e.dataset.sample = "line", i.marker && (e.dataset.marker = i.marker), i.line && (e.dataset.line = i.line), e.toggleAttribute("data-open", i.open)), a.append(e);
+			e.className = `${Ut}-key`, e.style.background = n, i?.box ? e.dataset.sample = "box" : i && (e.dataset.sample = "line", i.marker && (e.dataset.marker = i.marker), i.line && (e.dataset.line = i.line), e.toggleAttribute("data-open", i.open)), a.append(e);
 		}
 		let o = document.createElement("span");
-		if (o.className = `${Wt}-${r ? "title" : "name"}`, o.textContent = e, a.append(o), t) {
+		if (o.className = `${Ut}-${r ? "title" : "name"}`, o.textContent = e, a.append(o), t) {
 			e && o.append(":");
 			let n = document.createElement("span");
-			n.className = `${Wt}-value`, n.textContent = t, a.append(n);
+			n.className = `${Ut}-value`, n.textContent = t, a.append(n);
 		}
 		return a;
-	}, a = (e.figure.querySelectorAll("tbody tr")[t]?.querySelector("th"))?.textContent?.trim() || e.categories[t]?.textContent || e.rows[t].label, o = r.length === 1 && !r[0].name, s = r.every((e) => e.name && !e.value), c = _t(e.figure, t)?.textContent?.trim(), l = c ? [Object.assign(document.createElement("div"), {
-		className: `${Wt}-note`,
+	}, a = (e.figure.querySelectorAll("tbody tr")[t]?.querySelector("th"))?.textContent?.trim() || e.categories[t]?.textContent || e.rows[t].label, o = r.length === 1 && !r[0].name, s = r.every((e) => e.name && !e.value), c = st(e.figure, t)?.textContent?.trim(), l = c ? [Object.assign(document.createElement("div"), {
+		className: `${Ut}-note`,
 		textContent: c
 	})] : [];
-	Kt.replaceChildren(...s ? [] : [i(a, o ? r[0].value : "", void 0, !0)], ...o ? [] : r.map(({ name: e, value: t, colour: n, sample: r }) => i(e, t, n, !1, r)), ...l);
+	Gt.replaceChildren(...s ? [] : [i(a, o ? r[0].value : "", void 0, !0)], ...o ? [] : r.map(({ name: e, value: t, colour: n, sample: r }) => i(e, t, n, !1, r)), ...l);
 	let u = getComputedStyle(e.figure);
-	for (let e of Gt) {
+	for (let e of Wt) {
 		let t = u.getPropertyValue(e).trim();
 		t ? $.style.setProperty(e, t) : $.style.removeProperty(e);
 	}
 	$.style.setProperty("--_color", u.color), $.style.colorScheme = u.colorScheme, $.style.fontFamily = u.fontFamily;
-	let d = on(n);
-	$.parentElement !== d && d.append($), Jt = e, Yt = t, $.hidden = !1, $.style.left = "0px", $.style.top = "0px";
+	let d = an(n);
+	$.parentElement !== d && d.append($), qt = e, Jt = t, $.hidden = !1, $.style.left = "0px", $.style.top = "0px";
 	let f = $.getBoundingClientRect(), p = {
 		x: f.left,
 		y: f.top,
-		scale: an($, f.width)
-	}, m = an(e.plot, e.plot.getBoundingClientRect().width);
-	$.style.fontSize = `${Number.parseFloat(u.fontSize) * m / p.scale}px`, Ut($, qt, fn(e, t), p);
-}, mn = (e, t, n = !1) => {
+		scale: rn($, f.width)
+	}, m = rn(e.plot, e.plot.getBoundingClientRect().width);
+	$.style.fontSize = `${Number.parseFloat(u.fontSize) * m / p.scale}px`, Ht($, Kt, dn(e, t), p);
+}, pn = (e, t, n = !1) => {
 	let { plot: r } = e;
-	r.setAttribute("data-hover", ""), rn();
+	r.setAttribute("data-hover", ""), nn();
 	let i = (t) => {
 		if (e.rowAt) {
-			let n = r.getBoundingClientRect(), i = an(r, n.width);
+			let n = r.getBoundingClientRect(), i = rn(r, n.width);
 			return e.rowAt((t.clientX - n.left) / i, (t.clientY - n.top) / i);
 		}
 		let n = t.target.closest?.("[data-row]")?.getAttribute("data-row");
@@ -2017,13 +2025,13 @@ var nt = (e) => {
 		else if (t.getAttribute("data-row") === String(e + 1)) return !0;
 		return !1;
 	}, s = null, c = (a) => {
-		if (a.type === "pointerdown") Qt = !1;
-		else if (a.pointerType === "mouse" && (!$t || Qt)) return;
+		if (a.type === "pointerdown") Zt = !1;
+		else if (a.pointerType === "mouse" && (!Qt || Zt)) return;
 		if (!r.classList.contains("is-placed") || !e.figure.classList.contains("is-shown")) return;
-		if (n && !e.figure.hasAttribute("data-left-out")) return Jt === e ? Zt() : void 0;
+		if (n && !e.figure.hasAttribute("data-left-out")) return qt === e ? Xt() : void 0;
 		let c = i(a);
-		if (s = c, c === null || o(c)) return Jt === e ? Zt() : void 0;
-		pn(e, c, t);
+		if (s = c, c === null || o(c)) return qt === e ? Xt() : void 0;
+		fn(e, c, t);
 	}, l = (t) => {
 		let n = t.target;
 		return e.svg.contains(n) && n.hasAttribute("data-row") ? n : null;
@@ -2037,35 +2045,35 @@ var nt = (e) => {
 		if (!r) return;
 		a.delete(r);
 		let i = Number(r.getAttribute("data-row")) - 1;
-		s === i && !o(i) && !Qt && pn(e, i, t);
+		s === i && !o(i) && !Zt && fn(e, i, t);
 	};
 	e.svg.addEventListener("transitionend", u), e.svg.addEventListener("transitioncancel", u), r.addEventListener("pointermove", c), r.addEventListener("pointerdown", c), r.addEventListener("pointerleave", (t) => {
-		t.pointerType === "mouse" && (s = null, Jt === e && sn());
+		t.pointerType === "mouse" && (s = null, qt === e && on());
 	});
-}, hn = {
-	area: ut,
-	bar: We,
-	column: Ge,
-	donut: Je,
-	line: lt,
-	waterfall: pt
-}, gn = (e, t) => {
-	hn[e] = t, Object.assign(_n, t.annotations), vn.splice(0, Infinity, ...Object.keys(_n));
-}, _n = {
-	"axis-break": se,
-	trend: Ie,
-	bracket: ge,
-	reference: Pe,
-	note: Me
-}, vn = Object.keys(_n), yn = (e) => {
+}, mn = {
+	area: et,
+	bar: Fe,
+	column: Ie,
+	donut: ze,
+	line: $e,
+	waterfall: rt
+}, hn = (e, t) => {
+	mn[e] = t, Object.assign(gn, t.annotations), _n.splice(0, Infinity, ...Object.keys(gn));
+}, gn = {
+	"axis-break": U,
+	trend: Te,
+	bracket: ae,
+	reference: Ce,
+	note: X
+}, _n = Object.keys(gn), vn = (e) => {
 	let t = "";
 	for (let n = e.previousSibling; n && (t = (n.textContent ?? "") + t, !t.trim()); n = n.previousSibling);
 	return t.trim();
-}, bn = [
+}, yn = [
 	"straight",
 	"step",
 	"smooth"
-], xn = (e, t, n, r, i) => {
+], bn = (e, t, n, r, i) => {
 	let a = t === r, [o, s, c] = a ? [
 		Math.min(e, n),
 		Math.max(e, n),
@@ -2076,17 +2084,17 @@ var nt = (e) => {
 		e
 	], l = i.filter(([e, t, n, r]) => a ? t <= c && c <= t + r : e <= c && c <= e + n).map(([e, t, n, r]) => a ? [e, e + n] : [t, t + r]).sort((e, t) => e[0] - t[0]), u = [], d = o;
 	for (let [e, t] of l) e > d && u.push([d, Math.min(e, s)]), d = Math.max(d, t);
-	return d < s && u.push([d, s]), u.map(([e, t]) => a ? `M${B(e)},${B(c)}H${B(t)}` : `M${B(c)},${B(e)}V${B(t)}`).join("");
-}, Sn = (e, t) => {
+	return d < s && u.push([d, s]), u.map(([e, t]) => a ? `M${j(e)},${j(c)}H${j(t)}` : `M${j(c)},${j(e)}V${j(t)}`).join("");
+}, xn = (e, t) => {
 	let [n, r, i, a] = [
 		"x1",
 		"y1",
 		"x2",
 		"y2"
-	].map((t) => Number(e.getAttribute(t))), o = V("path", { d: xn(n, r, i, a, t) });
+	].map((t) => Number(e.getAttribute(t))), o = M("path", { d: bn(n, r, i, a, t) });
 	for (let { name: t, value: n } of Array.from(e.attributes)) /^[xy][12]$/.test(t) || o.setAttribute(t, n);
 	e.replaceWith(o);
-}, Cn = (e) => Array.from((e.getAttribute("d") ?? "").matchAll(/M(-?[\d.]+),(-?[\d.]+)([HV])(-?[\d.]+)/g), ([, e, t, n, r]) => n === "H" ? [
+}, Sn = (e) => Array.from((e.getAttribute("d") ?? "").matchAll(/M(-?[\d.]+),(-?[\d.]+)([HV])(-?[\d.]+)/g), ([, e, t, n, r]) => n === "H" ? [
 	+e,
 	+t,
 	+r,
@@ -2096,19 +2104,19 @@ var nt = (e) => {
 	+t,
 	+e,
 	+r
-]), wn = (e, [t, n, r, i]) => e.map(([e, a, o, s]) => a === s ? n <= a && a <= n + i && Math.max(e, t) < Math.min(o, t + r) ? `M${B(Math.max(e, t))},${B(a)}H${B(Math.min(o, t + r))}` : "" : t <= e && e <= t + r && Math.max(a, n) < Math.min(s, n + i) ? `M${B(e)},${B(Math.max(a, n))}V${B(Math.min(s, n + i))}` : "").join(""), Tn = (e, t, n) => {
+]), Cn = (e, [t, n, r, i]) => e.map(([e, a, o, s]) => a === s ? n <= a && a <= n + i && Math.max(e, t) < Math.min(o, t + r) ? `M${j(Math.max(e, t))},${j(a)}H${j(Math.min(o, t + r))}` : "" : t <= e && e <= t + r && Math.max(a, n) < Math.min(s, n + i) ? `M${j(e)},${j(Math.max(a, n))}V${j(Math.min(s, n + i))}` : "").join(""), wn = (e, t, n) => {
 	let r = e.getAttribute(t);
 	return r === null ? n : r !== "false";
-}, En = (e, t) => !!t.animate && e.getAttribute("data-chart-animate") !== "false", Dn = (e, t) => {
+}, Tn = (e, t) => !!t.animate && e.getAttribute("data-chart-animate") !== "false", En = (e, t) => {
 	let n = e.dataset.chartShape;
-	return n && bn.includes(n) ? n : bn.includes(t.shape) ? t.shape : "straight";
-}, On = (e) => {
+	return n && yn.includes(n) ? n : yn.includes(t.shape) ? t.shape : "straight";
+}, Dn = (e) => {
 	for (let t of e.querySelectorAll("br")) {
-		if (t.previousElementSibling?.classList.contains("tablechart-sr") || /[.!?:;,…]$/.test(yn(t))) continue;
+		if (t.previousElementSibling?.classList.contains("tablechart-sr") || /[.!?:;,…]$/.test(vn(t))) continue;
 		let e = document.createElement("span");
-		e.className = O, e.textContent = ". ", t.before(e);
+		e.className = _, e.textContent = ". ", t.before(e);
 	}
-}, kn = (e, t, n) => {
+}, On = (e, t, n) => {
 	let r = e.querySelector("table");
 	if (!r) return null;
 	let i = r.querySelector("tfoot [data-chart-total]");
@@ -2119,190 +2127,190 @@ var nt = (e) => {
 	s && n.langattribute && o.setAttribute(n.langattribute, `${s}-total`);
 	let c = a.insertCell();
 	return c.setAttribute("data-chart-total", ""), c.dataset.value = t.dataset.value ?? "0", a.prepend(o), c;
-}, An = 0, jn = (e) => {
+}, kn = 0, An = (e) => {
 	let t = e.querySelector(":scope > figcaption");
 	if (!t) return;
-	On(t);
+	Dn(t);
 	let n = (e) => e.hasAttribute("aria-label") || e.hasAttribute("aria-labelledby"), r = (e) => {
-		t.id ||= `tablechart-caption-${++An}`, e.setAttribute("aria-labelledby", t.id);
+		t.id ||= `tablechart-caption-${++kn}`, e.setAttribute("aria-labelledby", t.id);
 	};
 	e.tagName === "FIGURE" && !n(e) && r(e);
 	let i = e.querySelector("table");
 	i && !n(i) && !i.querySelector(":scope > caption") && r(i);
-}, Mn = (e, t, n = null) => {
-	let r = n ?? (e.getAttribute("data-chart") || "column"), i = hn[r];
-	if (!i) return console.warn(`[${l}] Unknown chart type "${r}". Known types: ${Object.keys(hn).join(", ")}.`), e.setAttribute("data-chart-empty", ""), null;
-	let a = vt(e, t.langattribute);
-	if (!a.length) return console.warn(e.querySelector("table") ? `[${l}] A chart has no rows in its table, so there is nothing to draw.` : `[${l}] A chart has no table, so there is nothing to draw.`, e), e.setAttribute("data-chart-empty", ""), null;
-	jn(e);
-	let o = xt(e, a, t.langattribute);
-	if (o.length > 1 && !i.series && !i.columns && (console.warn(`[tablechart] A ${r} chart uses only the first of its ${o.length} value columns.`), o = o.slice(0, 1)), o.some((e) => e.chart)) {
-		let e = i.lines ? o.every((e) => e.chart) ? "Every series has data-chart=\"line\", so the chart is a line chart: set data-chart=\"line\" on the figure." : null : `A ${r} chart cannot draw a series as a line.`;
-		e && (console.warn(`[tablechart] ${e}`), o = o.map((e) => ({
+}, jn = (n, r, i = null) => {
+	let a = i ?? (n.getAttribute("data-chart") || "column"), o = mn[a];
+	if (!o) return console.warn(`[${e}] Unknown chart type "${a}". Known types: ${Object.keys(mn).join(", ")}.`), n.setAttribute("data-chart-empty", ""), null;
+	let s = ct(n, r.langattribute);
+	if (!s.length) return console.warn(n.querySelector("table") ? `[${e}] A chart has no rows in its table, so there is nothing to draw.` : `[${e}] A chart has no table, so there is nothing to draw.`, n), n.setAttribute("data-chart-empty", ""), null;
+	An(n);
+	let c = dt(n, s, r.langattribute);
+	if (c.length > 1 && !o.series && !o.columns && (console.warn(`[tablechart] A ${a} chart uses only the first of its ${c.length} value columns.`), c = c.slice(0, 1)), c.some((e) => e.chart)) {
+		let e = o.lines ? c.every((e) => e.chart) ? "Every series has data-chart=\"line\", so the chart is a line chart: set data-chart=\"line\" on the figure." : null : `A ${a} chart cannot draw a series as a line.`;
+		e && (console.warn(`[tablechart] ${e}`), c = c.map((e) => ({
 			...e,
 			chart: null
 		})));
 	}
-	let s = o.some((e) => e.chart), c = o.length > 1;
-	c && e.style.setProperty("--_series-count", String(o.length));
-	let f = e.hasAttribute("data-chart-stack");
-	f && !i.stackable && console.warn(`[tablechart] A ${r} chart cannot be stacked.`), f && s && console.warn("[tablechart] A chart with a line cannot be stacked.");
-	let p = f && !!i.stackable && c && !s, m = document.createElement("div");
-	m.className = u, m.setAttribute("aria-hidden", "true");
-	let h = V("svg", {
+	let l = c.some((e) => e.chart), u = c.length > 1;
+	u && n.style.setProperty("--_series-count", String(c.length));
+	let f = n.hasAttribute("data-chart-stack");
+	f && !o.stackable && console.warn(`[tablechart] A ${a} chart cannot be stacked.`), f && l && console.warn("[tablechart] A chart with a line cannot be stacked.");
+	let p = f && !!o.stackable && u && !l, m = document.createElement("div");
+	m.className = "tablechart-plot", m.setAttribute("aria-hidden", "true");
+	let g = M("svg", {
 		role: "presentation",
 		focusable: "false"
 	});
-	m.appendChild(h);
-	let g = e.querySelector(":scope > table"), _ = (t) => g ? g.before(t) : e.append(t);
-	_(m);
-	let v = i.centre ? a.filter((e) => !e.isTotal) : a, y = Math.max(0, q(v.flatMap((e) => e.cells.slice(0, o.length).map((e) => ce(e.number))))), b = o.map((e, t) => Math.max(0, q(a.map((e) => ce(e.cells[t]?.number ?? ""))))), S = document.createElement("div");
-	S.className = "tablechart-values", m.appendChild(S);
-	let C = o.map((e, t) => a.map((e, n) => {
-		let r = e.cells[t] ?? e.cells[0], a = te(d, S);
-		return a.classList.add(...e.classes), a.dataset.value = String(r.value), r.prefix && (a.dataset.prefix = r.prefix), r.suffix && (a.dataset.suffix = r.suffix), r.missing && (a.dataset.missing = r.raw), c && (a.dataset.series = String(t + 1)), i.columns && (a.dataset.decimals = String(b[t])), a.dataset.row = String(n + 1), a.style.setProperty("--i", String(e.slot)), i.numbers === !1 && (t || n) && (a.dataset.place = "none"), a;
-	})), w = C[0], E = p && i.totals ? a.map((e, t) => {
-		let n = te(d, S);
-		n.classList.add(...e.classes), n.dataset.kind = "total", n.dataset.row = String(t + 1), n.dataset.value = String(Ve(e, o.length));
-		let r = e.cells[0];
-		return r.prefix && (n.dataset.prefix = r.prefix), r.suffix && (n.dataset.suffix = r.suffix), n.style.setProperty("--i", String(e.slot)), n;
-	}) : [], D = a[a.length - 1], O = o.some((e) => e.focus), k = e.getAttribute("data-chart-legend"), A = c && !i.columns && (k === null ? t.legend || i.legend !== void 0 : k !== "false") ? document.createElement("div") : null;
-	A && (A.className = "tablechart-legend", A.setAttribute("aria-hidden", "true"), A.inert = !0);
-	let j = o.filter((e) => e.chart), P = c && !i.columns ? o.map((n, r) => {
-		let a = te(x, A ?? m);
-		A && (a.dataset.place = "legend");
-		let s = n.chart ? void 0 : i.legend ?? i.swatch;
-		if (s && (a.dataset.swatch = s), a.textContent = n.name, !s && Dn(e, t) !== "step") {
-			let e = n.chart ? Xe(j, j.indexOf(n)) : Xe(o, r);
-			a.dataset.marker = e.shape, a.toggleAttribute("data-open", e.open);
+	m.appendChild(g);
+	let _ = n.querySelector(":scope > table"), v = (e) => _ ? _.before(e) : n.append(e);
+	v(m);
+	let y = o.centre ? s.filter((e) => !e.isTotal) : s, b = Math.max(0, W(y.flatMap((e) => e.cells.slice(0, c.length).map((e) => te(e.number))))), x = c.map((e, t) => Math.max(0, W(s.map((e) => te(e.cells[t]?.number ?? ""))))), w = document.createElement("div");
+	w.className = "tablechart-values", m.appendChild(w);
+	let T = c.map((e, n) => s.map((e, r) => {
+		let i = e.cells[n] ?? e.cells[0], a = P(t, w);
+		return a.classList.add(...e.classes), a.dataset.value = String(i.value), i.prefix && (a.dataset.prefix = i.prefix), i.suffix && (a.dataset.suffix = i.suffix), i.missing && (a.dataset.missing = i.raw), u && (a.dataset.series = String(n + 1)), o.columns && (a.dataset.decimals = String(x[n])), a.dataset.row = String(r + 1), a.style.setProperty("--i", String(e.slot)), o.numbers === !1 && (n || r) && (a.dataset.place = "none"), a;
+	})), E = T[0], D = p && o.totals ? s.map((e, n) => {
+		let r = P(t, w);
+		r.classList.add(...e.classes), r.dataset.kind = "total", r.dataset.row = String(n + 1), r.dataset.value = String(je(e, c.length));
+		let i = e.cells[0];
+		return i.prefix && (r.dataset.prefix = i.prefix), i.suffix && (r.dataset.suffix = i.suffix), r.style.setProperty("--i", String(e.slot)), r;
+	}) : [], O = s[s.length - 1], k = c.some((e) => e.focus), A = n.getAttribute("data-chart-legend"), j = u && !o.columns && (A === null ? r.legend || o.legend !== void 0 : A !== "false") ? document.createElement("div") : null;
+	j && (j.className = "tablechart-legend", j.setAttribute("aria-hidden", "true"), j.inert = !0);
+	let N = c.filter((e) => e.chart), F = u && !o.columns ? c.map((e, t) => {
+		let i = P(d, j ?? m);
+		j && (i.dataset.place = "legend");
+		let a = e.chart ? void 0 : o.legend ?? o.swatch;
+		if (a && (i.dataset.swatch = a), i.textContent = e.name, !a && En(n, r) !== "step") {
+			let n = e.chart ? Ve(N, N.indexOf(e)) : Ve(c, t);
+			i.dataset.marker = n.shape, i.toggleAttribute("data-open", n.open);
 		}
-		return n.line && !s && (a.dataset.line = n.line), n.key && t.langattribute && a.setAttribute(t.langattribute, n.key), a.dataset.series = String(r + 1), a.style.setProperty("--n", String(r)), a.style.setProperty("--palette", `var(--tablechart-color-${r + 1})`), a.style.setProperty("--m", O && !n.focus ? "1" : "0"), a.style.setProperty("--i", String(D.slot)), a;
-	}) : [], F = i.centre ? te(T, m) : null;
-	if (F) {
-		let e = a.find((e) => e.isTotal), t = e ? e.value : a.reduce((e, t) => e + Math.abs(t.value), 0);
-		F.dataset.value = String(t), e && (F.dataset.decimals = String(ce(e.number)));
+		return e.line && !a && (i.dataset.line = e.line), e.key && r.langattribute && i.setAttribute(r.langattribute, e.key), i.dataset.series = String(t + 1), i.style.setProperty("--n", String(t)), i.style.setProperty("--palette", `var(--tablechart-color-${t + 1})`), i.style.setProperty("--m", k && !e.focus ? "1" : "0"), i.style.setProperty("--i", String(O.slot)), i;
+	}) : [], I = o.centre ? P(h, m) : null;
+	if (I) {
+		let e = s.find((e) => e.isTotal), t = e ? e.value : s.reduce((e, t) => e + Math.abs(t.value), 0);
+		I.dataset.value = String(t), e && (I.dataset.decimals = String(te(e.number)));
 	}
-	let ee = F && !a.some((e) => e.isTotal) ? kn(e, F, t) : null, I = i.categories === "beside", L = document.createElement("div");
-	L.className = "tablechart-categories", L.setAttribute("aria-hidden", "true"), L.inert = !0, I ? L.dataset.place = "beside" : i.centre && (L.dataset.place = "key"), L.style.setProperty("--_columns", String(a.length));
-	let R = 0;
-	for (let [e, n] of a.entries()) {
-		let r = document.createElement("span");
-		r.classList.add(...n.classes), r.textContent = n.short ?? n.label, n.key && t.langattribute && r.setAttribute(t.langattribute, n.short ? `${n.key}-short` : n.key), i.centre && (r.dataset.kind = n.isTotal ? "total" : "slice", n.isTotal || (r.dataset.slice = String(R + 1), r.style.setProperty("--n", String(R)), r.style.setProperty("--palette", `var(--tablechart-color-${R + 1})`), R += 1)), r.style.setProperty("--i", String(n.slot)), r.dataset.row = String(e + 1), L.appendChild(r);
+	let L = I && !s.some((e) => e.isTotal) ? On(n, I, r) : null, R = o.categories === "beside", z = document.createElement("div");
+	z.className = "tablechart-categories", z.setAttribute("aria-hidden", "true"), z.inert = !0, R ? z.dataset.place = "beside" : o.centre && (z.dataset.place = "key"), z.style.setProperty("--_columns", String(s.length));
+	let B = 0;
+	for (let [e, t] of s.entries()) {
+		let n = document.createElement("span");
+		n.classList.add(...t.classes), n.textContent = t.short ?? t.label, t.key && r.langattribute && n.setAttribute(r.langattribute, t.short ? `${t.key}-short` : t.key), o.centre && (n.dataset.kind = t.isTotal ? "total" : "slice", t.isTotal || (n.dataset.slice = String(B + 1), n.style.setProperty("--n", String(B)), n.style.setProperty("--palette", `var(--tablechart-color-${B + 1})`), B += 1)), n.style.setProperty("--i", String(t.slot)), n.dataset.row = String(e + 1), z.appendChild(n);
 	}
-	i.centre && e.style.setProperty("--_slice-count", String(R)), I ? m.appendChild(L) : _(L), A && _(A);
-	let z = o.filter((e) => !e.group), B = !i.axes && !i.centre && Tn(e, "data-chart-axis", t.axis), H = i.axes ? {
-		titles: z.slice(0, 2).map((e, n) => {
-			let r = te(`${M}-title`, m);
-			return r.dataset.axis = n ? "y" : "x", r.textContent = e.name, e.key && t.langattribute && r.setAttribute(t.langattribute, e.key), r;
+	o.centre && n.style.setProperty("--_slice-count", String(B)), R ? m.appendChild(z) : v(z), j && v(j);
+	let ee = c.filter((e) => !e.group), V = !o.axes && !o.centre && wn(n, "data-chart-axis", r.axis), H = o.axes ? {
+		titles: ee.slice(0, 2).map((e, t) => {
+			let n = P(`${S}-title`, m);
+			return n.dataset.axis = t ? "y" : "x", n.textContent = e.name, e.key && r.langattribute && n.setAttribute(r.langattribute, e.key), n;
 		}),
-		ticks: te(`${N}s`, m),
+		ticks: P(`${C}s`, m),
 		numbers: !0
-	} : B || !i.centre && Tn(e, "data-chart-grid", t.grid) ? {
+	} : V || !o.centre && wn(n, "data-chart-grid", r.grid) ? {
 		titles: [],
-		ticks: te(`${N}s`, m),
-		numbers: B
+		ticks: P(`${C}s`, m),
+		numbers: V
 	} : null;
-	i.text?.({
-		figure: e,
+	o.text?.({
+		figure: n,
 		plot: m,
-		rows: a,
-		series: o,
-		config: t
+		rows: s,
+		series: c,
+		config: r
 	});
-	let U = En(e, t) ? Rt(e, !!i.axes) : null;
-	i.axes && e.querySelector("tbody [data-fragment], thead [data-fragment]") && mt.log(`A ${r} chart has one step, with data-fragment on the figure; its rows and columns have no steps of their own.`, e), U && e.setAttribute("data-steps", "");
-	let W = e.getAttribute("data-chart-keys"), ne = U && t.controls ? Ht({
-		previous: t.previouslabel,
-		next: t.nextlabel,
-		hint: t.stephint
+	let U = Tn(n, r) ? Lt(n, !!o.axes) : null;
+	o.axes && n.querySelector("tbody [data-fragment], thead [data-fragment]") && it.log(`A ${a} chart has one step, with data-fragment on the figure; its rows and columns have no steps of their own.`, n), U && n.setAttribute("data-steps", "");
+	let G = n.getAttribute("data-chart-keys"), ne = U && r.controls ? Vt({
+		previous: r.previouslabel,
+		next: r.nextlabel,
+		hint: r.stephint
 	}, {
-		previous: W && `${W}-previous`,
-		next: W && `${W}-next`,
-		hint: W && `${W}-step`
-	}, t.langattribute) : null;
-	ne && _(ne);
-	let G = Array.from(e.querySelectorAll("[data-annotation]")).map((e) => {
-		let t = e.getAttribute("data-annotation"), n = _n[t];
-		if (!n) return console.warn(`[${l}] Unknown annotation "${t}". Known annotations: ${Object.keys(_n).join(", ")}.`), null;
-		let r = Number.parseInt(e.getAttribute("data-series") ?? "1", 10), i = r >= 1 && r <= o.length ? r - 1 : 0;
-		return r !== i + 1 && console.warn(`[tablechart] An annotation reads line ${r}, which is not there; it reads line 1.`), {
-			spec: e,
-			type: n,
-			badge: n.create(e, m),
-			series: i,
-			after: a.length
+		previous: G && `${G}-previous`,
+		next: G && `${G}-next`,
+		hint: G && `${G}-step`
+	}, r.langattribute) : null;
+	ne && v(ne);
+	let K = Array.from(n.querySelectorAll("[data-annotation]")).map((t) => {
+		let n = t.getAttribute("data-annotation"), r = gn[n];
+		if (!r) return console.warn(`[${e}] Unknown annotation "${n}". Known annotations: ${Object.keys(gn).join(", ")}.`), null;
+		let i = Number.parseInt(t.getAttribute("data-series") ?? "1", 10), a = i >= 1 && i <= c.length ? i - 1 : 0;
+		return i !== a + 1 && console.warn(`[tablechart] An annotation reads line ${i}, which is not there; it reads line 1.`), {
+			spec: t,
+			type: r,
+			badge: r.create(t, m),
+			series: a,
+			after: s.length
 		};
 	}).filter((e) => e !== null);
-	if (!I && !i.centre && !i.axes) for (let [e, t] of a.entries()) {
+	if (!R && !o.centre && !o.axes) for (let [e, t] of s.entries()) {
 		if (!t.note) continue;
 		let n = document.createElement("span");
-		n.dataset.annotation = "note", n.dataset.row = String(e + 1), n.textContent = t.note, t.noteKey && n.setAttribute("data-i18n", t.noteKey), G.push({
+		n.dataset.annotation = "note", n.dataset.row = String(e + 1), n.textContent = t.note, t.noteKey && n.setAttribute("data-i18n", t.noteKey), K.push({
 			spec: n,
-			type: Me,
-			badge: Me.create(n, m),
+			type: X,
+			badge: X.create(n, m),
 			series: 0,
-			after: a.length
+			after: s.length
 		});
 	}
-	En(e, t) && e.setAttribute("data-animate", Fn(e, r, t, !!U));
-	let K = {
-		figure: e,
+	Tn(n, r) && n.setAttribute("data-animate", Pn(n, a, r, !!U));
+	let q = {
+		figure: n,
 		plot: m,
-		svg: h,
-		rows: a,
-		decimals: y,
-		type: i,
-		values: w,
-		series: o,
-		seriesValues: C,
-		names: A ? [] : P,
-		categories: Array.from(L.children),
-		centre: F,
+		svg: g,
+		rows: s,
+		decimals: b,
+		type: o,
+		values: E,
+		series: c,
+		seriesValues: T,
+		names: j ? [] : F,
+		categories: Array.from(z.children),
+		centre: I,
 		axes: H,
 		stacked: p,
-		totals: E,
-		totalCell: ee,
+		totals: D,
+		totalCell: L,
 		rowAt: null,
 		rowBox: null,
 		pointOf: null,
-		annotations: G,
+		annotations: K,
 		checks: [],
 		plan: U,
 		step: 0,
 		controls: ne
-	}, re = () => Jn(e, h);
-	h.addEventListener("transitionend", re), h.addEventListener("transitioncancel", re), ne?.addEventListener("click", (e) => {
+	}, J = () => Jn(n, g);
+	g.addEventListener("transitionend", J), g.addEventListener("transitioncancel", J), ne?.addEventListener("click", (e) => {
 		let t = e.target.closest("button")?.dataset.go;
-		t && Vt(K, K.step + (t === "next" ? 1 : -1));
-	}), Vt(K, 0, !0);
-	let ie = e.getAttribute("data-chart-tooltip"), ae = ie === "false" ? !1 : ie === "auto" ? "auto" : ie !== null || t.tooltip;
-	return ae && mn(K, t, ae === "auto"), Gn(K, t), K;
-}, Nn = {
+		t && Bt(q, q.step + (t === "next" ? 1 : -1));
+	}), Bt(q, 0, !0);
+	let re = n.getAttribute("data-chart-tooltip"), ie = re === "false" ? !1 : re === "auto" ? "auto" : re !== null || r.tooltip;
+	return ie && pn(q, r, ie === "auto"), Wn(q, r), q;
+}, Mn = {
 	grow: "grow",
 	sweep: "sweep"
-}, Pn = [
+}, Nn = [
 	"never",
 	"auto",
 	"print",
 	"always"
-], Fn = (e, t, n, r) => {
-	let i = t === "line" || t === "area", a = Nn[e.getAttribute("data-chart-animate") ?? ""] ?? Nn[String(n.animate)];
+], Pn = (e, t, n, r) => {
+	let i = t === "line" || t === "area", a = Mn[e.getAttribute("data-chart-animate") ?? ""] ?? Mn[String(n.animate)];
 	return i ? r ? "sweep" : a ?? "sweep" : t === "donut" || t === "waterfall" ? a ?? "grow" : "grow";
-}, In = (e) => {
+}, Fn = (e) => {
 	let t = getComputedStyle(e).getPropertyValue("--tablechart-value-align").trim();
 	return t === "start" || t === "center" || t === "end" ? t : null;
-}, Ln = (e, t, n) => e.dataset.chartLabels === "inside" || e.dataset.chartLabels !== "outside" && (t.labels === "inside" || n) ? "inside" : "outside", Rn = (e, t, n, r) => {
+}, In = (e, t, n) => e.dataset.chartLabels === "inside" || e.dataset.chartLabels !== "outside" && (t.labels === "inside" || n) ? "inside" : "outside", Ln = (e, t, n, r) => {
 	let i = getComputedStyle(e), a = (i.getPropertyValue(n).trim() || r).match(/^(\d+(?:\.\d+)?)(px|%|em|rem)$/);
 	if (!a) return null;
 	let o = Number(a[1]);
-	return a[2] === "%" ? o / 100 * F : o * (a[2] === "em" ? Number.parseFloat(i.fontSize) : a[2] === "rem" ? Number.parseFloat(getComputedStyle(document.documentElement).fontSize) : 1) * t;
-}, zn = (e, t) => Rn(e, t, "--tablechart-bar-max", "60px") ?? Infinity, Bn = (e, t) => {
-	let n = e.getBoundingClientRect(), r = F / n.width, i = getComputedStyle(e), a = Number.parseFloat(i.lineHeight) / Number.parseFloat(i.fontSize) || 1.2;
+	return a[2] === "%" ? o / 100 * T : o * (a[2] === "em" ? Number.parseFloat(i.fontSize) : a[2] === "rem" ? Number.parseFloat(getComputedStyle(document.documentElement).fontSize) : 1) * t;
+}, Rn = (e, t) => Ln(e, t, "--tablechart-bar-max", "60px") ?? Infinity, zn = (e, t) => {
+	let n = e.getBoundingClientRect(), r = T / n.width, i = getComputedStyle(e), a = Number.parseFloat(i.lineHeight) / Number.parseFloat(i.fontSize) || 1.2;
 	return (e) => {
 		if (e.dataset.place === "none" || e.hidden || e.hasAttribute("data-left-out")) return [];
 		let i = e.getBoundingClientRect(), o = i.height * r / a, s = Array.from(e.style).filter((e) => e.startsWith("--")).map((t) => `${t}:${e.style.getPropertyValue(t)}`);
-		return i.width ? [V("rect", {
-			class: w,
+		return i.width ? [M("rect", {
+			class: m,
 			"data-for": "text",
 			x: (i.left - n.left) * r - 3 * t,
 			y: (i.top - n.top) * r + (i.height * r - o) / 2 - t,
@@ -2311,21 +2319,21 @@ var nt = (e) => {
 			style: s.join("; ")
 		})] : [];
 	};
-}, Vn = [
+}, Bn = [
 	"first",
 	"last",
 	"highest",
 	"lowest",
 	"outliers"
-], Hn = (e, t) => {
+], Vn = (e, t) => {
 	let n = (e.getAttribute("data-chart-values") ?? t.values).trim().toLowerCase().split(/\s+/).filter(Boolean);
 	for (let e of n) [
 		"auto",
 		"all",
 		"none",
-		...Vn
-	].includes(e) || console.warn(`[tablechart] data-chart-values knows no "${e}". It takes auto, all, none, ${Vn.join(", ")}.`);
-	let r = n.filter((e) => Vn.includes(e));
+		...Bn
+	].includes(e) || console.warn(`[tablechart] data-chart-values knows no "${e}". It takes auto, all, none, ${Bn.join(", ")}.`);
+	let r = n.filter((e) => Bn.includes(e));
 	return n.includes("all") ? {
 		mode: "all",
 		keys: []
@@ -2334,94 +2342,94 @@ var nt = (e) => {
 		keys: []
 	} : n.includes("auto") || !r.length ? {
 		mode: "auto",
-		keys: r.length ? r : Vn
+		keys: r.length ? r : Bn
 	} : {
 		mode: "set",
 		keys: r
 	};
-}, Un = ({ figure: e, rows: t, series: n }, r) => {
-	let i = e.getAttribute("data-chart-table"), a = i && Pn.includes(i) ? i : r.table;
+}, Hn = ({ figure: e, rows: t, series: n }, r) => {
+	let i = e.getAttribute("data-chart-table"), a = i && Nn.includes(i) ? i : r.table;
 	a === "never" ? e.removeAttribute("data-table") : e.setAttribute("data-table", a);
 	let o = e.getAttribute("data-chart-summary");
-	e.setAttribute("data-summary", o && Pn.includes(o) ? o : r.summary), e.toggleAttribute("data-long", t.length * n.filter((e) => !e.group).length > r.tablelimit);
-}, Wn = (e, t) => {
-	let { plot: n, svg: r, rows: i, type: a, values: o, series: s, seriesValues: c, names: u, annotations: d } = e;
-	Un(e, t);
-	let f = getComputedStyle(e.figure);
-	e.figure.toggleAttribute("data-series-range", !!f.getPropertyValue("--tablechart-series-color-end").trim()), e.figure.toggleAttribute("data-slice-range", !!f.getPropertyValue("--tablechart-slice-color-end").trim());
-	let p = Number.parseFloat(e.figure.dataset.chartAspect ?? ""), v = p > 0 ? p : a.aspect ?? t.aspect, C = a.categories === "beside", T = e.axes && !a.axes ? e.axes : null, E = C ? null : e.categories[0]?.parentElement, O = null;
-	if (T) {
-		n.style.margin = "", E && (E.style.marginLeft = "");
-		let r = n.clientWidth;
-		if (!r) return !1;
-		let o = a.segments?.(i) ?? [], c = e.stacked ? i.flatMap((e) => Object.values(Be(e, s.length, a.running))) : o.some((e) => e.kind === "up" || e.kind === "down") ? o.flatMap((e) => [e.from, e.to]) : i.flatMap((e) => e.cells.slice(0, s.length).filter((e) => !e.missing).map((e) => e.value)), l = Math.min(0, -q(c.map((e) => -e))), u = Math.max(0, q(c)), d = Number.parseFloat(getComputedStyle(n).fontSize) || 16, { chartScaleY: f, chartScale: p } = e.figure.dataset, m = Dt(f ?? p);
-		if (m && m.length > 2) O = {
-			min: m[0],
-			max: m[m.length - 1],
+	e.setAttribute("data-summary", o && Nn.includes(o) ? o : r.summary), e.toggleAttribute("data-long", t.length * n.filter((e) => !e.group).length > r.tablelimit);
+}, Un = (t, n) => {
+	let { plot: r, svg: c, rows: p, type: h, values: g, series: _, seriesValues: v, names: y, annotations: b } = t;
+	Hn(t, n);
+	let x = getComputedStyle(t.figure);
+	t.figure.toggleAttribute("data-series-range", !!x.getPropertyValue("--tablechart-series-color-end").trim()), t.figure.toggleAttribute("data-slice-range", !!x.getPropertyValue("--tablechart-slice-color-end").trim());
+	let E = Number.parseFloat(t.figure.dataset.chartAspect ?? ""), D = E > 0 ? E : h.aspect ?? n.aspect, O = h.categories === "beside", k = t.axes && !h.axes ? t.axes : null, A = O ? null : t.categories[0]?.parentElement, N = null;
+	if (k) {
+		r.style.margin = "", A && (A.style.marginLeft = "");
+		let e = r.clientWidth;
+		if (!e) return !1;
+		let i = h.segments?.(p) ?? [], a = t.stacked ? p.flatMap((e) => Object.values(Ae(e, _.length, h.running))) : i.some((e) => e.kind === "up" || e.kind === "down") ? i.flatMap((e) => [e.from, e.to]) : p.flatMap((e) => e.cells.slice(0, _.length).filter((e) => !e.missing).map((e) => e.value)), o = Math.min(0, -W(a.map((e) => -e))), s = Math.max(0, W(a)), c = Number.parseFloat(getComputedStyle(r).fontSize) || 16, { chartScaleY: l, chartScale: u } = t.figure.dataset, d = _t(l ?? u);
+		if (d && d.length > 2) N = {
+			min: d[0],
+			max: d[d.length - 1],
 			step: 0,
-			ticks: m
+			ticks: d
 		};
 		else {
-			let [e, t] = m ?? [l, u], n = wt(t - e, Math.max((C ? r / 9 : r * v / 3) / d, 2)), i = (e, t) => m ? e : Number(((t ? Math.ceil : Math.floor)(e / n - 1e-9 * (t ? 1 : -1)) * n).toPrecision(12)), a = i(e, !1), o = i(t, !0);
-			O = {
+			let [t, n] = d ?? [o, s], r = mt(n - t, Math.max((O ? e / 9 : e * D / 3) / c, 2)), i = (e, t) => d ? e : Number(((t ? Math.ceil : Math.floor)(e / r - 1e-9 * (t ? 1 : -1)) * r).toPrecision(12)), a = i(t, !1), l = i(n, !0);
+			N = {
 				min: a,
-				max: o,
-				step: n,
-				ticks: Tt(a, o, n)
+				max: l,
+				step: r,
+				ticks: ht(a, l, r)
 			};
 		}
-		T.ticks.textContent = "";
-		let h = i.find((e) => !e.missing), g = q(O.ticks.map((e) => ce(String(e))));
-		for (let e of O.ticks) {
-			let n = te(N, T.ticks);
-			n.dataset.value = String(e), n.dataset.place = "none", h?.prefix && (n.dataset.prefix = h.prefix), h?.suffix && (n.dataset.suffix = h.suffix), Kn(n, g, t.locale);
+		k.ticks.textContent = "";
+		let f = p.find((e) => !e.missing), m = W(N.ticks.map((e) => te(String(e))));
+		for (let e of N.ticks) {
+			let t = P(C, k.ticks);
+			t.dataset.value = String(e), t.dataset.place = "none", f?.prefix && (t.dataset.prefix = f.prefix), f?.suffix && (t.dataset.suffix = f.suffix), Gn(t, m, n.locale);
 		}
-		if (T.numbers) {
-			let e = Array.from(T.ticks.children);
+		if (k.numbers) {
+			let e = Array.from(k.ticks.children);
 			for (let t of e) delete t.dataset.place;
-			be(e), C ? n.style.marginBottom = `${(e[0] ? Y(e[0]).height : 0) + 6}px` : (n.style.marginLeft = `${q([0, ...e.map((e) => Y(e).width)]) + 10}px`, E && (E.style.marginLeft = n.style.marginLeft));
+			ue(e), O ? r.style.marginBottom = `${(e[0] ? Y(e[0]).height : 0) + 6}px` : (r.style.marginLeft = `${W([0, ...e.map((e) => Y(e).width)]) + 10}px`, A && (A.style.marginLeft = r.style.marginLeft));
 		}
 	}
-	let k = n.clientWidth;
-	if (!k) return !1;
-	let A = F / k, j = F * v;
-	n.classList.add(D);
-	let ee = a.numbers === !1 ? o.slice(0, 1) : [...c.flat(), ...e.totals];
-	for (let e of ee) delete e.dataset.place, e.removeAttribute("data-left-out"), e.removeAttribute("data-cut");
-	n.style.removeProperty("--_fit"), n.toggleAttribute("data-grouped", !!a.groups && !e.stacked && s.filter((e) => !e.chart && !e.group).length > 1), e.categories[0]?.parentElement?.style.removeProperty("--_beside");
-	let I = a.axes ? e.axes : null, L = [];
-	if (I) {
-		let r = Number.parseFloat(getComputedStyle(n).fontSize) || 16, a = s.flatMap((e, t) => e.group ? [] : [t]).slice(0, 2), o = i.filter((e) => a.every((t) => e.cells[t] && !e.cells[t].missing)), { chartScaleX: c, chartScaleY: l, chartScale: u } = e.figure.dataset, d = [Dt(c), Dt(l ?? u)];
-		L = a.map((e, t) => Ot(o.length ? o.map((t) => t.cells[e].value) : [0, 1], Math.max(t ? j / A / (r * 4) : k / (r * 9), 4), d[t])), I.ticks.textContent = "", L.forEach((e, n) => {
-			let r = o[0]?.cells[a[n]], i = q(e.ticks.map((e) => ce(String(e))));
-			for (let a of e.ticks) {
-				let e = te(N, I.ticks);
-				e.dataset.axis = n ? "y" : "x", e.dataset.value = String(a), r?.prefix && (e.dataset.prefix = r.prefix), r?.suffix && (e.dataset.suffix = r.suffix), Kn(e, i, t.locale);
+	let I = r.clientWidth;
+	if (!I) return !1;
+	let L = T / I, R = T * D;
+	r.classList.add("is-placed");
+	let z = h.numbers === !1 ? g.slice(0, 1) : [...v.flat(), ...t.totals];
+	for (let e of z) delete e.dataset.place, e.removeAttribute("data-left-out"), e.removeAttribute("data-cut");
+	r.style.removeProperty("--_fit"), r.toggleAttribute("data-grouped", !!h.groups && !t.stacked && _.filter((e) => !e.chart && !e.group).length > 1), t.categories[0]?.parentElement?.style.removeProperty("--_beside");
+	let V = h.axes ? t.axes : null, H = [];
+	if (V) {
+		let e = Number.parseFloat(getComputedStyle(r).fontSize) || 16, i = _.flatMap((e, t) => e.group ? [] : [t]).slice(0, 2), a = p.filter((e) => i.every((t) => e.cells[t] && !e.cells[t].missing)), { chartScaleX: o, chartScaleY: s, chartScale: c } = t.figure.dataset, l = [_t(o), _t(s ?? c)];
+		H = i.map((t, n) => vt(a.length ? a.map((e) => e.cells[t].value) : [0, 1], Math.max(n ? R / L / (e * 4) : I / (e * 9), 4), l[n])), V.ticks.textContent = "", H.forEach((e, t) => {
+			let r = a[0]?.cells[i[t]], o = W(e.ticks.map((e) => te(String(e))));
+			for (let i of e.ticks) {
+				let e = P(C, V.ticks);
+				e.dataset.axis = t ? "y" : "x", e.dataset.value = String(i), r?.prefix && (e.dataset.prefix = r.prefix), r?.suffix && (e.dataset.suffix = r.suffix), Gn(e, o, n.locale);
 			}
 		});
 	}
-	let R = I ? Array.from(I.ticks.children) : [];
-	be([
-		...c.flat(),
-		...e.totals,
-		...u,
-		...e.categories,
-		...d.map((e) => e.badge),
-		...I?.titles ?? [],
-		...R
+	let U = V ? Array.from(V.ticks.children) : [];
+	ue([
+		...v.flat(),
+		...t.totals,
+		...y,
+		...t.categories,
+		...b.map((e) => e.badge),
+		...V?.titles ?? [],
+		...U
 	]);
-	let z = (o[0] ? Y(o[0]).height : 0) * A;
-	a.numbers === !1 && o[0] && (o[0].dataset.place = "none");
-	let H = d[0]?.badge ? Y(d[0].badge).height * A : 0, W = Math.max(j, Rn(e.figure, A, "--tablechart-min-height", "200px") ?? 0, a.minHeight?.({
-		labelHeight: z,
-		nameHeight: Math.max(0, q(e.categories.map((e) => Y(e).height))) * A,
-		unit: A,
-		rows: i.length,
-		series: s.length,
-		stacked: e.stacked,
-		labels: Ln(e.figure, t, s.some((e) => e.chart))
-	}) ?? 0), ne = e.stacked ? i.map((e) => {
-		let t = Ve(e, s.length);
+	let G = (g[0] ? Y(g[0]).height : 0) * L;
+	h.numbers === !1 && g[0] && (g[0].dataset.place = "none");
+	let ne = b[0]?.badge ? Y(b[0].badge).height * L : 0, K = Math.max(R, Ln(t.figure, L, "--tablechart-min-height", "200px") ?? 0, h.minHeight?.({
+		labelHeight: G,
+		nameHeight: Math.max(0, W(t.categories.map((e) => Y(e).height))) * L,
+		unit: L,
+		rows: p.length,
+		series: _.length,
+		stacked: t.stacked,
+		labels: In(t.figure, n, _.some((e) => e.chart))
+	}) ?? 0), q = t.stacked ? p.map((e) => {
+		let t = je(e, _.length);
 		return {
 			...e,
 			value: t,
@@ -2430,71 +2438,71 @@ var nt = (e) => {
 				value: t
 			} : e)
 		};
-	}) : i, G = (a.segments ?? ((e) => e.map((e) => ({
+	}) : p, J = (h.segments ?? ((e) => e.map((e) => ({
 		...e,
 		from: 0,
 		to: e.value,
 		kind: "bar"
-	}))))(e.stacked ? ne.map((e) => ({
+	}))))(t.stacked ? q.map((e) => ({
 		...e,
 		cells: [e.cells[0]]
-	})) : i), K = {
-		labelHeight: z,
-		badgeHeight: H,
-		hasAnnotations: d.length > 0,
-		unit: A,
-		series: s.length,
-		focused: s.some((e) => e.focus),
-		stacked: e.stacked
-	}, ae = Math.max(((t) => e.stacked ? t(i.map((e) => Be(e, s.length, a.running).top)) : t([...G.flatMap((e) => [
+	})) : p), re = {
+		labelHeight: G,
+		badgeHeight: ne,
+		hasAnnotations: b.length > 0,
+		unit: L,
+		series: _.length,
+		focused: _.some((e) => e.focus),
+		stacked: t.stacked
+	}, ie = Math.max(((e) => t.stacked ? e(p.map((e) => Ae(e, _.length, h.running).top)) : e([...J.flatMap((e) => [
 		e.from,
 		e.to,
 		e.value
-	]), ...i.flatMap((e) => e.cells.slice(0, s.length).map((e) => e.value))]))(q), 0), oe = G.some((e) => e.kind === "up" || e.kind === "down") ? G.flatMap((e) => [e.from, e.to]) : e.stacked ? i.map((e) => Be(e, s.length, a.running).bottom) : i.flatMap((e) => e.cells.slice(0, s.length).map((e) => e.value)), se = Math.min(-q(oe.map((e) => -e)), 0), le = s.flatMap((e, t) => e.chart ? [t] : []), ue = i.some((e) => e.note) ? H + 4 * A : 0, de = Math.max(a.headroom?.(K) ?? z, le.length ? lt.headroom?.(K) ?? 0 : 0) + ue, fe = 2 * A + (a.footroom?.(K) ?? 0) + (se < 0 ? z + 4 * A : 0), pe = W - de - fe, me = O ? Math.max(O.max, ae) : ae * 1.02, he = O ? Math.min(O.min, se) : se * 1.02, ge = d.find((e) => e.spec.getAttribute("data-annotation") === "axis-break")?.spec, _e = (e) => {
+	]), ...p.flatMap((e) => e.cells.slice(0, _.length).map((e) => e.value))]))(W), 0), ae = J.some((e) => e.kind === "up" || e.kind === "down") ? J.flatMap((e) => [e.from, e.to]) : t.stacked ? p.map((e) => Ae(e, _.length, h.running).bottom) : p.flatMap((e) => e.cells.slice(0, _.length).map((e) => e.value)), oe = Math.min(-W(ae.map((e) => -e)), 0), se = _.flatMap((e, t) => e.chart ? [t] : []), ce = p.some((e) => e.note) ? ne + 4 * L : 0, le = Math.max(h.headroom?.(re) ?? G, se.length ? $e.headroom?.(re) ?? 0 : 0) + ce, de = 2 * L + (h.footroom?.(re) ?? 0) + (oe < 0 ? G + 4 * L : 0), fe = K - le - de, pe = N ? Math.max(N.max, ie) : ie * 1.02, me = N ? Math.min(N.min, oe) : oe * 1.02, ge = b.find((e) => e.spec.getAttribute("data-annotation") === "axis-break")?.spec, _e = (e) => {
 		let t = Number.parseFloat(ge?.getAttribute(e) ?? "");
 		return Number.isFinite(t) ? t : null;
-	}, ve = _e("data-from") ?? _e("data-at"), ye = _e("data-to"), J = null;
-	if (ge && (ve !== null || ye !== null)) {
-		let e = ve ?? 0, t = ye ?? me, n = ye === null ? e : ve === null ? t : (e + t) / 2, r = ge.getAttribute("data-size"), i = r?.match(/^\s*(\d+(?:\.\d+)?)\s*%\s*$/);
-		r !== null && !i && console.warn(`[tablechart] data-size="${r}" is not a percentage, such as 30%. Using the default.`);
-		let o = Math.min(Math.max(i ? Number(i[1]) / 100 : ye === null ? .22 : .3, .05), .8), s = G.filter((n) => (n.kind === "up" || n.kind === "down") && Math.max(n.from, n.to) > e && Math.min(n.from, n.to) < t);
-		a.breakable ? se < 0 ? console.warn(`[${l}] A chart with values below zero cannot break its scale.`) : e < 0 || t <= e || t > me || e === 0 && t === me ? console.warn(`[${l}] A break from ${e} to ${t} does not fit a scale that runs from 0 to ${ae}.`) : s.length ? console.warn(`[${l}] A break from ${e} to ${t} would cut a step that floats. Keep it below or above the steps.`) : J = {
-			lo: e,
-			hi: t,
-			gap: n,
+	}, ve = _e("data-from") ?? _e("data-at"), xe = _e("data-to"), X = null;
+	if (ge && (ve !== null || xe !== null)) {
+		let t = ve ?? 0, n = xe ?? pe, r = xe === null ? t : ve === null ? n : (t + n) / 2, i = ge.getAttribute("data-size"), a = i?.match(/^\s*(\d+(?:\.\d+)?)\s*%\s*$/);
+		i !== null && !a && console.warn(`[tablechart] data-size="${i}" is not a percentage, such as 30%. Using the default.`);
+		let o = Math.min(Math.max(a ? Number(a[1]) / 100 : xe === null ? .22 : .3, .05), .8), s = J.filter((e) => (e.kind === "up" || e.kind === "down") && Math.max(e.from, e.to) > t && Math.min(e.from, e.to) < n);
+		h.breakable ? oe < 0 ? console.warn(`[${e}] A chart with values below zero cannot break its scale.`) : t < 0 || n <= t || n > pe || t === 0 && n === pe ? console.warn(`[${e}] A break from ${t} to ${n} does not fit a scale that runs from 0 to ${ie}.`) : s.length ? console.warn(`[${e}] A break from ${t} to ${n} would cut a step that floats. Keep it below or above the steps.`) : X = {
+			lo: t,
+			hi: n,
+			gap: r,
 			share: o
-		} : console.warn(`[${l}] This kind of chart cannot break its scale.`);
+		} : console.warn(`[${e}] This kind of chart cannot break its scale.`);
 	}
-	let xe = J ? J.gap : null, Se = (J && Rn(e.figure, A, "--tablechart-break-gap", "")) ?? 13, Ce = W - fe, we = me - he || 1, Ee = (e) => Ce - (e - he) / we * pe;
-	if (J) {
-		let { lo: e, hi: t, gap: n, share: r } = J, i = pe * r, a = (pe - i - Se) / (e + (me - t)), o = i / (t - e);
-		Ee = (r) => r <= e ? Ce - r * a : r <= n ? Ce - e * a - (r - e) * o : r <= t ? Ce - e * a - (r - e) * o - Se : Ce - e * a - i - Se - (r - t) * a;
+	let Se = X ? X.gap : null, Ce = (X && Ln(t.figure, L, "--tablechart-break-gap", "")) ?? 13, we = K - de, Te = pe - me || 1, Ee = (e) => we - (e - me) / Te * fe;
+	if (X) {
+		let { lo: e, hi: t, gap: n, share: r } = X, i = fe * r, a = (fe - i - Ce) / (e + (pe - t)), o = i / (t - e);
+		Ee = (r) => r <= e ? we - r * a : r <= n ? we - e * a - (r - e) * o : r <= t ? we - e * a - (r - e) * o - Ce : we - e * a - i - Ce - (r - t) * a;
 	}
-	let De, Oe, je = [];
-	if (I) {
-		let e = 6 * A, [t, n] = I.titles, r = (e) => e ? Y(e).width * A : 0, i = (e) => e ? Y(e).height * A : 0, a = R.filter((e) => e.dataset.axis === "x"), o = R.filter((e) => e.dataset.axis === "y"), s = i(R[0]), c = r(n) + q([0, ...o.map(r)]) + 2 * e, l = s / 2;
+	let De, Oe, ke = [];
+	if (V) {
+		let e = 6 * L, [t, n] = V.titles, r = (e) => e ? Y(e).width * L : 0, i = (e) => e ? Y(e).height * L : 0, a = U.filter((e) => e.dataset.axis === "x"), o = U.filter((e) => e.dataset.axis === "y"), s = i(U[0]), c = r(n) + W([0, ...o.map(r)]) + 2 * e, l = s / 2;
 		Oe = [
 			c,
 			l,
-			F - c - q([0, ...a.map(r)]) / 2,
-			W - l - i(t) - s - 2 * e
+			T - c - W([0, ...a.map(r)]) / 2,
+			K - l - i(t) - s - 2 * e
 		];
-		let [u, d, f, p] = Oe, [m, h] = L, g = (e) => u + (e - m.min) / (m.max - m.min || 1) * f, _ = (e) => d + p - (e - h.min) / (h.max - h.min || 1) * p;
+		let [u, d, f, p] = Oe, [m, h] = H, g = (e) => u + (e - m.min) / (m.max - m.min || 1) * f, _ = (e) => d + p - (e - h.min) / (h.max - h.min || 1) * p;
 		De = g, Ee = _;
 		let v = (e) => r(a.find((t) => Number(t.dataset.value) === e));
-		je = [kt(m, (t) => t.every((n, r) => !r || g(n) - g(t[r - 1]) > (v(n) + v(t[r - 1])) / 2 + e)).ticks, kt(h, (t) => t.every((n, r) => !r || _(t[r - 1]) - _(n) > s + e / 2)).ticks];
-		for (let t of R) {
-			let n = Number(t.dataset.value), r = t.dataset.axis === "x" ? 0 : 1, i = je[r].includes(n);
-			t.dataset.place = i ? r ? "before" : "below" : "none", i && U(t, r ? u - e : g(n), r ? _(n) : d + p + e, 1e3, W);
+		ke = [yt(m, (t) => t.every((n, r) => !r || g(n) - g(t[r - 1]) > (v(n) + v(t[r - 1])) / 2 + e)).ticks, yt(h, (t) => t.every((n, r) => !r || _(t[r - 1]) - _(n) > s + e / 2)).ticks];
+		for (let t of U) {
+			let n = Number(t.dataset.value), r = t.dataset.axis === "x" ? 0 : 1, i = ke[r].includes(n);
+			t.dataset.place = i ? r ? "before" : "below" : "none", i && F(t, r ? u - e : g(n), r ? _(n) : d + p + e, 1e3, K);
 		}
-		t && U(t, u + f / 2, W - i(t), 1e3, W), n && U(n, 0, d + p / 2, 1e3, W);
+		t && F(t, u + f / 2, K - i(t), 1e3, K), n && F(n, 0, d + p / 2, 1e3, K);
 	}
-	let Me = u.length ? q(u.map((e) => Y(e).width)) * A + 12 * A : 0, Ne = e.categories[0]?.parentElement;
+	let Me = y.length ? W(y.map((e) => Y(e).width)) * L + 12 * L : 0, Ne = t.categories[0]?.parentElement;
 	Ne && (Ne.style.paddingRight = Me ? `${Me / 1e3 * 100}%` : "");
-	let Pe = (F - Me) / i.length, Fe = (e) => (e + .5) * Pe, Ie = (e) => e >= 0 && e < i.length ? e : null;
-	e.rowAt = a.centre ? null : a.categories === "beside" ? (e, t) => Ie(Math.floor(t * A / (W / i.length))) : (e) => Ie(Math.floor(e * A / Pe));
-	let Le = Pe / F * 100, Re = 100 / i.length;
-	if (e.rowBox = a.categories === "beside" ? (e) => [
+	let Pe = (T - Me) / p.length, Fe = (e) => (e + .5) * Pe, Ie = (e) => e >= 0 && e < p.length ? e : null;
+	t.rowAt = h.centre ? null : h.categories === "beside" ? (e, t) => Ie(Math.floor(t * L / (K / p.length))) : (e) => Ie(Math.floor(e * L / Pe));
+	let Le = Pe / T * 100, Re = 100 / p.length;
+	if (t.rowBox = h.categories === "beside" ? (e) => [
 		0,
 		e * Re,
 		100,
@@ -2504,172 +2512,172 @@ var nt = (e) => {
 		0,
 		Le,
 		100
-	], r.setAttribute("viewBox", `0 0 1000 ${B(W)}`), r.textContent = "", Oe && De) {
-		let [n, i, a, o] = Oe, [s, c] = je, l = De;
-		Tn(e.figure, "data-chart-grid", t.grid) && r.appendChild(V("path", {
+	], c.setAttribute("viewBox", `0 0 1000 ${j(K)}`), c.textContent = "", Oe && De) {
+		let [e, r, i, a] = Oe, [o, s] = ke, l = De;
+		wn(t.figure, "data-chart-grid", n.grid) && c.appendChild(M("path", {
 			class: "tablechart-grid",
-			d: [...s.map((e) => `M${B(l(e))},${B(i)}V${B(i + o)}`), ...c.map((e) => `M${B(n)},${B(Ee(e))}H${B(n + a)}`)].join("")
-		})), r.appendChild(V("path", {
-			class: M,
+			d: [...o.map((e) => `M${j(l(e))},${j(r)}V${j(r + a)}`), ...s.map((t) => `M${j(e)},${j(Ee(t))}H${j(e + i)}`)].join("")
+		})), c.appendChild(M("path", {
+			class: S,
 			d: [
-				`M${B(n)},${B(i)}V${B(i + o)}H${B(n + a)}`,
-				...s.map((e) => `M${B(l(e))},${B(i + o)}v${B(4 * A)}`),
-				...c.map((e) => `M${B(n)},${B(Ee(e))}h${B(-4 * A)}`)
+				`M${j(e)},${j(r)}V${j(r + a)}H${j(e + i)}`,
+				...o.map((e) => `M${j(l(e))},${j(r + a)}v${j(4 * L)}`),
+				...s.map((t) => `M${j(e)},${j(Ee(t))}h${j(-4 * L)}`)
 			].join("")
 		}));
 	}
-	e.checks = [];
-	let X = {
-		rows: i,
-		segments: G,
+	t.checks = [];
+	let ze = {
+		rows: p,
+		segments: J,
 		cx: Fe,
 		y: Ee,
 		x: De,
 		frame: Oe,
-		length: (t, n) => Rn(e.figure, A, t, n),
-		barWidth: Math.min(Pe * t.barfill, zn(e.figure, A)),
-		barMax: zn(e.figure, A),
-		height: W,
-		unit: A,
-		labelHeight: z,
-		badgeHeight: H,
-		after: i.length,
+		length: (e, n) => Ln(t.figure, L, e, n),
+		barWidth: Math.min(Pe * n.barfill, Rn(t.figure, L)),
+		barMax: Rn(t.figure, L),
+		height: K,
+		unit: L,
+		labelHeight: G,
+		badgeHeight: ne,
+		after: p.length,
 		note: 0,
-		labels: Ln(e.figure, t, le.length > 0),
-		insideAlign: In(e.figure),
-		breakAt: xe,
-		squeeze: J,
-		breakGap: Se,
-		domain: O ? [O.min, O.max] : null,
-		stacked: e.stacked,
-		shape: Dn(e.figure, t),
-		pick: Hn(e.figure, t),
-		totals: e.totals,
-		svg: r,
-		plot: n,
-		values: o,
-		series: s,
-		own: s.map((e, t) => t),
-		seriesValues: c,
-		names: u,
-		categories: e.categories,
-		centre: e.centre,
-		config: t,
-		checks: e.checks,
+		labels: In(t.figure, n, se.length > 0),
+		insideAlign: Fn(t.figure),
+		breakAt: Se,
+		squeeze: X,
+		breakGap: Ce,
+		domain: N ? [N.min, N.max] : null,
+		stacked: t.stacked,
+		shape: En(t.figure, n),
+		pick: Vn(t.figure, n),
+		totals: t.totals,
+		svg: c,
+		plot: r,
+		values: g,
+		series: _,
+		own: _.map((e, t) => t),
+		seriesValues: v,
+		names: y,
+		categories: t.categories,
+		centre: t.centre,
+		config: n,
+		checks: t.checks,
 		taken: [],
 		lineHoles: []
 	};
-	n.style.setProperty("--count", String(Math.max(1, ...i.map((e) => e.slot + 1))));
-	let ze = (e) => {
+	r.style.setProperty("--count", String(Math.max(1, ...p.map((e) => e.slot + 1))));
+	let Be = (e) => {
 		let t = (t) => ({
 			...t,
 			...t.cells[e] ?? t.cells[0]
 		});
 		return {
-			rows: i.map(t),
-			segments: G.map((e) => {
+			rows: p.map(t),
+			segments: J.map((e) => {
 				let n = t(e);
 				return e.kind === "bar" ? {
 					...n,
 					to: n.value
 				} : n;
 			}),
-			values: c[e]
+			values: v[e]
 		};
 	};
-	if (le.length) {
-		let e = s.flatMap((e, t) => e.chart ? [] : [t]);
-		a.draw({
-			...X,
+	if (se.length) {
+		let e = _.flatMap((e, t) => e.chart ? [] : [t]);
+		h.draw({
+			...ze,
 			own: e,
-			...e.length === 1 && ze(e[0])
-		}), lt.draw({
-			...X,
-			own: le
+			...e.length === 1 && Be(e[0])
+		}), $e.draw({
+			...ze,
+			own: se
 		});
-	} else a.draw(X);
-	X.rowAt && (e.rowAt = X.rowAt), e.pointOf = X.pointOf ?? null;
-	let He = Number(n.style.getPropertyValue("--count")) || i.length;
-	for (let t of e.figure.querySelectorAll(`.${x}`)) t.style.setProperty("--i", String(Math.min(i[i.length - 1].slot, He - 1)));
-	if (!e.stacked && !n.hasAttribute("data-grouped")) for (let e of c) ke(e, A, F), Ae(e, A, F, W);
-	if (T && O) {
-		let n = 6 * A, i = C && X.x ? X.x : Ee, a = Array.from(T.ticks.children), o = (e) => Y(a.find((t) => Number(t.dataset.value) === e) ?? a[0]), s = kt(O, (e) => e.every((t, r) => !r || (C ? i(t) - i(e[r - 1]) > (o(t).width + o(e[r - 1]).width) / 2 * A + n : i(e[r - 1]) - i(t) > o(t).height * A + n / 2))).ticks.filter((e) => !J || e <= J.lo || e >= J.hi);
-		for (let e of a) {
-			let t = Number(e.dataset.value), r = T.numbers && s.includes(t);
-			e.dataset.place = r ? C ? "below" : "before" : "none", r && U(e, C ? i(t) : -n, C ? W + n : i(t), 1e3, W);
+	} else h.draw(ze);
+	ze.rowAt && (t.rowAt = ze.rowAt), t.pointOf = ze.pointOf ?? null;
+	let Ve = Number(r.style.getPropertyValue("--count")) || p.length;
+	for (let e of t.figure.querySelectorAll(`.${d}`)) e.style.setProperty("--i", String(Math.min(p[p.length - 1].slot, Ve - 1)));
+	if (!t.stacked && !r.hasAttribute("data-grouped")) for (let e of v) ye(e, L, T), be(e, L, T, K);
+	if (k && N) {
+		let e = 6 * L, r = O && ze.x ? ze.x : Ee, i = Array.from(k.ticks.children), a = (e) => Y(i.find((t) => Number(t.dataset.value) === e) ?? i[0]), o = yt(N, (t) => t.every((n, i) => !i || (O ? r(n) - r(t[i - 1]) > (a(n).width + a(t[i - 1]).width) / 2 * L + e : r(t[i - 1]) - r(n) > a(n).height * L + e / 2))).ticks.filter((e) => !X || e <= X.lo || e >= X.hi);
+		for (let t of i) {
+			let n = Number(t.dataset.value), i = k.numbers && o.includes(n);
+			t.dataset.place = i ? O ? "below" : "before" : "none", i && F(t, O ? r(n) : -e, O ? K + e : r(n), 1e3, K);
 		}
-		let c = F - Me;
-		Tn(e.figure, "data-chart-grid", t.grid) && r.prepend(V("path", {
+		let s = T - Me;
+		wn(t.figure, "data-chart-grid", n.grid) && c.prepend(M("path", {
 			class: "tablechart-grid",
-			d: s.map((e) => C ? `M${B(i(e))},0V${B(W)}` : `M0,${B(i(e))}H${B(c)}`).join("")
-		})), T.numbers && r.appendChild(V("path", {
-			class: M,
-			d: [C ? `M${B(i(O.min))},${B(W)}H${B(i(O.max))}` : `M0,${B(i(O.max))}V${B(i(O.min))}`, ...s.map((e) => C ? `M${B(i(e))},${B(W)}v${B(4 * A)}` : `M0,${B(i(e))}h${B(-4 * A)}`)].join("")
+			d: o.map((e) => O ? `M${j(r(e))},0V${j(K)}` : `M0,${j(r(e))}H${j(s)}`).join("")
+		})), k.numbers && c.appendChild(M("path", {
+			class: S,
+			d: [O ? `M${j(r(N.min))},${j(K)}H${j(r(N.max))}` : `M0,${j(r(N.max))}V${j(r(N.min))}`, ...o.map((e) => O ? `M${j(r(e))},${j(K)}v${j(4 * L)}` : `M0,${j(r(e))}h${j(-4 * L)}`)].join("")
 		}));
 	}
-	for (let [t, r] of d.entries()) {
-		r.badge?.setAttribute("data-note", String(t + 1));
-		let i = r.series;
-		r.type.draw(r.spec, r.badge, {
-			...X,
-			...e.stacked && {
-				rows: ne,
-				...e.totals.length && { values: e.totals }
+	for (let [e, n] of b.entries()) {
+		n.badge?.setAttribute("data-note", String(e + 1));
+		let i = n.series;
+		n.type.draw(n.spec, n.badge, {
+			...ze,
+			...t.stacked && {
+				rows: q,
+				...t.totals.length && { values: t.totals }
 			},
-			...i > 0 && !e.stacked && ze(i),
-			after: e.plan ? r.after : Math.min(r.after, Number(n.style.getPropertyValue("--count")) || r.after),
-			note: t + 1
+			...i > 0 && !t.stacked && Be(i),
+			after: t.plan ? n.after : Math.min(n.after, Number(r.style.getPropertyValue("--count")) || n.after),
+			note: e + 1
 		});
 	}
-	Bt(e);
-	for (let t of e.figure.querySelectorAll(`.${S}`)) {
-		let n = Array.from(t.children);
-		if (e.plan) for (let e of n) e.style.getPropertyValue("--step") || e.style.setProperty("--i", "0");
+	zt(t);
+	for (let e of t.figure.querySelectorAll(`.${f}`)) {
+		let n = Array.from(e.children);
+		if (t.plan) for (let e of n) e.style.getPropertyValue("--step") || e.style.setProperty("--i", "0");
 		let r = n.map((e) => Number.parseFloat(e.style.getPropertyValue("--step")));
-		t.style.setProperty("--i", String(Math.min(...n.map((e) => Number(e.style.getPropertyValue("--i")) || 0)))), r.length && r.every(Number.isFinite) ? t.style.setProperty("--step", String(Math.min(...r))) : t.style.removeProperty("--step");
+		e.style.setProperty("--i", String(Math.min(...n.map((e) => Number(e.style.getPropertyValue("--i")) || 0)))), r.length && r.every(Number.isFinite) ? e.style.setProperty("--step", String(Math.min(...r))) : e.style.removeProperty("--step");
 	}
-	let Z = e.categories[0]?.parentElement;
-	if (Z && a.categories !== "beside" && !a.centre) {
+	let Z = t.categories[0]?.parentElement;
+	if (Z && h.categories !== "beside" && !h.centre) {
 		Z.style.height = `${Z.offsetHeight}px`, Z.removeAttribute("data-thinned");
-		for (let t of e.categories) t.removeAttribute("data-left-out"), t.removeAttribute("data-edge");
-		let n = e.categories.filter((e) => e.offsetParent !== null);
-		if (!Te(Z, n, (e) => ({
+		for (let e of t.categories) e.removeAttribute("data-left-out"), e.removeAttribute("data-edge");
+		let e = t.categories.filter((e) => e.offsetParent !== null);
+		if (!he(Z, e, (e) => ({
 			size: e.scrollWidth,
 			room: e.clientWidth
-		}), "--_name-fit") && n.length > 1) {
-			let e = getComputedStyle(Z), t = (Z.clientWidth - Number.parseFloat(e.paddingLeft) - Number.parseFloat(e.paddingRight)) / i.length;
+		}), "--_name-fit") && e.length > 1) {
+			let t = getComputedStyle(Z), n = (Z.clientWidth - Number.parseFloat(t.paddingLeft) - Number.parseFloat(t.paddingRight)) / p.length;
 			Z.style.setProperty("--_name-fit", "1"), Z.setAttribute("data-thinned", "");
-			let r = q(n.map((e) => e.offsetWidth)), a = Math.max(Math.ceil((r + 8) / t), Math.ceil((1.5 * r + 8) / t - .5), 1);
-			n.forEach((e, t) => {
-				t % a && e.setAttribute("data-left-out", "");
+			let r = W(e.map((e) => e.offsetWidth)), i = Math.max(Math.ceil((r + 8) / n), Math.ceil((1.5 * r + 8) / n - .5), 1);
+			e.forEach((e, t) => {
+				t % i && e.setAttribute("data-left-out", "");
 			});
-			let o = n.filter((e) => !e.hasAttribute("data-left-out")), s = o[0], c = o.at(-1), l = Z.getBoundingClientRect(), u = [s, c].map((e) => e?.getBoundingClientRect());
-			if (s && u[0] && u[0].left < l.left && s.setAttribute("data-edge", "start"), c && c !== s && u[1] && u[1].right > l.right - Number.parseFloat(e.paddingRight)) {
-				c.setAttribute("data-edge", "end");
-				let e = o.at(-2);
-				e && e.getBoundingClientRect().right + 8 > c.getBoundingClientRect().left && c.setAttribute("data-left-out", "");
+			let a = e.filter((e) => !e.hasAttribute("data-left-out")), o = a[0], s = a.at(-1), c = Z.getBoundingClientRect(), l = [o, s].map((e) => e?.getBoundingClientRect());
+			if (o && l[0] && l[0].left < c.left && o.setAttribute("data-edge", "start"), s && s !== o && l[1] && l[1].right > c.right - Number.parseFloat(t.paddingRight)) {
+				s.setAttribute("data-edge", "end");
+				let e = a.at(-2);
+				e && e.getBoundingClientRect().right + 8 > s.getBoundingClientRect().left && s.setAttribute("data-left-out", "");
 			}
 		}
-		let o = (a === lt || a === ut) && Tn(e.figure, "data-chart-ticks", t.ticks);
-		if (Z.toggleAttribute("data-ticks", o), Z.style.removeProperty("--_tick-reach"), o) {
-			let t = W - Number(r.querySelector(".tablechart-rule")?.getAttribute("y1") ?? W);
-			t > 0 && t < 10 * A && Z.style.setProperty("--_tick-reach", `${B(t / A)}px`);
-			let n = Z.getBoundingClientRect(), a = n.width / (Z.offsetWidth || 1), o = getComputedStyle(Z), s = Number.parseFloat(o.paddingLeft), c = (Z.clientWidth - s - Number.parseFloat(o.paddingRight)) / i.length;
-			e.categories.forEach((e, t) => {
+		let r = (h === $e || h === et) && wn(t.figure, "data-chart-ticks", n.ticks);
+		if (Z.toggleAttribute("data-ticks", r), Z.style.removeProperty("--_tick-reach"), r) {
+			let e = K - Number(c.querySelector(".tablechart-rule")?.getAttribute("y1") ?? K);
+			e > 0 && e < 10 * L && Z.style.setProperty("--_tick-reach", `${j(e / L)}px`);
+			let n = Z.getBoundingClientRect(), r = n.width / (Z.offsetWidth || 1), i = getComputedStyle(Z), a = Number.parseFloat(i.paddingLeft), o = (Z.clientWidth - a - Number.parseFloat(i.paddingRight)) / p.length;
+			t.categories.forEach((e, t) => {
 				if (e.hasAttribute("data-left-out")) e.style.removeProperty("--_tick");
 				else {
-					let r = (e.getBoundingClientRect().left - n.left) / a - Z.clientLeft;
-					e.style.setProperty("--_tick", `${B(s + (t + .5) * c - r)}px`);
+					let i = (e.getBoundingClientRect().left - n.left) / r - Z.clientLeft;
+					e.style.setProperty("--_tick", `${j(a + (t + .5) * o - i)}px`);
 				}
 			});
 		}
 		Z.style.height = "";
 	}
-	let Ue = d.flatMap(({ badge: e }) => {
+	let Q = b.flatMap(({ badge: e }) => {
 		if (!(e instanceof HTMLElement) || !e.offsetWidth) return [];
-		let t = e.offsetWidth * A, n = e.offsetHeight * A, r = Number.parseFloat(e.style.left) / 100 * F, i = Number.parseFloat(e.style.top) / 100 * W, a = getComputedStyle(e).borderTopLeftRadius, o = a.endsWith("%") ? Number.parseFloat(a) / 100 : null, s = (Number.parseFloat(a) || 0) * A;
-		return [V("rect", {
-			class: w,
+		let t = e.offsetWidth * L, n = e.offsetHeight * L, r = Number.parseFloat(e.style.left) / 100 * T, i = Number.parseFloat(e.style.top) / 100 * K, a = getComputedStyle(e).borderTopLeftRadius, o = a.endsWith("%") ? Number.parseFloat(a) / 100 : null, s = (Number.parseFloat(a) || 0) * L;
+		return [M("rect", {
+			class: m,
 			"data-for": "badge",
 			"data-note": e.dataset.note ?? "",
 			x: r - t / 2,
@@ -2680,94 +2688,205 @@ var nt = (e) => {
 			ry: o === null ? s : n * o,
 			style: ["--after", "--step"].map((t) => e.style.getPropertyValue(t) && `${t}:${e.style.getPropertyValue(t)}`).filter(Boolean).join("; ")
 		})];
-	}), We = r.querySelector(`.${P}`), Ge = Array.from(r.querySelectorAll(`.${h}`)), Ke = [...We ? [We] : [], ...r.querySelectorAll(`:scope > .${g}`)], qe = Bn(n, A), Je = e.figure.getAttribute("data-animate") === "grow", Ye = c.flat().filter((e) => e.hasAttribute("data-cut")).flatMap(qe), Xe = [...le.flatMap((e) => c[e].flatMap(qe)), ...Je ? Ye : []];
-	if (Ke.length || Ge.length) {
-		let t = [
-			...c.flat(),
-			...e.totals,
-			...a.categories === "beside" ? e.categories : []
-		].flatMap(qe), n = (e) => [
+	}), He = c.querySelector(`.${w}`), Ue = Array.from(c.querySelectorAll(`.${a}`)), We = [...He ? [He] : [], ...c.querySelectorAll(`:scope > .${o}`)], Ge = zn(r, L), Ke = t.figure.getAttribute("data-animate") === "grow", qe = v.flat().filter((e) => e.hasAttribute("data-cut")).flatMap(Ge), Je = [...se.flatMap((e) => v[e].flatMap(Ge)), ...Ke ? qe : []];
+	if (We.length || Ue.length) {
+		let e = [
+			...v.flat(),
+			...t.totals,
+			...h.categories === "beside" ? t.categories : []
+		].flatMap(Ge), n = (e) => [
 			"x",
 			"y",
 			"width",
 			"height"
 		].map((t) => Number(e.getAttribute(t)));
-		for (let e of Ge) Sn(e, [...t, ...Ue].map(n));
-		if (Ke.length && e.plan) ie(r, t, F, W, Ke);
-		else for (let e of Ke) {
-			let r = [...t, ...Ue], i = Cn(e);
-			e.setAttribute("d", i.map(([e, t, i, a]) => xn(e, t, i, a, r.map(n))).join(""));
-			for (let t of r) {
-				let r = wn(i, n(t)), a = t.dataset.for === "badge" ? "badge" : "";
-				r && e.after(V("path", {
-					class: e.getAttribute("class") ?? "tablechart-grid",
+		for (let t of Ue) xn(t, [...e, ...Q].map(n));
+		for (let t of We) {
+			let r = [...e, ...Q], i = Sn(t);
+			t.setAttribute("d", i.map(([e, t, i, a]) => bn(e, t, i, a, r.map(n))).join(""));
+			for (let e of r) {
+				let r = Cn(i, n(e)), a = e.dataset.for === "badge" ? "badge" : "";
+				r && t.after(M("path", {
+					class: t.getAttribute("class") ?? "tablechart-grid",
 					"data-gap": a,
 					d: r,
-					style: t.getAttribute("style") ?? ""
+					style: e.getAttribute("style") ?? ""
 				}));
 			}
 		}
 	}
-	if (re(r, Ue, 1e3, W, Array.from(r.querySelectorAll(`.${m}, .${_}`))), !Je && (X.lineHoles.length || Ye.length)) {
-		let e = Array.from(r.querySelectorAll(`.${y}`)).map((e) => {
-			let t = V("g", {});
+	if (B(c, Q, 1e3, K, Array.from(c.querySelectorAll(`.${i}, .${s}`))), !Ke && (ze.lineHoles.length || qe.length)) {
+		let e = Array.from(c.querySelectorAll(`.${l}`)).map((e) => {
+			let t = M("g", {});
 			return e.before(t), t.append(e), t;
 		});
-		re(r, [...X.lineHoles, ...Ye], F, W, [...e, ...r.querySelectorAll(`.${b}`)]);
+		B(c, [...ze.lineHoles, ...qe], T, K, [...e, ...c.querySelectorAll(`.${u}`)]);
 	}
-	let Ze = [
-		h,
-		g,
-		m,
-		_,
-		...e.plan ? [] : [P]
+	let Ye = [
+		a,
+		o,
+		i,
+		s,
+		w
 	];
-	ie(r, [...Ue, ...Xe], F, W, void 0, Ze.map((e) => `.${e}`).join(", ")), e.figure.hasAttribute("data-animate") && !e.figure.hasAttribute("data-steps") && !e.figure.classList.contains("is-shown") && Yn(r);
-	let Q = (e) => e.dataset.missing !== void 0 || a.centre && i[Number(e.dataset.row) - 1]?.isTotal, Qe = (e) => e.dataset.place !== "none" && !e.hasAttribute("data-left-out"), $e = (e, t) => {
+	ee(c, [...Q, ...Je], T, K, void 0, Ye.map((e) => `.${e}`).join(", ")), t.figure.hasAttribute("data-animate") && !t.figure.hasAttribute("data-steps") && !t.figure.classList.contains("is-shown") && Yn(c);
+	let Xe = (e) => e.dataset.missing !== void 0 || h.centre && p[Number(e.dataset.row) - 1]?.isTotal, Ze = (e) => e.dataset.place !== "none" && !e.hasAttribute("data-left-out"), Qe = (e, t) => {
 		let n = Number(e.dataset.row);
-		return t.some((e) => Qe(e) && Number(e.dataset.row) <= n && n <= Number(e.dataset.rowEnd ?? e.dataset.row));
+		return t.some((e) => Ze(e) && Number(e.dataset.row) <= n && n <= Number(e.dataset.rowEnd ?? e.dataset.row));
 	};
-	return e.figure.toggleAttribute("data-left-out", (a.columns ? [e.categories] : [...c, e.totals]).some((e) => e.some((t) => !Q(t) && !Qe(t) && !$e(t, e)))), It(e.figure), !0;
-}, Gn = (e, t) => {
+	return t.figure.toggleAttribute("data-left-out", (h.columns ? [t.categories] : [...v, t.totals]).some((e) => e.some((t) => !Xe(t) && !Ze(t) && !Qe(t, e)))), kt(t.figure), Ft(t.figure), !0;
+}, Wn = (e, t) => {
 	let n = [
 		...e.seriesValues.flat(),
 		...e.totals,
 		...e.totalCell ? [e.totalCell] : []
 	];
-	for (let r of e.centre ? [...n, e.centre] : n) r.dataset.missing === void 0 ? Kn(r, r.dataset.decimals ? Number(r.dataset.decimals) : e.decimals, t.locale) : r.textContent = r.dataset.missing;
-}, Kn = (e, t, n) => {
-	let { prefix: r = "", suffix: i = "" } = e.dataset, [a, o] = ue(Number.parseFloat(e.dataset.value || "0"), t, n);
+	for (let r of e.centre ? [...n, e.centre] : n) r.dataset.missing === void 0 ? Gn(r, r.dataset.decimals ? Number(r.dataset.decimals) : e.decimals, t.locale) : r.textContent = r.dataset.missing;
+}, Gn = (e, t, n) => {
+	let { prefix: r = "", suffix: i = "" } = e.dataset, [a, o] = ne(Number.parseFloat(e.dataset.value || "0"), t, n);
 	if (e.textContent = r + (r ? a : "") + o + i, a && !r) {
 		let t = document.createElement("span");
 		t.className = "tablechart-minus", t.textContent = a, e.prepend(t);
 	}
-}, qn = (e, t, n = !1) => {
-	!t && !e.figure.hasAttribute("data-steps") && Yn(e.svg), n ? (e.figure.classList.add(A), e.figure.classList.toggle(k, t), e.figure.offsetWidth, t && Xn(e.svg), requestAnimationFrame(() => e.figure.classList.remove(A))) : (e.figure.classList.toggle(k, t), t && requestAnimationFrame(() => requestAnimationFrame(() => Jn(e.figure, e.svg))));
+}, Kn = (e, t, n = !1) => {
+	!t && !e.figure.hasAttribute("data-steps") && Yn(e.svg), e.figure.classList.remove(b), n ? (e.figure.classList.add(y), e.figure.classList.toggle(v, t), e.figure.offsetWidth, t && Xn(e.svg), e.figure.classList.toggle(b, t), requestAnimationFrame(() => e.figure.classList.remove(y))) : (e.figure.classList.toggle(v, t), t && requestAnimationFrame(() => requestAnimationFrame(() => {
+		Jn(e.figure, e.svg), qn(e.figure);
+	})));
+}, qn = (e) => {
+	let t = e.getAnimations({ subtree: !0 }).map((e) => e.finished.catch(() => void 0));
+	Promise.all(t).then(() => {
+		e.classList.contains("is-shown") && e.classList.add(b);
+	});
 }, Jn = (e, t) => {
 	e.classList.contains("is-shown") && Array.from(t.querySelectorAll("[data-mask]")).every((e) => !e.getAnimations({ subtree: !0 }).length) && Xn(t);
 }, Yn = (e) => {
 	for (let t of e.querySelectorAll("[mask^=\"url(#tablechart-cut-\"]")) t.dataset.mask = t.getAttribute("mask") ?? "", t.removeAttribute("mask");
 }, Xn = (e) => {
 	for (let t of e.querySelectorAll("[data-mask]")) t.setAttribute("mask", t.dataset.mask ?? ""), t.removeAttribute("data-mask");
-}, Zn = (e) => e === "id" || e === "style" || e.startsWith("data-chart"), Qn = /^\s*(?:Table)?:\s+/, $n = (e) => e?.tagName === "P" && Qn.test(e.textContent ?? ""), er = (e) => {
+}, Zn = {
+	2: {
+		part: 3,
+		text: 4.5,
+		large: 3,
+		show: (e) => `${(Math.floor(e * 100) / 100).toFixed(2)}:1`,
+		need: (e) => `${e}:1`,
+		partRule: "WCAG 1.4.11",
+		textRule: "WCAG 1.4.3"
+	},
+	3: {
+		part: 30,
+		text: 60,
+		large: 45,
+		show: (e) => `Lc ${Math.floor(e)}`,
+		need: (e) => `Lc ${e}`,
+		partRule: "APCA, WCAG 3 draft",
+		textRule: "APCA, WCAG 3 draft"
+	}
+}, Qn = (t) => {
+	let n = At(t), r = Zn[Ct(t)], i = Array.from(t.querySelectorAll("table thead tr:first-child > *")).map((e) => (e.textContent ?? "").trim()), a = Array.from(t.querySelectorAll("tbody tr > :first-child")).map((e) => (e.textContent ?? "").trim()), o = [
+		[
+			".tablechart-series",
+			"Line",
+			(e) => getComputedStyle(e).stroke
+		],
+		[
+			".tablechart-slice",
+			"Slice",
+			(e) => getComputedStyle(e).stroke
+		],
+		[
+			".tablechart-bar, .tablechart-piece",
+			"Bar",
+			(e) => getComputedStyle(e).fill
+		]
+	], s = /* @__PURE__ */ new Map();
+	for (let [e, c, l] of o) {
+		let o = Array.from(t.querySelectorAll(`${e}:not([data-muted])`));
+		for (let e of o) {
+			let u = l(e), [d, f, p, m] = xt(u), h = [
+				d,
+				f,
+				p
+			].map((e, t) => e * m + n[t] * (1 - m)), g = Et(Ct(t), h, n);
+			if (g >= r.part) continue;
+			let _ = e.getAttribute("data-series"), v = a[Number(e.getAttribute("data-row") ?? 0) - 1] ?? "", y = c === "Slice" ? "" : _ ? i[Number(_)] : "", b = `${c}|${y}|${u}`, x = s.get(b) ?? {
+				kind: c,
+				column: y,
+				rows: /* @__PURE__ */ new Set(),
+				all: 0,
+				contrast: g
+			};
+			x.rows.add(v), x.all = o.filter((e) => e.getAttribute("data-series") === _).length, s.set(b, x);
+		}
+	}
+	for (let { kind: n, column: i, rows: a, all: o, contrast: c } of s.values()) {
+		let s = Array.from(a).filter(Boolean).map((e) => `"${e}"`), l = s.join(", "), u = s.length > 1, d = n === "Line" ? i ? `Line "${i}" has` : "The line has" : n === "Slice" ? `${u ? "Slices" : "Slice"} ${l} ${u ? "have" : "has"}` : a.size >= o || !l ? `The bars${i ? ` of column "${i}"` : ""} have` : `${u ? "Bars" : "Bar"} ${l}${i ? ` in column "${i}"` : ""} ${u ? "have" : "has"}`;
+		console.warn(`[${e}] ${d} a contrast of ${r.show(c)} with the background. It needs at least ${r.need(r.part)} (${r.partRule}).`, t);
+	}
+}, $n = (t) => {
+	let n = 0, r = () => {
+		let r = Array.from(t.querySelectorAll(".tablechart-value[data-place='inside'], .tablechart-value[data-place='middle']")).filter((e) => !e.hasAttribute("data-left-out") && !e.hidden);
+		if (r.some((e) => xt(getComputedStyle(e).color)[3] < 1)) {
+			++n <= 20 && setTimeout(i, 500);
+			return;
+		}
+		let a = Array.from(t.querySelectorAll("tbody tr > :first-child")).map((e) => (e.textContent ?? "").trim()), o = Zn[Ct(t)], s = t.dataset.chart === "bar" ? "bar" : "column", c = /* @__PURE__ */ new Map();
+		for (let e of r) {
+			let n = jt(t, e);
+			if (!n) continue;
+			let r = getComputedStyle(e), i = getComputedStyle(n).fill, l = Et(Ct(t), xt(r.color), xt(i)), u = Number.parseFloat(r.fontSize), d = u >= 24 || u >= 18.66 && Number(r.fontWeight) >= 700 ? o.large : o.text;
+			if (l >= d) continue;
+			let f = n.classList.contains("tablechart-piece") ? `${s} part` : s, p = `${r.color}|${i}`, m = c.get(p) ?? {
+				what: f,
+				names: [],
+				contrast: l,
+				needed: d
+			};
+			m.names.push(`"${a[Number(e.dataset.row) - 1] ?? ""}" ("${e.textContent?.trim()}")`), c.set(p, m);
+		}
+		for (let { what: n, names: r, contrast: i, needed: a } of c.values()) {
+			let s = r.length > 1;
+			console.warn(`[${e}] The text inside the ${n}${s ? "s" : ""} of ${r.join(", ")} has a contrast of ${o.show(i)} with ${s ? "those" : "that"} ${n}${s ? "s" : ""}. Text needs at least ${o.need(a)} (${o.textRule}).`, t);
+		}
+	}, i = () => requestAnimationFrame(() => requestAnimationFrame(() => {
+		let e = t.getAnimations({ subtree: !0 }).map((e) => e.finished.catch(() => void 0));
+		Promise.all(e).then(r);
+	}));
+	if (t.classList.contains("is-shown")) return void i();
+	let a = new MutationObserver(() => {
+		t.classList.contains("is-shown") && (a.disconnect(), i());
+	});
+	a.observe(t, {
+		attributes: !0,
+		attributeFilter: ["class"]
+	});
+};
+[
+	"bar",
+	"piece",
+	"up",
+	"down",
+	"total"
+].map((e) => `--tablechart-${e}-value-color`);
+var er = (e) => e === "id" || e === "style" || e.startsWith("data-chart"), tr = /^\s*(?:Table)?:\s+/, nr = (e) => e?.tagName === "P" && tr.test(e.textContent ?? ""), rr = (e) => {
 	let t = document.createElement("figcaption");
 	for (let { name: n, value: r } of Array.from(e.attributes)) t.setAttribute(n, r);
 	let n = e.firstChild;
-	n?.nodeType === Node.TEXT_NODE && (n.textContent = (n.textContent ?? "").replace(Qn, ""), n.textContent || n.remove());
+	n?.nodeType === Node.TEXT_NODE && (n.textContent = (n.textContent ?? "").replace(tr, ""), n.textContent || n.remove());
 	let r = Array.from(e.childNodes), i = r.findIndex((e) => e.nodeName === "BR");
 	if (t.append(...i === -1 ? r : r.slice(0, i + 1)), i !== -1 && i < r.length - 1) {
 		let e = document.createElement("span");
 		e.append(...r.slice(i + 1)), t.append(e);
 	}
 	return e.remove(), t;
-}, tr = /^\s*([a-z][\w-]*)((?:\s+[\w-]+=[^\s:]+)*)\s*(:\s*|$)/, nr = (e) => {
-	let t = ur(e);
+}, ir = /^\s*([a-z][\w-]*)((?:\s+[\w-]+=[^\s:]+)*)\s*(:\s*|$)/, ar = (e) => {
+	let t = pr(e);
 	return t?.tagName === "P" ? t : e;
-}, rr = (e) => {
-	let t = nr(e).firstChild;
+}, or = (e) => {
+	let t = ar(e).firstChild;
 	if (t?.nodeType !== Node.TEXT_NODE) return null;
-	let n = tr.exec(t.textContent ?? "");
-	if (!n || !vn.includes(n[1]) || !n[3] && t.nextSibling) return null;
+	let n = ir.exec(t.textContent ?? "");
+	if (!n || !_n.includes(n[1]) || !n[3] && t.nextSibling) return null;
 	let r = n[2].trim().split(/\s+/).filter(Boolean).map((e) => e.split("="));
 	return {
 		name: n[1],
@@ -2775,11 +2894,11 @@ var nt = (e) => {
 		text: t,
 		length: n[0].length
 	};
-}, ir = (e) => {
+}, sr = (e) => {
 	if (e?.tagName !== "UL" && e?.tagName !== "OL") return null;
-	let t = Array.from(e.children), n = t.map((e) => e.hasAttribute("data-annotation") ? null : rr(e));
+	let t = Array.from(e.children), n = t.map((e) => e.hasAttribute("data-annotation") ? null : or(e));
 	return !t.length || t.some((e, t) => !n[t] && !e.hasAttribute("data-annotation")) ? null : (t.forEach((e, t) => {
-		let r = n[t], i = nr(e);
+		let r = n[t], i = ar(e);
 		if (i !== e && i.replaceWith(...i.childNodes), r) {
 			e.setAttribute("data-annotation", r.name);
 			for (let [t, n] of r.options) e.setAttribute(`data-${t}`, n);
@@ -2790,18 +2909,18 @@ var nt = (e) => {
 			t === 0 && e instanceof HTMLElement && e.matches("em, i") ? (n.className = "tablechart-caption", n.append(...e.childNodes), e.replaceWith(n)) : e.nodeType === Node.TEXT_NODE && (n.textContent = (e.textContent ?? "").trim(), e.replaceWith(n));
 		});
 	}), e.classList.add("chart-annotations"), e);
-}, ar = (e, t) => {
-	for (let { name: n, value: r } of Array.from(e.attributes)) (n === "class" || Zn(n)) && (t.setAttribute(n, r), e.removeAttribute(n));
-}, or = (e) => e.map((e) => {
-	let t = e.closest("p"), n = $n(t) ? t : e;
+}, cr = (e, t) => {
+	for (let { name: n, value: r } of Array.from(e.attributes)) (n === "class" || er(n)) && (t.setAttribute(n, r), e.removeAttribute(n));
+}, lr = (e) => e.map((e) => {
+	let t = e.closest("p"), n = nr(t) ? t : e;
 	if (n.tagName !== "TABLE" && n.tagName !== "P") return n;
 	let r = document.createElement("figure");
-	ar(e, r), e.classList.length || e.removeAttribute("class");
-	let i = n.tagName === "TABLE" ? n : null, a = n.previousElementSibling, o = n.nextElementSibling, s = i ? $n(a) ? a : $n(o) ? o : null : n;
+	cr(e, r), e.classList.length || e.removeAttribute("class");
+	let i = n.tagName === "TABLE" ? n : null, a = n.previousElementSibling, o = n.nextElementSibling, s = i ? nr(a) ? a : nr(o) ? o : null : n;
 	i && s === o && (o = o?.nextElementSibling ?? null);
-	let c = o?.classList.contains("chart-annotations") ? o : ir(o);
-	return n.replaceWith(r), s && r.append(er(s)), i && r.append(i), c && r.append(c), mt?.log?.(`A ${i ? "table" : "caption"} with chart attributes was wrapped in a figure of its own`), r;
-}), sr = (e, t, n, r = document.createElement("table"), i = "Note") => {
+	let c = o?.classList.contains("chart-annotations") ? o : sr(o);
+	return n.replaceWith(r), s && r.append(rr(s)), i && r.append(i), c && r.append(c), it?.log?.(`A ${i ? "table" : "caption"} with chart attributes was wrapped in a figure of its own`), r;
+}), ur = (e, t, n, r = document.createElement("table"), i = "Note") => {
 	for (let e of r.querySelectorAll(":scope > tbody, :scope > tfoot, :scope > tr")) e.remove();
 	let a = e.some((e) => e.note);
 	if (!r.tHead && (t.length || n || a)) {
@@ -2830,7 +2949,7 @@ var nt = (e) => {
 		n.dataset.note = "", n.textContent = i, s.append(n);
 	}
 	return r;
-}, cr = (e) => {
+}, dr = (e) => {
 	if (!e || typeof e != "object") return;
 	let t = Object.entries(e), n = (e) => e === null || typeof e == "string" || typeof e == "number";
 	if (t.length && t.every(([, e]) => n(e) || Array.isArray(e) && e.every(n))) return t.map(([e, t]) => Array.isArray(t) ? {
@@ -2840,30 +2959,30 @@ var nt = (e) => {
 		label: e,
 		value: t
 	});
-}, lr = async (e) => {
-	await Promise.all(e.filter((e) => e.hasAttribute("data-chart-src")).map(async (e) => {
-		let t = e.getAttribute("data-chart-src"), n = Array.from(e.querySelectorAll("table")).find((e) => e.tHead) ?? null;
-		for (let t of e.querySelectorAll("table")) t !== n && t.remove();
+}, fr = async (t) => {
+	await Promise.all(t.filter((e) => e.hasAttribute("data-chart-src")).map(async (t) => {
+		let n = t.getAttribute("data-chart-src"), r = Array.from(t.querySelectorAll("table")).find((e) => e.tHead) ?? null;
+		for (let e of t.querySelectorAll("table")) e !== r && e.remove();
 		try {
-			let r = await fetch(t);
-			if (!r.ok) throw Error(`${r.status} ${r.statusText}`);
-			let i = await r.json(), a = Array.isArray(i) ? i : i?.rows ? Array.isArray(i.rows) ? i.rows : cr(i.rows) : cr(i);
+			let e = await fetch(n);
+			if (!e.ok) throw Error(`${e.status} ${e.statusText}`);
+			let i = await e.json(), a = Array.isArray(i) ? i : i?.rows ? Array.isArray(i.rows) ? i.rows : dr(i.rows) : dr(i);
 			if (!Array.isArray(a)) throw Error("no rows in it: a list of rows, an object with rows, or names with their values");
-			let o = sr(a, Array.isArray(i?.series) ? i.series.map(String) : [], typeof i?.label == "string" ? i.label : "", n ?? void 0, typeof i?.note == "string" ? i.note : void 0);
-			if (!n) {
-				let t = e.querySelector(":scope > figcaption");
-				t ? t.after(o) : e.prepend(o);
+			let o = ur(a, Array.isArray(i?.series) ? i.series.map(String) : [], typeof i?.label == "string" ? i.label : "", r ?? void 0, typeof i?.note == "string" ? i.note : void 0);
+			if (!r) {
+				let e = t.querySelector(":scope > figcaption");
+				e ? e.after(o) : t.prepend(o);
 			}
-			o.tHead || mt?.log?.(`The table from "${t}" has no header row, so a screen reader cannot name its columns.`), mt?.log?.(`Read ${a.length} rows from "${t}"`);
-		} catch (e) {
-			let n = window.location.protocol === "file:";
-			console.warn(`[${l}] Could not read the chart data in "${t}": ${e.message}.` + (n ? " A page opened as a file cannot fetch files; open it from a server." : ""));
+			o.tHead || it?.log?.(`The table from "${n}" has no header row, so a screen reader cannot name its columns.`), it?.log?.(`Read ${a.length} rows from "${n}"`);
+		} catch (t) {
+			let r = window.location.protocol === "file:";
+			console.warn(`[${e}] Could not read the chart data in "${n}": ${t.message}.` + (r ? " A page opened as a file cannot fetch files; open it from a server." : ""));
 		}
 	}));
-}, ur = (e) => {
+}, pr = (e) => {
 	let t = Array.from(e.childNodes).filter((e) => e.nodeType === Node.ELEMENT_NODE || e.nodeType === Node.TEXT_NODE && e.textContent?.trim());
 	return t.length === 1 && t[0] instanceof HTMLElement ? t[0] : null;
-}, dr = "strong, b, span.total", fr = (e) => {
+}, mr = "strong, b, span.total", hr = (e) => {
 	for (let t of e) {
 		for (let e of t.querySelectorAll("tbody tr")) {
 			let t = e.cells[0];
@@ -2871,28 +2990,28 @@ var nt = (e) => {
 			let n = document.createElement("th");
 			for (let { name: e, value: r } of Array.from(t.attributes)) n.setAttribute(e, r);
 			n.append(...t.childNodes), t.replaceWith(n);
-			for (let t = ur(n); t?.matches(dr); t = ur(n)) e.dataset.kind = "total", t.replaceWith(...t.childNodes);
+			for (let t = pr(n); t?.matches(mr); t = pr(n)) e.dataset.kind = "total", t.replaceWith(...t.childNodes);
 		}
 		let e = Array.from(t.querySelector("thead tr:last-child")?.children ?? []);
-		for (let t of e.slice(1)) for (let e = ur(t); e?.matches(dr); e = ur(t)) t.setAttribute("data-kind", "focus"), e.replaceWith(...e.childNodes);
+		for (let t of e.slice(1)) for (let e = pr(t); e?.matches(mr); e = pr(t)) t.setAttribute("data-kind", "focus"), e.replaceWith(...e.childNodes);
 	}
-}, pr = "data-chart-made", mr = (e, t) => {
+}, gr = "data-chart-made", _r = (e, t) => {
 	let n = Number.parseFloat(e.dataset.chartEntrance ?? ""), r = Number.isFinite(n) ? n : t.entrance;
 	return Math.min(Math.max(r, 0), 1);
-}, hr = !1, gr = (e) => {
+}, vr = !1, yr = (e) => {
 	let t = e.find((e) => e.tagName !== "FIGURE");
-	!hr && t && (hr = !0, console.warn(`[tablechart] A chart is a <${t.tagName.toLowerCase()}>. Use a <figure> with a <figcaption>, so the chart has a title, also for screen readers.`, t));
-}, _r = async (e, t) => {
-	let n = or(e.filter((e) => !e.hasAttribute(pr) && e.tagName !== "TH"));
-	gr(n), await lr(n), fr(n), St(n, t.langattribute);
+	!vr && t && (vr = !0, console.warn(`[tablechart] A chart is a <${t.tagName.toLowerCase()}>. Use a <figure> with a <figcaption>, so the chart has a title, also for screen readers.`, t));
+}, br = async (e, t) => {
+	let n = lr(e.filter((e) => !e.hasAttribute(gr) && e.tagName !== "TH"));
+	yr(n), await fr(n), hr(n), ft(n, t.langattribute);
 	for (let e of n) e.dispatchEvent(new CustomEvent("tablechart:table", { bubbles: !0 }));
 	return n;
-}, vr = `${g}-name`, yr = [
+}, xr = `${o}-name`, Sr = [
 	"top left",
 	"top right",
 	"bottom left",
 	"bottom right"
-], br = (e, t) => {
+], Cr = (e, t) => {
 	if (!e) return null;
 	if (e === "mean") return t.length ? t.reduce((e, t) => e + t, 0) / t.length : null;
 	if (e === "median") {
@@ -2901,65 +3020,65 @@ var nt = (e) => {
 	}
 	let n = Number.parseFloat(e);
 	return Number.isFinite(n) ? n : null;
-}, xr = {
-	create(e, t) {
-		for (let n of e.querySelectorAll("[data-corner]")) {
-			let e = (n.getAttribute("data-corner") ?? "").toLowerCase().split(/\s+/), r = `${e.find((e) => e === "top" || e === "bottom")} ${e.find((e) => e === "left" || e === "right")}`;
-			if (!yr.includes(r)) {
-				console.warn(`[${l}] A quadrant has a corner "${n.getAttribute("data-corner")}". It takes ${yr.join(", ")}.`);
+}, wr = {
+	create(t, n) {
+		for (let r of t.querySelectorAll("[data-corner]")) {
+			let t = (r.getAttribute("data-corner") ?? "").toLowerCase().split(/\s+/), i = `${t.find((e) => e === "top" || e === "bottom")} ${t.find((e) => e === "left" || e === "right")}`;
+			if (!Sr.includes(i)) {
+				console.warn(`[${e}] A quadrant has a corner "${r.getAttribute("data-corner")}". It takes ${Sr.join(", ")}.`);
 				continue;
 			}
-			let i = document.createElement("span");
-			if (i.className = vr, i.dataset.corner = r, i.inert = !0, n.childElementCount) for (let e of Array.from(n.children)) i.append(e.cloneNode(!0));
-			else i.textContent = (n.textContent ?? "").trim();
-			for (let { name: e, value: t } of Array.from(n.attributes)) e !== "data-corner" && i.setAttribute(e, t);
-			t.append(i);
+			let a = document.createElement("span");
+			if (a.className = xr, a.dataset.corner = i, a.inert = !0, r.childElementCount) for (let e of Array.from(r.children)) a.append(e.cloneNode(!0));
+			else a.textContent = (r.textContent ?? "").trim();
+			for (let { name: e, value: t } of Array.from(r.attributes)) e !== "data-corner" && a.setAttribute(e, t);
+			n.append(a);
 		}
 		return null;
 	},
-	draw(e, t, n) {
-		let { frame: r, x: i, y: a, rows: o, series: s, height: c, unit: u, svg: d, plot: f, categories: p } = n;
-		if (!r || !i) {
-			console.warn(`[${l}] A quadrant works on a scatter chart, which has an axis across and an axis up.`);
+	draw(t, n, r) {
+		let { frame: i, x: a, y: s, rows: c, series: l, height: u, unit: d, svg: f, plot: m, categories: h } = r;
+		if (!i || !a) {
+			console.warn(`[${e}] A quadrant works on a scatter chart, which has an axis across and an axis up.`);
 			return;
 		}
-		let [m, h, _, v] = r, y = s.flatMap((e, t) => e.group ? [] : [t]), b = (e) => o.flatMap((t) => t.cells[y[e]] && !t.cells[y[e]].missing ? [t.cells[y[e]].value] : []), x = br(e.getAttribute("data-x"), b(0)), S = br(e.getAttribute("data-y"), b(1)), w = x === null ? m + _ / 2 : Math.min(Math.max(i(x), m), m + _), T = S === null ? h + v / 2 : Math.min(Math.max(a(S), h), h + v), E = d.querySelector(`:scope > .${P}`);
-		if (E) {
-			let e = (e, t) => Math.abs(e - t) < u / 2, t = (E.getAttribute("d") ?? "").match(/M[^M]+/g) ?? [];
-			E.setAttribute("d", t.filter((t) => {
+		let [g, _, v, y] = i, b = l.flatMap((e, t) => e.group ? [] : [t]), x = (e) => c.flatMap((t) => t.cells[b[e]] && !t.cells[b[e]].missing ? [t.cells[b[e]].value] : []), S = Cr(t.getAttribute("data-x"), x(0)), C = Cr(t.getAttribute("data-y"), x(1)), E = S === null ? g + v / 2 : Math.min(Math.max(a(S), g), g + v), D = C === null ? _ + y / 2 : Math.min(Math.max(s(C), _), _ + y), O = f.querySelector(`:scope > .${w}`);
+		if (O) {
+			let e = (e, t) => Math.abs(e - t) < d / 2, t = (O.getAttribute("d") ?? "").match(/M[^M]+/g) ?? [];
+			O.setAttribute("d", t.filter((t) => {
 				let [, n, r, i] = t.match(/M(-?[\d.]+),(-?[\d.]+)([HV])/) ?? [];
-				return !(i === "V" && e(Number(n), w)) && !(i === "H" && e(Number(r), T));
+				return !(i === "V" && e(Number(n), E)) && !(i === "H" && e(Number(r), D));
 			}).join(""));
 		}
-		d.insertBefore(V("path", {
-			class: g,
-			d: `M${B(w)},${B(h)}V${B(h + v)}M${B(m)},${B(T)}H${B(m + _)}`
-		}), d.querySelector(`:scope > .${C}`));
-		let D = 6 * u, O = [];
-		for (let e of f.querySelectorAll(`:scope > .${vr}`)) {
-			let t = e.dataset.corner ?? "", n = t.includes("right"), r = t.includes("bottom"), i = n ? m + _ - D : m + D, a = r ? h + v - D : h + D;
-			U(e, i, a, F, c);
-			let o = Y(e).width * u, s = Y(e).height * u;
-			O.push([
+		f.insertBefore(M("path", {
+			class: o,
+			d: `M${j(E)},${j(_)}V${j(_ + y)}M${j(g)},${j(D)}H${j(g + v)}`
+		}), f.querySelector(`:scope > .${p}`));
+		let k = 6 * d, A = [];
+		for (let e of m.querySelectorAll(`:scope > .${xr}`)) {
+			let t = e.dataset.corner ?? "", n = t.includes("right"), r = t.includes("bottom"), i = n ? g + v - k : g + k, a = r ? _ + y - k : _ + k;
+			F(e, i, a, T, u);
+			let o = Y(e).width * d, s = Y(e).height * d;
+			A.push([
 				n ? i - o : i,
 				r ? a - s : a,
 				o,
 				s
 			]);
 		}
-		n.taken.push(...O);
-		for (let e of p) {
+		r.taken.push(...A);
+		for (let e of h) {
 			if (e.hidden || e.hasAttribute("data-left-out") || !e.style.left) continue;
-			let t = Oe(e, u, F, c, [0, 0]);
-			O.some((e) => _e(e, t)) && e.setAttribute("data-left-out", "");
+			let t = ve(e, d, T, u, [0, 0]);
+			A.some((e) => oe(e, t)) && e.setAttribute("data-left-out", "");
 		}
 	}
-}, Sr = [
+}, Tr = [
 	"circle",
 	"triangle",
 	"square",
 	"diamond"
-], Cr = [
+], Er = [
 	"right",
 	"left",
 	"above",
@@ -2968,7 +3087,7 @@ var nt = (e) => {
 	"left",
 	"right",
 	"left"
-], wr = (e) => {
+], Dr = (e) => {
 	let t = e.flatMap((e, t) => e.group ? [] : [t]);
 	return {
 		x: t[0],
@@ -2976,48 +3095,48 @@ var nt = (e) => {
 		size: t[2],
 		group: e.findIndex((e) => e.group)
 	};
-}, Tr = (e, t) => t < 0 ? [] : [...new Set(e.map((e) => e.cells[t]?.raw ?? ""))], Er = (e, t, n) => e.cells[t]?.missing || e.cells[n]?.missing ? null : `${e.cells[t]?.value} ${e.cells[n]?.value}`, Dr = {
+}, Or = (e, t) => t < 0 ? [] : [...new Set(e.map((e) => e.cells[t]?.raw ?? ""))], kr = (e, t, n) => e.cells[t]?.missing || e.cells[n]?.missing ? null : `${e.cells[t]?.value} ${e.cells[n]?.value}`, Ar = {
 	aspect: .62,
 	categories: "beside",
 	columns: !0,
 	axes: !0,
 	numbers: !1,
-	annotations: { quadrant: xr },
+	annotations: { quadrant: wr },
 	text({ figure: e, plot: t, rows: n, series: r, config: i }) {
-		let { x: a, y: o, size: s, group: c } = wr(r), l = t.querySelector(":scope > .tablechart-categories")?.children ?? [], u = /* @__PURE__ */ new Map();
+		let { x: a, y: o, size: s, group: c } = Dr(r), l = t.querySelector(":scope > .tablechart-categories")?.children ?? [], u = /* @__PURE__ */ new Map();
 		n.forEach((e, t) => {
-			let n = Er(e, a, o);
+			let n = kr(e, a, o);
 			n && (u.get(n)?.push(t) ?? u.set(n, [t]));
 		});
-		let d = (e) => s === void 0 ? 0 : Math.abs(n[e].cells[s]?.value ?? 0);
+		let p = (e) => s === void 0 ? 0 : Math.abs(n[e].cells[s]?.value ?? 0);
 		for (let e of u.values()) {
 			if (e.length < 2) continue;
-			let t = e.reduce((e, t) => d(t) > d(e) ? t : e);
+			let t = e.reduce((e, t) => p(t) > p(e) ? t : e);
 			for (let n of e) {
 				let r = l[n];
 				n === t ? r?.setAttribute("data-more", String(e.length - 1)) : r?.setAttribute("data-same", "");
 			}
 		}
-		let f = Tr(n, c);
-		if (f.length < 2 && s === void 0) return;
-		let p = document.createElement("div");
-		p.className = S, p.setAttribute("aria-hidden", "true"), p.inert = !0;
-		let m = Array.from(e.querySelectorAll(`tbody tr > td:nth-of-type(${c + 1})`)), h = (e, t) => {
-			let n = te(x, p);
+		let m = Or(n, c);
+		if (m.length < 2 && s === void 0) return;
+		let h = document.createElement("div");
+		h.className = f, h.setAttribute("aria-hidden", "true"), h.inert = !0;
+		let g = Array.from(e.querySelectorAll(`tbody tr > td:nth-of-type(${c + 1})`)), _ = (e, t) => {
+			let n = P(d, h);
 			return n.dataset.place = "legend", n.dataset.line = "none", n.textContent = e, t && i.langattribute && n.setAttribute(i.langattribute, t), n;
 		};
-		f.length > 1 && f.forEach((e, t) => {
-			let n = i.langattribute ? m.find((t) => t.textContent?.trim() === e)?.getAttribute(i.langattribute) : null, r = h(e, n);
-			r.dataset.marker = Sr[t % Sr.length], r.style.setProperty("--n", String(t)), r.style.setProperty("--palette", `var(--tablechart-color-${t + 1})`);
-		}), s !== void 0 && (h(r[s].name, r[s].key).dataset.marker = "size"), t.after(p);
+		m.length > 1 && m.forEach((e, t) => {
+			let n = i.langattribute ? g.find((t) => t.textContent?.trim() === e)?.getAttribute(i.langattribute) : null, r = _(e, n);
+			r.dataset.marker = Tr[t % Tr.length], r.style.setProperty("--n", String(t)), r.style.setProperty("--palette", `var(--tablechart-color-${t + 1})`);
+		}), s !== void 0 && (_(r[s].name, r[s].key).dataset.marker = "size"), t.after(h);
 	},
 	draw(e) {
 		let { rows: t, series: n, x: r, y: i, frame: a, unit: o, svg: s, categories: c, height: l, config: u, plot: d } = e;
 		if (!r || !a) return;
-		let f = wr(n), p = Tr(t, f.group), m = p.length > 1, h = (e.length("--tablechart-marker-size", "10px") ?? 10 * o) / 2, g = (e.length("--tablechart-bubble-max", "24px") ?? 24 * o) / 2, _ = (e.length("--tablechart-bubble-min", "") ?? h * 1.2) / 2, v = (e) => f.size === void 0 ? void 0 : e.cells[f.size], y = q(t.map((e) => Math.abs(v(e)?.value ?? 0))), b = t.flatMap((e, t) => {
+		let f = Dr(n), m = Or(t, f.group), h = m.length > 1, g = (e.length("--tablechart-marker-size", "10px") ?? 10 * o) / 2, _ = (e.length("--tablechart-bubble-max", "24px") ?? 24 * o) / 2, v = (e.length("--tablechart-bubble-min", "") ?? g * 1.2) / 2, y = (e) => f.size === void 0 ? void 0 : e.cells[f.size], b = W(t.map((e) => Math.abs(y(e)?.value ?? 0))), x = t.flatMap((e, t) => {
 			let n = e.cells[f.x], a = e.cells[f.y];
 			if (!n || !a || n.missing || a.missing) return [];
-			let o = v(e), s = o && !o.missing && y > 0 ? Math.max(_, Math.sqrt(Math.abs(o.value) / y) * g) : h, c = m ? p.indexOf(e.cells[f.group]?.raw ?? "") : -1;
+			let o = y(e), s = o && !o.missing && b > 0 ? Math.max(v, Math.sqrt(Math.abs(o.value) / b) * _) : g, c = h ? m.indexOf(e.cells[f.group]?.raw ?? "") : -1;
 			return [{
 				i: t,
 				px: r(n.value),
@@ -3025,57 +3144,57 @@ var nt = (e) => {
 				r: s,
 				g: c
 			}];
-		}), x = Math.min(b.length - 1, 6);
-		d.style.setProperty("--count", String(x + 1));
-		let S = new Map([...b].sort((e, t) => e.px - t.px || e.i - t.i).map((e, t) => [e.i, x ? B(t * x / (b.length - 1)) : 0])), w = [...b].sort((e, t) => t.r - e.r || e.i - t.i);
+		}), S = Math.min(x.length - 1, 6);
+		d.style.setProperty("--count", String(S + 1));
+		let C = new Map([...x].sort((e, t) => e.px - t.px || e.i - t.i).map((e, t) => [e.i, S ? j(t * S / (x.length - 1)) : 0])), w = [...x].sort((e, t) => t.r - e.r || e.i - t.i);
 		for (let e of w) {
-			let t = m ? Sr[e.g % Sr.length] : "circle";
-			s.appendChild(Ze(t, e.px, e.py, e.r, {
-				class: C,
+			let t = h ? Tr[e.g % Tr.length] : "circle";
+			s.appendChild(Z(t, e.px, e.py, e.r, {
+				class: p,
 				"data-row": e.i + 1,
 				"data-marker": t,
-				style: `--i:${S.get(e.i)}; ${m ? `--n:${e.g}; --palette:var(--tablechart-color-${e.g + 1})` : ""}`
+				style: `--i:${C.get(e.i)}; ${h ? `--n:${e.g}; --palette:var(--tablechart-color-${e.g + 1})` : ""}`
 			}));
 		}
-		let T = d.parentElement?.getAttribute("data-chart-names"), E = T == null ? u.names : T !== "false", D = 4 * o, O = [
-			a[0] + 1.5 * D,
+		let E = d.parentElement?.getAttribute("data-chart-names"), D = E == null ? u.names : E !== "false", O = 4 * o, k = [
+			a[0] + 1.5 * O,
 			a[1],
-			a[2] - 1.5 * D,
-			a[3] - 1.5 * D
-		], [k, A, j, M] = O, N = w.map(({ i: e, px: t, py: n, r }) => {
+			a[2] - 1.5 * O,
+			a[3] - 1.5 * O
+		], [A, M, N, P] = k, I = w.map(({ i: e, px: t, py: n, r }) => {
 			if (c[e].hasAttribute("data-same")) return [];
-			let { width: i, height: a } = Y(c[e]), s = i * o, l = a * o, u = l * .1, d = r * .7 + D / 2, f = (e, t) => [
-				Math.max(k, Math.min(e, k + j - s)),
-				Math.max(A, Math.min(t, A + M - l)) + u,
+			let { width: i, height: a } = Y(c[e]), s = i * o, l = a * o, u = l * .1, d = r * .7 + O / 2, f = (e, t) => [
+				Math.max(A, Math.min(e, A + N - s)),
+				Math.max(M, Math.min(t, M + P - l)) + u,
 				s,
 				l - 2 * u
 			];
 			return [
-				f(t + r + D, n - l / 2),
-				f(t - r - D - s, n - l / 2),
-				f(t - s / 2, n - r - D - l),
-				f(t - s / 2, n + r + D),
+				f(t + r + O, n - l / 2),
+				f(t - r - O - s, n - l / 2),
+				f(t - s / 2, n - r - O - l),
+				f(t - s / 2, n + r + O),
 				f(t + d, n - d - l),
 				f(t - d - s, n - d - l),
 				f(t + d, n + d),
 				f(t - d - s, n + d)
 			];
-		}), P = E ? ye(N, b.map(({ px: e, py: t, r: n }) => [
+		}), L = D ? ce(I, x.map(({ px: e, py: t, r: n }) => [
 			e - n,
 			t - n,
 			2 * n,
 			2 * n
-		]), O) : w.map(() => null);
+		]), k) : w.map(() => null);
 		for (let e of c) e.hidden = !0, e.dataset.missing = "";
 		w.forEach((e, t) => {
-			let n = c[e.i], r = P[t];
-			if (n.hidden = !1, delete n.dataset.missing, n.style.setProperty("--i", String(S.get(e.i))), n.toggleAttribute("data-left-out", r === null), r === null) return;
-			n.dataset.side = Cr[r];
-			let [i, a, , s] = N[t][r];
-			U(n, i, a - (Y(n).height * o - s) / 2, F, l);
+			let n = c[e.i], r = L[t];
+			if (n.hidden = !1, delete n.dataset.missing, n.style.setProperty("--i", String(C.get(e.i))), n.toggleAttribute("data-left-out", r === null), r === null) return;
+			n.dataset.side = Er[r];
+			let [i, a, , s] = I[t][r];
+			F(n, i, a - (Y(n).height * o - s) / 2, T, l);
 		}), e.rowAt = (e, t) => {
 			let n = null, r = 6 * o;
-			for (let i of b) {
+			for (let i of x) {
 				let a = Math.max(Math.hypot(i.px - e * o, i.py - t * o) - i.r, 0);
 				(a < r || a === r && n && i.r < n.r) && (r = a, n = i);
 			}
@@ -3083,115 +3202,63 @@ var nt = (e) => {
 		};
 	},
 	tooltip(e, t) {
-		let { x: n, y: r } = wr(e.series), i = Er(e.rows[t], n, r), a = e.rows.flatMap((e, a) => a === t || i !== null && Er(e, n, r) === i ? [a] : []), o = a.filter((t) => e.categories[t]?.hasAttribute("data-more"));
+		let { x: n, y: r } = Dr(e.series), i = kr(e.rows[t], n, r), a = e.rows.flatMap((e, a) => a === t || i !== null && kr(e, n, r) === i ? [a] : []), o = a.filter((t) => e.categories[t]?.hasAttribute("data-more"));
 		return [...o, ...a.filter((e) => !o.includes(e))].map((t) => ({
 			name: e.categories[t]?.textContent ?? "",
 			value: ""
 		}));
 	}
-}, Or = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
-	var n = function(e) {
-		return r(e) && !i(e);
-	};
-	function r(e) {
-		return !!e && typeof e == "object";
-	}
-	function i(e) {
-		var t = Object.prototype.toString.call(e);
-		return t === "[object RegExp]" || t === "[object Date]" || o(e);
-	}
-	var a = typeof Symbol == "function" && Symbol.for ? Symbol.for("react.element") : 60103;
-	function o(e) {
-		return e.$$typeof === a;
-	}
-	function s(e) {
-		return Array.isArray(e) ? [] : {};
-	}
-	function c(e, t) {
-		return t.clone !== !1 && t.isMergeableObject(e) ? g(s(e), e, t) : e;
-	}
-	function l(e, t, n) {
-		return e.concat(t).map(function(e) {
-			return c(e, n);
-		});
-	}
-	function u(e, t) {
-		if (!t.customMerge) return g;
-		var n = t.customMerge(e);
-		return typeof n == "function" ? n : g;
-	}
-	function d(e) {
-		return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(e).filter(function(t) {
-			return Object.propertyIsEnumerable.call(e, t);
-		}) : [];
-	}
-	function f(e) {
-		return Object.keys(e).concat(d(e));
-	}
-	function p(e, t) {
-		try {
-			return t in e;
-		} catch {
-			return !1;
-		}
-	}
-	function m(e, t) {
-		return p(e, t) && !(Object.hasOwnProperty.call(e, t) && Object.propertyIsEnumerable.call(e, t));
-	}
-	function h(e, t, n) {
-		var r = {};
-		return n.isMergeableObject(e) && f(e).forEach(function(t) {
-			r[t] = c(e[t], n);
-		}), f(t).forEach(function(i) {
-			m(e, i) || (r[i] = p(e, i) && n.isMergeableObject(t[i]) ? u(i, n)(e[i], t[i], n) : c(t[i], n));
-		}), r;
-	}
-	function g(e, t, r) {
-		r ||= {}, r.arrayMerge = r.arrayMerge || l, r.isMergeableObject = r.isMergeableObject || n, r.cloneUnlessOtherwiseSpecified = c;
-		var i = Array.isArray(t);
-		return i === Array.isArray(e) ? i ? r.arrayMerge(e, t, r) : h(e, t, r) : c(t, r);
-	}
-	g.all = function(e, t) {
-		if (!Array.isArray(e)) throw Error("first argument should be an array");
-		return e.reduce(function(e, n) {
-			return g(e, n, t);
-		}, {});
-	}, t.exports = g;
-})))(), 1), kr = Object.defineProperty, Ar = (e, t) => {
+}, jr = Object.defineProperty, Mr = (e, t) => {
 	let n = {};
-	for (var r in e) kr(n, r, {
+	for (var r in e) jr(n, r, {
 		get: e[r],
 		enumerable: !0
 	});
-	return t || kr(n, Symbol.toStringTag, { value: "Module" }), n;
-}, jr = [
+	return t || jr(n, Symbol.toStringTag, { value: "Module" }), n;
+}, Nr = (e) => {
+	if (typeof e != "object" || !e) return !1;
+	let t = Object.getPrototypeOf(e);
+	return t === Object.prototype || t === null;
+}, Pr = /* @__PURE__ */ new Set([
+	"__proto__",
+	"constructor",
+	"prototype"
+]), Fr = (...e) => {
+	let t = {};
+	for (let n of e) if (Nr(n)) for (let e of Object.keys(n)) {
+		if (Pr.has(e)) continue;
+		let r = n[e];
+		t[e] = Nr(r) ? Fr(t[e], r) : r;
+	}
+	return t;
+}, Ir = [
 	".js",
 	".min.js",
 	".mjs"
-], Mr = (() => {
+], Lr = (() => {
 	let e = import.meta;
 	if (typeof e?.url == "string" && e.url !== "") return e.url;
 	let t = typeof document < "u" ? document.currentScript : null;
 	return t && "src" in t && t.src ? t.src : "";
-})(), Nr = (e) => {
+})(), Rr = (e) => {
 	let t = e.lastIndexOf("/");
 	return t === -1 ? "" : e.slice(0, t + 1);
-}, Pr = (e) => {
+}, zr = (e) => {
 	let t = e.split(/[?#]/)[0];
 	return t.slice(t.lastIndexOf("/") + 1);
-}, Fr = (e, t) => jr.some((n) => e === `${t}${n}`), Ir = [
+}, Br = (e, t) => Ir.some((n) => e === `${t}${n}`), Vr = [
 	/\/@fs\//,
 	/\/@id\//,
 	/\/\.vite\/deps\//,
 	/[?&][vt]=/
-], Lr = (e) => Ir.some((t) => t.test(e)), Rr = (e) => {
+], Hr = (e) => Vr.some((t) => t.test(e)), Ur = (e) => {
 	if (typeof document < "u") {
-		let t = jr.map((t) => `script[src$="${e}${t}"]`).join(", "), n = document.querySelector(t)?.getAttribute("src");
-		if (n) return { directory: Nr(n) };
+		let t = Ir.map((t) => `script[src$="${e}${t}"]`).join(", "), n = document.querySelector(t)?.getAttribute("src");
+		if (n) return { directory: Rr(n) };
 	}
-	return Mr && !Lr(Mr) && Fr(Pr(Mr), e) ? { directory: Nr(Mr) } : { directory: null };
-}, zr = (e) => Rr(e).directory !== null, Br = /* @__PURE__ */ new Map(), Vr = (e = "") => {
-	let t = Br.get(e);
+	return Lr && !Hr(Lr) && Br(zr(Lr), e) ? { directory: Rr(Lr) } : { directory: null };
+}, Wr = (e) => Ur(e).directory !== null, Gr = /* @__PURE__ */ new Map(), Kr = (e = "") => {
+	let t = Gr.get(e);
 	if (t) return t;
 	let n = typeof window < "u", r = typeof document < "u", i = import.meta, a = !1;
 	try {
@@ -3205,7 +3272,7 @@ var nt = (e) => {
 	try {
 		c = i?.env?.DEV === !0;
 	} catch {}
-	let l = e !== "" && zr(e), u = {
+	let l = e !== "" && Wr(e), u = {
 		hasResolvableSource: l,
 		hasWindow: n,
 		hasDocument: r,
@@ -3214,8 +3281,8 @@ var nt = (e) => {
 		hasHMR: s,
 		isViteDev: c
 	};
-	return Br.set(e, u), u;
-}, Hr = class {
+	return Gr.set(e, u), u;
+}, qr = class {
 	defaultConfig;
 	pluginInit;
 	pluginId;
@@ -3227,10 +3294,7 @@ var nt = (e) => {
 	}
 	initializeConfig(e) {
 		let t = this.defaultConfig, n = e.getConfig()[this.pluginId] || {};
-		this.userConfigData = n, this.mergedConfig = (0, Or.default)(t, n, {
-			arrayMerge: (e, t) => t,
-			clone: !0
-		});
+		this.userConfigData = n, this.mergedConfig = Fr(t, n);
 	}
 	getCurrentConfig() {
 		if (!this.mergedConfig) throw Error("Plugin configuration has not been initialized");
@@ -3242,7 +3306,7 @@ var nt = (e) => {
 	get userConfig() {
 		return this.userConfigData || {};
 	}
-	getEnvironmentInfo = () => Vr(this.pluginId);
+	getEnvironmentInfo = () => Kr(this.pluginId);
 	init(e) {
 		if (this.initializeConfig(e), this.pluginInit) return this.pluginInit(this, e, this.getCurrentConfig());
 	}
@@ -3255,9 +3319,9 @@ var nt = (e) => {
 			...e
 		};
 	}
-}, Ur = "data-css-id", Wr = (e, t) => new Promise((n, r) => {
+}, Jr = "data-css-id", Yr = (e, t) => new Promise((n, r) => {
 	let i = document.createElement("link");
-	i.rel = "stylesheet", i.href = t, i.setAttribute(Ur, e);
+	i.rel = "stylesheet", i.href = t, i.setAttribute(Jr, e);
 	let a = setTimeout(() => {
 		i.parentNode && i.parentNode.removeChild(i), r(/* @__PURE__ */ Error(`[${e}] Timeout loading CSS from: ${t}`));
 	}, 5e3);
@@ -3266,30 +3330,30 @@ var nt = (e) => {
 	}, i.onerror = () => {
 		clearTimeout(a), i.parentNode && i.parentNode.removeChild(i), r(/* @__PURE__ */ Error(`[${e}] Failed to load CSS from: ${t}`));
 	}, document.head.appendChild(i);
-}), Gr = (e) => document.querySelectorAll(`[${Ur}="${e}"]`).length > 0, Kr = 1e4, qr = (e) => new Promise((t) => {
-	if (Jr(e)) return t(!0);
+}), Xr = (e) => document.querySelectorAll(`[${Jr}="${e}"]`).length > 0, Zr = 1e4, Qr = (e) => new Promise((t) => {
+	if ($r(e)) return t(!0);
 	if (typeof MutationObserver > "u") return t(!1);
 	let n = !1, r = (e) => {
 		n || (n = !0, i.disconnect(), clearTimeout(o), window.removeEventListener("load", a), t(e));
 	}, i = new MutationObserver(() => {
-		Jr(e) && r(!0);
+		$r(e) && r(!0);
 	});
 	i.observe(document.documentElement, {
 		childList: !0,
 		subtree: !0,
 		attributeFilter: ["href", "rel"]
 	});
-	let a = () => requestAnimationFrame(() => r(Jr(e)));
+	let a = () => requestAnimationFrame(() => r($r(e)));
 	document.readyState === "complete" ? a() : window.addEventListener("load", a, { once: !0 });
-	let o = setTimeout(() => r(Jr(e)), Kr);
-}), Jr = (e) => {
-	if (Gr(e)) return !0;
+	let o = setTimeout(() => r($r(e)), Zr);
+}), $r = (e) => {
+	if (Xr(e)) return !0;
 	try {
 		return window.getComputedStyle(document.documentElement).getPropertyValue(`--cssimported-${e}`).trim() !== "";
 	} catch {
 		return !1;
 	}
-}, Yr = ((e) => new Proxy(e, { get: (e, t) => {
+}, ei = ((e) => new Proxy(e, { get: (e, t) => {
 	if (t in e) return e[t];
 	let n = t.toString();
 	if (typeof console[n] == "function") return (...t) => {
@@ -3344,32 +3408,18 @@ var nt = (e) => {
 	};
 	debugLog(e, ...t) {
 		let n = console[e];
-		if (!(!this.debugMode && e !== "error" || typeof n != "function")) {
-			if (e === "group" || e === "groupCollapsed") {
-				t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]);
-				return;
-			}
-			if (e === "groupEnd") {
-				this.emit(e, []);
-				return;
-			}
-			if (e === "table") {
-				t.length === 1 ? this.table(t[0]) : t.length === 2 ? (t[0], this.table(t[0], t[1])) : t.length >= 3 && this.table(t[0], t[1], t[2]);
-				return;
-			}
-			this.groupDepth > 0 ? this.emit(e, t) : t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]);
-		}
+		!this.debugMode && e !== "error" || typeof n != "function" || (e === "group" || e === "groupCollapsed" ? t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]) : e === "groupEnd" ? this.emit(e, []) : e === "table" ? t.length === 1 ? this.table(t[0]) : t.length === 2 ? (t[0], this.table(t[0], t[1])) : t.length >= 3 && this.table(t[0], t[1], t[2]) : this.groupDepth > 0 ? this.emit(e, t) : t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]));
 	}
-}()), Xr = /* @__PURE__ */ new Set(), Zr = (e, t) => {
+}()), ti = /* @__PURE__ */ new Set(), ni = (e, t) => {
 	let n = `${e}::${t}`;
-	Xr.has(n) || (Xr.add(n), console.warn(`[${e}] ${t}`));
-}, Qr = (e) => [`dist/plugin/${e}/${e}.css`, `plugin/${e}/${e}.css`], $r = (e) => typeof e == "string" && e.trim() !== "", ei = async (e, t) => {
+	ti.has(n) || (ti.add(n), console.warn(`[${e}] ${t}`));
+}, ri = (e) => [`dist/plugin/${e}/${e}.css`, `plugin/${e}/${e}.css`], ii = (e) => typeof e == "string" && e.trim() !== "", ai = async (e, t) => {
 	let { cssautoload: n, csspath: r, debug: i = !1 } = t;
 	if (n === !1 || r === !1) return i && console.log(`[${e}] CSS loading is switched off`), { status: "skipped" };
-	if ($r(r)) {
-		let t = r.trim(), n = Jr(e), a = n && !!document.querySelector(`[data-css-id="${e}"]`);
+	if (ii(r)) {
+		let t = r.trim(), n = $r(e), a = n && !!document.querySelector(`[data-css-id="${e}"]`);
 		try {
-			return await Wr(e, t), i && console.log(`[${e}] CSS loaded from: ${t}`), n && Zr(e, `Loaded CSS from ${t}, but a stylesheet for this plugin was already on the page (${a ? "a tagged <link>" : "an import or inline <style>"}) — csspath adds one, it cannot remove one. Both are live and the cascade decides. Remove the other import or <link>, or drop csspath.`), {
+			return await Yr(e, t), i && console.log(`[${e}] CSS loaded from: ${t}`), n && ni(e, `Loaded CSS from ${t}, but a stylesheet for this plugin was already on the page (${a ? "a tagged <link>" : "an import or inline <style>"}) — csspath adds one, it cannot remove one. Both are live and the cascade decides. Remove the other import or <link>, or drop csspath.`), {
 				status: "loaded",
 				path: t
 			};
@@ -3380,12 +3430,12 @@ var nt = (e) => {
 			};
 		}
 	}
-	if (Jr(e)) return i && console.log(`[${e}] CSS is already imported, skipping`), { status: "present" };
-	let { directory: a } = Rr(e);
+	if ($r(e)) return i && console.log(`[${e}] CSS is already imported, skipping`), { status: "present" };
+	let { directory: a } = Ur(e);
 	if (a !== null || n === !0) {
-		let t = [...a === null ? [] : [`${a}${e}.css`], ...Qr(e)].filter((e, t, n) => n.indexOf(e) === t);
+		let t = [...a === null ? [] : [`${a}${e}.css`], ...ri(e)].filter((e, t, n) => n.indexOf(e) === t);
 		for (let n of t) try {
-			return await Wr(e, n), i && console.log(`[${e}] CSS loaded from: ${n}`), {
+			return await Yr(e, n), i && console.log(`[${e}] CSS loaded from: ${n}`), {
 				status: "loaded",
 				path: n
 			};
@@ -3394,104 +3444,104 @@ var nt = (e) => {
 		}
 		return console.warn(`[${e}] Could not load CSS. Tried: ${t.join(", ")}. Import the stylesheet yourself, or set csspath to where it is.`), { status: "failed" };
 	}
-	return qr(e).then((t) => {
-		t || Zr(e, `CSS could not be autoloaded here, because the plugin is part of a bundle. Import it once in your own code: import 'reveal.js-${e}/${e}.css'`);
+	return Qr(e).then((t) => {
+		t || ni(e, `CSS could not be autoloaded here, because the plugin is part of a bundle. Import it once in your own code: import 'reveal.js-${e}/${e}.css'`);
 	}), { status: "advised" };
 };
-async function ti(e, t) {
+async function oi(e, t) {
 	if ("getEnvironmentInfo" in e && t) {
 		let n = e, r = n.userConfig, i = "cssautoload" in r && r.cssautoload !== "auto" ? t.cssautoload : void 0;
-		return ei(n.pluginId, {
+		return ai(n.pluginId, {
 			...t,
 			cssautoload: i
 		});
 	}
 	let { id: n, cssautoload: r, csspath: i, debug: a } = e;
-	return ei(n, {
+	return ai(n, {
 		cssautoload: r === "auto" ? void 0 : r,
 		csspath: i,
 		debug: a
 	});
 }
-var ni = /* @__PURE__ */ Ar({
-	ENTRANCE_ATTRIBUTE: () => ai,
-	IN_EVENT: () => ii,
-	SHOWN_EVENT: () => ri,
-	announce: () => pi,
-	markPending: () => fi,
-	pendingAround: () => hi,
-	reset: () => mi,
-	stateOf: () => li,
-	whenShown: () => gi
-}), ri = "entranceshown", ii = "entrancein", ai = "data-entrance", oi = {
+var si = /* @__PURE__ */ Mr({
+	ENTRANCE_ATTRIBUTE: () => ui,
+	IN_EVENT: () => li,
+	SHOWN_EVENT: () => ci,
+	announce: () => vi,
+	markPending: () => _i,
+	pendingAround: () => bi,
+	reset: () => yi,
+	stateOf: () => mi,
+	whenShown: () => xi
+}), ci = "entranceshown", li = "entrancein", ui = "data-entrance", di = {
 	pending: 0,
 	shown: 1,
 	in: 2
-}, si = Symbol.for("reveal.js-plugintoolkit.entranceTimers"), ci = () => typeof window.matchMedia == "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-function li(e) {
-	let t = e.getAttribute(ai);
+}, fi = Symbol.for("reveal.js-plugintoolkit.entranceTimers"), pi = () => typeof window.matchMedia == "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function mi(e) {
+	let t = e.getAttribute(ui);
 	return t === "pending" || t === "shown" || t === "in" ? t : null;
 }
-function ui(e, t) {
-	if (e.setAttribute(ai, t), t === "pending") return;
+function hi(e, t) {
+	if (e.setAttribute(ui, t), t === "pending") return;
 	let n = {
 		element: e,
 		state: t
 	};
-	e.dispatchEvent(new CustomEvent(t === "shown" ? ri : ii, {
+	e.dispatchEvent(new CustomEvent(t === "shown" ? ci : li, {
 		bubbles: !0,
 		detail: n
 	}));
 }
-function di(e) {
-	for (let t of e[si] ?? []) window.clearTimeout(t);
-	delete e[si];
+function gi(e) {
+	for (let t of e[fi] ?? []) window.clearTimeout(t);
+	delete e[fi];
 }
-function fi(e) {
-	di(e), ui(e, "pending");
+function _i(e) {
+	gi(e), hi(e, "pending");
 }
-function pi(e, t) {
-	di(e);
+function vi(e, t) {
+	gi(e);
 	let n = Math.max(0, t.delay ?? 0), r = Math.max(0, t.duration), i = Number.parseFloat(e.dataset.entranceAt ?? ""), a = Number.isFinite(i) ? Math.min(1, Math.max(0, i)) : .5;
-	ui(e, "pending"), e[si] = [window.setTimeout(() => ui(e, "shown"), n + r * a), window.setTimeout(() => {
-		li(e) === "pending" && ui(e, "shown"), ui(e, "in"), delete e[si];
+	hi(e, "pending"), e[fi] = [window.setTimeout(() => hi(e, "shown"), n + r * a), window.setTimeout(() => {
+		mi(e) === "pending" && hi(e, "shown"), hi(e, "in"), delete e[fi];
 	}, n + r)];
 }
-function mi(e) {
-	fi(e);
+function yi(e) {
+	_i(e);
 }
-function hi(e, t = "shown") {
+function bi(e, t = "shown") {
 	let n = [];
 	for (let r = e; r && r.tagName !== "SECTION"; r = r.parentElement) {
-		let e = li(r);
-		e && oi[e] < oi[t] && n.push(r);
+		let e = mi(r);
+		e && di[e] < di[t] && n.push(r);
 	}
 	return n;
 }
-function gi(e, t = "shown", n) {
+function xi(e, t = "shown", n) {
 	if (n?.aborted) return Promise.resolve(!1);
-	if (ci()) return Promise.resolve(!0);
-	let r = hi(e, t);
+	if (pi()) return Promise.resolve(!0);
+	let r = bi(e, t);
 	return r.length ? new Promise((i) => {
 		let a = () => {
-			hi(e, t).length || (s(), i(!0));
+			bi(e, t).length || (s(), i(!0));
 		}, o = () => {
 			s(), i(!1);
 		}, s = () => {
-			for (let e of r) e.removeEventListener(ri, a), e.removeEventListener(ii, a);
+			for (let e of r) e.removeEventListener(ci, a), e.removeEventListener(li, a);
 			n?.removeEventListener("abort", o);
 		};
-		for (let e of r) e.addEventListener(ri, a), e.addEventListener(ii, a);
+		for (let e of r) e.addEventListener(ci, a), e.addEventListener(li, a);
 		n?.addEventListener("abort", o);
 	}) : Promise.resolve(!0);
 }
 // src/plugin/js/config.ts
-var _i = "tablechart", vi = "tablechart-steps", yi = [
+var Si = "tablechart", Ci = "tablechart-steps", wi = [
 	"together",
 	"delay",
 	"after"
-], bi = {
-	...ee,
+], Ti = {
+	...E,
 	controls: !1,
 	replay: !0,
 	sequence: "together",
@@ -3499,14 +3549,14 @@ var _i = "tablechart", vi = "tablechart-steps", yi = [
 	buildonload: !0,
 	cssautoload: !0,
 	csspath: ""
-}, xi = "em, i, .fragment", Si = (e, t) => {
+}, Ei = "em, i, .fragment", Di = (e, t) => {
 	e.setAttribute("data-fragment", "");
 	let n = t.getAttribute("data-fragment-index");
 	n !== null && e.setAttribute("data-fragment-index", n), t.classList.remove("fragment"), t.removeAttribute("data-fragment-index"), t.classList.length || t.removeAttribute("class");
-}, Ci = (e) => {
+}, Oi = (e) => {
 	let t = Array.from(e.childNodes).filter((e) => e.nodeType === Node.ELEMENT_NODE || e.nodeType === Node.TEXT_NODE && e.textContent?.trim());
 	return t.length === 1 && t[0] instanceof Element ? t[0] : null;
-}, wi = (e) => {
+}, ki = (e) => {
 	let t = [...Array.from(e.querySelectorAll("tbody tr")).map((e) => ({
 		owner: e,
 		cells: Array.from(e.children)
@@ -3515,33 +3565,33 @@ var _i = "tablechart", vi = "tablechart-steps", yi = [
 		cells: [e]
 	}))];
 	for (let { owner: e, cells: n } of t) {
-		for (let t of n) t.classList.contains("fragment") && Si(e, t);
+		for (let t of n) t.classList.contains("fragment") && Di(e, t);
 		let t = n[0];
-		if (t) for (let n = Ci(t); n?.matches(xi); n = Ci(t)) Si(e, n), n.replaceWith(...n.childNodes);
+		if (t) for (let n = Oi(t); n?.matches(Ei); n = Oi(t)) Di(e, n), n.replaceWith(...n.childNodes);
 	}
-}, Ti = (e, t) => {
+}, Ai = (e, t) => {
 	if (!t.length) return;
 	let n = document.createElement("span");
-	n.className = vi, n.setAttribute("aria-hidden", "true");
+	n.className = Ci, n.setAttribute("aria-hidden", "true");
 	for (let e of t) {
 		let t = document.createElement("span");
 		t.className = "fragment", e !== null && t.setAttribute("data-fragment-index", e), n.appendChild(t);
 	}
 	e.appendChild(n);
-}, Ei = (e) => {
-	let t = e.querySelectorAll(`:scope > .${vi} > .fragment`);
+}, ji = (e) => {
+	let t = e.querySelectorAll(`:scope > .${Ci} > .fragment`);
 	if (!t.length) return null;
 	let n = 0;
 	for (let e of t) e.classList.contains("visible") && n++;
 	return n;
-}, Di = "tablechart-measuring", { pendingAround: Oi, whenShown: ki } = ni;
-gn("scatter", Dr);
-var Ai = (e) => {
+}, Mi = "tablechart-measuring", { pendingAround: Ni, whenShown: Pi } = si;
+hn("scatter", Ar);
+var Fi = (e) => {
 	for (let t = e.parentElement; t && t.tagName !== "SECTION"; t = t.parentElement) if (t.dataset.entrance) return !0;
 	return !1;
-}, ji = (e) => Math.max(0, ...getComputedStyle(e ?? document.body).transitionDuration.split(",").map((e) => Number.parseFloat(e) * 1e3 || 0)), Mi = async (e, t, n) => {
+}, Ii = (e) => Math.max(0, ...getComputedStyle(e ?? document.body).transitionDuration.split(",").map((e) => Number.parseFloat(e) * 1e3 || 0)), Li = async (e, t, n) => {
 	let r = t.getConfig(), i = r.view === "print" || /print-pdf/gi.test(window.location.search);
-	Yr && (n.debug || r.debug) && (Yr.initialize(!0, _i), Yr.log("Tablechart debugging enabled."));
+	ei && (n.debug || r.debug) && (ei.initialize(!0, Si), ei.log("Tablechart debugging enabled."));
 	let a = t.getViewportElement() ?? document.body, o = Array.from(a.querySelectorAll(n.selector));
 	if (n.tooltipparent ??= a.querySelector(".slides"), !o.length) return;
 	n.langattribute = r.internation?.langattribute || n.langattribute;
@@ -3550,44 +3600,41 @@ var Ai = (e) => {
 		let t = e.closest("section") ?? a;
 		s.set(t, [...s.get(t) ?? [], e]);
 	}
-	let c = (await Promise.all([...s.values()].map((e) => _r(e, n)))).flat(), l = getComputedStyle(a).backgroundColor, u = l && l !== "rgba(0, 0, 0, 0)" ? l : "Canvas";
-	for (let e of c) {
-		let t = getComputedStyle(e), n = t.getPropertyValue("--tablechart-surface").trim(), r = e.closest("section[data-background-color]")?.dataset.backgroundColor, i = n || r || u;
-		n ? e.dataset.surface = "" : e.style.setProperty("--tablechart-surface", i), t.getPropertyValue("--tablechart-tooltip-surface").trim() || e.style.setProperty("--tablechart-tooltip-surface", `oklch(from ${i} calc(l + 0.06) c h)`);
-	}
-	let d = n.animate && !i;
-	if (d) for (let e of c) wi(e);
-	let f = c.map((e) => Mn(e, d ? n : {
+	let c = (await Promise.all([...s.values()].map((e) => br(e, n)))).flat();
+	for (let e of c) getComputedStyle(e).getPropertyValue("--tablechart-tooltip-surface").trim() || e.style.setProperty("--tablechart-tooltip-surface", "oklch(from var(--tablechart-surface, var(--_surface, Canvas)) calc(l + 0.06) c h)");
+	let l = n.animate && !i;
+	if (l) for (let e of c) ki(e);
+	let u = c.map((e) => jn(e, l ? n : {
 		...n,
 		animate: !1
 	})).filter((e) => e !== null);
-	for (let e of f) e.plan && Ti(e.figure, e.plan.indexes);
-	for (let { figure: e } of f) {
+	for (let e of u) e.plan && Ai(e.figure, e.plan.indexes);
+	for (let { figure: e } of u) {
 		let t = e.querySelector(":scope > figcaption");
 		if (!t?.id || t.dataset.name) continue;
 		let n = t.parentElement?.closest("[id], [data-name]"), r = n?.dataset.name || n?.id;
 		r && (t.dataset.name = r);
 	}
-	await ti(e, n);
-	let p = () => {
-		a.classList.add(Di), t.layout(), a.classList.remove(Di);
+	await oi(e, n);
+	let d = () => {
+		a.classList.add(Mi), t.layout(), a.classList.remove(Mi);
 	};
-	window.addEventListener("load", p, { once: !0 });
-	let m = !1;
+	window.addEventListener("load", d, { once: !0 });
+	let f = !1;
 	t.on("ready", () => {
-		m = !0;
+		f = !0;
 	});
-	let h = !1, g = !1, _ = () => {
-		m && !h && (b ? (h = !0, requestAnimationFrame(() => {
-			h = !1, p();
-		})) : g = !0);
-	}, v = (e) => {
+	let p = !1, m = !1, h = () => {
+		f && !p && (y ? (p = !0, requestAnimationFrame(() => {
+			p = !1, d();
+		})) : m = !0);
+	}, g = (e) => {
 		if (!e.figure.closest("section")?.classList.contains("present")) return !1;
 		let t = e.figure.closest(".fragment");
 		return !t || t.classList.contains("visible");
-	}, y = /* @__PURE__ */ new WeakMap(), b = !0, x = !0, S = window.matchMedia("(prefers-reduced-motion: reduce)"), C = (e) => {
+	}, _ = /* @__PURE__ */ new WeakMap(), y = !0, b = !0, S = window.matchMedia("(prefers-reduced-motion: reduce)"), C = (e) => {
 		let t = e.figure.closest("[data-chart-sequence]"), r = t?.dataset.chartSequence, i = n.sequence;
-		r && yi.includes(r) ? i = r : r && console.warn(`Tablechart: data-chart-sequence="${r}" is not one of ${yi.join(", ")}.`);
+		r && wi.includes(r) ? i = r : r && console.warn(`Tablechart: data-chart-sequence="${r}" is not one of ${wi.join(", ")}.`);
 		let a = Number.parseFloat(t?.dataset.chartDelay ?? "");
 		return {
 			group: t ?? e.figure.closest("section"),
@@ -3598,8 +3645,8 @@ var Ai = (e) => {
 		await new Promise(requestAnimationFrame), await Promise.allSettled(e.getAnimations({ subtree: !0 }).map((e) => e.finished));
 	}, D = async (e) => {
 		if (S.matches) return;
-		if (Oi(e.figure, "shown").length) {
-			await ki(e.figure, "shown");
+		if (Ni(e.figure, "shown").length) {
+			await Pi(e.figure, "shown");
 			return;
 		}
 		await new Promise(requestAnimationFrame);
@@ -3609,39 +3656,39 @@ var Ai = (e) => {
 		for (let i of t) {
 			let t = i.effect?.getComputedTiming(), a = Number(t?.activeDuration ?? 0);
 			if (!t || !Number.isFinite(a)) continue;
-			let o = Number(t.delay ?? 0) + a * mr(e.figure, n);
+			let o = Number(t.delay ?? 0) + a * _r(e.figure, n);
 			r = Math.max(r, o - Number(i.currentTime ?? 0));
 		}
 		r > 0 && await T(r);
 	}, O = async (e, t, n) => {
 		let r = { live: !0 };
 		for (let t of e) w.set(t, r);
-		if (!(t !== "together" && e.some((e) => Ai(e.figure)) && (await Promise.all(e.map((e) => ki(e.figure, "in"))), !r.live))) for (let [i, a] of e.entries()) {
+		if (!(t !== "together" && e.some((e) => Fi(e.figure)) && (await Promise.all(e.map((e) => Pi(e.figure, "in"))), !r.live))) for (let [i, a] of e.entries()) {
 			if (i > 0 && (t === "after" && await E(e[i - 1].figure), n && await T(n)), await D(a), !r.live) return;
-			a.figure.classList.remove(j), qn(a, !0);
+			a.figure.classList.remove(x), Kn(a, !0);
 		}
-	}, A = () => {
+	}, k = () => {
 		let e = /* @__PURE__ */ new Map();
-		for (let t of f) {
-			let r = Ei(t.figure);
-			if (r !== null && Vt(t, r), !(y.has(t) && v(t))) {
-				let e = t.figure.classList.contains(k);
+		for (let t of u) {
+			let r = ji(t.figure);
+			if (r !== null && Bt(t, r), !(_.has(t) && g(t))) {
+				let e = t.figure.classList.contains(v);
 				if (e && !n.replay && !t.plan) continue;
 				let r = w.get(t);
-				r && (r.live = !1), w.delete(t), qn(t, !1, e && !t.figure.closest("section")?.classList.contains("present")), t.figure.classList.toggle(j, C(t).mode !== "together" && !Ai(t.figure));
+				r && (r.live = !1), w.delete(t), Kn(t, !1, e && !t.figure.closest("section")?.classList.contains("present")), t.figure.classList.toggle(x, C(t).mode !== "together" && !Fi(t.figure));
 				continue;
 			}
 			if (t.figure.classList.contains("is-shown") || w.has(t)) continue;
-			if (x && !n.buildonload && !Ai(t.figure)) {
-				t.figure.classList.remove(j), qn(t, !0, !0);
+			if (b && !n.buildonload && !Fi(t.figure)) {
+				t.figure.classList.remove(x), Kn(t, !0, !0);
 				continue;
 			}
 			let { group: i, mode: a, delay: o } = C(t);
 			if (a === "together" || !i) {
-				t.figure.classList.remove(j), O([t], "together", 0);
+				t.figure.classList.remove(x), O([t], "together", 0);
 				continue;
 			}
-			Ai(t.figure) || t.figure.classList.add(j);
+			Fi(t.figure) || t.figure.classList.add(x);
 			let s = e.get(i) ?? {
 				mode: a,
 				delay: o,
@@ -3650,48 +3697,48 @@ var Ai = (e) => {
 			s.charts.push(t), e.set(i, s);
 		}
 		for (let { mode: t, delay: n, charts: r } of e.values()) O(r, t, n);
-	}, M = !1, N = () => {
-		M || (M = !0, requestAnimationFrame(() => {
-			M = !1, A();
+	}, A = !1, j = () => {
+		A || (A = !0, requestAnimationFrame(() => {
+			A = !1, k();
 		}));
-	}, P = (e) => {
+	}, M = (e) => {
 		let t = e.plot.clientWidth;
-		if (!t || t === y.get(e)) return;
-		let r = !y.has(e), a = e.figure.offsetHeight;
-		Wn(e, n) && (y.set(e, t), e.figure.offsetHeight !== a && _(), i && qn(e, !0), r && n.animate && b && N());
+		if (!t || t === _.get(e)) return;
+		let r = !_.has(e), a = e.figure.offsetHeight;
+		Un(e, n) && (_.set(e, t), r && (Qn(e.figure), $n(e.figure)), e.figure.offsetHeight !== a && h(), i && Kn(e, !0), r && n.animate && y && j());
 	};
-	for (let e of f) {
-		P(e);
+	for (let e of u) {
+		M(e);
 		let t = !1, n = e.figure.offsetHeight;
 		new ResizeObserver(() => {
 			t || (t = !0, requestAnimationFrame(() => {
-				t = !1, P(e), e.figure.offsetHeight !== n && (n = e.figure.offsetHeight, _());
+				t = !1, M(e), e.figure.offsetHeight !== n && (n = e.figure.offsetHeight, h());
 			}));
 		}).observe(e.figure);
 	}
 	if (new MutationObserver(() => {
-		for (let e of f) Gn(e, n);
+		for (let e of u) Wn(e, n);
 		requestAnimationFrame(() => requestAnimationFrame(() => {
-			for (let e of f) y.delete(e), P(e);
+			for (let e of u) _.delete(e), M(e);
 		}));
 	}).observe(document.documentElement, {
 		attributes: !0,
 		attributeFilter: ["lang"]
 	}), n.animate) {
 		let e, n = () => {
-			clearTimeout(e), b = !0, g && (g = !1, _()), A();
+			clearTimeout(e), y = !0, m && (m = !1, h()), k();
 		};
 		t.on("slidetransitionend", async () => {
 			let e = t.getCurrentSlide(), r = [e, e?.parentElement?.matches("section.stack") ? e.parentElement : null].flatMap((e) => e ? e.getAnimations() : []).filter((e) => e.playState === "running");
 			await Promise.all(r.map((e) => e.finished.catch(() => void 0))), t.getCurrentSlide() === e && n();
 		}), t.on("slidechanged", () => {
-			m && (x = !1), b = !1, clearTimeout(e), e = setTimeout(n, ji(t.getCurrentSlide()) + 50);
+			f && (b = !1), y = !1, clearTimeout(e), e = setTimeout(n, Ii(t.getCurrentSlide()) + 50);
 		}), t.on("ready", n);
 		let r = () => {
-			x = !1, A();
+			b = !1, k();
 		};
-		t.on("fragmentshown", r), t.on("fragmenthidden", r), A();
+		t.on("fragmentshown", r), t.on("fragmenthidden", r), k();
 	}
-	Yr?.log?.(`Tablechart started ${f.length} chart(s).`);
-}, Ni = () => new Hr(_i, Mi, bi).createInterface();
-export { Ni as default };
+	ei?.log?.(`Tablechart started ${u.length} chart(s).`);
+}, Ri = () => new qr(Si, Li, Ti).createInterface();
+export { Ri as default };
